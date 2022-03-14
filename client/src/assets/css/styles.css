@@ -1,5 +1,13 @@
 @tailwind base;
 @tailwind components;
+
+/*
+TODO: Implement fixed styling for buttons, and generic components.
+*/
+.main-button {
+  @apply bg-natgas-azul-claro text-white px-10 py-2 rounded-md shadow font-semibold text-xs;
+}
+
 @tailwind utilities;
 
 @layer base {

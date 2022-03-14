@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 export const Landing = (): JSX.Element => {
+  // TODO: Implement final design.
   useEffect((): any => {
     window.scrollTo({
       top: 0,
@@ -15,9 +16,7 @@ export const Landing = (): JSX.Element => {
         <title>NatGas - Recursos Humanos</title>
       </Helmet>
       <div className="h-screen w-full">
-        <p className="font-gilroy uppercase text-5xl">
-          This is the landing page.
-        </p>
+        <p className="font-gilroy uppercase text-5xl">Welcome</p>
       </div>
     </>
   );
