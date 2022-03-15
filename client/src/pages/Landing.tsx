@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Helmet } from "react-helmet";
 
-export const Landing = (): JSX.Element => {
+const Landing = (): JSX.Element => {
   // TODO: Implement final design.
-  useEffect((): any => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, []);
+
+  const { loginWithRedirect } = useAuth0();
 
   return (
     <>
@@ -16,8 +13,20 @@ export const Landing = (): JSX.Element => {
         <title>NatGas - Recursos Humanos</title>
       </Helmet>
       <div className="h-screen w-full">
-        <p className="font-gilroy uppercase text-5xl">Welcome</p>
+        <p className="font-gilroy uppercase text-5xl">LANDING PAGE</p>
+        <button
+          className="main-button"
+          onClick={() =>
+            loginWithRedirect({
+              redirectUri: `${process.env.REACT_APP_DOMAIN}/app`,
+            })
+          }
+        >
+          Login
+        </button>
       </div>
     </>
   );
 };
+
+export default Landing;
