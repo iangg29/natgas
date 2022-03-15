@@ -13,7 +13,7 @@ const Landing = (): JSX.Element => {
         <title>NatGas - Recursos Humanos</title>
       </Helmet>
       <div className="h-screen w-full">
-        <p className="font-gilroy uppercase text-5xl">LANDING PAGE</p>
+        <p className="font-gilroy text-5xl uppercase">LANDING PAGE</p>
         <button
           className="main-button"
           onClick={() =>

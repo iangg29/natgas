@@ -23,7 +23,7 @@ const Layout = (): JSX.Element => {
       }`}
     >
       <Sidebar />
-      <div className="flex flex-col flex-1 w-full">
+      <div className="flex w-full flex-1 flex-col">
         <Main>
           <Suspense fallback={<Loading />}>
             <Routes>
