@@ -1,4 +1,6 @@
-module.exports = {
+const theme = require("@windmill/react-ui/config");
+
+module.exports = theme({
   content: [
     "./src/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -21,4 +23,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+});

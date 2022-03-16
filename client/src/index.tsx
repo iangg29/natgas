@@ -4,7 +4,7 @@ import "./assets/css/styles.css";
 import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Loading from "./utils/Loading";
-import { SidebarProvider } from "./context/SidebarContext";
+import { Windmill } from "@windmill/react-ui";
 
 // TODO: E2E & Unit testing is still pending. (Cypress & JEST [Pending]).
 // TODO: For Blog posts, an S3 server (File management) is required, GCP provides one. [API]
@@ -13,7 +13,7 @@ import { SidebarProvider } from "./context/SidebarContext";
 
 // @ts-ignore
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <SidebarProvider>
+  <Windmill>
     <Suspense fallback={<Loading />}>
       <Auth0Provider
         domain={process.env.REACT_APP_AUTH0_DOMAIN}
@@ -23,5 +23,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <App />
       </Auth0Provider>
     </Suspense>
-  </SidebarProvider>,
+  </Windmill>,
 );

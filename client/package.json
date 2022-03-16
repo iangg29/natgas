@@ -15,6 +15,7 @@
     "@types/react-dom": "^17.0.13",
     "@types/react-helmet": "^6.1.5",
     "@types/react-redux": "^7.1.23",
+    "@windmill/react-ui": "^0.6.0",
     "axios": "^0.26.0",
     "react": "^0.0.0-experimental-cb1e7b1c6-20220303",
     "react-content-loader": "^6.1.0",

@@ -6,8 +6,7 @@ const Layout = lazy(() => import("./containers/Layout"));
 const Landing = lazy(() => import("./pages/Landing"));
 
 function App(): JSX.Element {
-  // TODO: Implement missing routes and fix Sidebar & Navbar display. (Only authenticated users) [Nested routers maybe ¿?]
-  // TODO: Remember to use HeadlessUI to simplify components. Only render data.
+  // TODO: Implement missing routes and fix Index & Navbar display. (Only authenticated users) [Nested routers maybe ¿?]
   // TODO: Fonts pulled from files are still missing in TailwindCSS. [HIGH PRIORITY FIX].
 
   const { error } = useAuth0();
