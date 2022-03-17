@@ -5,33 +5,18 @@ const db = require('../db/database');
 const APIFeatures = require(`../utils/apiFeatures`);
 
 // esta es la generalizacion, esta va a funcionar para cada modelo
-exports.deleteOne = (table, field) =>
+exports.deleteOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
-        await db(table)
-            .where({
-                [field]: req.params.id,
-            })
-            .del();
+        await Model.deleteOne(field, req.params.id);
 
         res.status(204).json({
             status: 'success',
         });
     });
 
-exports.updateOne = (table, field) =>
+exports.updateOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
-        const updatedId = await db(table)
-            .update(req.body)
-            .where({
-                [field]: req.params.id,
-            });
-
-        const doc = await db
-            .select('*')
-            .from(table)
-            .where({
-                [field]: updatedId,
-            });
+        const doc = await Model.updateOne(field, req.params.id, req.body);
 
         if (!doc) {
             // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
@@ -57,13 +42,9 @@ exports.createOne = (Model) =>
         });
     });
 
-exports.getOne = (table, field) =>
+exports.getOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
-        req.query = { [field]: req.params.id };
-
-        const query = new APIFeatures(table, req.query).filter();
-
-        const document = (await query.request())[0];
+        const document = await Model.getOne(field, req.params.id);
 
         if (!document) {
             // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
@@ -79,16 +60,9 @@ exports.getOne = (table, field) =>
         });
     });
 
-exports.getAll = (table) =>
+exports.getAll = (Model) =>
     catchAsync(async (req, res) => {
-        const features = new APIFeatures(table, req.query)
-            .filter()
-            .sort()
-            .limitFields()
-            .paginate();
-
-        // la query que hemos modificado ahora vive dentro de features
-        const documents = await features.request();
+        const documents = await Model.getAll(req.query);
 
         // SEND RESPONSE
         res.status(200).json({
