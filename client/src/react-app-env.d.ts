@@ -4,8 +4,11 @@ declare global {
     interface ProcessEnv {
       REACT_APP_AUTH0_DOMAIN: string;
       REACT_APP_AUTH0_CLIENT_ID: string;
+      REACT_APP_DOMAIN: string;
     }
   }
 }
+
+declare module "./icons";
 
 export {};
