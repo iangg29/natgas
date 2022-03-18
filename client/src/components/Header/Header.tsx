@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../../assets/img/IMAGOTIPO_contorno.png";
 import { Link } from "react-router-dom";
 import { Avatar, Dropdown, DropdownItem } from "@windmill/react-ui";
-import { LogoutIcon, MenuIcon, SearchIcon } from "@heroicons/react/solid";
+import { LogoutIcon } from "@heroicons/react/solid";
 
 const Header = (): JSX.Element => {
   // TODO: Display routes in navbar. (From routes/navbar.ts)
