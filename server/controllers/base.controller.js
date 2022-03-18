@@ -1,8 +1,5 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const db = require('../db/database');
-
-const APIFeatures = require(`../utils/apiFeatures`);
 
 // esta es la generalizacion, esta va a funcionar para cada modelo
 exports.deleteOne = (Model, field) =>
@@ -18,7 +15,7 @@ exports.updateOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
         const doc = await Model.updateOne(field, req.params.id, req.body);
 
-        if (!doc) {
+        if (!doc[0]) {
             // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
             const error = new AppError('No document found with that ID', 404);
             return next(error);
@@ -46,7 +43,7 @@ exports.getOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
         const document = await Model.getOne(field, req.params.id);
 
-        if (!document) {
+        if (!document[0]) {
             // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
             const error = new AppError('No document found with that ID', 404);
             return next(error);
