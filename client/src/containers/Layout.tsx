@@ -5,6 +5,7 @@ import Loading from "../utils/Loading";
 import Main from "../containers/Main";
 import routes from "../routes";
 import Header from "../components/Header/Header";
+import Footer from "../components/Footer";
 
 const Layout = (): JSX.Element => {
   // TODO: Pull, manipulate and render data from the API. (Maybe dynamic grid.)
@@ -29,6 +30,7 @@ const Layout = (): JSX.Element => {
             </Routes>
           </Suspense>
         </Main>
+        <Footer />
       </div>
     </div>
   );
