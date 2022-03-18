@@ -8,7 +8,8 @@ const cors = require('cors');
 const compression = require('compression');
 
 // ROUTERS
-const blogRouter = require('./routes/blogs.routes');
+const blogRouter = require('./routes/blog.routes');
+const userRouter = require('./routes/user.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -77,6 +78,7 @@ app.get('/', (req, res) =>
     })
 );
 app.use('/api/blog/', blogRouter);
+app.use('/api/user/', userRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterizco dice que en cualquiera salte
