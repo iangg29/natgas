@@ -1,6 +1,4 @@
-const theme = require("@windmill/react-ui/config");
-
-module.exports = theme({
+module.exports = {
   content: [
     "./src/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -16,11 +14,7 @@ module.exports = theme({
         "natgas-sec-one": "#00A99D",
         "natgas-sec-two": "#098B90",
       },
-      fontFamily: {
-        bebas: ["Bebas Neue", "sans-serif"],
-        gilroy: ["Gilroy", "sans-serif"],
-      },
     },
   },
-  plugins: [],
-});
+  plugins: [require("@tailwindcss/forms")],
+};

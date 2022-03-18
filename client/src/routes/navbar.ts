@@ -1,4 +1,4 @@
-import { HomeIcon } from "@heroicons/react/solid";
+import { HomeIcon, UserIcon } from "@heroicons/react/solid";
 
 type NavbarLink = {
   path: string;
@@ -11,6 +11,11 @@ const routes: NavbarLink[] = [
     path: "/app/dashboard",
     icon: HomeIcon,
     name: "Dashboard",
+  },
+  {
+    path: "/app/profile",
+    icon: UserIcon,
+    name: "Perfil",
   },
 ];
 
