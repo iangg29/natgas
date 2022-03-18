@@ -78,6 +78,7 @@ app.get('/', (req, res) =>
     })
 );
 app.use('/api/blog/', blogRouter);
+app.use('/api/user/', userRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterizco dice que en cualquiera salte
