@@ -2,23 +2,22 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 module.exports = class extends Base {
-    static table = 'perfil';
+    static table = 'Perfil';
 
     constructor({ email }) {
         super();
         this.email = email;
-
-        this.table = 'perfil';
+        this.tableName = 'Perfil';
     }
 
     async save() {
-        const idBlogPost = await db
+        const idPerfil = await db
             .insert({
                 email: this.email,
             })
             .into(this.tableName);
         return db.select('*').from(this.tableName).where({
-            idBlogPost,
+            idPerfil,
         });
     }
 };

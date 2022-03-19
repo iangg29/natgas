@@ -2,27 +2,27 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 module.exports = class extends Base {
-    static table = 'blogpost';
+    static table = 'BlogPost';
 
-    constructor({ Fecha, Título, Contenido, Imagen }) {
+    constructor({ date, title, content, image }) {
         super();
-        this.Fecha = Fecha;
-        this.Título = Título;
-        this.Contenido = Contenido;
-        this.Imagen = Imagen;
+        this.date = date;
+        this.title = title;
+        this.content = content;
+        this.image = image;
 
-        this.tableName = 'blogpost';
-        this.Slug = Título.toLowerCase().split(' ').join('-');
+        this.tableName = 'BlogPost';
+        this.slug = title.toLowerCase().split(' ').join('-');
     }
 
     async save() {
         const idBlogPost = await db
             .insert({
-                Fecha: this.Fecha,
-                Título: this.Título,
-                Contenido: this.Contenido,
-                Imagen: this.Imagen,
-                Slug: this.Slug,
+                date: this.date,
+                title: this.title,
+                content: this.content,
+                image: this.image,
+                slug: this.slug,
             })
             .into(this.tableName);
         return db.select('*').from(this.tableName).where({
