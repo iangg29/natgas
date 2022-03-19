@@ -93,7 +93,7 @@ module.exports = (err, req, res, next) => {
     if (process.env.NODE_ENV === 'development') {
         sendErrorDev(err, req, res);
     } else if (process.env.NODE_ENV === 'production') {
-        // con esto identificaremos los errores de validacion
+        // con esto identificaremos los errores de validación
         // let error = Object.create(err);
         // // con el create obtenemos hasta al padre en una copia
         // if (err.name === 'CastError') error = handleCastErrorDB(err);

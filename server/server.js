@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: './.env' });
 
 process.on('unhandledException', (err) => {
     console.log('UNHANDLED EXCEPTION!: SHUTTING DOWN');
