@@ -25,7 +25,7 @@ module.exports = class extends Base {
                 Slug: this.Slug,
             })
             .into(this.tableName);
-        return await db.select('*').from(this.tableName).where({
+        return db.select('*').from(this.tableName).where({
             idBlogPost,
         });
     }

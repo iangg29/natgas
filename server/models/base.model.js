@@ -3,10 +3,12 @@ const APIFeatures = require(`../utils/apiFeatures`);
 
 class Base {
     static table = '';
-    constructor() {}
+
+    constructor() {
+    }
 
     static async getOne(field, id) {
-        return await db(this.table)
+        return db(this.table)
             .select('*')
             .where({
                 [field]: id,
@@ -20,7 +22,7 @@ class Base {
                 [field]: id,
             });
 
-        return await db
+        return db
             .select('*')
             .from(this.table)
             .where({
@@ -29,7 +31,7 @@ class Base {
     }
 
     static async deleteOne(field, id) {
-        return await db(this.table)
+        return db(this.table)
             .where({
                 [field]: id,
             })
