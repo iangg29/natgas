@@ -9,7 +9,7 @@ const Dashboard = (): JSX.Element => {
       <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
         Mi Perfil
       </h1>
-      <div className="py-10">
+      <div className="py-10 dark:text-gray-200">
         <p>{user?.email}</p>
       </div>
     </div>

@@ -98,6 +98,9 @@ const Header = (): JSX.Element => {
                               ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
                               : "text-gray-900 dark:text-gray-100"
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                          onClick={() =>
+                            logout({ returnTo: window.location.origin })
+                          }
                         >
                           {active ? (
                             <LogoutIcon

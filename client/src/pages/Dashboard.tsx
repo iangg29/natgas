@@ -11,6 +11,7 @@ const Dashboard = (): JSX.Element => {
       <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
         Bienvenid@ {user?.name}
       </h1>
+      <p>Este es un nuevo texto.</p>
       <div className="py-10">
         <div className="grid grid-cols-3">
           <DashLoader />

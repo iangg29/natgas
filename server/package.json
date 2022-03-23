@@ -1,7 +1,7 @@
 {
-    "name": "server",
+    "name": "natgas-server",
     "version": "1.0.0",
-    "description": "A backend application to handle requests of information to a psql db",
+    "description": "A backend application to handle requests of information to a mysql db",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
@@ -24,5 +24,8 @@
         "morgan": "^1.10.0",
         "mysql": "^2.18.1",
         "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
     }
 }

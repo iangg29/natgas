@@ -8,7 +8,8 @@ const cors = require('cors');
 const compression = require('compression');
 
 // ROUTERS
-const blogRouter = require('./routes/blogs.routes');
+const blogRouter = require('./routes/blog.routes');
+const userRouter = require('./routes/user.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -64,7 +65,7 @@ app.use('/api', limiter);
 
 // BODY PARSER, reading from body into req.body
 app.use(express.json({ limit: '10kb' })); // con esto le decimos que no se pase mas largo de este body
-app.use(express.urlencoded({ extnded: true, limt: '10kb' })); // extended es para que nos permita hacer querys mas complejas
+app.use(express.urlencoded({ extended: true, limt: '10kb' })); // extended es para que nos permita hacer querys mas complejas
 app.use(cookieParser());
 
 app.use(compression());
@@ -77,6 +78,7 @@ app.get('/', (req, res) =>
     })
 );
 app.use('/api/blog/', blogRouter);
+app.use('/api/user/', userRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterizco dice que en cualquiera salte
