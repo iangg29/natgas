@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Helmet } from "react-helmet";
+import Title from "../components/Title/Title";
 const Landing = (): JSX.Element => {
   // TODO: Implement final design.
 
