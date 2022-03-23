@@ -10,7 +10,7 @@ const Landing = (): JSX.Element => {
   const { loginWithRedirect } = useAuth0();
 
   return (
-    <>
+     <>
       <Helmet>
         <title>NatGas - Recursos Humanos</title>
       </Helmet>

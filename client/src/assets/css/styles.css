@@ -11,7 +11,9 @@ TODO: Implement fixed styling for buttons, and generic components.
 .input-general {
   @apply pl-4 pr-10 py-2 rounded-xl border-natgas-gris-cool border-2 placeholder-gray-600 focus:outline-none;
 }
-
+.title-general{
+  @apply border-b-4 text-3xl border-natgas-gris-cool;
+}
 @tailwind utilities;
 
 @layer base {
