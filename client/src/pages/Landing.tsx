@@ -1,7 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Helmet } from "react-helmet";
-import Input from "../components/Inputs/Input";
 const Landing = (): JSX.Element => {
   // TODO: Implement final design.
 
@@ -26,7 +25,6 @@ const Landing = (): JSX.Element => {
         </button>
       </div>
       <div className="p-10">
-      <Input label="Nombre" placeholder = "Name"/>
       </div>
     </>
   );
