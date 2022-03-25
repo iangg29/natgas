@@ -4,6 +4,7 @@ import { ExoticComponent, lazy } from "react";
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile"));
 const SolicitarNGB = lazy(() => import("../pages/SolicitarNGB"))
+const Test = lazy(() => import("../pages/Test"))
 
 type Route = {
   path: string;
@@ -22,6 +23,11 @@ const routes: Route[] = [
   {
     path: "/SolicitarNGB",
     component: SolicitarNGB,
+  },
+
+  {
+    path: "/Test",
+    component: Test,
   },
 ];
 
