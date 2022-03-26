@@ -1,18 +1,16 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Page from "../containers/Page";
 
 const Dashboard = (): JSX.Element => {
   const { user } = useAuth0();
 
   return (
-    <div className="w-full">
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        Mi Perfil
-      </h1>
+    <Page title="Mi perfil" headTitle="Mi perfil">
       <div className="py-10 dark:text-gray-200">
         <p>{user?.email}</p>
       </div>
-    </div>
+    </Page>
   );
 };
 

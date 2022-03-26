@@ -29,7 +29,13 @@ const Header = (): JSX.Element => {
             />
           </Link>
         </div>
-        <div className="hidden lg:block">Links</div>
+        <div className="hidden lg:block">
+          <ul>
+            <li>
+              <Link to="/app/employees">Empleados</Link>
+            </li>
+          </ul>
+        </div>
         <ul className="flex flex-shrink-0 items-center space-x-6">
           <li>
             <Menu as="div" className="relative inline-block text-left">
