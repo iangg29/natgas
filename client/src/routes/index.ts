@@ -5,6 +5,7 @@ const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile"));
 const SolicitarNGB = lazy(() => import("../pages/SolicitarNGB"))
 const Test = lazy(() => import("../pages/Test"))
+const SolicitarVac = lazy(() => import("../pages/SolicitarVac"));
 
 type Route = {
   path: string;
@@ -15,6 +16,10 @@ const routes: Route[] = [
   {
     path: "/dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/SolicitarVac",
+    component: SolicitarVac,
   },
   {
     path: "/profile",
