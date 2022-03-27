@@ -15,22 +15,25 @@ const VistaSolicitud = (): JSX.Element => {
         <Title title = "Vacaciones"/>
       </h1>
       <div className="py-10">
-        <div className="grid grid-cols-2 gap-4">
+      <div className=" grid  xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1  py-10 gap-5">
+        <CardSolicitudVac name="Armando Gutierrez Rojo" department="Marketing" dateinit="30/11/2021" datefin="02/12/2021" Vh="Fernando Arriaga"/>
+        <CardSolicitudVac name="Pablo Cesar Jiménez Villeda" department="Marketing" dateinit="30/11/2021" datefin="02/12/2021" Vh="Fernando Arriaga"/>
         <CardSolicitudVac name="Armando Gutierrez Rojo" department="Marketing" dateinit="30/11/2021" datefin="02/12/2021" Vh="Fernando Arriaga"/>
         <CardSolicitudVac name="Armando Gutierrez Rojo" department="Marketing" dateinit="30/11/2021" datefin="02/12/2021" Vh="Fernando Arriaga"/>
+        <CardSolicitudVac name="Fernando Arriaga" department="Marketing" dateinit="30/11/2021" datefin="02/12/2021" Vh="Armando Gutierrez Rojo"/>
         <CardSolicitudVac name="Armando Gutierrez Rojo" department="Marketing" dateinit="30/11/2021" datefin="02/12/2021" Vh="Fernando Arriaga"/>
-        <CardSolicitudVac name="Armando Gutierrez Rojo" department="Marketing" dateinit="30/11/2021" datefin="02/12/2021" Vh="Fernando Arriaga"/>
-        </div>
-        </div>
+       </div>
+       </div>
      
       <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
         <Title title = "Natgas Blocks"/>
       </h1>
       <div className="py-10">
-        <div className="grid grid-cols-2 gap-4">
+      <div className=" grid  xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1  py-10 gap-5">
         <CardSolicitud name="Armando Gutierrez Rojo" department="Marketing" date ="02/11/2021" turn = "Primera parte del día"/>
         <CardSolicitud name="Armando Gutierrez Rojo" department="Marketing" date ="02/11/2021" turn = "Primera parte del día"/>
-        </div>
+        <CardSolicitud name="Armando Gutierrez Rojo" department="Marketing" date ="02/11/2021" turn = "Segunda parte del día"/>
+       </div>
        </div>
      
     </div>
