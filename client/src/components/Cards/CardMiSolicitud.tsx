@@ -24,7 +24,7 @@ const CardMiSolicitud = ({name, department, date, turn, state}: Props) : JSX.Ele
                         {turn}
                     </div>
                     <div className = "py-2 grid-cols-2 mt-2  px-28">
-                        <button className = "bg-white text-black border-2 border-black px-8 py-2 rounded-full shadow font-normal text-md"> Pendiente </button>
+                        <button className = " text-natgas-gris-cool border-2 border-natgas-gris-cool px-8 py-2 rounded-full shadow font-normal text-md"> Pendiente... </button>
                     </div>
                 </div>
             
@@ -48,7 +48,7 @@ const CardMiSolicitud = ({name, department, date, turn, state}: Props) : JSX.Ele
                         {turn}
                     </div>
                     <div className = "py-2 grid-cols-2 mt-2  px-28">
-                        <button className = "bg-red-600 text-white border-2 border-red-700 px-8 py-2 rounded-full shadow font-normal text-md"> Rechazado </button>
+                        <button className = "bg-red-600 text-white border-2 border-red-600 px-8 py-2 rounded-full shadow font-normal text-md"> Rechazado </button>
                     </div>
                 </div>
             </>
@@ -68,7 +68,7 @@ const CardMiSolicitud = ({name, department, date, turn, state}: Props) : JSX.Ele
                         {turn}
                     </div>
                     <div className = "py-2 grid-cols-2 mt-2  px-28">
-                        <button className = "bg-natgas-verde text-white border-2 border-natgas-verde px-8 py-2 rounded-full shadow font-normal text-md"> Rechazado </button>
+                        <button className = "bg-natgas-verde text-white border-2 border-natgas-verde px-8 py-2 rounded-full shadow font-normal text-md"> Aprobado </button>
                     </div>
                 </div>
             </>
