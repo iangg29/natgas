@@ -57,7 +57,7 @@ const CardMiSolicitudVac = ({name, department, dateinit,datefin, state}: Props) 
     else if(state === "Aprobado"){
         return (
             <>
-                <div className = "box-border rounded-lg xl:h-48 xl:w-96 lg:h-32 :w-64  p-4 border-2 shadow-md">
+                <div className = "box-border rounded-lg h-48 w-96  p-4 border-2 shadow-md">
                     <div className = "h-10 py-1 border-b-2 text-center border-natgas-azul  font-bold text-natgas-azul">
                         {name} - {department}
                     </div>

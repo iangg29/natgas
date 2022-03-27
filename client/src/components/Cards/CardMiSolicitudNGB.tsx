@@ -9,7 +9,7 @@ type Props = {
     state: string;
 
 }
-const CardMiSolicitud = ({name, department, date, turn, state}: Props) : JSX.Element => {
+const CardMiSolicitudNGB = ({name, department, date, turn, state}: Props) : JSX.Element => {
     if(state === "Pendiente"){
         return (
             <>
@@ -78,4 +78,4 @@ const CardMiSolicitud = ({name, department, date, turn, state}: Props) : JSX.Ele
     
 }
 
-export default CardMiSolicitud
+export default CardMiSolicitudNGB

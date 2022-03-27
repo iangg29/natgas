@@ -17,8 +17,8 @@ const MisSolicitudes = (): JSX.Element => {
             <CardMiSolicitudVac name = "Armando Gutiérrez" department= "Recursos Humanos" dateinit = "10 Enero 2022"datefin = "12 Febrero 2022"  state = "Aprobado"/>
             <CardMiSolicitudVac name = "Armando Gutiérrez" department= "Recursos Humanos" dateinit = "10 Enero 2022"datefin = "12 Febrero 2022"  state = "Aprobado"/>
             <CardMiSolicitudVac name = "Armando Gutiérrez" department= "Recursos Humanos" dateinit = "10 Enero 2022"datefin = "12 Febrero 2022"  state = "Aprobado"/>
-         </div>
-         </div>
+        </div>
+        </div>
        
         <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
           <Title title = "Natgas Blocks"/>
@@ -27,9 +27,9 @@ const MisSolicitudes = (): JSX.Element => {
         <div className=" grid  xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1  py-10 gap-5">
             <CardMiSolicitudNGB name = "Armando Gutiérrez" department= "Recursos Humanos" date = "10 Enero 2022" turn = "Primera parte del día" state = "Aprobado"/>
             <CardMiSolicitudNGB name = "Armando Gutiérrez" department= "Recursos Humanos" date = "10 Enero 2022" turn = "Primera parte del día" state = "Pendiente"/>
-             <CardMiSolicitudNGB name = "Armando Gutiérrez" department= "Recursos Humanos" date = "10 Enero 2022" turn = "Primera parte del día" state = "Rechazado"/>
-         </div>
-         </div>
+            <CardMiSolicitudNGB name = "Armando Gutiérrez" department= "Recursos Humanos" date = "10 Enero 2022" turn = "Primera parte del día" state = "Rechazado"/>
+        </div>
+        </div>
        
       </div>
     );
