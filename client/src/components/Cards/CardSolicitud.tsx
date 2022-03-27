@@ -21,9 +21,8 @@ const CardSolicitud = ({name, department, date, turn}: Props) : JSX.Element => {
             <div className = "py-0.25 text-center text-sm font-bold text-natgas-azul">
                 {turn}
             </div>
-            <div className = "py-2 grid-cols-2 mt-2">
-                <button className = "ml-12 bg-natgas-azul-claro text-white px-8 py-2 rounded-full shadow font-light text-md"> Aprobar </button>
-                <button className = "ml-2 bg-white text-black border-2 border-black px-8 py-2 rounded-full shadow font-normal text-md"> Rechazar </button>
+            <div className = "py-2 mt-2 px-28">
+                <button className = " bg-natgas-azul-claro text-white px-8 py-2 rounded-full shadow font-light text-md"> Aprobar </button>
             </div>
         </div>
     
