@@ -12,7 +12,7 @@ exports.createNatgasblock = base.createOne(Natgasblock);
 exports.updateNatgasblock = base.updateOne(Natgasblock, 'idNatgasblock');
 exports.deleteNatgasBlock = base.deleteOne(Natgasblock, 'idNatgasblock');
 
-exports.approveNatgasBlock = catchAsync(async (req, res, next) => {
+exports.approveNatgasblock = catchAsync(async (req, res, next) => {
     // UPDATE NGB STATUS
     const natgasBlock = (
         await NatgasBlock.updateOne('idNatgasBlock', req.params.id, {
