@@ -3,6 +3,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Page from "../containers/Page";
 
 const Dashboard = (): JSX.Element => {
+  // TODO: (Registra perfil) User is allowed to edit basic data while he is still pending of approval by HR.
+
   const { user } = useAuth0();
 
   return (

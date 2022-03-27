@@ -14,7 +14,6 @@ const Dashboard = (): JSX.Element => {
         <div className="grid grid-cols-3">
           <DashLoader />
           <DashLoader />
-          <DashLoader />
         </div>
         <ContentLoader
           width={1800}

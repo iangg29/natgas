@@ -13,7 +13,7 @@ const Page = ({ children, headTitle, title }: Props): JSX.Element => {
       <Helmet>
         <title>{headTitle} | NatGas</title>
       </Helmet>
-      <h1 className="text-2xl font-bold font-bold text-natgas-azul dark:text-gray-50">
+      <h1 className="text-center text-2xl font-bold font-bold text-natgas-azul dark:text-gray-50 md:text-left">
         {title}
       </h1>
       <div>{children}</div>

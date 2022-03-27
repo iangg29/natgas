@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
-import Page from "../containers/Page";
 import { IEmployee } from "../shared/interfaces/app.interface";
+import Page from "../containers/Page";
 
-const CompleteProfile = (): JSX.Element => {
-  // TODO: HR Fills sensitive data and locks own user profile modification.
-
-  let { email } = useParams();
+const Employee = (): JSX.Element => {
+  const { number } = useParams<string>();
 
   const [employee, setEmployee] = useState<IEmployee>({
     address: "",
@@ -28,28 +26,22 @@ const CompleteProfile = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/user/email/${email}`)
+        .get(`/user/${number}`)
         .then((res: AxiosResponse) => {
-          if (res.data.data.document.size != 1) {
-            return <Navigate to="/app/employees" />;
-          }
-          if (res.data.data.document[0].verified) {
-            alert("El usuario ya ha sido verificado.");
-            return <Navigate to="/app/employees" />;
-          }
           setEmployee(res.data.data.document[0]);
         })
         .catch((err) => {
           console.trace(err);
         });
     })();
-  }, [email]);
+  }, [number]);
 
   return (
-    <Page title={`Completar perfil (${email})`} headTitle="Completar perfil">
-      <h1>{email}</h1>
+    <Page title={employee.email} headTitle={employee.email}>
+      <hr />
+      <p>{employee.cellphone}</p>
     </Page>
   );
 };
 
-export default CompleteProfile;
+export default Employee;

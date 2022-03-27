@@ -4,6 +4,7 @@ const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile"));
 const CompleteProfile = lazy(() => import("../pages/CompleteProfile"));
 const Employees = lazy(() => import("../pages/Employees"));
+const Employee = lazy(() => import("../pages/Employee"));
 
 type Route = {
   path: string;
@@ -26,6 +27,10 @@ const routes: Route[] = [
   {
     path: "/employees",
     component: Employees,
+  },
+  {
+    path: "/employee/:number",
+    component: Employee,
   },
 ];
 
