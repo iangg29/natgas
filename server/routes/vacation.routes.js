@@ -15,6 +15,12 @@ router
 
 router.route('/myvacationrequests/:id').get(vacationController.getMyVacations);
 router
+    .route('/approvevacationrequest/:id')
+    .patch(vacationController.approveVacations);
+router
+    .route('/discardvacationrequest/:id')
+    .patch(vacationController.discardVacations);
+router
     .route('/mypendingvacationrequests/:id')
     .get(vacationController.getPending);
 

@@ -1,6 +1,8 @@
 const base = require('./base.controller');
 const Natgasblock = require('../models/natgasblock.model');
 const User = require('../models/user.model');
+const UserDetails = require('../models/views/useremployment.view.model');
+const NatgasblockDetails = require('../models/views/natgasblocks.view.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const NatgasBlock = require('../models/natgasblock.model');
@@ -35,6 +37,45 @@ exports.approveNatgasblock = catchAsync(async (req, res, next) => {
 });
 
 exports.getPending = catchAsync(async (req, res, next) => {
-    // GET USER REQUESTING THE DATA
-    const user = (await User.getOne('email', natgasBlock.email))[0];
+    // GET DEPARTMENT AND POSITION
+    const { position, departamento, email } = (
+        await UserDetails.getOne('email', req.params.id)
+    )[0];
+
+    if (position == 'Analista' || position == 'Especialista')
+        next(
+            new AppError(
+                'El puesto de este empleado no es el adecuado para aprobar solicitudes de natgas blocks',
+                400
+            )
+        );
+    // GET PENDING REQUESTS
+    let natgasBlocks = NatgasblockDetails.tableReference
+        .where({
+            departamento,
+        })
+        .whereNot({
+            email,
+        });
+
+    switch (position) {
+        case 'Gerencia':
+            natgasBlocks.whereNot({ position: 'Gerencia' });
+        case 'Direccion':
+            natgasBlocks.whereNot({ position: 'Direccion' });
+        case 'Coordinacion':
+            natgasBlocks.whereNot({ position: 'Coordinacion' });
+            break;
+        default:
+            break;
+    }
+
+    natgasBlocks = await natgasBlocks;
+
+    // SEND PENDING REQUESTS
+    res.status(200).json({
+        message: 'Natgas blocks requests retrieved successfully',
+        results: natgasBlocks.length,
+        natgasBlocks,
+    });
 });

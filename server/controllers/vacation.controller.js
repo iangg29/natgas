@@ -55,21 +55,39 @@ exports.discardVacations = catchAsync(async (req, res, next) => {
 
 exports.getPending = catchAsync(async (req, res, next) => {
     // GET DEPARTMENT AND POSITION
-    const { position, departamento } = (
+    const { position, departamento, email } = (
         await UserDetails.getOne('email', req.params.id)
     )[0];
 
     if (position == 'Analista' || position == 'Especialista')
         next(
             new AppError(
-                'El pueto de este empleado no es el adecuado para aprobar solicitudes',
+                'El puesto de este empleado no es el adecuado para aprobar solicitudes',
                 400
             )
         );
     // GET PENDING REQUESTS
-    const vacationrequests = await VacationDetails.getAll({
-        departamento,
-    });
+    let vacationrequests = VacationDetails.tableReference
+        .where({
+            departamento,
+        })
+        .whereNot({
+            email,
+        });
+
+    switch (position) {
+        case 'Gerencia':
+            vacationrequests.whereNot({ position: 'Gerencia' });
+        case 'Direccion':
+            vacationrequests.whereNot({ position: 'Direccion' });
+        case 'Coordinacion':
+            vacationrequests.whereNot({ position: 'Coordinacion' });
+            break;
+        default:
+            break;
+    }
+
+    vacationrequests = await vacationrequests;
 
     // SEND PENDING REQUESTS
     res.status(200).json({
