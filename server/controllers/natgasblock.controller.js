@@ -9,7 +9,7 @@ const NatgasBlock = require('../models/natgasblock.model');
 
 exports.getNatgasblocks = base.getAll(Natgasblock);
 exports.getNatgasblock = base.getOne(Natgasblock, 'idNatgasblock');
-exports.getMyNatgasblocks = base.getOne(Natgasblock, 'email');
+exports.getMyNatgasblocks = base.getOne(NatgasblockDetails, 'email');
 exports.createNatgasblock = base.createOne(Natgasblock);
 exports.updateNatgasblock = base.updateOne(Natgasblock, 'idNatgasblock');
 exports.deleteNatgasBlock = base.deleteOne(Natgasblock, 'idNatgasblock');

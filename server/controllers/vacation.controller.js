@@ -6,7 +6,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.getVacations = base.getAll(Vacation);
-exports.getVacation = base.getOne(Vacation, 'idVacaciones');
+exports.getVacation = base.getOne(VacationDetails, 'idVacaciones');
 exports.getMyVacations = base.getOne(Vacation, 'email');
 exports.createVacation = base.createOne(Vacation);
 exports.updateVacation = base.updateOne(Vacation, 'idVacaciones');
