@@ -13,6 +13,8 @@ router
     .patch(natgasblockController.updateNatgasblock)
     .delete(natgasblockController.deleteNatgasBlock);
 
+router.route('/approve/:id').patch(natgasblockController.approveNatgasblock);
+
 router.route('/myngbrequests/:id').get(natgasblockController.getMyNatgasblocks);
 
 module.exports = router;
