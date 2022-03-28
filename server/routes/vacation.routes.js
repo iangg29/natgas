@@ -14,5 +14,8 @@ router
     .delete(vacationController.deleteVacation);
 
 router.route('/myvacationrequests/:id').get(vacationController.getMyVacations);
+router
+    .route('/mypendingvacationrequests/:id')
+    .get(vacationController.getPending);
 
 module.exports = router;

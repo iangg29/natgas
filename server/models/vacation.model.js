@@ -34,13 +34,15 @@ module.exports = class extends Base {
 
         // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
         const vacationDays =
-            (this.startdate.getTime() - this.enddate.getTime()) /
+            (this.enddate.getTime() - this.startdate.getTime()) /
                 (1000 * 3600 * 24) +
             1;
+        console.log(vacationDays);
 
         if (vacationDays > user.vacations)
             throw new AppError(
-                'Los dias solicitados sobrepasan la cantidad de vacaciones disponibles'
+                'Los dias solicitados sobrepasan la cantidad de vacaciones disponibles',
+                400
             );
 
         // CREATE VACATIONS REQUEST

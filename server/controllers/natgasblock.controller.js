@@ -33,3 +33,8 @@ exports.approveNatgasblock = catchAsync(async (req, res, next) => {
         natgasBlock,
     });
 });
+
+exports.getPending = catchAsync(async (req, res, next) => {
+    // GET USER REQUESTING THE DATA
+    const user = (await User.getOne('email', natgasBlock.email))[0];
+});

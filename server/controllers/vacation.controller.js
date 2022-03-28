@@ -1,6 +1,9 @@
 const base = require('./base.controller');
 const Vacation = require('../models/vacation.model');
+const UserDetails = require('../models/views/useremployment.view.model');
+const VacationDetails = require('../models/views/vacationdetails.view.model');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 exports.getVacations = base.getAll(Vacation);
 exports.getVacation = base.getOne(Vacation, 'idVacaciones');
@@ -47,5 +50,31 @@ exports.discardVacations = catchAsync(async (req, res, next) => {
     res.status(200).json({
         message: 'Vacations status updated successfully',
         vacation,
+    });
+});
+
+exports.getPending = catchAsync(async (req, res, next) => {
+    // GET DEPARTMENT AND POSITION
+    const { position, departamento } = (
+        await UserDetails.getOne('email', req.params.id)
+    )[0];
+
+    if (position == 'Analista' || position == 'Especialista')
+        next(
+            new AppError(
+                'El pueto de este empleado no es el adecuado para aprobar solicitudes',
+                400
+            )
+        );
+    // GET PENDING REQUESTS
+    const vacationrequests = await VacationDetails.getAll({
+        departamento,
+    });
+
+    // SEND PENDING REQUESTS
+    res.status(200).json({
+        message: 'Vacation requests retrieved successfully',
+        results: vacationrequests.length,
+        vacationrequests,
     });
 });
