@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Title from "../components/Title/Title";
-import CardSolicitud from "../components/Cards/CardSolicitud";
-import CardSolicitudVac from "../components/Cards/CardSolicitudVac";
+import CardSolicitud from "../../components/Cards/CardSolicitud";
+import CardSolicitudVac from "../../components/Cards/CardSolicitudVac";
 import axios from "axios";
+import Page from "../../containers/Page";
 
 const VistaSolicitud = (): JSX.Element => {
   const { user } = useAuth0();
@@ -11,16 +11,12 @@ const VistaSolicitud = (): JSX.Element => {
   const [getVacations, setVacations] = React.useState<any[]>([]);
   const [getNatgasBlocks, setNatgasBlocks] = React.useState<any[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(
-            `http://localhost:5959/api/vacation/mypendingvacationrequests/${user?.email}`,
-          ),
-          axios.get(
-            `http://localhost:5959/api/natgasblock/mypendingngbrequests/${user?.email}`,
-          ),
+          axios.get(`/vacation/mypendingvacationrequests/${user?.email}`),
+          axios.get(`/natgasblock/mypendingngbrequests/${user?.email}`),
         ]);
 
         setVacations(myVacations.data.vacationrequests);
@@ -29,11 +25,11 @@ const VistaSolicitud = (): JSX.Element => {
         alert(error);
       }
     })();
-  }, []);
+  }, [user?.email]);
 
   const approveNGB = async (id: string) => {
     try {
-      await axios.patch(`http://localhost:5959/api/natgasblock/approve/${id}`);
+      await axios.patch(`/natgasblock/approve/${id}`);
       setNatgasBlocks(getNatgasBlocks.filter((ngb) => ngb.id !== id));
 
       alert("La solicitud de NGB ha sido aprobada con éxito.");
@@ -44,9 +40,7 @@ const VistaSolicitud = (): JSX.Element => {
 
   const approveVac = async (id: string) => {
     try {
-      await axios.patch(
-        `http://localhost:5959/api/vacation/approvevacationrequest/${id}`,
-      );
+      await axios.patch(`/vacation/approvevacationrequest/${id}`);
       setVacations(getVacations.filter((vac) => vac.id !== id));
 
       alert("La solicitud de Vacaciones ha sido aprobada con éxito.");
@@ -56,9 +50,7 @@ const VistaSolicitud = (): JSX.Element => {
   };
   const discardVac = async (id: string) => {
     try {
-      await axios.patch(
-        `http://localhost:5959/api/vacation/discardvacationrequest/${id}`,
-      );
+      await axios.patch(`/vacation/discardvacationrequest/${id}`);
       setVacations(getVacations.filter((vac) => vac.id !== id));
 
       alert("La solicitud de Vacaciones ha sido rechazada con éxito.");
@@ -68,11 +60,8 @@ const VistaSolicitud = (): JSX.Element => {
   };
 
   return (
-    <div className="w-full">
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        <Title title="Vacaciones" />
-      </h1>
-      <div className="py-10">
+    <>
+      <Page title="Vacaciones" headTitle="Vacaciones">
         <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
@@ -92,12 +81,8 @@ const VistaSolicitud = (): JSX.Element => {
             </p>
           )}
         </div>
-      </div>
-
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        <Title title="Natgas Blocks" />
-      </h1>
-      <div className="py-10">
+      </Page>
+      <Page title="NatGas Blocks" headTitle="NatGas Blocks">
         <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
@@ -116,8 +101,8 @@ const VistaSolicitud = (): JSX.Element => {
             </p>
           )}
         </div>
-      </div>
-    </div>
+      </Page>
+    </>
   );
 };
 

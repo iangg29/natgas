@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
-import { IEmployee } from "../shared/interfaces/app.interface";
-import Page from "../containers/Page";
+import { IEmployee } from "../../shared/interfaces/app.interface";
+import Page from "../../containers/Page";
 
 const Employee = (): JSX.Element => {
   const { number } = useParams<string>();

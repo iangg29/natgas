@@ -1,14 +1,14 @@
 import { ExoticComponent, lazy } from "react";
 
 const Dashboard = lazy(() => import("../pages/Dashboard"));
-const Profile = lazy(() => import("../pages/Profile"));
-const CompleteProfile = lazy(() => import("../pages/CompleteProfile"));
-const Employees = lazy(() => import("../pages/Employees"));
-const Employee = lazy(() => import("../pages/Employee"));
-const SolicitarNGB = lazy(() => import("../pages/SolicitarNGB"));
-const SolicitarVac = lazy(() => import("../pages/SolicitarVac"));
-const VistaSolicitud = lazy(() => import("../pages/VistaSolicitud"));
-const MisSolicitudes = lazy(() => import("../pages/MisSolicitudes"));
+const Profile = lazy(() => import("../pages/perfil/Profile"));
+const CompleteProfile = lazy(() => import("../pages/perfil/CompleteProfile"));
+const Employees = lazy(() => import("../pages/empleados/Employees"));
+const Employee = lazy(() => import("../pages/empleados/Employee"));
+const SolicitarNGB = lazy(() => import("../pages/natgasblocks/SolicitarNGB"));
+const SolicitarVac = lazy(() => import("../pages/vacaciones/SolicitarVac"));
+const VistaSolicitud = lazy(() => import("../pages/vacaciones/VistaSolicitud"));
+const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
 
 type Route = {
   path: string;

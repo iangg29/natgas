@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Page from "../containers/Page";
-import { IEmployee } from "../shared/interfaces/app.interface";
+import Page from "../../containers/Page";
 import axios, { AxiosResponse } from "axios";
+import { IEmployee } from "../../shared/interfaces/app.interface";
 
 const Profile = (): JSX.Element => {
   // TODO: (Registra perfil) User is allowed to edit basic data while he is still pending of approval by HR.
@@ -38,7 +38,7 @@ const Profile = (): JSX.Element => {
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil">
-      <div className="py-10 dark:text-gray-200">
+      <div className="dark:text-gray-200">
         <p>{profile.email}</p>
       </div>
     </Page>

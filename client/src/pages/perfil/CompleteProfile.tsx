@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
-import Page from "../containers/Page";
-import { IEmployee } from "../shared/interfaces/app.interface";
+import Page from "../../containers/Page";
+import { IEmployee } from "../../shared/interfaces/app.interface";
 
 const CompleteProfile = (): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
@@ -30,7 +30,7 @@ const CompleteProfile = (): JSX.Element => {
       await axios
         .get(`/user/email/${email}`)
         .then((res: AxiosResponse) => {
-          if (res.data.data.document.size != 1) {
+          if (res.data.data.document.size !== 1) {
             return <Navigate to="/app/employees" />;
           }
           if (res.data.data.document[0].verified) {

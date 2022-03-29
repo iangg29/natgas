@@ -1,26 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-import Title from "../components/Title/Title";
-import CardMiSolicitudNGB from "../components/Cards/CardMiSolicitudNGB";
-import CardMiSolicitudVac from "../components/Cards/CardMiSolicitudVac";
+import CardMiSolicitudNGB from "../../components/Cards/CardMiSolicitudNGB";
+import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
+import Page from "../../containers/Page";
 
 const MisSolicitudes = (): JSX.Element => {
   const { user } = useAuth0();
 
-  const [getVacations, setVacations] = React.useState<any[]>([]);
-  const [getNatgasBlocks, setNatgasBlocks] = React.useState<any[]>([]);
+  const [getVacations, setVacations] = useState<any[]>([]);
+  const [getNatgasBlocks, setNatgasBlocks] = useState<any[]>([]);
 
   React.useEffect(() => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(
-            `http://localhost:5959/api/vacation/myvacationrequests/${user?.email}`,
-          ),
-          axios.get(
-            `http://localhost:5959/api/natgasblock/myngbrequests/${user?.email}`,
-          ),
+          axios.get(`/vacation/myvacationrequests/${user?.email}`),
+          axios.get(`/natgasblock/myngbrequests/${user?.email}`),
         ]);
 
         setVacations(myVacations.data.data.document);
@@ -30,15 +26,12 @@ const MisSolicitudes = (): JSX.Element => {
         alert(error);
       }
     })();
-  }, []);
+  }, [user?.email]);
 
   return (
-    <div className="w-full">
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        <Title title="Vacaciones" />
-      </h1>
-      <div className="py-10">
-        <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
+    <>
+      <Page title="Vacaciones" headTitle="Vacaciones">
+        <div className=" grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
               <CardMiSolicitudVac
@@ -59,13 +52,9 @@ const MisSolicitudes = (): JSX.Element => {
             <p>No cuentas con solicitudes de vacaciones</p>
           )}
         </div>
-      </div>
-
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        <Title title="Natgas Blocks" />
-      </h1>
-      <div className="py-10">
-        <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
+      </Page>
+      <Page title="NatGas Blocks" headTitle="NatGas Blocks">
+        <div className=" grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
               <CardMiSolicitudNGB
@@ -80,8 +69,8 @@ const MisSolicitudes = (): JSX.Element => {
             <p>No cuentas con solicitudes de Natgas Blocks por el momento</p>
           )}
         </div>
-      </div>
-    </div>
+      </Page>
+    </>
   );
 };
 
