@@ -4,10 +4,9 @@ const APIFeatures = require(`../utils/apiFeatures`);
 class Base {
     static table = '';
 
-    constructor() {
-    }
+    constructor() {}
 
-    static async getOne(field, id) {
+    static getOne(field, id) {
         return db(this.table)
             .select('*')
             .where({
@@ -16,17 +15,16 @@ class Base {
     }
 
     static async updateOne(field, id, body) {
-        const updatedId = await db(this.table)
+        await db(this.table)
             .update(body)
             .where({
                 [field]: id,
             });
-
         return db
             .select('*')
             .from(this.table)
             .where({
-                [field]: updatedId,
+                [field]: id,
             });
     }
 
