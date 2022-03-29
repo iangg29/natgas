@@ -1,10 +1,8 @@
 import { ExoticComponent, lazy } from "react";
 
-
-
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile"));
-const SolicitarNGB = lazy(() => import("../pages/SolicitarNGB"))
+const SolicitarNGB = lazy(() => import("../pages/SolicitarNGB"));
 
 const SolicitarVac = lazy(() => import("../pages/SolicitarVac"));
 const VistaSolicitud = lazy(() => import("../pages/VistaSolicitud"));
@@ -25,7 +23,7 @@ const routes: Route[] = [
     component: SolicitarVac,
   },
   {
-    path: "/VistaSolicitudes",
+    path: "/SolicitudesPendientes",
     component: VistaSolicitud,
   },
   {
@@ -38,7 +36,7 @@ const routes: Route[] = [
   },
 
   {
-    path: "/Test",
+    path: "/MisSolicitudes",
     component: MisSolicitudes,
   },
 ];

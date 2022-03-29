@@ -7,12 +7,17 @@ const AppError = require('../utils/appError');
 
 exports.getVacations = base.getAll(Vacation);
 exports.getVacation = base.getOne(VacationDetails, 'idVacaciones');
-exports.getMyVacations = base.getOne(Vacation, 'email');
+exports.getMyVacations = base.getOne(VacationDetails, 'email');
 exports.createVacation = base.createOne(Vacation);
 exports.updateVacation = base.updateOne(Vacation, 'idVacaciones');
 exports.deleteVacation = base.deleteOne(Vacation, 'idVacaciones');
 
 exports.approveVacations = catchAsync(async (req, res, next) => {
+    // CHECK IF IT IS ALREADY APPROVED
+    const currVac = (await Vacation.getOne('idVacaciones', req.params.id))[0];
+    if ((currVac.status = 1))
+        next(new AppError('Esta vacacion ya ha sido actualizada.', 400));
+
     // SET VACATIONS STATUS
     const vacation = (
         await Vacation.updateOne('idVacaciones', req.params.id, {
@@ -73,7 +78,8 @@ exports.getPending = catchAsync(async (req, res, next) => {
         })
         .whereNot({
             email,
-        });
+        })
+        .where({ status: 0 });
 
     switch (position) {
         case 'Gerencia':

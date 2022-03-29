@@ -56,7 +56,8 @@ exports.getPending = catchAsync(async (req, res, next) => {
         })
         .whereNot({
             email,
-        });
+        })
+        .where({ status: 0 });
 
     switch (position) {
         case 'Gerencia':

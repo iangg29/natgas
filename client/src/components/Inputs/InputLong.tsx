@@ -3,9 +3,11 @@ import React from "react";
 type Props = {
   label: string;
   placeholder: string;
+  getVal: any;
+  setVal: any;
 };
 
-const Input = ({ label, placeholder }: Props): JSX.Element => {
+const Input = ({ getVal, setVal, label, placeholder }: Props): JSX.Element => {
   return (
     <>
       <label>
@@ -14,6 +16,8 @@ const Input = ({ label, placeholder }: Props): JSX.Element => {
           className="input-general w-full"
           type="text"
           placeholder={placeholder}
+          onChange={(e) => setVal(e.target.value)}
+          value={getVal}
         />
       </label>
     </>

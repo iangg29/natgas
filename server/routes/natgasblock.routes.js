@@ -16,5 +16,6 @@ router
 router.route('/approve/:id').patch(natgasblockController.approveNatgasblock);
 
 router.route('/myngbrequests/:id').get(natgasblockController.getMyNatgasblocks);
+router.route('/mypendingngbrequests/:id').get(natgasblockController.getPending);
 
 module.exports = router;

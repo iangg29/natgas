@@ -43,11 +43,11 @@ exports.getOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
         const document = await Model.getOne(field, req.params.id);
 
-        if (!document[0]) {
-            // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
-            const error = new AppError('No document found with that ID', 404);
-            return next(error);
-        }
+        // if (!document[0]) {
+        //     // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
+        //     const error = new AppError('No document found with that ID', 404);
+        //     return next(error);
+        // }
 
         res.status(200).json({
             status: 'success',

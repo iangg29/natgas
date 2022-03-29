@@ -4,39 +4,82 @@ import DashLoader from "../utils/loaders/DashLoader";
 import Title from "../components/Title/Title";
 import DateInputLong from "../components/Inputs/DateInputLong";
 import PrimaryButton from "../components/Buttons/PrimaryButton";
+import axios from "axios";
 
 const SolicitarNGB = (): JSX.Element => {
   const { user } = useAuth0();
 
+  const [getDate, setDate] = React.useState<string>();
+  const [getRadio, setRadio] = React.useState<number>(0);
+
+  const sendNGBRequest = async () => {
+    try {
+      await axios.post("http://localhost:5959/api/NatgasBlock/", {
+        date: getDate,
+        period: getRadio,
+        email: user?.email,
+      });
+      alert("Petición de Natgas Block creada correctamente");
+      setDate("");
+      setRadio(0);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <div className="w-full">
       <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        <Title title = "Solicitar Natgas Block"/>
+        <Title title="Solicitar Natgas Block" />
       </h1>
       <div className="py-10">
         <div className="grid grid-cols-1">
-          <DateInputLong label = "Fecha de Natgas Block"/>
-          <div className = " mt-10 text-gray-700 text-sm font-bold mb-2 ">Parte del turno a usar</div>
-          <div className="flex items-stretch mt-4 ">
-            <label className = "flex items-stretch">
-                <input type="radio" className= "border-natgas-gris-cool border-2" value="PrimeraMitad" name="turno"></input>
-                <div className =" text-gray-700 text-sm font-normal ml-2 ">Primera Mitad</div>
-            </label>
-            
-            <label className = "flex items-stretch ml-6">
-                <input type="radio" className= "border-natgas-gris-cool border-2 " value="SegundaMitad" name="turno"></input>
-                <div className =" text-gray-700 text-sm font-normal ml-2 ">Segunda Mitad</div>
+          <DateInputLong
+            getVal={getDate}
+            setVal={setDate}
+            label="Fecha de Natgas Block"
+          />
+          <div className=" mt-10 mb-2 text-sm font-bold text-gray-700 ">
+            Parte del turno a usar
+          </div>
+          <div className="mt-4 flex items-stretch ">
+            <label className="flex items-stretch">
+              <input
+                type="radio"
+                onChange={() => setRadio(0)}
+                className="border-2 border-natgas-gris-cool"
+                value={!getRadio ? 1 : 0}
+                name="turno"
+              ></input>
+              <div className=" ml-2 text-sm font-normal text-gray-700 ">
+                Primera Mitad
+              </div>
             </label>
 
+            <label className="ml-6 flex items-stretch">
+              <input
+                type="radio"
+                className="border-2 border-natgas-gris-cool "
+                value={!getRadio ? 0 : 1}
+                onChange={() => setRadio(1)}
+                name="turno"
+              ></input>
+              <div className=" ml-2 text-sm font-normal text-gray-700 ">
+                Segunda Mitad
+              </div>
+            </label>
           </div>
         </div>
-        
-        
       </div>
-      <div className = "flex lg:h-64 sm:h-48">
-        <div className = "m-auto"> <PrimaryButton label = "Solicitar Natgas Block"/></div>
+      <div className="flex sm:h-48 lg:h-64">
+        <div className="m-auto">
+          {" "}
+          <PrimaryButton
+            action={sendNGBRequest}
+            label="Solicitar Natgas Block"
+          />
+        </div>
       </div>
-     
     </div>
   );
 };

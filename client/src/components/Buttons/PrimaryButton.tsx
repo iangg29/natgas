@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
 type Props = {
-    label : string;
-}
-const PrimaryButton = ({label}: Props) : JSX.Element => {
+  label: string;
+  action: any;
+};
+const PrimaryButton = ({ label, action }: Props): JSX.Element => {
   return (
-    <button className = "primary-button">{label}</button>
-  )
-}
+    <button onClick={action} className="primary-button">
+      {label}
+    </button>
+  );
+};
 
-export default PrimaryButton
+export default PrimaryButton;
