@@ -2,12 +2,12 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 module.exports = class extends Base {
-    static table = 'Perfil';
+    static table = 'perfil';
 
     constructor({ email }) {
         super();
         this.email = email;
-        this.tableName = 'Perfil';
+        this.tableName = 'perfil';
     }
 
     async save() {

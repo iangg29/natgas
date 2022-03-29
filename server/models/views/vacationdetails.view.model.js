@@ -5,5 +5,6 @@ module.exports = class extends Base {
     static table = 'detallesdevacaciones';
     static tableReference = db(this.table);
 
-    constructor() {}
+    constructor() {
+        super();}
 };

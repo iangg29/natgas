@@ -64,12 +64,12 @@ exports.getPending = catchAsync(async (req, res, next) => {
         await UserDetails.getOne('email', req.params.id)
     )[0];
 
-    if (position == 'Analista' || position == 'Especialista')
+    if (position === 'Analista' || position === 'Especialista')
         next(
             new AppError(
                 'El puesto de este empleado no es el adecuado para aprobar solicitudes',
-                400
-            )
+                400,
+            ),
         );
     // GET PENDING REQUESTS
     let vacationrequests = VacationDetails.tableReference
