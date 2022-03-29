@@ -20,6 +20,7 @@ const Footer = (): JSX.Element => {
         <a
           href="https://www.natgas.com.mx/"
           target="_blank"
+          rel="noreferrer"
           className="text-gray-400 hover:text-gray-500"
         >
           <span className="sr-only">NatGas Web</span>
