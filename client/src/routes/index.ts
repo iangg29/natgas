@@ -7,6 +7,7 @@ const SolicitarNGB = lazy(() => import("../pages/SolicitarNGB"));
 const SolicitarVac = lazy(() => import("../pages/SolicitarVac"));
 const VistaSolicitud = lazy(() => import("../pages/VistaSolicitud"));
 const MisSolicitudes = lazy(() => import("../pages/MisSolicitudes"));
+const BuscarVacaciones = lazy(() => import("../pages/BuscarVacaciones"));
 
 type Route = {
   path: string;
@@ -38,6 +39,11 @@ const routes: Route[] = [
   {
     path: "/MisSolicitudes",
     component: MisSolicitudes,
+  },
+
+  {
+    path: "/BuscarVacaciones",
+    component: BuscarVacaciones,
   },
 ];
 
