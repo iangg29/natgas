@@ -21,7 +21,7 @@ module.exports = class extends Base {
             })
             .into(this.tableName);
         return db.select('*').from(this.tableName).where({
-            idPerfil,
+            number,
         });
     }
 };
