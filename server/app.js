@@ -10,6 +10,8 @@ const compression = require('compression');
 // ROUTERS
 const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
+const natgasblockRouter = require('./routes/natgasblock.routes');
+const vacationsRouter = require('./routes/vacation.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -79,6 +81,8 @@ app.get('/', (req, res) =>
 );
 app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);
+app.use('/api/natgasblock/', natgasblockRouter);
+app.use('/api/vacation/', vacationsRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterizco dice que en cualquiera salte
