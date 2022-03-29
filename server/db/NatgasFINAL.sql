@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2022 a las 22:43:10
+-- Tiempo de generación: 29-03-2022 a las 17:12:25
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.10
 
@@ -112,6 +112,7 @@ CREATE TABLE `detallesdevacaciones` (
 ,`idVacaciones` int(11)
 ,`verifiedleader` tinyint(1)
 ,`status` tinyint(1)
+,`id` int(11)
 );
 
 -- --------------------------------------------------------
@@ -146,6 +147,7 @@ CREATE TABLE `detallesnatgasblock` (
 ,`date` date
 ,`status` tinyint(1)
 ,`period` tinyint(1)
+,`id` int(11)
 );
 
 -- --------------------------------------------------------
@@ -180,7 +182,7 @@ INSERT INTO `natgasblock` (`idNatgasblock`, `date`, `status`, `period`, `email`,
 (9, '2019-03-21', 1, 1, 'rraya@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (10, '2020-03-21', 1, 1, 'jandreu@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (11, '2021-03-21', 0, 1, 'mbaraldes@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(12, '2022-03-21', 0, 1, 'aberengueras@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(12, '2022-03-21', 1, 1, 'aberengueras@natgas.com', '2022-03-27 16:49:40', '2022-03-28 18:53:09'),
 (13, '2023-03-21', 0, 1, 'glopez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (14, '2024-03-21', 0, 1, 'earnau@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (15, '2025-03-21', 0, 1, 'jraya@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -202,7 +204,7 @@ INSERT INTO `natgasblock` (`idNatgasblock`, `date`, `status`, `period`, `email`,
 (31, '2010-04-21', 0, 0, 'srasero@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (32, '2011-04-21', 0, 0, 'aarnalot@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (33, '2012-04-21', 0, 1, 'mmoliner@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(34, '2013-04-21', 0, 1, 'bgalobart@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(34, '2013-04-21', 1, 1, 'bgalobart@natgas.com', '2022-03-27 16:49:40', '2022-03-28 18:33:11'),
 (35, '2014-04-21', 0, 1, 'blopez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (36, '2015-04-21', 0, 1, 'msanchez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (37, '2016-04-21', 0, 1, 'galavedra@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -218,7 +220,8 @@ INSERT INTO `natgasblock` (`idNatgasblock`, `date`, `status`, `period`, `email`,
 (47, '2026-04-21', 1, 0, 'jaguilar@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (48, '2027-04-21', 1, 0, 'mjbarriga@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (49, '2028-04-21', 1, 0, 'ravila@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(50, '2029-04-21', 1, 0, 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40');
+(50, '2029-04-21', 1, 0, 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(52, '2022-03-18', 0, 1, 'jbelmonte@natgas.com', '2022-03-29 01:41:05', '2022-03-28 19:41:05');
 
 -- --------------------------------------------------------
 
@@ -294,8 +297,8 @@ INSERT INTO `perfil` (`email`, `name`, `lastname`, `vacations`, `ngBlocks`, `num
 ('aalvarez@natgas.com', 'Aran', 'Álvarez Fernández', 6, 1, 24, 1, 'AAFA890819Q4A', '1989-08-19', 4426534125, 'JUAN ESCUTIA 44, NIÑOS HEROES , QUERETARO , QRO , C.P.76010', 'Masculino', '2011-12-21', '2022-03-27 16:49:40', '2022-03-28 14:17:45'),
 ('aarnalot@natgas.com', 'Albert', 'Arnalot Puig', 6, 5, 33, 1, 'AAPA000126812', '2000-01-26', 4429756506, 'ANILLO VIAL JUNÍPERO SERRA KM. 1.5, ARBOLEDAS , QUERETARO , QRO , C.P.76140', 'Masculino', '2022-02-15', '2022-03-27 16:49:40', '2022-03-28 14:18:13'),
 ('abadia@natgas.com', 'Andreu', 'Badia Torné', 6, 1, 21, 1, 'BATA890816GQ7', '1989-08-16', 4421454394, 'MARAVILLAS 1516, RESIDENCIAL EL REFUGIO , QUERETARO , QRO , C.P.76146', 'Masculino', '2022-02-15', '2022-03-27 16:49:40', '2022-03-28 14:18:44'),
-('aberengueras@natgas.com', 'Adria', 'Berengueras', 7, 5, 12, 1, 'BECA0007249V2', '2000-07-24', 4421222126, 'CONSTITUYENTES 77, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2022-04-14', '2022-03-27 16:49:40', '2022-03-28 14:20:01'),
-('bgalobart@natgas.com', 'Berta', 'Galobart', 6, 5, 35, 1, 'GAGB0005054L8', '2000-05-05', 4421551713, 'ANILLO VIAL JUNIPERO SERRA 1500, ARBOLEDAS , QUERETARO , QRO , C.P.76140', 'Femenino', '2015-10-29', '2022-03-27 16:49:40', '2022-03-28 14:20:27'),
+('aberengueras@natgas.com', 'Adria', 'Berengueras', 7, 4, 12, 1, 'BECA0007249V2', '2000-07-24', 4421222126, 'CONSTITUYENTES 77, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2022-04-14', '2022-03-27 16:49:40', '2022-03-28 18:53:09'),
+('bgalobart@natgas.com', 'Berta', 'Galobart', 6, 4, 35, 1, 'GAGB0005054L8', '2000-05-05', 4421551713, 'ANILLO VIAL JUNIPERO SERRA 1500, ARBOLEDAS , QUERETARO , QRO , C.P.76140', 'Femenino', '2015-10-29', '2022-03-27 16:49:40', '2022-03-28 18:33:11'),
 ('blopez@natgas.com', 'Berta', 'López', 6, 3, 36, 1, 'LEGB0001296Y2', '2000-01-29', 4424901312, 'PASEO CONSTITUYENTES 1265, EL JACAL , QUERETARO , QRO , C.P.76180', 'Femenino', '2011-12-21', '2022-03-27 16:49:40', '2022-03-28 14:20:40'),
 ('dbidault@natgas.com', 'David', 'Bidault', 6, 1, 27, 1, 'BIPD9304123E3', '1993-04-12', 4428241672, 'ANGELA PERALTA 7, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-03-28 14:21:08'),
 ('djblanco@natgas.com', 'David', 'Blanco', 6, 1, 23, 1, 'BAFD9003117H5', '1990-03-11', 4425797242, 'AVE DE LA LUZ 220, SATELITE , QUERETARO , QRO , C.P.76110', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-03-28 14:22:17'),
@@ -543,7 +546,7 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedhr`, `verifiedleader`, `start
 (9, 0, 0, '2012-01-21', '2018-01-21', 0, 'RAQUEL RAYA GARCIA', 'rraya@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (10, 0, 0, '2013-01-21', '2015-01-21', 0, 'JOAN ANDREU CRUZ', 'jandreu@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (11, 0, 0, '2014-01-21', '2003-05-21', 0, 'MARIA ISABEL BARALDÉS COMAS', 'mbaraldes@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(12, 0, 0, '2015-01-21', '2003-05-21', 0, 'ADRIÀ BERENGUERAS CULLERÉS', 'aberengueras@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(12, 0, 1, '2015-01-21', '2003-05-21', 1, 'ADRIÀ BERENGUERAS CULLERÉS', 'aberengueras@natgas.com', '2022-03-27 16:49:40', '2022-03-28 18:46:59'),
 (13, 0, 0, '2016-01-21', '2007-05-21', 0, 'GERARD LÓPEZ DE PABLO GARCIA UCEDA', 'glopez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (14, 0, 0, '2017-01-21', '2005-05-21', 0, 'ELIOT ARNAU MORENO', 'earnau@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (15, 1, 1, '2018-01-21', '2006-05-21', 1, 'JORDI RAYA GAVILAN', 'jraya@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -565,7 +568,7 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedhr`, `verifiedleader`, `start
 (31, 0, 0, '2021-05-21', '2025-05-21', 0, 'GEMMA LISTAN FIGUERAS', 'srasero@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (32, 0, 0, '2022-05-21', '2025-05-21', 0, 'SILVIA RASERO GAVILAN', 'aarnalot@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (33, 0, 0, '2023-05-21', '2024-05-21', 0, 'ALBERT ARNALOT PUIG', 'mmoliner@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(34, 0, 0, '2024-05-21', '2025-05-21', 0, 'MARIA MOLINER GARRIDO', 'bgalobart@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(34, 0, 1, '2024-05-21', '2025-05-21', 0, 'MARIA MOLINER GARRIDO', 'bgalobart@natgas.com', '2022-03-27 16:49:40', '2022-03-28 18:51:04'),
 (35, 0, 0, '2025-05-21', '2026-05-21', 0, 'BERTA GALOBART GARCIA', 'blopez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (36, 0, 0, '2026-05-21', '2026-05-21', 0, 'BERTA LÓPEZ GARRIGASSAIT', 'msanchez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (37, 0, 0, '2027-05-21', '2028-05-21', 0, 'MIREIA SÁNCHEZ GÓMEZ', 'galavedra@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -581,12 +584,18 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedhr`, `verifiedleader`, `start
 (47, 1, 1, '2006-06-21', '2008-06-21', 1, 'MARC BAJONA GARCIA', 'jaguilar@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (48, 1, 1, '2007-06-21', '2007-06-21', 1, 'JORDINA AGUILAR RODRIGUEZ', 'mjbarriga@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (49, 1, 1, '2008-06-21', '2009-06-21', 1, 'MARIA JOSÉ BARRIGA SOTO', 'ravila@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(50, 1, 1, '2009-06-21', '2010-06-21', 1, 'RAQUEL AVILA MASJUAN', 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(50, 1, 1, '2009-06-21', '2010-06-21', 0, 'RAQUEL AVILA MASJUAN', 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-03-28 18:50:46'),
 (51, 0, 0, '2001-06-21', '2002-06-21', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:08:19', '2022-03-28 00:08:19'),
 (52, 0, 0, '2001-06-21', '2001-06-21', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:11:55', '2022-03-28 00:11:55'),
 (53, 0, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:12:56', '2022-03-28 00:12:56'),
 (54, 0, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:13:21', '2022-03-28 00:13:21'),
-(55, 0, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:13:48', '2022-03-28 00:13:48');
+(55, 0, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:13:48', '2022-03-28 00:13:48'),
+(56, 0, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:48', '2022-03-28 19:18:48'),
+(57, 0, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:58', '2022-03-28 19:18:58'),
+(58, 0, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-03-28 19:19:00'),
+(59, 0, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-03-28 19:19:00'),
+(60, 0, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-03-28 19:19:00'),
+(61, 0, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:20:28', '2022-03-28 19:20:28');
 
 -- --------------------------------------------------------
 
@@ -595,7 +604,7 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedhr`, `verifiedleader`, `start
 --
 DROP TABLE IF EXISTS `detallesdevacaciones`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesdevacaciones`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `vacaciones`.`substitute` AS `substitute`, `vacaciones`.`startdate` AS `startdate`, `vacaciones`.`enddate` AS `enddate`, `vacaciones`.`idVacaciones` AS `idVacaciones`, `vacaciones`.`verifiedleader` AS `verifiedleader`, `vacaciones`.`status` AS `status` FROM (((`vacaciones` join `perfil`) join `pertenece`) join `departamento`) WHERE `vacaciones`.`email` = `perfil`.`email` AND `perfil`.`email` = `pertenece`.`email` AND `pertenece`.`idDepartamento` = `departamento`.`idDepartamento` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesdevacaciones`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `vacaciones`.`substitute` AS `substitute`, `vacaciones`.`startdate` AS `startdate`, `vacaciones`.`enddate` AS `enddate`, `vacaciones`.`idVacaciones` AS `idVacaciones`, `vacaciones`.`verifiedleader` AS `verifiedleader`, `vacaciones`.`status` AS `status`, `vacaciones`.`idVacaciones` AS `id` FROM (((`vacaciones` join `perfil`) join `pertenece`) join `departamento`) WHERE `vacaciones`.`email` = `perfil`.`email` AND `perfil`.`email` = `pertenece`.`email` AND `pertenece`.`idDepartamento` = `departamento`.`idDepartamento` ;
 
 -- --------------------------------------------------------
 
@@ -613,7 +622,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `detallesnatgasblock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesnatgasblock`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `natgasblock`.`date` AS `date`, `natgasblock`.`status` AS `status`, `natgasblock`.`period` AS `period` FROM (((`natgasblock` join `perfil`) join `pertenece`) join `departamento`) WHERE `natgasblock`.`email` = `perfil`.`email` AND `perfil`.`email` = `pertenece`.`email` AND `pertenece`.`idDepartamento` = `departamento`.`idDepartamento` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesnatgasblock`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `natgasblock`.`date` AS `date`, `natgasblock`.`status` AS `status`, `natgasblock`.`period` AS `period`, `natgasblock`.`idNatgasblock` AS `id` FROM (((`natgasblock` join `perfil`) join `pertenece`) join `departamento`) WHERE `natgasblock`.`email` = `perfil`.`email` AND `perfil`.`email` = `pertenece`.`email` AND `pertenece`.`idDepartamento` = `departamento`.`idDepartamento` ;
 
 --
 -- Índices para tablas volcadas
@@ -706,7 +715,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `natgasblock`
 --
 ALTER TABLE `natgasblock`
-  MODIFY `idNatgasblock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `idNatgasblock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `noticia`
@@ -748,7 +757,7 @@ ALTER TABLE `reporte`
 -- AUTO_INCREMENT de la tabla `vacaciones`
 --
 ALTER TABLE `vacaciones`
-  MODIFY `idVacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `idVacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- Restricciones para tablas volcadas
