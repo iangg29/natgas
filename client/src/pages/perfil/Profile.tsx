@@ -8,12 +8,14 @@ const Profile = (): JSX.Element => {
   // TODO: (Registra perfil) User is allowed to edit basic data while he is still pending of approval by HR.
   const [profile, setProfile] = useState<IEmployee>({
     address: "",
-    birthDate: "",
+    birthdate: "",
     cellphone: 0,
-    contractDate: "",
+    contractdate: "",
     created_at: "",
     email: "",
     gender: "",
+    lastname: "",
+    name: "",
     ngBlocks: 0,
     number: 0,
     rfc: "",
@@ -28,6 +30,7 @@ const Profile = (): JSX.Element => {
       await axios
         .get(`/user/email/${user?.email}`)
         .then((res: AxiosResponse) => {
+          console.log(res);
           setProfile(res.data.data.document[0]);
         })
         .catch((err) => {

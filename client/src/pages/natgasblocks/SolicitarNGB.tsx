@@ -13,7 +13,8 @@ const SolicitarNGB = (): JSX.Element => {
 
   const sendNGBRequest = async () => {
     try {
-      await axios.post("/NatgasBlock/", {
+      console.log(getDate);
+      await axios.post("/natgasblock/", {
         date: getDate,
         period: getRadio,
         email: user?.email,

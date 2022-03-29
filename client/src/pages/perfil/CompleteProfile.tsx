@@ -11,12 +11,14 @@ const CompleteProfile = (): JSX.Element => {
 
   const [employee, setEmployee] = useState<IEmployee>({
     address: "",
-    birthDate: "",
+    birthdate: "",
     cellphone: 0,
-    contractDate: "",
+    contractdate: "",
     created_at: "",
     email: "",
     gender: "",
+    lastname: "",
+    name: "",
     ngBlocks: 0,
     number: 0,
     rfc: "",

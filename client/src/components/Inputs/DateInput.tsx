@@ -1,24 +1,18 @@
-import React from 'react'
-import { getJSDocDeprecatedTag } from 'typescript';
-
-
+import React from "react";
 
 type Props = {
-   label : string; //Escribir de inicio o de fin
-   
-}
+  label: string; //Escribir de inicio o de fin
+};
 
-
-const DateInput = ({label}: Props): JSX.Element => {
+const DateInput = ({ label }: Props): JSX.Element => {
   return (
     <>
       <label>
-        <div className="text-gray-700 text-sm font-bold mb-2">{label}</div>
-        <input className="input-general" type="date" ></input>
-      </label>      
+        <div className="mb-2 text-sm font-bold text-gray-700">{label}</div>
+        <input className="input-general" type="date" />
+      </label>
     </>
-    
-  )
-}
+  );
+};
 
-export default DateInput
+export default DateInput;

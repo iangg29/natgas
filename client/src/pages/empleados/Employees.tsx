@@ -134,7 +134,9 @@ const Employees = (): JSX.Element => {
             key={idx}
             className="w-full rounded-lg bg-natgas-azul text-center shadow"
           >
-            <h3 className="p-5 font-bold">{employee.email}</h3>
+            <h3 className="p-5 font-bold">
+              {employee.name + " " + employee.lastname}
+            </h3>
             <hr />
             <div className="p-2 px-5 font-semibold">
               <p>{employee.cellphone}</p>

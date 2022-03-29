@@ -9,12 +9,14 @@ const Employee = (): JSX.Element => {
 
   const [employee, setEmployee] = useState<IEmployee>({
     address: "",
-    birthDate: "",
+    birthdate: "",
     cellphone: 0,
-    contractDate: "",
+    contractdate: "",
     created_at: "",
     email: "",
     gender: "",
+    lastname: "",
+    name: "",
     ngBlocks: 0,
     number: 0,
     rfc: "",
@@ -37,7 +39,10 @@ const Employee = (): JSX.Element => {
   }, [number]);
 
   return (
-    <Page title={employee.email} headTitle={employee.email}>
+    <Page
+      title={employee.name + " " + employee.lastname}
+      headTitle={employee.name}
+    >
       <hr />
       <p>{employee.cellphone}</p>
     </Page>

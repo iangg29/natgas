@@ -18,10 +18,9 @@ const MisSolicitudes = (): JSX.Element => {
           axios.get(`/vacation/myvacationrequests/${user?.email}`),
           axios.get(`/natgasblock/myngbrequests/${user?.email}`),
         ]);
-
+        console.log([myVacations, myNatgasBlocks]);
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);
-        // setNatgasBlocks(myNatgasblocks);
       } catch (error) {
         alert(error);
       }

@@ -1,15 +1,17 @@
 export interface IEmployee {
+  address: string;
+  birthdate: string;
+  cellphone: number;
+  contractdate: string;
+  created_at: string;
   email: string;
-  vacations: number;
+  gender: string;
+  lastname: string;
+  name: string;
   ngBlocks: number;
   number: number;
-  verified: boolean;
   rfc: string;
-  birthDate: string;
-  cellphone: number;
-  address: string;
-  gender: string;
-  contractDate: string;
-  created_at: string;
   updated_at: string;
+  vacations: number;
+  verified: boolean;
 }
