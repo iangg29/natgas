@@ -4,11 +4,12 @@ const Base = require('./base.model');
 module.exports = class extends Base {
     static table = 'perfil';
 
-    constructor({ name, lastname, email }) {
+    constructor({ name, lastname, email, number }) {
         super();
         this.name = name;
         this.lastname = lastname;
         this.email = email;
+        this.number = number;
         this.tableName = 'perfil';
     }
 
@@ -18,6 +19,7 @@ module.exports = class extends Base {
                 name: this.name,
                 lastname: this.lastname,
                 email: this.email,
+                number: this.number
             })
             .into(this.tableName);
         return db.select('*').from(this.tableName).where({
