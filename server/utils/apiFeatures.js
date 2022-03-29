@@ -6,12 +6,28 @@ class APIFeatures {
         this.query = db.table(table);
     }
 
+    search() {
+        Object.keys(this.queryString).forEach((el) =>
+            el.endsWith('like')
+                ? this.query.whereLike(
+                      el.split('_')[0],
+                      `${this.queryString[el]}%`
+                  )
+                : true
+        );
+        return this;
+    }
+
     filter() {
         const queryObj = { ...this.queryString };
         const excludeFields = ['page', 'sort', 'limit', 'fields'];
 
         // remove fields not relevant for this process
         excludeFields.forEach((el) => delete queryObj[el]);
+        // remove search fields
+        Object.keys(queryObj).forEach((el) =>
+            el.endsWith('like') ? delete queryObj[el] : true
+        );
 
         // Filtering
         this.query.where(queryObj);
