@@ -1,19 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Page from "../containers/Page";
+import { IEmployee } from "../shared/interfaces/app.interface";
+import axios, { AxiosResponse } from "axios";
 
-const Dashboard = (): JSX.Element => {
+const Profile = (): JSX.Element => {
   // TODO: (Registra perfil) User is allowed to edit basic data while he is still pending of approval by HR.
-
+  const [profile, setProfile] = useState<IEmployee>({
+    address: "",
+    birthDate: "",
+    cellphone: 0,
+    contractDate: "",
+    created_at: "",
+    email: "",
+    gender: "",
+    ngBlocks: 0,
+    number: 0,
+    rfc: "",
+    updated_at: "",
+    vacations: 0,
+    verified: false,
+  });
   const { user } = useAuth0();
+
+  useEffect(() => {
+    (async () => {
+      await axios
+        .get(`/user/email/${user?.email}`)
+        .then((res: AxiosResponse) => {
+          setProfile(res.data.data.document[0]);
+        })
+        .catch((err) => {
+          console.trace(err);
+        });
+    })();
+  }, [user]);
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil">
       <div className="py-10 dark:text-gray-200">
-        <p>{user?.email}</p>
+        <p>{profile.email}</p>
       </div>
     </Page>
   );
 };
 
-export default Dashboard;
+export default Profile;
