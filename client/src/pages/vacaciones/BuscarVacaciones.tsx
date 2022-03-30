@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import InputLong from "../../components/Inputs/InputLong";
-import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import Title from "../../components/Title/Title";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/solid";
