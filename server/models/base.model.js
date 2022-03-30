@@ -39,6 +39,7 @@ class Base {
     static async getAll(queryString) {
         const features = new APIFeatures(this.table, queryString)
             .filter()
+            .search()
             .sort()
             .limitFields()
             .paginate();

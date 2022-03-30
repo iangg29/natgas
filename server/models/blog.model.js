@@ -2,7 +2,7 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 module.exports = class extends Base {
-    static table = 'BlogPost';
+    static table = 'blogpost';
 
     constructor({ date, title, content, image }) {
         super();
@@ -11,7 +11,7 @@ module.exports = class extends Base {
         this.content = content;
         this.image = image;
 
-        this.tableName = 'BlogPost';
+        this.tableName = 'blogpost';
         this.slug = title.toLowerCase().split(' ').join('-');
     }
 

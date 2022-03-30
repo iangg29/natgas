@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Title from "../components/Title/Title";
-import InputLong from "../components/Inputs/InputLong";
-import DateInputLong from "../components/Inputs/DateInputLong";
-import PrimaryButton from "../components/Buttons/PrimaryButton";
+import InputLong from "../../components/Inputs/InputLong";
+import DateInputLong from "../../components/Inputs/DateInputLong";
+import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import axios from "axios";
+import Page from "../../containers/Page";
 
 const SolicitarVac = (): JSX.Element => {
   const { user } = useAuth0();
 
-  const [getStartDate, setStartdate] = React.useState<string>();
-  const [getEndDate, setEndDate] = React.useState<string>();
-  const [getSuplente, setSuplente] = React.useState<string>();
+  const [getStartDate, setStartdate] = useState<string>();
+  const [getEndDate, setEndDate] = useState<string>();
+  const [getSuplente, setSuplente] = useState<string>();
 
   const sendDate = async () => {
     try {
-      await axios.post("http://localhost:5959/api/vacation/", {
+      await axios.post("/vacation/", {
         startdate: getStartDate,
         enddate: getEndDate,
         substitute: getSuplente,
@@ -31,10 +31,7 @@ const SolicitarVac = (): JSX.Element => {
   };
 
   return (
-    <div className="w-full">
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        <Title title="Solicitar Vacaciones" />
-      </h1>
+    <Page title="Solicitar Vacaciones" headTitle="Solicitar vacaciones">
       <div className="py-10">
         <div className="grid grid-cols-1">
           <div className="grid grid-rows-3">
@@ -72,7 +69,7 @@ const SolicitarVac = (): JSX.Element => {
           <PrimaryButton action={sendDate} label="Solicitar vacaciones" />
         </div>
       </div>
-    </div>
+    </Page>
   );
 };
 

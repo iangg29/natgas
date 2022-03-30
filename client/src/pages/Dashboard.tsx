@@ -2,19 +2,16 @@ import React from "react";
 import ContentLoader from "react-content-loader";
 import { useAuth0 } from "@auth0/auth0-react";
 import DashLoader from "../utils/loaders/DashLoader";
+import Page from "../containers/Page";
 
 const Dashboard = (): JSX.Element => {
   const { user } = useAuth0();
 
   return (
-    <div className="w-full">
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        Bienvenid@ {user?.name}
-      </h1>
+    <Page title={`Bienvenid@ ${user?.name}`} headTitle="Dashboard">
       <p>Este es un nuevo texto.</p>
       <div className="py-10">
         <div className="grid grid-cols-3">
-          <DashLoader />
           <DashLoader />
           <DashLoader />
         </div>
@@ -77,7 +74,7 @@ const Dashboard = (): JSX.Element => {
           <circle cx="77" cy="96" r="11" />
         </ContentLoader>
       </div>
-    </div>
+    </Page>
   );
 };
 
