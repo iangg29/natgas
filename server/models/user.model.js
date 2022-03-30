@@ -13,7 +13,7 @@ module.exports = class extends Base {
     }
 
     async save() {
-        const numero = await db
+        const number = await db
             .insert({
                 name: this.name,
                 lastname: this.lastname,
@@ -21,7 +21,7 @@ module.exports = class extends Base {
             })
             .into(this.tableName);
         return db.select('*').from(this.tableName).where({
-            numero,
+            number,
         });
     }
 };
