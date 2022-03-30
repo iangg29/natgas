@@ -1,10 +1,6 @@
 @tailwind base;
 @tailwind components;
 
-* {
-  @apply font-gilroy-extrabold;
-}
-
 /*
 TODO: Implement fixed styling for buttons, and generic components.
 */
