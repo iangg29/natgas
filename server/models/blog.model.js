@@ -30,3 +30,16 @@ module.exports = class extends Base {
         });
     }
 };
+
+/*
+const db = requiere('../db/database');
+const Base = requiere('./base.model');
+
+module.exports = class extends Base{
+    static table = 'report';
+
+    constructor({nps, %hombres, %mujeres, c02, date}){
+        super();
+    }
+}
+*/

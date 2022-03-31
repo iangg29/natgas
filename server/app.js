@@ -12,6 +12,8 @@ const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
 const natgasblockRouter = require('./routes/natgasblock.routes');
 const vacationsRouter = require('./routes/vacation.routes');
+const reportRouter = require('./routes/report.routes');
+const rowRouter = require('./routes/row.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -83,6 +85,8 @@ app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);
 app.use('/api/natgasblock/', natgasblockRouter);
 app.use('/api/vacation/', vacationsRouter);
+app.use('/api/report/', reportRouter);
+app.use('/api/row/', rowRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterizco dice que en cualquiera salte
