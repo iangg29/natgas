@@ -59,8 +59,7 @@ class APIFeatures {
             const sortBy = this.queryString.sort.split(',');
             sortBy.forEach((sort) => {
                 if (sort.includes('-')) {
-                    console.log(sort.split('-')[0]);
-                    this.query.orderBy(sort.split('-')[0], 'desc');
+                    this.query.orderBy(sort.split('-')[1], 'desc');
                 } else this.query.orderBy(sort, 'asc');
             });
         }
