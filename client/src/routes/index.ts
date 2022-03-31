@@ -9,9 +9,8 @@ const SolicitarNGB = lazy(() => import("../pages/natgasblocks/SolicitarNGB"));
 const SolicitarVac = lazy(() => import("../pages/vacaciones/SolicitarVac"));
 const VistaSolicitud = lazy(() => import("../pages/vacaciones/VistaSolicitud"));
 const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
-const BuscarVacaciones = lazy(
-  () => import("../pages/vacaciones/BuscarVacaciones"),
-);
+const Token = lazy(() => import("../pages/utils/token"));
+const BuscarVacaciones = lazy(() => import("../pages/vacaciones/BuscarVacaciones"));
 
 type Route = {
   path: string;
@@ -24,11 +23,11 @@ const routes: Route[] = [
     component: Dashboard,
   },
   {
-    path: "/SolicitarVac",
+    path: "/vacations/request",
     component: SolicitarVac,
   },
   {
-    path: "/SolicitudesPendientes",
+    path: "/requests/pending",
     component: VistaSolicitud,
   },
   {
@@ -48,16 +47,19 @@ const routes: Route[] = [
     component: Employee,
   },
   {
-    path: "/SolicitarNGB",
+    path: "/natgasblocks/request",
     component: SolicitarNGB,
   },
   {
-    path: "/MisSolicitudes",
+    path: "/requests",
     component: MisSolicitudes,
   },
-
   {
-    path: "/BuscarVacaciones",
+    path: "/token",
+    component: Token,
+  },
+  {
+    path: "/vacations/search",
     component: BuscarVacaciones,
   },
 ];
