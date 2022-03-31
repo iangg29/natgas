@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import InputLong from "../../components/Inputs/InputLong";
+import Pagination from "../../components/Inputs/Pagination";
 import Title from "../../components/Title/Title";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import CheckBox from "../../components/Inputs/CheckBox";
@@ -21,7 +22,7 @@ const BuscarVacaciones = (): JSX.Element => {
         try {
           const [myVacations] = await Promise.all([
             axios.get(
-              `http://localhost:5959/api/vacation/details?&${
+              `http://localhost:5959/api/vacation/details?&sort=-startdate&${
                 (aprobado || rechazado) && pendiente
                   ? "status=1,0"
                   : aprobado || rechazado
@@ -101,41 +102,12 @@ const BuscarVacaciones = (): JSX.Element => {
           )}
         </div>
       </div>
-      <div className="flex items-center justify-center">
-        {getPage === 1 ? (
-          <></>
-        ) : (
-          <div
-            className="mr-2 h-[60px] w-[60px] rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two py-4 text-white"
-            onClick={() => {
-              setPage(getPage - 1);
-              handleScroll(topRef);
-            }}
-          >
-            <ChevronLeftIcon className="m-auto h-8 w-8" />
-          </div>
-        )}
-        <input
-          className="input-general mr-2 w-20 appearance-none"
-          type="text"
-          placeholder="Pagina"
-          onChange={(e) => setPage(e.target.value)}
-          value={getPage}
-        />
-        {getVacations.length < 15 ? (
-          <></>
-        ) : (
-          <div
-            className="h-[60px] w-[60px] rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two py-4 text-white"
-            onClick={() => {
-              setPage(getPage + 1);
-              handleScroll(topRef);
-            }}
-          >
-            <ChevronRightIcon className="m-auto h-8 w-8" />
-          </div>
-        )}
-      </div>
+      <Pagination
+        length={getVacations.length}
+        getPage={getPage}
+        setPage={setPage}
+        ref={topRef}
+      />
     </div>
   );
 };

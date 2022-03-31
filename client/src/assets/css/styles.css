@@ -16,7 +16,7 @@ TODO: Implement fixed styling for buttons, and generic components.
 }
 
 .primary-button {
-  @apply w-48 text-white text-sm py-4 bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two rounded-full;
+  @apply w-48 rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two py-4 text-sm text-white;
 }
 
 .number-bold {

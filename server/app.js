@@ -52,7 +52,7 @@ app.use(
 
 const limiter = rateLimit({
     max: 1000,
-    windowMs: 60 * 60 * 1000 * 2,
+    windowMs: 60 * 60 * 1000,
     handler: function (req, res, next) {
         return next(
             new AppError(
