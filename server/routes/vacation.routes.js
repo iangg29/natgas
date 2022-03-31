@@ -8,6 +8,9 @@ router
     .get(vacationController.getVacations)
     .post(vacationController.createVacation);
 router
+    .route('/details')
+    .get(vacationController.getAllVacationDetails);
+router
     .route('/:id')
     .get(vacationController.getVacation)
     .patch(vacationController.updateVacation)
@@ -23,5 +26,6 @@ router
 router
     .route('/mypendingvacationrequests/:id')
     .get(vacationController.getPending);
+
 
 module.exports = router;

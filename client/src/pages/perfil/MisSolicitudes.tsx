@@ -39,9 +39,9 @@ const MisSolicitudes = (): JSX.Element => {
                 dateinit={new Date(vac.startdate).toLocaleDateString()}
                 datefin={new Date(vac.enddate).toLocaleDateString()}
                 state={
-                  vac.status
+                  vac.status && vac.verifiedleader
                     ? "Aprobado"
-                    : vac.verifiedleader
+                    : vac.status
                     ? "Rechazado"
                     : "Pendiente"
                 }
