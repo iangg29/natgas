@@ -5,7 +5,7 @@
 TODO: Implement fixed styling for buttons, and generic components.
 */
 .main-button {
-  @apply bg-natgas-azul-claro text-white px-16 py-3 rounded-md shadow font-semibold text-xs;
+  @apply rounded-md bg-natgas-azul-claro px-16 py-3 text-xs font-semibold text-white shadow;
 }
 
 .input-general {
@@ -27,12 +27,55 @@ TODO: Implement fixed styling for buttons, and generic components.
 
 @layer base {
   @font-face {
-    font-family: "Bebas Neue";
-    src: local("Bebas Neue"),
-      url("../fonts/bebas/BebasNeueRegular.otf") format("otf");
+    font-family: "Bebas Neue Regular";
+    src: url("../fonts/bebas/BebasNeueRegular.otf") format("opentype");
   }
   @font-face {
-    font-family: "Gilroy";
-    src: local("Gilroy"), url("../fonts/gilroy/GilroyLight.otf") format("otf");
+    font-family: "Bebas Neue Bold";
+    src: url("../fonts/bebas/BebasNeueBold.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "Bebas Neue Light";
+    src: url("../fonts/bebas/BebasNeueLight.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "Bebas Neue Thin";
+    src: url("../fonts/bebas/BebasNeueThin.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "Gilroy Light";
+    src: url("../fonts/gilroy/GilroyLight.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "Gilroy Extra Bold";
+    src: url("../fonts/gilroy/GilroyExtraBold.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "Helvetica Neue Bold";
+    src: url("../fonts/helvetica_neue/HelveticaNeueLTStd-Bd.otf")
+      format("opentype");
+  }
+  @font-face {
+    font-family: "Helvetica Neue Light";
+    src: url("../fonts/helvetica_neue/HelveticaNeueLTStd-Lt.otf")
+      format("opentype");
+  }
+  @font-face {
+    font-family: "Helvetica Neue Medium";
+    src: url("../fonts/helvetica_neue/HelveticaNeueLTStd-Md.otf")
+      format("opentype");
+  }
+  @font-face {
+    font-family: "Helvetica Neue Regular";
+    src: url("../fonts/helvetica_neue/HelveticaNeueLTStd-Roman.otf")
+      format("opentype");
+  }
+  @font-face {
+    font-family: "Quicksand Regular";
+    src: url("../fonts/quicksand/QuicksandRegular.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Quicksand Bold";
+    src: url("../fonts/quicksand/QuicksandBold.otf") format("opentype");
   }
 }

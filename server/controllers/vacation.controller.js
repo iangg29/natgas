@@ -102,3 +102,6 @@ exports.getPending = catchAsync(async (req, res, next) => {
         vacationrequests,
     });
 });
+
+exports.getAllVacationDetails=base.getAll(VacationDetails);
+
