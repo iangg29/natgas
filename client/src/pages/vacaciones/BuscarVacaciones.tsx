@@ -21,7 +21,7 @@ const BuscarVacaciones = (): JSX.Element => {
         try {
           const [myVacations] = await Promise.all([
             axios.get(
-              `http://localhost:5959/api/vacation/details?&${
+              `http://localhost:5959/api/vacation/details?&sort=-startdate&${
                 (aprobado || rechazado) && pendiente
                   ? "status=1,0"
                   : aprobado || rechazado
