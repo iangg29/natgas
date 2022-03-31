@@ -127,7 +127,7 @@ const Employees = (): JSX.Element => {
           />
         </div>
       </div>
-      <hr className="rounded border-2 bg-natgas-gris-cool text-natgas-gris-cool" />
+      <hr className="my-10 rounded border-2 bg-natgas-gris-cool text-natgas-gris-cool dark:border-gray-600" />
       <div className="mt-10 grid grid-cols-1 gap-2 text-gray-50 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {employees?.map((employee: IEmployee, idx: number) => (
           <div

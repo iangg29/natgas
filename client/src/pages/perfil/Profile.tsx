@@ -42,7 +42,10 @@ const Profile = (): JSX.Element => {
   return (
     <Page title="Mi perfil" headTitle="Mi perfil">
       <div className="dark:text-gray-200">
-        <p>{profile.email}</p>
+        <p>
+          {profile.email} your employee number is {profile.number} and RFC is{" "}
+          {profile.rfc}
+        </p>
       </div>
     </Page>
   );

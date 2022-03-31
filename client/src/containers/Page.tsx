@@ -9,7 +9,7 @@ type Props = {
 
 const Page = ({ children, headTitle, title }: Props): JSX.Element => {
   return (
-    <div className="dark:text-gray-100">
+    <div className="p-0 dark:text-gray-100 md:px-10">
       <Helmet>
         <title>{headTitle} | NatGas</title>
       </Helmet>

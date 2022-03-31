@@ -11,13 +11,18 @@ TODO: Implement fixed styling for buttons, and generic components.
 .input-general {
   @apply pl-4 pr-10 py-2 rounded-xl border-natgas-gris-cool border-2 placeholder-gray-600 focus:outline-none;
 }
-.title-general{
+.title-general {
   @apply border-b-4 text-3xl border-natgas-gris-cool;
 }
 
-.primary-button{
+.primary-button {
   @apply w-48 text-white text-sm py-4 bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two rounded-full;
 }
+
+.number-bold {
+  @apply text-natgas-azul font-bold;
+}
+
 @tailwind utilities;
 
 @layer base {
