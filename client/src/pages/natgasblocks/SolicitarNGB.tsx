@@ -12,19 +12,17 @@ const SolicitarNGB = (): JSX.Element => {
   const [getRadio, setRadio] = useState<number>(0);
 
   const sendNGBRequest = async () => {
-    try {
-      console.log(getDate);
-      await axios.post("/natgasblock/", {
-        date: getDate,
-        period: getRadio,
-        email: user?.email,
-      });
+    await axios.post("/natgasblock/", {
+      date: getDate,
+      period: getRadio,
+      email: user?.email,
+    }).then(res => {
       alert("Petición de Natgas Block creada correctamente");
       setDate("");
       setRadio(0);
-    } catch (error) {
-      alert(error);
-    }
+    }).catch(err => {
+        console.log(err); 
+    });
   };
 
   return (
