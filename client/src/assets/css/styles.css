@@ -20,7 +20,7 @@ TODO: Implement fixed styling for buttons, and generic components.
 }
 
 .number-bold {
-  @apply text-natgas-azul font-bold font-gilroy-extrabold ml-2;
+  @apply text-natgas-azul font-bold font-gilroy-extrabold ml-2 dark:text-natgas-sec-one;
 }
 
 @tailwind utilities;

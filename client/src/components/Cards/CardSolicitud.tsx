@@ -32,8 +32,7 @@ const CardSolicitud = ({
             className=" text-md rounded-full bg-natgas-azul-claro px-8 py-2 font-light text-white shadow"
             onClick={() => approve(id)}
           >
-            {" "}
-            Aprobar{" "}
+            Aprobar
           </button>
         </div>
       </div>

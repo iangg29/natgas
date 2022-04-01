@@ -45,7 +45,7 @@ const Employee = (): JSX.Element => {
     >
       <div className="font-gilroy-light">
         <hr />
-        <div className="flex flex-col space-y-6 py-10 text-gray-600 md:flex-row md:space-y-0">
+        <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
           <div className="w-full md:w-1/3">
             <h4 className="font-gilroy-extrabold">RFC</h4>
             <span>{employee.rfc}</span>
@@ -60,7 +60,7 @@ const Employee = (): JSX.Element => {
           </div>
         </div>
         <hr />
-        <div className="flex flex-col space-y-6 py-10 text-gray-600 md:flex-row md:space-y-0">
+        <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
           <div className="w-full md:w-1/2">
             <h4 className="font-gilroy-extrabold">Dirección</h4>
             <span>{employee.address}</span>
@@ -71,7 +71,7 @@ const Employee = (): JSX.Element => {
           </div>
         </div>
         <hr />
-        <div className="flex flex-col space-y-6 py-10 text-gray-600 md:flex-row md:space-y-0">
+        <div className="flex flex-col space-y-6 py-10 text-gray-600  dark:text-gray-200 md:flex-row md:space-y-0">
           <div className="w-full md:w-1/3">
             <h4 className="font-gilroy-extrabold">No. Empleado</h4>
             <span>{employee.number}</span>
@@ -86,14 +86,14 @@ const Employee = (): JSX.Element => {
           </div>
         </div>
         <hr />
-        <div className="flex flex-col py-10 text-gray-600 md:flex-row">
+        <div className="flex flex-col py-10 text-gray-600 dark:text-gray-200 md:flex-row">
           <div className="w-full md:w-1/3">
             <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
             <span>{new Date(employee.contractdate).toLocaleDateString()}</span>
           </div>
         </div>
         <hr />
-        <div className="grid grid-cols-1 py-10 md:grid-cols-2">
+        <div className="grid grid-cols-1 py-10 dark:text-gray-200 md:grid-cols-2">
           <div className="flex flex-col space-y-10">
             <div>
               Vacaciones usadas: <span className="number-bold">3</span>
