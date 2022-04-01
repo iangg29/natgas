@@ -17,14 +17,13 @@ const Employees = (): JSX.Element => {
 
   const filterDepartment = (department: IDepartment) => {
     setSelectedDepartment(department);
-    //employees.filter((employee: IEmployee) => employee.dep);
   };
 
   useEffect(() => {
     (async () => {
       try {
         const [employeesPromise, departmentsPromise] = await Promise.all([
-          axios.get("/user/employment"),
+          axios.get("/user"),
           axios.get("/department"),
         ]);
         console.log(employeesPromise.data);
