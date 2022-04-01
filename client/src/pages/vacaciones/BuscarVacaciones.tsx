@@ -15,7 +15,7 @@ const BuscarVacaciones = (): JSX.Element => {
   const [pendiente, setPendiente] = useState(true);
   const topRef = useRef<any>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (pendiente || rechazado || aprobado)
       (async () => {
         try {
@@ -49,8 +49,8 @@ const BuscarVacaciones = (): JSX.Element => {
   }, [getName, getPage, aprobado, rechazado, pendiente]);
 
   return (
-    <div className="w-full">
-      <div className="mb-8" ref={topRef}>
+    <Page title="Vacaciones" headTitle="Vacaciones">
+      <div className="mb-2" ref={topRef}>
         <InputLong
           label="Buscar empleado"
           getVal={getName}
@@ -71,18 +71,16 @@ const BuscarVacaciones = (): JSX.Element => {
           />
         </div>
       </div>
-      <h1 className="text-xl font-bold text-natgas-azul dark:text-gray-100">
-        <Title title="Vacaciones" />
-      </h1>
-      <div className="py-10">
+      <div className="py-5">
         <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
-            getVacations.map((vac) => (
+            getVacations.map((vac, idx) => (
               <CardMiSolicitudVac
                 name={vac.name + " " + vac.lastname}
                 department={vac.departamento}
                 dateinit={new Date(vac.startdate).toLocaleDateString()}
                 datefin={new Date(vac.enddate).toLocaleDateString()}
+                key={idx}
                 state={
                   vac.status && vac.verifiedleader
                     ? "Aprobado"
@@ -103,7 +101,7 @@ const BuscarVacaciones = (): JSX.Element => {
         setPage={setPage}
         reference={topRef}
       />
-    </div>
+    </Page>
   );
 };
 

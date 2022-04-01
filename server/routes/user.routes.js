@@ -10,5 +10,7 @@ router
     .patch(userController.updateUser)
     .delete(userController.deleteUser);
 router.route('/email/:id').get(userController.getUserByEmail);
+router.route('/employment').get(userController.getUsersEmployment);
+router.route('/employment/:id').get(userController.getUserEmployment);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/solid";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 type Props = {
   length: number;
@@ -23,27 +23,31 @@ const Pagination = ({
         <></>
       ) : (
         <div
-          className="mr-2 h-[60px] w-[60px] rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two py-4 text-white"
+          className="grid h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two text-white"
           onClick={() => {
             setPage(getPage - 1);
             handleScroll(reference);
           }}
         >
-          <ChevronLeftIcon className="m-auto h-8 w-8" />
+          <ChevronLeftIcon className="m-auto h-5 w-5" />
         </div>
       )}
-      <p className="m-4 text-xl">{getPage}</p>
+      <p className="m-4 rounded-full bg-natgas-azul-claro py-2 px-4 text-xl text-white">
+        {getPage}
+      </p>
       {length < 15 ? (
         <></>
       ) : (
         <div
-          className="h-[60px] w-[60px] rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two py-4 text-white"
+          className="grid h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two text-white"
           onClick={() => {
             setPage(getPage + 1);
             handleScroll(reference);
           }}
         >
-          <ChevronRightIcon className="m-auto h-8 w-8" />
+          <span>
+            <ChevronRightIcon className="m-auto h-5 w-5" />
+          </span>
         </div>
       )}
     </div>
