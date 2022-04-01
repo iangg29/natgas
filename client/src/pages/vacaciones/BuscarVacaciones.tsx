@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import InputLong from "../../components/Inputs/InputLong";
 import Pagination from "../../components/Inputs/Pagination";
-import Title from "../../components/Title/Title";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import CheckBox from "../../components/Inputs/CheckBox";
+import Page from "../../containers/Page";
 
 const BuscarVacaciones = (): JSX.Element => {
   const [getVacations, setVacations] = useState<any[]>([]);
