@@ -37,12 +37,12 @@ class APIFeatures {
                 // to chain a whereor we need to do it inside a where statement
                 this.query.where(function () {
                     for (let i = 0; i < values.length; i++) {
-                        // the this keyword refers to the ocerall query
+                        // this keyword refers to the overall query
                         if (i === 0) this.where(key, values[i]);
                         else this.orWhere(key, values[i]);
                     }
                 });
-                // we delete it so we dont filter with it again
+                // we delete it, so we don't filter with it again
                 delete queryObj[key];
             }
         });
