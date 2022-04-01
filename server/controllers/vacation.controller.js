@@ -1,5 +1,6 @@
 const base = require('./base.controller');
 const Vacation = require('../models/vacation.model');
+const User = require('../models/user.model');
 const UserDetails = require('../models/views/useremployment.view.model');
 const VacationDetails = require('../models/views/vacationdetails.view.model');
 const catchAsync = require('../utils/catchAsync');
@@ -15,7 +16,7 @@ exports.deleteVacation = base.deleteOne(Vacation, 'idVacaciones');
 exports.approveVacations = catchAsync(async (req, res, next) => {
     // CHECK IF IT IS ALREADY APPROVED
     const currVac = (await Vacation.getOne('idVacaciones', req.params.id))[0];
-    if ((currVac.status = 1))
+    if ((currVac.status == 1))
         next(new AppError('Esta vacacion ya ha sido actualizada.', 400));
 
     // SET VACATIONS STATUS

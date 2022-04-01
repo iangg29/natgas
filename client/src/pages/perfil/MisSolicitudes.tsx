@@ -18,7 +18,6 @@ const MisSolicitudes = (): JSX.Element => {
           axios.get(`/vacation/myvacationrequests/${user?.email}`),
           axios.get(`/natgasblock/myngbrequests/${user?.email}`),
         ]);
-        console.log([myVacations, myNatgasBlocks]);
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);
       } catch (error) {
@@ -41,7 +40,7 @@ const MisSolicitudes = (): JSX.Element => {
                 state={
                   vac.status && vac.verifiedleader
                     ? "Aprobado"
-                    : vac.status
+                    : vac.verifiedleader
                     ? "Rechazado"
                     : "Pendiente"
                 }
@@ -57,7 +56,7 @@ const MisSolicitudes = (): JSX.Element => {
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
               <CardMiSolicitudNGB
-                name={ngb.name}
+                name={ngb.name + " " + ngb.lastname}
                 department={ngb.departamento}
                 date={new Date(ngb.date).toLocaleDateString()}
                 turn={ngb.turn ? "Segunda mitad" : "Primera mitad"}

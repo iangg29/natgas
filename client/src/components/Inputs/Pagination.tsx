@@ -4,10 +4,15 @@ type Props = {
   length: number;
   getPage: any;
   setPage: any;
-  ref: any;
+  reference: any;
 };
 
-const Pagination = ({ length, getPage, setPage, ref }: Props): JSX.Element => {
+const Pagination = ({
+  length,
+  getPage,
+  setPage,
+  reference,
+}: Props): JSX.Element => {
   const handleScroll = (ref: any) => {
     ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -21,7 +26,7 @@ const Pagination = ({ length, getPage, setPage, ref }: Props): JSX.Element => {
           className="grid h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two text-white"
           onClick={() => {
             setPage(getPage - 1);
-            handleScroll(ref);
+            handleScroll(reference);
           }}
         >
           <ChevronLeftIcon className="m-auto h-5 w-5" />
@@ -37,7 +42,7 @@ const Pagination = ({ length, getPage, setPage, ref }: Props): JSX.Element => {
           className="grid h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two text-white"
           onClick={() => {
             setPage(getPage + 1);
-            handleScroll(ref);
+            handleScroll(reference);
           }}
         >
           <span>
