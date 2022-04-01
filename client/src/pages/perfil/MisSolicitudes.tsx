@@ -57,7 +57,7 @@ const MisSolicitudes = (): JSX.Element => {
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
               <CardMiSolicitudNGB
-                name={ngb.name}
+                name={ngb.name + " " + ngb.lastname}
                 department={ngb.departamento}
                 date={new Date(ngb.date).toLocaleDateString()}
                 turn={ngb.turn ? "Segunda mitad" : "Primera mitad"}
