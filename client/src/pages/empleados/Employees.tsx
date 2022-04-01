@@ -26,7 +26,6 @@ const Employees = (): JSX.Element => {
           axios.get("/user"),
           axios.get("/department"),
         ]);
-        console.log(employeesPromise.data);
         setEmployees(employeesPromise.data.data.documents);
         setDepartments(departmentsPromise.data.data.documents);
       } catch (err) {
