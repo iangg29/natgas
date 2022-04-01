@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
   label: string;
-  action: any;
+  action: () => void;
 };
 const PrimaryButton = ({ label, action }: Props): JSX.Element => {
   return (

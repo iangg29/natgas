@@ -1,39 +1,38 @@
 import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { Listbox, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import Page from "../../containers/Page";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { IDepartment, IEmployee } from "../../shared/interfaces/app.interface";
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
-
-interface IDepartment {
-  id: number;
-  name: string;
-}
-
-const departments: IDepartment[] = [
-  { id: 1, name: "Recursos humanos" },
-  { id: 2, name: "NatDev" },
-];
 
 const Employees = (): JSX.Element => {
   const [employees, setEmployees] = useState<IEmployee[]>([]);
+  const [departments, setDepartments] = useState<IDepartment[]>([]);
   const [nameSearch, setNameSearch] = useState<string>("");
   const [numberSearch, setNumberSearch] = useState<string>("");
   const [selectedDepartment, setSelectedDepartment] = useState<IDepartment>(
     departments[0],
   );
 
+  const filterDepartment = (department: IDepartment) => {
+    setSelectedDepartment(department);
+  };
+
   useEffect(() => {
     (async () => {
-      await axios
-        .get("/user")
-        .then((res: AxiosResponse) => {
-          setEmployees(res.data.data.documents);
-        })
-        .catch((err) => {
-          console.trace(err);
-        });
+      try {
+        const [employeesPromise, departmentsPromise] = await Promise.all([
+          axios.get("/user"),
+          axios.get("/department"),
+        ]);
+        console.log(employeesPromise.data);
+        setEmployees(employeesPromise.data.data.documents);
+        setDepartments(departmentsPromise.data.data.documents);
+      } catch (err) {
+        alert(err);
+        console.trace(err);
+      }
     })();
   }, []);
 
@@ -42,10 +41,10 @@ const Employees = (): JSX.Element => {
       <h2 className="text-lg font-semibold">Buscar empleados</h2>
       <div className="mt-5 grid grid-cols-1 content-center items-center space-y-2 md:grid-cols-3 md:space-y-0">
         <div className="w-full">
-          <Listbox value={selectedDepartment} onChange={setSelectedDepartment}>
+          <Listbox value={selectedDepartment} onChange={filterDepartment}>
             <div className="relative">
               <Listbox.Button className="relative w-full rounded bg-natgas-sec-two py-2.5 pl-3 pr-10 text-left text-white focus:outline-none focus-visible:border-natgas-verde focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-natgas-azul-claro sm:text-sm">
-                <span className="block">{selectedDepartment.name}</span>
+                <span className="block">{selectedDepartment?.name}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <SelectorIcon
                     className="text-gray-1 00 h-5  w-5"
@@ -127,7 +126,7 @@ const Employees = (): JSX.Element => {
           />
         </div>
       </div>
-      <hr className="rounded border-2 bg-natgas-gris-cool text-natgas-gris-cool" />
+      <hr className="my-10 rounded border-2 bg-natgas-gris-cool text-natgas-gris-cool dark:border-gray-600" />
       <div className="mt-10 grid grid-cols-1 gap-2 text-gray-50 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {employees?.map((employee: IEmployee, idx: number) => (
           <div

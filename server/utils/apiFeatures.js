@@ -29,7 +29,25 @@ class APIFeatures {
             el.endsWith('like') ? delete queryObj[el] : true
         );
 
-        // Filtering
+        // Filter or
+        Object.keys(queryObj).forEach((key) => {
+            // parameters with , will be filtered here
+            if (queryObj[key].includes(',')) {
+                const values = queryObj[key].split(',');
+                // to chain a whereor we need to do it inside a where statement
+                this.query.where(function () {
+                    for (let i = 0; i < values.length; i++) {
+                        // this keyword refers to the overall query
+                        if (i === 0) this.where(key, values[i]);
+                        else this.orWhere(key, values[i]);
+                    }
+                });
+                // we delete it, so we don't filter with it again
+                delete queryObj[key];
+            }
+        });
+
+        // Filtering all
         this.query.where(queryObj);
 
         // para poderlo encadenar
@@ -40,9 +58,9 @@ class APIFeatures {
         if (this.queryString.sort) {
             const sortBy = this.queryString.sort.split(',');
             sortBy.forEach((sort) => {
-                if (sort.includes('-'))
-                    this.query.orderBy(sort.split('-')[0], 'desc');
-                else this.query.orderBy(sort, 'asc');
+                if (sort.includes('-')) {
+                    this.query.orderBy(sort.split('-')[1], 'desc');
+                } else this.query.orderBy(sort, 'asc');
             });
         }
 

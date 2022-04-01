@@ -15,3 +15,10 @@ export interface IEmployee {
   vacations: number;
   verified: boolean;
 }
+
+export interface IDepartment {
+  idDepartamento: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}

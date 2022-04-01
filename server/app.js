@@ -12,6 +12,9 @@ const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
 const natgasblockRouter = require('./routes/natgasblock.routes');
 const vacationsRouter = require('./routes/vacation.routes');
+const reportRouter = require('./routes/report.routes');
+const rowRouter = require('./routes/row.routes');
+const departmentRouter = require('./routes/department.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -25,7 +28,7 @@ app.use(
     cors({
         origin: true,
         credentials: true,
-    })
+    }),
 );
 
 app.options('*', cors());
@@ -40,25 +43,25 @@ app.use(express.static(`${__dirname}/public`));
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:'],
-            baseUri: ["'self'"],
-            fontSrc: ["'self'", 'https:', 'http:', 'data:'],
-            scriptSrc: ["'self'", 'https:', 'http:', 'blob:'],
-            styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:'],
-            imgSrc: ["'self'", 'data:', 'blob:'],
+            defaultSrc: ['\'self\'', 'https:', 'http:', 'data:', 'ws:'],
+            baseUri: ['\'self\''],
+            fontSrc: ['\'self\'', 'https:', 'http:', 'data:'],
+            scriptSrc: ['\'self\'', 'https:', 'http:', 'blob:'],
+            styleSrc: ['\'self\'', '\'unsafe-inline\'', 'https:', 'http:'],
+            imgSrc: ['\'self\'', 'data:', 'blob:'],
         },
-    })
+    }),
 );
 
 const limiter = rateLimit({
-    max: 100,
+    max: 1000,
     windowMs: 60 * 60 * 1000,
-    handler: function (req, res, next) {
+    handler: function(req, res, next) {
         return next(
             new AppError(
                 'You sent too many requests. Please wait a while then try again',
-                429
-            )
+                429,
+            ),
         );
     },
 });
@@ -77,21 +80,23 @@ app.get('/', (req, res) =>
     res.status(200).json({
         message:
             'Welcome to the natgas API, try hitting the /API/<yourResource> routes to know more',
-    })
+    }),
 );
 app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);
 app.use('/api/natgasblock/', natgasblockRouter);
 app.use('/api/vacation/', vacationsRouter);
+app.use('/api/report/', reportRouter);
+app.use('/api/row/', rowRouter);
+app.use('/api/department/', departmentRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
-// el asterizco dice que en cualquiera salte
+// el asterisco dice que en cualquiera salte
 app.all('*', (req, res, next) => {
     const error = new AppError(
         `Can´t find ${req.originalUrl} on this server`,
-        404
+        404,
     );
-
     next(error);
 });
 

@@ -36,7 +36,6 @@ const SolicitarVac = (): JSX.Element => {
         <div className="grid grid-cols-1">
           <div className="grid grid-rows-3">
             <div className="m-4 h-16">
-              {" "}
               <DateInputLong
                 getVal={getStartDate}
                 setVal={setStartdate}
@@ -44,7 +43,6 @@ const SolicitarVac = (): JSX.Element => {
               />
             </div>
             <div className="m-4 h-16">
-              {" "}
               <DateInputLong
                 getVal={getEndDate}
                 setVal={setEndDate}
@@ -52,7 +50,6 @@ const SolicitarVac = (): JSX.Element => {
               />
             </div>
             <div className="m-4 h-16">
-              {" "}
               <InputLong
                 getVal={getSuplente}
                 setVal={setSuplente}
