@@ -25,8 +25,8 @@ const SolicitarVac = (): JSX.Element => {
       setEndDate("");
       setStartdate("");
       setSuplente("");
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 

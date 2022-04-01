@@ -38,8 +38,8 @@ const BuscarVacaciones = (): JSX.Element => {
           ]);
           setVacations(myVacations.data.data.documents);
           console.log(myVacations.data.data.documents);
-        } catch (error) {
-          alert(error);
+        } catch (error: any) {
+          alert(error.message);
         }
       })();
     else {

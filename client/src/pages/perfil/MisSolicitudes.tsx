@@ -20,8 +20,8 @@ const MisSolicitudes = (): JSX.Element => {
         ]);
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);
-      } catch (error) {
-        alert(error);
+      } catch (error: any) {
+        alert(error.message);
       }
     })();
   }, [user?.email]);

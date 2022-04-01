@@ -21,8 +21,8 @@ const VistaSolicitud = (): JSX.Element => {
 
         setVacations(myVacations.data.vacationrequests);
         setNatgasBlocks(myNatgasBlocks.data.natgasBlocks);
-      } catch (error) {
-        alert(error);
+      } catch (error: any) {
+        alert(error.message);
       }
     })();
   }, [user?.email]);
@@ -33,8 +33,8 @@ const VistaSolicitud = (): JSX.Element => {
       setNatgasBlocks(getNatgasBlocks.filter((ngb) => ngb.id !== id));
 
       alert("La solicitud de NGB ha sido aprobada con éxito.");
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
@@ -44,8 +44,8 @@ const VistaSolicitud = (): JSX.Element => {
       setVacations(getVacations.filter((vac) => vac.id !== id));
 
       alert("La solicitud de Vacaciones ha sido aprobada con éxito.");
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
   const discardVac = async (id: string) => {
@@ -54,8 +54,8 @@ const VistaSolicitud = (): JSX.Element => {
       setVacations(getVacations.filter((vac) => vac.id !== id));
 
       alert("La solicitud de Vacaciones ha sido rechazada con éxito.");
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 

@@ -28,8 +28,8 @@ const Employees = (): JSX.Element => {
         ]);
         setEmployees(employeesPromise.data.data.documents);
         setDepartments(departmentsPromise.data.data.documents);
-      } catch (err) {
-        alert(err);
+      } catch (err: any) {
+        alert(err.message);
         console.trace(err);
       }
     })();
