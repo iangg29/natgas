@@ -5,7 +5,6 @@ import Pagination from "../../components/Inputs/Pagination";
 import Title from "../../components/Title/Title";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import CheckBox from "../../components/Inputs/CheckBox";
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/solid";
 
 const BuscarVacaciones = (): JSX.Element => {
   const [getVacations, setVacations] = useState<any[]>([]);
@@ -23,17 +22,17 @@ const BuscarVacaciones = (): JSX.Element => {
           const [myVacations] = await Promise.all([
             axios.get(
               `/vacation/details?&sort=-startdate&${
-                (aprobado || rechazado) && pendiente
+                (pendiente || rechazado) && aprobado
                   ? "status=1,0"
-                  : aprobado || rechazado
-                  ? "status=1"
-                  : "status=0"
+                  : pendiente || rechazado
+                  ? "status=0"
+                  : "status=1"
               }&name_like=${getName}&page=${getPage}&limit=15&${
-                (rechazado || pendiente) && aprobado
+                (rechazado || aprobado) && pendiente
                   ? "verifiedleader=1,0"
-                  : rechazado || pendiente
-                  ? "verifiedleader=0"
-                  : "verifiedleader=1"
+                  : rechazado || aprobado
+                  ? "verifiedleader=1"
+                  : "verifiedleader=0"
               }`,
             ),
           ]);
@@ -48,10 +47,6 @@ const BuscarVacaciones = (): JSX.Element => {
       setAprobado(true);
     }
   }, [getName, getPage, aprobado, rechazado, pendiente]);
-
-  const handleScroll = (ref: any) => {
-    ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   return (
     <div className="w-full">
@@ -91,7 +86,7 @@ const BuscarVacaciones = (): JSX.Element => {
                 state={
                   vac.status && vac.verifiedleader
                     ? "Aprobado"
-                    : vac.status
+                    : vac.verifiedleader
                     ? "Rechazado"
                     : "Pendiente"
                 }
@@ -106,7 +101,7 @@ const BuscarVacaciones = (): JSX.Element => {
         length={getVacations.length}
         getPage={getPage}
         setPage={setPage}
-        ref={topRef}
+        reference={topRef}
       />
     </div>
   );
