@@ -11,7 +11,7 @@ const VistaSolicitud = lazy(() => import("../pages/vacaciones/VistaSolicitud"));
 const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
 const Token = lazy(() => import("../pages/utils/token"));
 const BuscarVacaciones = lazy(() => import("../pages/vacaciones/BuscarVacaciones"));
-
+const Blog = lazy(() => import("../pages/blog/Blog"));
 type Route = {
   path: string;
   component: ExoticComponent;
@@ -62,6 +62,12 @@ const routes: Route[] = [
     path: "/vacations/search",
     component: BuscarVacaciones,
   },
+
+  {
+    path: "/blog",
+    component: Blog,
+  },
+
 ];
 
 export default routes;
