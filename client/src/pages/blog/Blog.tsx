@@ -16,12 +16,12 @@ const Blog = () => {
         </div>
         
         <div className='grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>
-            <BlogCard image = "Imagen"/>
-            <BlogCard image = "Imagen"/>
-            <BlogCard image = "Imagen"/>
-            <BlogCard image = "Imagen"/>
-            <BlogCard image = "Imagen"/>
-            <BlogCard image = "Imagen"/>
+            <BlogCard image = "https://scontent.fqro1-1.fna.fbcdn.net/v/t1.6435-9/162478430_1838218953002496_26093472607830674_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=LcoISjRUJZMAX_gckq4&_nc_ht=scontent.fqro1-1.fna&oh=00_AT907TprSGR80RM9wqfGDKjqkhWHOGBrBJX2jA1sdO2XBQ&oe=62707A69"/>
+            <BlogCard image = "https://scontent.fqro1-1.fna.fbcdn.net/v/t1.6435-9/162478430_1838218953002496_26093472607830674_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=LcoISjRUJZMAX_gckq4&_nc_ht=scontent.fqro1-1.fna&oh=00_AT907TprSGR80RM9wqfGDKjqkhWHOGBrBJX2jA1sdO2XBQ&oe=62707A69"/>
+            <BlogCard image = "https://scontent.fqro1-1.fna.fbcdn.net/v/t1.6435-9/162478430_1838218953002496_26093472607830674_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=LcoISjRUJZMAX_gckq4&_nc_ht=scontent.fqro1-1.fna&oh=00_AT907TprSGR80RM9wqfGDKjqkhWHOGBrBJX2jA1sdO2XBQ&oe=62707A69"/>
+            <BlogCard image = "https://scontent.fqro1-1.fna.fbcdn.net/v/t1.6435-9/162478430_1838218953002496_26093472607830674_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=LcoISjRUJZMAX_gckq4&_nc_ht=scontent.fqro1-1.fna&oh=00_AT907TprSGR80RM9wqfGDKjqkhWHOGBrBJX2jA1sdO2XBQ&oe=62707A69"/>
+            <BlogCard image = "https://scontent.fqro1-1.fna.fbcdn.net/v/t1.6435-9/162478430_1838218953002496_26093472607830674_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=LcoISjRUJZMAX_gckq4&_nc_ht=scontent.fqro1-1.fna&oh=00_AT907TprSGR80RM9wqfGDKjqkhWHOGBrBJX2jA1sdO2XBQ&oe=62707A69"/>
+            <BlogCard image = "https://scontent.fqro1-1.fna.fbcdn.net/v/t1.6435-9/162478430_1838218953002496_26093472607830674_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=730e14&_nc_ohc=LcoISjRUJZMAX_gckq4&_nc_ht=scontent.fqro1-1.fna&oh=00_AT907TprSGR80RM9wqfGDKjqkhWHOGBrBJX2jA1sdO2XBQ&oe=62707A69"/>
 
         </div>
 
