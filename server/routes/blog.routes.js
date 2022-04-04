@@ -5,16 +5,22 @@ const filesController = require('../controllers/files.controller');
 
 const router = express.Router();
 
-const upload = multer({ dest: 'public/blog' });
-
 router
     .route('/')
     .get(blogController.getBlogs)
-    .post(filesController.uploadBlogPhoto, blogController.createBlog);
+    .post(
+        filesController.uploadBlogPhoto,
+        filesController.formatBlogImage,
+        blogController.createBlog
+    );
 router
     .route('/:id')
     .get(blogController.getBlogById)
-    .patch(filesController.uploadBlogPhoto, blogController.updateBlog)
+    .patch(
+        filesController.uploadBlogPhoto,
+        filesController.formatBlogImage,
+        blogController.updateBlog
+    )
     .delete(blogController.deleteBlog);
 router.route('/slug/:id').get(blogController.getBlogBySlug);
 
