@@ -23,6 +23,10 @@ TODO: Implement fixed styling for buttons, and generic components.
   @apply text-natgas-azul font-bold font-gilroy-extrabold ml-2 dark:text-natgas-sec-one;
 }
 
+.general-btn {
+  @apply px-6 py-2 rounded-full font-gilroy-light border-2 text-sm;
+}
+
 @tailwind utilities;
 
 @layer base {
