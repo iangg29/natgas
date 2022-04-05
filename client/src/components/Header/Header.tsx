@@ -15,7 +15,7 @@ const Header = (): JSX.Element => {
 
   return (
     <header className="shadow-bottom z-40 max-h-20 bg-natgas-azul py-4">
-      <div className="flex h-full w-full items-center relative  justify-around px-6 text-gray-100">
+      <div className="flex h-full w-full items-center relative justify-around px-6 text-gray-100">
         <div className="flex items-center">
           <Link to="/app/dashboard">
             <img
@@ -42,7 +42,7 @@ const Header = (): JSX.Element => {
       
       
        
-        <ul className="flex flex-shrink-0 items-center space-x-6">
+        <ul className="flex flex-shrink-0 items-center space-x-2">
           
           <li>
             <Menu as="div" className="relative inline-block text-left">
