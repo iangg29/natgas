@@ -11,6 +11,7 @@ const VistaSolicitud = lazy(() => import("../pages/vacaciones/VistaSolicitud"));
 const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
 const Token = lazy(() => import("../pages/utils/token"));
 const BuscarVacaciones = lazy(() => import("../pages/vacaciones/BuscarVacaciones"));
+const TestPage = lazy(() => import("../pages/TestPage"));
 
 type Route = {
   path: string;
@@ -61,6 +62,10 @@ const routes: Route[] = [
   {
     path: "/vacations/search",
     component: BuscarVacaciones,
+  },
+  {  
+    path: "/TestPage",
+    component: TestPage,
   },
 ];
 
