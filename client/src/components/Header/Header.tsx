@@ -15,7 +15,7 @@ const Header = (): JSX.Element => {
 
   return (
     <header className="shadow-bottom z-40 max-h-20 bg-natgas-azul py-4">
-      <div className="flex h-full w-full items-center relative justify-around px-6 text-gray-100">
+      <div className="flex h-full w-full items-center relative  justify-around px-6 text-gray-100">
         <div className="flex items-center">
           <Link to="/app/dashboard">
             <img
@@ -39,9 +39,11 @@ const Header = (): JSX.Element => {
           </ul>
           
         </div>
-        
-        <div className = "md:invisible text-3xl absolute right-10"> <SideBar></SideBar> </div>
+      
+      
+       
         <ul className="flex flex-shrink-0 items-center space-x-6">
+          
           <li>
             <Menu as="div" className="relative inline-block text-left">
               <div>
@@ -133,6 +135,7 @@ const Header = (): JSX.Element => {
               </Transition>
             </Menu>
           </li>
+          <li className = "md:invisible text-4xl"> <SideBar></SideBar> </li>
         </ul>
       </div>
     </header>
