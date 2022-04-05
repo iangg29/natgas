@@ -60,7 +60,6 @@ exports.getOne = (Model, field) =>
 exports.getAll = (Model) =>
     catchAsync(async (req, res) => {
         const documents = await Model.getAll(req.query);
-        console.log('HOLA');
 
         // SEND RESPONSE
         res.status(200).json({
