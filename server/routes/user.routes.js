@@ -9,8 +9,7 @@ router
     .route('/employment/:id')
     .get(userController.getOneUsersEmploymentDetails);
 router.route('/').get(userController.getUsers).post(userController.createUser);
-router
-    .route('/:id')
+router.route('/:id')
     .get(userController.getUserByEmployeeNumber)
     .patch(userController.updateUser)
     .delete(userController.deleteUser);
