@@ -68,7 +68,7 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
         alert(error.response.message);
       }
     })();
-  }, []);
+  }, [idReporte]);
 
   return (
     <Background bgColor="bg-[#007DBA] my-20">
