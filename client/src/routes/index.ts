@@ -14,6 +14,7 @@ const BuscarVacaciones = lazy(
   () => import("../pages/vacaciones/BuscarVacaciones"),
 );
 const Reportes = lazy(() => import("../pages/reports/AllReports"));
+const TestPage = lazy(() => import("../pages/TestPage"));
 
 type Route = {
   path: string;
@@ -68,6 +69,10 @@ const routes: Route[] = [
   {
     path: "/reports/",
     component: Reportes,
+  },
+  {
+    path: "/TestPage",
+    component: TestPage,
   },
 ];
 

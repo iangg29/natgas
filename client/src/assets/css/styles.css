@@ -15,12 +15,20 @@ TODO: Implement fixed styling for buttons, and generic components.
   @apply border-b-4 text-3xl border-natgas-gris-cool;
 }
 
+.title-white {
+  @apply font-bold border-b-4 text-right text-3xl border-white text-white;
+}
+
 .primary-button {
   @apply w-48 rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two py-4 text-sm text-white;
 }
 
 .number-bold {
   @apply text-natgas-azul font-bold font-gilroy-extrabold ml-2 dark:text-natgas-sec-one;
+}
+
+.general-btn {
+  @apply px-6 py-2 rounded-full font-gilroy-light border-2 text-sm;
 }
 
 @tailwind utilities;
