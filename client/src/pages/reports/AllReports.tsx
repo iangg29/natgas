@@ -1,6 +1,7 @@
 import Page from "../../containers/Page";
 import React from "react";
 import axios from "axios";
+import CardReporte from "../../components/Cards/CardReporte";
 
 const Reports = (): JSX.Element => {
   const [getReports, setReports] = React.useState<any[]>([]);
@@ -8,9 +9,9 @@ const Reports = (): JSX.Element => {
   React.useEffect(() => {
     (async () => {
       try {
-        const departments = await axios.get("/report");
-        console.log(departments);
-        setReports(departments.data.data.documents);
+        const reports = await axios.get("/report");
+        console.log(reports);
+        setReports(reports.data.data.documents);
       } catch (error: any) {
         alert(error.response.message);
       }
@@ -23,8 +24,8 @@ const Reports = (): JSX.Element => {
         <></>
       </Page>
       <div>
-        {getReports.map((dpt: any) => (
-          <div>{dpt.name}</div>
+        {getReports.map((rpt: any) => (
+          <CardReporte report={rpt}/>
         ))}
       </div>
     </>
