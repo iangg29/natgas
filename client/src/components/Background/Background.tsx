@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
-const Background = () => {
+type Props = {
+  bgColor: string;
+  children: JSX.Element | JSX.Element[];
+};
+
+const Background = ({ children, bgColor }: Props) => {
   return (
-    <div className='relative matrix w-full h-72 bg-gradient-to-r from-[#00A99D] to-[#098B90]'> </div>
-  )
-}
+    <div className={`matrix relative h-72 w-full ${bgColor}`}>{children}</div>
+  );
+};
 
-export default Background
+export default Background;

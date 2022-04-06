@@ -1,6 +1,5 @@
 import React from "react";
 import Background from "../components/Background/Background";
-import Background2 from "../components/Background/Background2";
 import TitleWhite from "../components/Title/TitleWhite";
 
 const TestPage = (): JSX.Element => {
@@ -8,10 +7,9 @@ const TestPage = (): JSX.Element => {
     <div>
       <TitleWhite title="Ejemplo" />
       <div>
-        <Background/>
-      </div>
-      <div>
-        <Background2/>
+        <Background bgColor="bg-gradient-to-r from-[#007DBA] to-[#43B02A]">
+          <div>HOLA MIKOS</div>
+        </Background>
       </div>
     </div>
   );

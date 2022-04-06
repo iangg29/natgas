@@ -20,12 +20,13 @@ const Reports = (): JSX.Element => {
   return (
     <>
       <Page title="Reportes" headTitle="Reportes">
-        <div>
-          {getReports.map((dpt: any) => (
-            <div>{dpt.name}</div>
-          ))}
-        </div>
+        <></>
       </Page>
+      <div>
+        {getReports.map((dpt: any) => (
+          <div>{dpt.name}</div>
+        ))}
+      </div>
     </>
   );
 };
