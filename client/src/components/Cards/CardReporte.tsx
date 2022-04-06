@@ -56,8 +56,8 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
         console.log(departments);
         setRows(departments.data.data.documents);
         setLabels(
-          getRows
-            .map((row) => new Date(row.date).toLocaleDateString())
+          departments.data.data.documents
+            .map((row:any) => new Date(row.date).toLocaleDateString())
             .reverse(),
         );
       } catch (error: any) {
@@ -70,7 +70,8 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
     <Background bgColor="bg-[#007DBA] my-20">
       <TitleWhite title={name} />
       <br/>
-      <div className="align-center h-[80vh] w-[80vw] flex-col ">
+      <div className="flex justify-center items-center">
+      <div className="align-center h-[80vh] w-[80vw] flex-col">
         <Bar
           options={options}
           data={{
@@ -85,6 +86,7 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
           }}
         />
       </div>
+     </div>
     </Background>
   );
 };
