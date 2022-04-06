@@ -15,6 +15,7 @@ const vacationsRouter = require('./routes/vacation.routes');
 const reportRouter = require('./routes/report.routes');
 const rowRouter = require('./routes/row.routes');
 const departmentRouter = require('./routes/department.routes');
+const rangosVacacionesRouter = require('./routes/rangovacaciones.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -38,25 +39,25 @@ app.use(express.static(`${__dirname}/public`));
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:'],
-            baseUri: ["'self'"],
-            fontSrc: ["'self'", 'https:', 'http:', 'data:'],
-            scriptSrc: ["'self'", 'https:', 'http:', 'blob:'],
-            styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:'],
-            imgSrc: ["'self'", 'data:', 'blob:'],
+            defaultSrc: ['\'self\'', 'https:', 'http:', 'data:', 'ws:'],
+            baseUri: ['\'self\''],
+            fontSrc: ['\'self\'', 'https:', 'http:', 'data:'],
+            scriptSrc: ['\'self\'', 'https:', 'http:', 'blob:'],
+            styleSrc: ['\'self\'', '\'unsafe-inline\'', 'https:', 'http:'],
+            imgSrc: ['\'self\'', 'data:', 'blob:'],
         },
-    })
+    }),
 );
 
 const limiter = rateLimit({
     max: 1000,
     windowMs: 60 * 60 * 1000,
-    handler: function (req, res, next) {
+    handler: function(req, res, next) {
         return next(
             new AppError(
                 'You sent too many requests. Please wait a while then try again',
-                429
-            )
+                429,
+            ),
         );
     },
 });
@@ -75,7 +76,7 @@ app.get('/', (req, res) =>
     res.status(200).json({
         message:
             'Welcome to the natgas API, try hitting the /API/<yourResource> routes to know more',
-    })
+    }),
 );
 app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);
@@ -84,13 +85,14 @@ app.use('/api/vacation/', vacationsRouter);
 app.use('/api/report/', reportRouter);
 app.use('/api/row/', rowRouter);
 app.use('/api/department/', departmentRouter);
+app.use('/api/rangos/', rangosVacacionesRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterisco dice que en cualquiera salte
 app.all('*', (req, res, next) => {
     const error = new AppError(
         `Can´t find ${req.originalUrl} on this server`,
-        404
+        404,
     );
     next(error);
 });
