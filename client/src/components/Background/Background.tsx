@@ -7,7 +7,13 @@ type Props = {
 
 const Background = ({ children, bgColor }: Props) => {
   return (
-    <div className={`matrix relative h-72 w-full ${bgColor}`}>{children}</div>
+    <div
+      className={`matrix relative w-full skew-y-[-2deg] p-10 py-20 ${bgColor}`}
+    >
+      <div className="align-center skew-y-[2deg] flex-col content-start">
+        {children}
+      </div>
+    </div>
   );
 };
 
