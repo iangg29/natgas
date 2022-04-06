@@ -44,10 +44,6 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
           },
         },
       },
-      title: {
-        display: true,
-        text: name,
-      },
     },
   };
 
@@ -73,6 +69,7 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
   return (
     <Background bgColor="bg-[#007DBA] my-20">
       <TitleWhite title={name} />
+      <br/>
       <div className="align-center h-[80vh] w-[80vw] flex-col ">
         <Bar
           options={options}
