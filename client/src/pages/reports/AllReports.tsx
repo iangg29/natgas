@@ -23,9 +23,9 @@ const Reports = (): JSX.Element => {
       <Page title="Reportes" headTitle="Reportes">
         <></>
       </Page>
-      <div>
+      <div className="flex-col">
         {getReports.map((rpt: any) => (
-          <CardReporte report={rpt}/>
+          <CardReporte report={rpt} />
         ))}
       </div>
     </>

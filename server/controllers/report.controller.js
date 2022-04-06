@@ -7,4 +7,11 @@ exports.getReport = base.getOne(Report, 'idReporte');
 exports.createReport = base.createOne(Report);
 exports.updateReport = base.updateOne(Report, 'idReporte');
 exports.deleteReport = base.deleteOne(Report, 'idReporte');
-exports.getRowsFromReport = base.getOne(Row, 'idReporte');
+exports.getRowsFromReport = base.getAll(Row);
+
+exports.getRowsMiddleware = (req, rex, next) => {
+    req.query.idReporte = req.params.id;
+    req.query.limit = 12;
+    req.query.sort = '-date';
+    next();
+};

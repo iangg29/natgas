@@ -12,6 +12,11 @@ router
     .get(reportController.getReport)
     .patch(reportController.updateReport)
     .delete(reportController.deleteReport);
-router.route('/getRowsFromReport/:id').get(reportController.getRowsFromReport);
+router
+    .route('/getRowsFromReport/:id')
+    .get(
+        reportController.getRowsMiddleware,
+        reportController.getRowsFromReport
+    );
 
 module.exports = router;
