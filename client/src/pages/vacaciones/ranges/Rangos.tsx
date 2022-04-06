@@ -27,7 +27,7 @@ const Rangos = (): JSX.Element => {
         .delete(`/rangos/${id}`)
         .then((res: AxiosResponse) => {
           setRangos(
-            rangos.filter((rango: iRange) => rango.idRangoVacaciones != id),
+            rangos.filter((rango: iRange) => rango.idRangoVacaciones !== id),
           );
         })
         .catch((err) => {
@@ -69,12 +69,9 @@ const Rangos = (): JSX.Element => {
                 <td className="px-6 py-4">{rango.days}</td>
                 <td className="px-6 py-4">
                   <div className="flex flex-row justify-around">
-                    <a
-                      href="#"
-                      className="font-medium text-yellow-500 hover:underline dark:text-yellow-500"
-                    >
+                    <button className="font-medium text-yellow-500 hover:underline dark:text-yellow-500">
                       <PencilAltIcon className="h-5 w-5" />
-                    </a>
+                    </button>
                     <button
                       onClick={() => deleteRange(rango.idRangoVacaciones)}
                       className="font-medium text-red-600 hover:underline dark:text-red-500"
