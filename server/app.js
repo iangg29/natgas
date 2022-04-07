@@ -8,6 +8,7 @@ const cors = require('cors');
 const compression = require('compression');
 
 // ROUTERS
+const bannerRouter = require('./routes/banner.routes');
 const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
 const natgasblockRouter = require('./routes/natgasblock.routes');
@@ -79,6 +80,7 @@ app.get('/', (req, res) =>
             'Welcome to the natgas API, try hitting the /API/<yourResource> routes to know more',
     }),
 );
+app.use('/api/banner/', bannerRouter);
 app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);
 app.use('/api/natgasblock/', natgasblockRouter);
