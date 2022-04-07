@@ -11,6 +11,14 @@ exports.deleteOne = (Model, field) =>
         });
     });
 
+exports.deleteAll = (Model) =>
+    catchAsync(async(req, res) =>{
+        await Model.deleteAll();
+        res.status(204).json({
+            status: 'success',
+        });
+    });
+
 exports.updateOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
         const doc = await Model.updateOne(field, req.params.id, req.body);

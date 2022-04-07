@@ -7,6 +7,7 @@ type Props = {
   idx: number;
   deleteRange: (id: number) => void;
   setEditableRow: (id: number) => void;
+  last: boolean;
 };
 
 const ReadOnlyRow = ({
@@ -14,6 +15,7 @@ const ReadOnlyRow = ({
   idx,
   deleteRange,
   setEditableRow,
+  last,
 }: Props): JSX.Element => {
   return (
     <tr
@@ -31,12 +33,12 @@ const ReadOnlyRow = ({
           >
             <PencilAltIcon className="h-5 w-5" />
           </button>
-          <button
+          {last ? <button
             onClick={() => deleteRange(rango.idRangoVacaciones)}
             className="font-medium text-red-600 hover:underline dark:text-red-500"
           >
             <TrashIcon className="h-5 w-5" />
-          </button>
+          </button> : null}
         </div>
       </td>
     </tr>
