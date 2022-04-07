@@ -30,6 +30,7 @@ exports.formatBlogImage = catchAsync(async (req, res, next) => {
 
     next();
 });
+
 exports.formatNewsImage = catchAsync(async (req, res, next) => {
     if (!req.file) return next();
 

@@ -5,4 +5,4 @@ exports.getBanners = base.getAll(Banner);
 exports.getBannerById = base.getOne(Banner, 'idNoticia');
 exports.createBanner = base.createOne(Banner);
 exports.updateBanner = base.updateOne(Banner, 'idNoticia');
-exports.deleteBanner = base.deleteOne(Banner, 'iidNoticia');
+exports.deleteBanner = base.deleteOne(Banner, 'idNoticia');
