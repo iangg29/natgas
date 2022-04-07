@@ -17,7 +17,6 @@
     "@types/react-dom": "^17.0.13",
     "@types/react-helmet": "^6.1.5",
     "@types/react-redux": "^7.1.23",
-    "@windmill/react-ui": "^0.6.0",
     "axios": "^0.26.0",
     "flowbite": "^1.4.1",
     "jsonwebtoken": "^8.5.1",
