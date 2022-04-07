@@ -18,12 +18,7 @@ const EditableRow = ({
   setRanges,
   ranges,
 }: Props): JSX.Element => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<VacationsRangeInputs>();
+  const { register, handleSubmit, reset } = useForm<VacationsRangeInputs>();
 
   const cancelEdit = (): void => {
     reset();
