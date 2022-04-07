@@ -35,3 +35,13 @@ export interface IDepartment {
   created_at: string;
   updated_at: string;
 }
+
+export interface iRangeData {
+  days: number;
+  maximum: number;
+  minimum: number;
+}
+
+export interface iRange extends iRangeData {
+  idRangoVacaciones: number;
+}

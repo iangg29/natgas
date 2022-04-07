@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
 import InputLong from '../../components/Inputs/InputLong';
 import InputP from '../../components/Inputs/InputP';
 import UploadDocument from '../../components/Inputs/UploadDocument';
@@ -69,23 +68,7 @@ const FormBlog = () => {
                 <button onClick = {upload} className = "mt-4  primary-button-blue">Subir</button>
             </div>
             
-        </div>
-       
-        
-      
-       
-       
-       
-            
-           
-        
-       
-        
-           
-        
-      
-        
-        
+        </div> 
     
     
     </>
