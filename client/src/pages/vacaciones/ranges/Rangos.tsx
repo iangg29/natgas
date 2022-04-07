@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Page from "../../../containers/Page";
 import axios, { AxiosResponse } from "axios";
 import { iRange } from "../../../shared/interfaces/app.interface";
-import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid";
 import CreateRange from "./CreateRange";
+import ReadOnlyRow from "../../../components/Table/ReadOnlyRow";
+import EditableRow from "../../../components/Table/EditableRow";
 
 const Rangos = (): JSX.Element => {
   const [rangos, setRangos] = useState<iRange[]>([]);
+  const [editableRow, setEditableRow] = useState<number>(-1);
 
   useEffect(() => {
     (async () => {
@@ -59,29 +61,23 @@ const Rangos = (): JSX.Element => {
             </tr>
           </thead>
           <tbody className="text-gray-800 dark:text-gray-200">
-            {rangos?.map((rango: iRange, idx: number) => (
-              <tr
-                className="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
-                key={idx}
-              >
-                <td className="px-6 py-4">{rango.minimum}</td>
-                <td className="px-6 py-4">{rango.maximum}</td>
-                <td className="px-6 py-4">{rango.days}</td>
-                <td className="px-6 py-4">
-                  <div className="flex flex-row justify-around">
-                    <button className="font-medium text-yellow-500 hover:underline dark:text-yellow-500">
-                      <PencilAltIcon className="h-5 w-5" />
-                    </button>
-                    <button
-                      onClick={() => deleteRange(rango.idRangoVacaciones)}
-                      className="font-medium text-red-600 hover:underline dark:text-red-500"
-                    >
-                      <TrashIcon className="h-5 w-5" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {rangos?.map((rango: iRange, idx: number) =>
+              editableRow === rango.idRangoVacaciones ? (
+                <EditableRow
+                  setEditableRow={setEditableRow}
+                  rango={rango}
+                  setRanges={setRangos}
+                  ranges={rangos}
+                />
+              ) : (
+                <ReadOnlyRow
+                  deleteRange={deleteRange}
+                  setEditableRow={setEditableRow}
+                  idx={idx}
+                  rango={rango}
+                />
+              ),
+            )}
           </tbody>
         </table>
       </div>

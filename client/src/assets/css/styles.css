@@ -39,6 +39,10 @@ TODO: Implement fixed styling for buttons, and generic components.
   @apply text-red-500 italic;
 }
 
+.table-input {
+  @apply rounded-xl dark:bg-gray-600 border-0 dark:text-gray-100 dark:placeholder-gray-300;
+}
+
 @tailwind utilities;
 
 @layer base {
