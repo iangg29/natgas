@@ -9,7 +9,7 @@ TODO: Implement fixed styling for buttons, and generic components.
 }
 
 .input-general {
-  @apply pl-4 pr-10 py-2 rounded-xl border-natgas-gris-cool border-2 placeholder-gray-600 focus:outline-none;
+  @apply pl-4 pr-10 py-2 rounded-[20px] border-natgas-gris-cool border-[4px] placeholder-gray-600 focus:outline-none ;
 }
 .title-general {
   @apply border-b-4 text-3xl border-natgas-gris-cool;
@@ -22,6 +22,11 @@ TODO: Implement fixed styling for buttons, and generic components.
 .primary-button {
   @apply w-48 rounded-full bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two py-4 text-sm text-white;
 }
+
+.primary-button-blue {
+  @apply w-48 rounded-full bg-gradient-to-r bg-natgas-azul py-4 text-sm text-white;
+}
+
 
 .number-bold {
   @apply text-natgas-azul font-bold font-gilroy-extrabold ml-2 dark:text-natgas-sec-one;

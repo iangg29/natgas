@@ -5,6 +5,7 @@ type Props = {
   getPage: any;
   setPage: any;
   reference: any;
+  limit : any;
 };
 
 const Pagination = ({
@@ -12,6 +13,7 @@ const Pagination = ({
   getPage,
   setPage,
   reference,
+  limit,
 }: Props): JSX.Element => {
   const handleScroll = (ref: any) => {
     ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -35,7 +37,7 @@ const Pagination = ({
       <p className="m-4 rounded-full bg-natgas-azul-claro py-2 px-4 text-xl text-white">
         {getPage}
       </p>
-      {length < 15 ? (
+      {length < limit ? (
         <></>
       ) : (
         <div

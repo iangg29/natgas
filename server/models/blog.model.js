@@ -9,7 +9,7 @@ module.exports = class extends Base {
         this.date = date;
         this.title = title;
         this.content = content;
-        this.image = image;
+        this.image = image || 'default.png';
 
         this.tableName = 'blogpost';
         this.slug = title.toLowerCase().split(' ').join('-');

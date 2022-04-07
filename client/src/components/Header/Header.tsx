@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ChevronDownIcon, LogoutIcon, UserIcon } from "@heroicons/react/solid";
-import { FaGithub, FaBars } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import logoBig from "../../assets/img/IMAGOTIPO_contorno.png";
 import logoSmall from "../../assets/img/isotipo-contorno.png";
 import { Link } from "react-router-dom";
