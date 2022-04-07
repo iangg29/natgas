@@ -36,6 +36,10 @@ class Base {
             .del();
     }
 
+    static async deleteAll() {
+        return db(this.table).del();
+    }
+
     static async getAll(queryString) {
         const features = new APIFeatures(this.table, queryString)
             .filter()
