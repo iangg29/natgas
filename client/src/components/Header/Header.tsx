@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ChevronDownIcon, LogoutIcon, UserIcon } from "@heroicons/react/solid";
-import { FaGithub, FaBars } from 'react-icons/fa';
 import logoBig from "../../assets/img/IMAGOTIPO_contorno.png";
 import logoSmall from "../../assets/img/isotipo-contorno.png";
 import { Link } from "react-router-dom";
@@ -15,7 +14,7 @@ const Header = (): JSX.Element => {
 
   return (
     <header className="shadow-bottom z-40 max-h-20 bg-natgas-azul py-4">
-      <div className="flex h-full w-full items-center relative justify-around px-6 text-gray-100">
+      <div className="relative flex h-full w-full items-center justify-around px-6 text-gray-100">
         <div className="flex items-center">
           <Link to="/app/dashboard">
             <img
@@ -34,18 +33,18 @@ const Header = (): JSX.Element => {
           <ul>
             <li>
               <Link to="/app/employees">Reporte mensual</Link>
-              <Link className = "ml-20" to="/app/employees">Blog</Link>
+              <Link className="ml-20" to="/app/employees">
+                Blog
+              </Link>
             </li>
           </ul>
-          
         </div>
-        
-        <div className = "md:invisible text-3xl absolute right-10"> <SideBar></SideBar> </div>
-        <ul className="flex flex-shrink-0 items-center space-x-6">
+
+        <ul className="flex flex-shrink-0 items-center space-x-2">
           <li>
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className=" invisible md:visible t-2 inline-flex w-full justify-center rounded-md px-4 py-2 align-middle text-sm font-medium hover:bg-opacity-30 focus:outline-none">
+                <Menu.Button className=" t-2 invisible inline-flex w-full justify-center rounded-md px-4 py-2 align-middle text-sm font-medium hover:bg-opacity-30 focus:outline-none md:visible">
                   <div
                     className="h-8 w-8 rounded-full"
                     style={{
@@ -132,6 +131,10 @@ const Header = (): JSX.Element => {
                 </Menu.Items>
               </Transition>
             </Menu>
+          </li>
+          <li className="text-4xl md:invisible">
+            {" "}
+            <SideBar></SideBar>{" "}
           </li>
         </ul>
       </div>

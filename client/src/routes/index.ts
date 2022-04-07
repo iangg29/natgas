@@ -10,9 +10,12 @@ const SolicitarVac = lazy(() => import("../pages/vacaciones/SolicitarVac"));
 const VistaSolicitud = lazy(() => import("../pages/vacaciones/VistaSolicitud"));
 const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
 const Token = lazy(() => import("../pages/utils/token"));
+const Blog = lazy(() => import("../pages/blog/Blog"));
+const FormBlog = lazy(() => import("../pages/blog/FormBlog"));
 const BuscarVacaciones = lazy(
   () => import("../pages/vacaciones/BuscarVacaciones"),
 );
+const Rangos = lazy(() => import("../pages/vacaciones/ranges/Rangos"));
 const TestPage = lazy(() => import("../pages/TestPage"));
 
 type Route = {
@@ -28,6 +31,10 @@ const routes: Route[] = [
   {
     path: "/vacations/request",
     component: SolicitarVac,
+  },
+  {
+    path: "/vacations/ranges",
+    component: Rangos,
   },
   {
     path: "/requests/pending",
@@ -66,9 +73,18 @@ const routes: Route[] = [
     component: BuscarVacaciones,
   },
   {
+    path: "/blog",
+    component: Blog,
+  },
+
+  {
+    path: "/blog/form",
+    component:FormBlog,
+  },
+  {
     path: "/TestPage",
     component: TestPage,
-  },
+  }
 ];
 
 export default routes;

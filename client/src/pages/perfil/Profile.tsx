@@ -31,7 +31,7 @@ const Profile = (): JSX.Element => {
       await axios
         .get(`/user/email/${user?.email}`)
         .then((res: AxiosResponse) => {
-          console.log(res);
+          console.log(res.data.data.document[0]);
           setProfile(res.data.data.document[0]);
         })
         .catch((err) => {

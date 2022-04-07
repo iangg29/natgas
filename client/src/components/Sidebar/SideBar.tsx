@@ -1,9 +1,9 @@
-import { ChevronDownIcon, LogoutIcon, UserIcon } from "@heroicons/react/solid";
+import { LogoutIcon, UserIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { FaGithub, FaBars } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 
 const SideBar = (): JSX.Element => {
 
@@ -12,8 +12,8 @@ const SideBar = (): JSX.Element => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flexg-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500">
-        <FaBars/> 
+        <Menu.Button className="inline-flex-gray focus:outline-none focus:ring-2 focus:ring-offset-gray-100 focus:ring-gray-500">
+          <FaBars/> 
         </Menu.Button>
       </div>
 
