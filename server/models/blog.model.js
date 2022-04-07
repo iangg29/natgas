@@ -6,7 +6,7 @@ module.exports = class extends Base {
 
     constructor({ date, title, content, image }) {
         super();
-        this.date = date;
+        this.date = new Date (date);
         this.title = title;
         this.content = content;
         this.image = image || 'default.png';
