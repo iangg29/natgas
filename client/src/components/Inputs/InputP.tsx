@@ -7,16 +7,15 @@ type Props = {
   setVal: any;
 };
 
-const InputLong = ({ getVal, setVal, label, placeholder }: Props): JSX.Element => {
+const InputP = ({ getVal, setVal, label, placeholder }: Props): JSX.Element => {
   return (
     <>
       <label>
         <div className="mb-2 text-md font-bold text-gray-700 dark:text-gray-300">
           {label}
         </div>
-        <input
-          className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-          type="text"
+        <textarea
+          className="input-general w-full h-[200%] dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200 "
           placeholder={placeholder}
           onChange={(e) => setVal(e.target.value)}
           value={getVal}
@@ -26,4 +25,4 @@ const InputLong = ({ getVal, setVal, label, placeholder }: Props): JSX.Element =
   );
 };
 
-export default InputLong;
+export default InputP;
