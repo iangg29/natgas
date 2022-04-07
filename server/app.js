@@ -66,8 +66,8 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // BODY PARSER, reading from body into req.body
-app.use(express.json({ limit: '10kb' })); // con esto le decimos que no se pase mas largo de este body
-app.use(express.urlencoded({ extended: true, limt: '10kb' })); // extended es para que nos permita hacer querys mas complejas
+app.use(express.json()); // con esto le decimos que no se pase mas largo de este body
+app.use(express.urlencoded({ extended: true })); // extended es para que nos permita hacer querys mas complejas
 app.use(cookieParser());
 
 app.use(compression());
