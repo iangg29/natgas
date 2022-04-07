@@ -19,7 +19,8 @@ const FormBlog = () => {
           form.append("title", getTitle);
           form.append("date", new Date().toLocaleDateString());
           form.append("content", getText);
-          form.append("blog_photo", selectedFile[0]);
+          form.append("blog_photo", selectedFile);
+          console.log(selectedFile[0])
 
           const res = await axios({
               method: 'POST',
@@ -44,10 +45,12 @@ const FormBlog = () => {
   }, [selectedFile])
   const onSelectFile = (e : any) => {
     if (!e.target.files || e.target.files.length === 0) {
+
         setSelectedFile(undefined)
         return
     }
     setSelectedFile(e.target.files[0])
+    console.log(e.target.files[0])
   }   
   return (
     <>
