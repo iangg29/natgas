@@ -15,7 +15,7 @@ const createUpload = () => {
             );
         }
     };
-    return (upload = multer({ storage: multerStorage, filter: multerFilter }));
+    return multer({ storage: multerStorage, filter: multerFilter });
 };
 
 exports.formatBlogImage = catchAsync(async (req, res, next) => {

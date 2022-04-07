@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-describe("Profile", function () {
-  it("Should open the page.", function () {
+describe("Profile", (): void => {
+  it("Should open the page.", (): void => {
     cy.visit("http://localhost:3000");
   });
 });

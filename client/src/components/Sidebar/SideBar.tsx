@@ -12,8 +12,8 @@ const SideBar = (): JSX.Element => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flexg-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500">
-        <FaBars/> 
+        <Menu.Button className="inline-flex-gray focus:outline-none focus:ring-2 focus:ring-offset-gray-100 focus:ring-gray-500">
+          <FaBars/> 
         </Menu.Button>
       </div>
 

@@ -39,9 +39,11 @@ const Header = (): JSX.Element => {
           </ul>
           
         </div>
-        
-        <div className = "md:invisible text-3xl absolute right-10"> <SideBar></SideBar> </div>
-        <ul className="flex flex-shrink-0 items-center space-x-6">
+      
+      
+       
+        <ul className="flex flex-shrink-0 items-center space-x-2">
+          
           <li>
             <Menu as="div" className="relative inline-block text-left">
               <div>
@@ -133,6 +135,7 @@ const Header = (): JSX.Element => {
               </Transition>
             </Menu>
           </li>
+          <li className = "md:invisible text-4xl"> <SideBar></SideBar> </li>
         </ul>
       </div>
     </header>
