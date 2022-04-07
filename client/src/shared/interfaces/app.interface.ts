@@ -16,6 +16,19 @@ export interface IEmployee {
   verified: boolean;
 }
 
+export interface IEmployment {
+  email: string;
+  name: string;
+  lastname: string;
+  vacations: number;
+  ngBlocks: number;
+  position: string;
+  departamento: string;
+  contrato: string;
+  verified: boolean;
+  number: number;
+}
+
 export interface IDepartment {
   idDepartamento: number;
   name: string;

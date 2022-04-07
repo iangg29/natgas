@@ -3,11 +3,14 @@ import axios from "axios";
 import { Listbox, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import Page from "../../containers/Page";
-import { IDepartment, IEmployee } from "../../shared/interfaces/app.interface";
+import {
+  IDepartment,
+  IEmployment,
+} from "../../shared/interfaces/app.interface";
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 
 const Employees = (): JSX.Element => {
-  const [employees, setEmployees] = useState<IEmployee[]>([]);
+  const [employees, setEmployees] = useState<IEmployment[]>([]);
   const [departments, setDepartments] = useState<IDepartment[]>([]);
   const [nameSearch, setNameSearch] = useState<string>("");
   const [numberSearch, setNumberSearch] = useState<string>("");
@@ -17,13 +20,19 @@ const Employees = (): JSX.Element => {
 
   const filterDepartment = (department: IDepartment) => {
     setSelectedDepartment(department);
+    // @ts-ignore
+    setEmployees(
+      employees.filter(
+        (employee: any) => employee.departamento === department.name,
+      ),
+    );
   };
 
   useEffect(() => {
     (async () => {
       try {
         const [employeesPromise, departmentsPromise] = await Promise.all([
-          axios.get("/user"),
+          axios.get("/user/employment"),
           axios.get("/department"),
         ]);
         setEmployees(employeesPromise.data.data.documents);
@@ -127,17 +136,21 @@ const Employees = (): JSX.Element => {
       </div>
       <hr className="my-10 rounded border-2 bg-natgas-gris-cool text-natgas-gris-cool dark:border-gray-600" />
       <div className="mt-10 grid grid-cols-1 gap-2 text-gray-50 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-        {employees?.map((employee: IEmployee, idx: number) => (
+        {employees?.map((employee: IEmployment, idx: number) => (
           <div
             key={idx}
             className="w-full rounded-lg bg-natgas-azul text-center shadow"
           >
             <h3 className="p-5 font-bold">
-              {employee.name + " " + employee.lastname}
+              {employee.name + " " + employee.lastname} -{" "}
+              {employee.departamento}
             </h3>
             <hr />
             <div className="p-2 px-5 font-semibold">
-              <p>{employee.cellphone}</p>
+              <p>
+                {employee.position} desde{" "}
+                {new Date(employee.contrato).toLocaleDateString()}
+              </p>
               <p>Número de empleado: {employee.number}</p>
             </div>
             <div className="pt-3 pb-5">
@@ -147,14 +160,6 @@ const Employees = (): JSX.Element => {
               >
                 Ver perfil
               </Link>
-              {!employee.verified ? (
-                <Link
-                  to={`/app/profile/${employee.email}/complete`}
-                  className="rounded-full bg-white px-8 py-2 text-natgas-azul"
-                >
-                  Verificar
-                </Link>
-              ) : null}
             </div>
           </div>
         ))}

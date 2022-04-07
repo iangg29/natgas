@@ -13,6 +13,7 @@ const BuscarVacaciones = (): JSX.Element => {
   const [aprobado, setAprobado] = useState(true);
   const [rechazado, setRechazado] = useState(true);
   const [pendiente, setPendiente] = useState(true);
+  const limit = 15;
   const topRef = useRef<any>(null);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const BuscarVacaciones = (): JSX.Element => {
                   : pendiente || rechazado
                   ? "status=0"
                   : "status=1"
-              }&name_like=${getName}&page=${getPage}&limit=15&${
+              }&name_like=${getName}&page=${getPage}&limit=${limit}&${
                 (rechazado || aprobado) && pendiente
                   ? "verifiedleader=1,0"
                   : rechazado || aprobado
@@ -100,6 +101,7 @@ const BuscarVacaciones = (): JSX.Element => {
         getPage={getPage}
         setPage={setPage}
         reference={topRef}
+        limit = {limit}
       />
     </Page>
   );

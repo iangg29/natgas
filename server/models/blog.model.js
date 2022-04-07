@@ -9,7 +9,7 @@ module.exports = class extends Base {
         this.date = date;
         this.title = title;
         this.content = content;
-        this.image = image;
+        this.image = image || 'default.png';
 
         this.tableName = 'blogpost';
         this.slug = title.toLowerCase().split(' ').join('-');
@@ -30,16 +30,3 @@ module.exports = class extends Base {
         });
     }
 };
-
-/*
-const db = requiere('../db/database');
-const Base = requiere('./base.model');
-
-module.exports = class extends Base{
-    static table = 'report';
-
-    constructor({nps, %hombres, %mujeres, c02, date}){
-        super();
-    }
-}
-*/

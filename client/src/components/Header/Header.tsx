@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ChevronDownIcon, LogoutIcon, UserIcon } from "@heroicons/react/solid";
-import { FaGithub, FaBars } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import logoBig from "../../assets/img/IMAGOTIPO_contorno.png";
 import logoSmall from "../../assets/img/isotipo-contorno.png";
 import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
+import SideBar from "../Sidebar/SideBar";
 
 const Header = (): JSX.Element => {
   // TODO: Display routes in navbar. (From routes/navbar.ts)
@@ -38,8 +39,11 @@ const Header = (): JSX.Element => {
           </ul>
           
         </div>
-        <div className = "md:invisible text-3xl absolute right-10"> <FaBars/> </div>
-        <ul className="flex flex-shrink-0 items-center space-x-6">
+      
+      
+       
+        <ul className="flex flex-shrink-0 items-center space-x-2">
+          
           <li>
             <Menu as="div" className="relative inline-block text-left">
               <div>
@@ -131,6 +135,7 @@ const Header = (): JSX.Element => {
               </Transition>
             </Menu>
           </li>
+          <li className = "md:invisible text-4xl"> <SideBar></SideBar> </li>
         </ul>
       </div>
     </header>
