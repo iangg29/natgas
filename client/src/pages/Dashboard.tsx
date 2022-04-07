@@ -10,7 +10,10 @@ const Dashboard = (): JSX.Element => {
   return (
     <Page title={`Bienvenid@ ${user?.name}`} headTitle="Dashboard">
       <div className="py-10">
-        <Link to="/app/requests">Requests</Link>
+        <div className="grid">
+          <Link to="/app/requests">Requests</Link>
+          <Link to="/app/vacations/ranges">Rangos</Link>
+        </div>
         <ButtonBar />
       </div>
     </Page>
