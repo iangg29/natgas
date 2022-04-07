@@ -4,12 +4,34 @@ import InputLong from '../../components/Inputs/InputLong';
 import InputP from '../../components/Inputs/InputP';
 import UploadDocument from '../../components/Inputs/UploadDocument';
 import Title from '../../components/Title/Title';
+import axios from 'axios';
 
 const FormBlog = () => {
   const [getTitle, setTitle] = useState<any>();
   const [getText, setText] = useState<any>();
   const [selectedFile, setSelectedFile] = useState<any>();
   const [preview, setPreview] = useState<any>();
+ 
+  const upload = async (e:any) => {
+      try{
+          e.preventDefault();
+          const form = new FormData();
+          form.append("title", getTitle);
+          form.append("date", new Date().toLocaleDateString());
+          form.append("content", getText);
+          form.append("blog_photo", selectedFile[0]);
+
+          const res = await axios({
+              method: 'POST',
+              url: '/blog',
+              data: form,
+          });
+
+      }catch (error : any) { 
+          alert(error.response.message);
+          console.log(error.response);
+      }
+  }
 
   useEffect(() => {
       if(!selectedFile){
@@ -41,7 +63,7 @@ const FormBlog = () => {
         <div>
             <InputP label = "Contenido" placeholder="Escribir aquí..." getVal = {getText} setVal = {setText} />
             <div className = "grid justify-center">
-                <button className = "mt-4  primary-button-blue">Subir</button>
+                <button onClick = {upload} className = "mt-4  primary-button-blue">Subir</button>
             </div>
             
         </div>
