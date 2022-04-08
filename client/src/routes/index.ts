@@ -80,16 +80,16 @@ const routes: Route[] = [
 
   {
     path: "/blog/form",
-    component:FormBlog,
+    component: FormBlog,
   },
   {
     path: "/bannerform",
-    component:FormBanner,
+    component: FormBanner,
   },
   {
     path: "/TestPage",
     component: TestPage,
-  }
+  },
 ];
 
 export default routes;

@@ -43,7 +43,7 @@ const Rangos = (): JSX.Element => {
       (async () => {
         await axios
           .delete("/rangos/delete/all")
-          .then((res) => {
+          .then((res: AxiosResponse) => {
             alert("Se han borrado todos los rangos");
             setRangos([]);
           })

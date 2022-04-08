@@ -8,10 +8,10 @@ const TestPage = (): JSX.Element => {
     <div>
       <TitleWhite title="Ejemplo" />
       <div>
-        <Background/>
+        <Background />
       </div>
       <div>
-        <Background2/>
+        <Background2 />
       </div>
     </div>
   );

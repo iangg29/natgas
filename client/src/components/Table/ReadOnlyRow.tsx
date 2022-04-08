@@ -33,12 +33,14 @@ const ReadOnlyRow = ({
           >
             <PencilAltIcon className="h-5 w-5" />
           </button>
-          {last ? <button
-            onClick={() => deleteRange(rango.idRangoVacaciones)}
-            className="font-medium text-red-600 hover:underline dark:text-red-500"
-          >
-            <TrashIcon className="h-5 w-5" />
-          </button> : null}
+          {last ? (
+            <button
+              onClick={() => deleteRange(rango.idRangoVacaciones)}
+              className="font-medium text-red-600 hover:underline dark:text-red-500"
+            >
+              <TrashIcon className="h-5 w-5" />
+            </button>
+          ) : null}
         </div>
       </td>
     </tr>

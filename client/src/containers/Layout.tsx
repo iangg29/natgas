@@ -9,8 +9,6 @@ import Footer from "../components/Footer";
 import Error404 from "../pages/404";
 
 const Layout = (): JSX.Element => {
-  // TODO: Pull, manipulate and render data from the API. (Maybe dynamic grid.)
-
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       <div className="flex w-full flex-1 flex-col">

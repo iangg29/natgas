@@ -133,8 +133,7 @@ const Header = (): JSX.Element => {
             </Menu>
           </li>
           <li className="text-4xl md:invisible">
-            {" "}
-            <SideBar></SideBar>{" "}
+            <SideBar />
           </li>
         </ul>
       </div>
