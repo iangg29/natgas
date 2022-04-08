@@ -39,22 +39,32 @@ const Rangos = (): JSX.Element => {
   };
 
   const deleteAll = (): void => {
-    if (window.confirm("¿Está seguro de que quiere borrar todo?") === true){
+    if (window.confirm("¿Está seguro de que quiere borrar todo?")) {
       (async () => {
-        await axios.delete('/rangos/delete/all').then(res =>{
-          alert("Se han borrado todos los rangos");
-          setRangos([]);
-        }).catch(err => {
-          console.trace(err);
-        });
+        await axios
+          .delete("/rangos/delete/all")
+          .then((res: AxiosResponse) => {
+            alert("Se han borrado todos los rangos");
+            setRangos([]);
+          })
+          .catch((err) => {
+            console.trace(err);
+          });
       })();
     }
   };
 
   return (
     <Page title="Rangos vacacionales" headTitle="Rangos vacacionales">
-      <CreateRange setRanges={setRangos} ranges={rangos} />
-      <button onClick={deleteAll}>Eliminar Todos</button>
+      <div className="flex flex-row justify-between">
+        <button
+          onClick={deleteAll}
+          className="rounded-full bg-red-700 px-6 py-1 text-sm text-white"
+        >
+          Eliminar Todos
+        </button>
+        <CreateRange setRanges={setRangos} ranges={rangos} />
+      </div>
       <hr className="mt-5" />
       <div className="relative mt-10 overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-center text-sm text-gray-500 dark:text-gray-400">
@@ -89,7 +99,7 @@ const Rangos = (): JSX.Element => {
                   setEditableRow={setEditableRow}
                   idx={idx}
                   rango={rango}
-                  last={(rangos.length - 1) === idx}
+                  last={rangos.length - 1 === idx}
                 />
               ),
             )}

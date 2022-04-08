@@ -1,14 +1,11 @@
-import React from 'react'
+import React from "react";
 
 type Props = {
-    title : any;
-}
+  title: any;
+};
 
-const Title = ({title} : Props) => {
-  return (
-    <div className='title-general'>{title}</div>
-    
-  )
-}
+const Title = ({ title }: Props) => {
+  return <div className="title-general">{title}</div>;
+};
 
-export default Title
+export default Title;

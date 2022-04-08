@@ -17,7 +17,6 @@ const Dashboard = (): JSX.Element => {
         </div>
         <ButtonBar />
         <TitleWhite title="Últimos Natgas Blogs" />
-       
       </div>
     </Page>
   );

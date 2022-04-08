@@ -29,7 +29,7 @@ const MisSolicitudes = (): JSX.Element => {
   return (
     <>
       <Page title="Vacaciones" headTitle="Vacaciones">
-        <div className=" grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+        <div className=" mb-10  grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
               <CardMiSolicitudVac
@@ -52,7 +52,7 @@ const MisSolicitudes = (): JSX.Element => {
         </div>
       </Page>
       <Page title="NatGas Blocks" headTitle="NatGas Blocks">
-        <div className=" grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+        <div className=" grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
               <CardMiSolicitudNGB

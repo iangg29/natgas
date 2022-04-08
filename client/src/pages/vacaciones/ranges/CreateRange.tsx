@@ -34,32 +34,39 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
   };
 
   const onSubmit: SubmitHandler<Inputs> = (data: iRangeData): void => {
-    (async () => {
-      await axios
-        .post("/rangos", data)
-        .then((res: AxiosResponse) => {
-          const newData: iRange = res.data.data.new[0];
-          setRanges([...ranges, newData]);
-        })
-        .catch((err) => {
-          console.trace(err);
-        });
-    })();
-    closeModal();
-    reset();
+    const lastMax = ranges.length <= 0 ? -1 : ranges[ranges.length - 1].maximum;
+    if (parseInt(String(data.minimum)) > lastMax) {
+      if (parseInt(String(data.maximum)) < parseInt(String(data.minimum))) {
+        alert("El valor máximo debe de ser mayor al mínimo.");
+      } else {
+        (async () => {
+          await axios
+            .post("/rangos", data)
+            .then((res: AxiosResponse) => {
+              const newData: iRange = res.data.data.new[0];
+              setRanges([...ranges, newData]);
+            })
+            .catch((err) => {
+              console.trace(err);
+            });
+        })();
+        closeModal();
+        reset();
+      }
+    } else {
+      alert(`El valor mínimo debe de ser mayor a ${lastMax}`);
+    }
   };
 
   return (
     <>
-      <div className="text-right">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-natgas-verde px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-        >
-          <PlusCircleIcon className="h-5 w-5" />
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={openModal}
+        className="rounded-md bg-natgas-verde px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+      >
+        <PlusCircleIcon className="h-5 w-5" />
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
