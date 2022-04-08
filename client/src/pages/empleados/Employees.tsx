@@ -1,4 +1,10 @@
-import React, { ChangeEvent, Fragment, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import axios from "axios";
 import { Listbox, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
@@ -8,15 +14,21 @@ import {
   IEmployment,
 } from "../../shared/interfaces/app.interface";
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
+import Pagination from "../../components/Inputs/Pagination";
 
 const Employees = (): JSX.Element => {
   const [employees, setEmployees] = useState<IEmployment[]>([]);
   const [departments, setDepartments] = useState<IDepartment[]>([]);
+
   const [nameSearch, setNameSearch] = useState<string>("");
   const [numberSearch, setNumberSearch] = useState<string>("");
   const [selectedDepartment, setSelectedDepartment] = useState<IDepartment>(
     departments[0],
   );
+
+  const [page, setPage] = useState<number>(1);
+  const topRef = useRef<any>(null);
+  const limit = 25;
 
   const filterDepartment = (department: IDepartment) => {
     setSelectedDepartment(department);
@@ -32,7 +44,9 @@ const Employees = (): JSX.Element => {
     (async () => {
       try {
         const [employeesPromise, departmentsPromise] = await Promise.all([
-          axios.get("/user/employment"),
+          axios.get(
+            `/user/employment?name_like=${nameSearch}&number_like=${numberSearch}&sort=number&limit=${limit}&page=${page}`,
+          ),
           axios.get("/department"),
         ]);
         setEmployees(employeesPromise.data.data.documents);
@@ -42,12 +56,15 @@ const Employees = (): JSX.Element => {
         console.trace(err);
       }
     })();
-  }, []);
+  }, [page, nameSearch, numberSearch]);
 
   return (
     <Page title="Empleados" headTitle="Empleados">
       <h2 className="text-lg font-semibold">Buscar empleados</h2>
-      <div className="mt-5 grid grid-cols-1 content-center items-center space-y-2 md:grid-cols-3 md:space-y-0">
+      <div
+        className="mt-5 grid grid-cols-1 content-center items-center space-y-2 md:grid-cols-3 md:space-y-0"
+        ref={topRef}
+      >
         <div className="w-full">
           <Listbox value={selectedDepartment} onChange={filterDepartment}>
             <div className="relative">
@@ -164,6 +181,13 @@ const Employees = (): JSX.Element => {
           </div>
         ))}
       </div>
+      <Pagination
+        length={employees.length}
+        getPage={page}
+        setPage={setPage}
+        reference={topRef}
+        limit={limit}
+      />
     </Page>
   );
 };

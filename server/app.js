@@ -8,6 +8,7 @@ const cors = require('cors');
 const compression = require('compression');
 
 // ROUTERS
+const bannerRouter = require('./routes/banner.routes');
 const blogRouter = require('./routes/blog.routes');
 const userRouter = require('./routes/user.routes');
 const natgasblockRouter = require('./routes/natgasblock.routes');
@@ -15,6 +16,7 @@ const vacationsRouter = require('./routes/vacation.routes');
 const reportRouter = require('./routes/report.routes');
 const rowRouter = require('./routes/row.routes');
 const departmentRouter = require('./routes/department.routes');
+const rangosVacacionesRouter = require('./routes/rangovacaciones.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -33,6 +35,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 // SERVING STATIC FILES
 app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/public/blog`));
 
 // SECURITY HEADERS
 app.use(
@@ -64,8 +67,8 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // BODY PARSER, reading from body into req.body
-app.use(express.json({ limit: '10kb' })); // con esto le decimos que no se pase mas largo de este body
-app.use(express.urlencoded({ extended: true, limt: '10kb' })); // extended es para que nos permita hacer querys mas complejas
+app.use(express.json()); // con esto le decimos que no se pase mas largo de este body
+app.use(express.urlencoded({ extended: true })); // extended es para que nos permita hacer querys mas complejas
 app.use(cookieParser());
 
 app.use(compression());
@@ -77,6 +80,7 @@ app.get('/', (req, res) =>
             'Welcome to the natgas API, try hitting the /API/<yourResource> routes to know more',
     })
 );
+app.use('/api/banner/', bannerRouter);
 app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);
 app.use('/api/natgasblock/', natgasblockRouter);
@@ -84,6 +88,7 @@ app.use('/api/vacation/', vacationsRouter);
 app.use('/api/report/', reportRouter);
 app.use('/api/row/', rowRouter);
 app.use('/api/department/', departmentRouter);
+app.use('/api/rangos/', rangosVacacionesRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterisco dice que en cualquiera salte

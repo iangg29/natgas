@@ -1,4 +1,8 @@
 ### Node ###
+# images
+public/blog/blog-[0-9]*.jpeg
+public/banner/news-[0-9]*.jpeg
+
 # Logs
 logs
 *.log

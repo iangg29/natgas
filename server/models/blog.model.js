@@ -6,10 +6,10 @@ module.exports = class extends Base {
 
     constructor({ date, title, content, image }) {
         super();
-        this.date = date;
+        this.date = new Date (date);
         this.title = title;
         this.content = content;
-        this.image = image;
+        this.image = image || 'default.png';
 
         this.tableName = 'blogpost';
         this.slug = title.toLowerCase().split(' ').join('-');

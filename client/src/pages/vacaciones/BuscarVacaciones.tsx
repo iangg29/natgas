@@ -9,10 +9,11 @@ import Page from "../../containers/Page";
 const BuscarVacaciones = (): JSX.Element => {
   const [getVacations, setVacations] = useState<any[]>([]);
   const [getName, setName] = useState<string>("");
-  const [getPage, setPage] = useState<any>(1);
-  const [aprobado, setAprobado] = useState(true);
-  const [rechazado, setRechazado] = useState(true);
-  const [pendiente, setPendiente] = useState(true);
+  const [getPage, setPage] = useState<number>(1);
+  const [aprobado, setAprobado] = useState<boolean>(true);
+  const [rechazado, setRechazado] = useState<boolean>(true);
+  const [pendiente, setPendiente] = useState<boolean>(true);
+  const limit = 15;
   const topRef = useRef<any>(null);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const BuscarVacaciones = (): JSX.Element => {
                   : pendiente || rechazado
                   ? "status=0"
                   : "status=1"
-              }&name_like=${getName}&page=${getPage}&limit=15&${
+              }&name_like=${getName}&page=${getPage}&limit=${limit}&${
                 (rechazado || aprobado) && pendiente
                   ? "verifiedleader=1,0"
                   : rechazado || aprobado
@@ -74,7 +75,7 @@ const BuscarVacaciones = (): JSX.Element => {
       <div className="py-5">
         <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
-            getVacations.map((vac, idx) => (
+            getVacations.map((vac, idx: number) => (
               <CardMiSolicitudVac
                 name={vac.name + " " + vac.lastname}
                 department={vac.departamento}
@@ -100,6 +101,7 @@ const BuscarVacaciones = (): JSX.Element => {
         getPage={getPage}
         setPage={setPage}
         reference={topRef}
+        limit={limit}
       />
     </Page>
   );
