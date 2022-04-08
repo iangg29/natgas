@@ -34,6 +34,7 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top" as const,
@@ -57,7 +58,7 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
         setRows(departments.data.data.documents);
         setLabels(
           departments.data.data.documents
-            .map((row:any) => new Date(row.date).toLocaleDateString())
+            .map((row: any) => new Date(row.date).toLocaleDateString())
             .reverse(),
         );
       } catch (error: any) {
@@ -69,24 +70,24 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
   return (
     <Background bgColor="bg-[#007DBA] my-20">
       <TitleWhite title={name} />
-      <br/>
-      <div className="flex justify-center items-center">
-      <div className="align-center h-[80vh] w-[80vw] flex-col">
-        <Bar
-          options={options}
-          data={{
-            labels: getLabels,
-            datasets: [
-              {
-                label: name,
-                data: getRows.map((row) => row.value).reverse(),
-                backgroundColor: "#43B02A",
-              },
-            ],
-          }}
-        />
+      <br />
+      <div className="flex items-center justify-center">
+        <div className="align-center h-[60vh] w-[80vw] flex-col">
+          <Bar
+            options={options}
+            data={{
+              labels: getLabels,
+              datasets: [
+                {
+                  label: name,
+                  data: getRows.map((row) => row.value).reverse(),
+                  backgroundColor: "#43B02A",
+                },
+              ],
+            }}
+          />
+        </div>
       </div>
-     </div>
     </Background>
   );
 };
