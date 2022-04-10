@@ -2,12 +2,9 @@ import { LogoutIcon, UserIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { FaBars } from "react-icons/fa";
 
 const SideBar = (): JSX.Element => {
-  const { user, logout } = useAuth0();
-
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -39,11 +36,11 @@ const SideBar = (): JSX.Element => {
                   <div
                     className="h-8 w-8 rounded-full"
                     style={{
-                      background: `url(${user?.picture}) center center no-repeat`,
+                      background: `url() center center no-repeat`,
                       backgroundSize: "cover",
                     }}
                   />
-                  <span className="ml-2">{user?.name}</span>
+                  <span className="ml-2">Natgas</span>
                 </div>
               )}
             </Menu.Item>
@@ -116,7 +113,6 @@ const SideBar = (): JSX.Element => {
                       ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
                       : "text-gray-900 dark:text-gray-100"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  onClick={() => logout({ returnTo: window.location.origin })}
                 >
                   {active ? (
                     <LogoutIcon

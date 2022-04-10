@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
 import CardMiSolicitudNGB from "../../components/Cards/CardMiSolicitudNGB";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import Page from "../../containers/Page";
 
 const MisSolicitudes = (): JSX.Element => {
-  const { user } = useAuth0();
-
   const [getVacations, setVacations] = useState<any[]>([]);
   const [getNatgasBlocks, setNatgasBlocks] = useState<any[]>([]);
+
+  const email = "jbelmonte@natgas.com";
 
   React.useEffect(() => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/myvacationrequests/${user?.email}`),
-          axios.get(`/natgasblock/myngbrequests/${user?.email}`),
+          axios.get(`/vacation/myvacationrequests/${email}`),
+          axios.get(`/natgasblock/myngbrequests/${email}`),
         ]);
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);
@@ -24,7 +23,7 @@ const MisSolicitudes = (): JSX.Element => {
         alert(error.message);
       }
     })();
-  }, [user?.email]);
+  }, [email]);
 
   return (
     <>

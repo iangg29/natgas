@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Loading from "../utils/Loading";
 import Main from "../containers/Main";
@@ -36,4 +35,4 @@ const Layout = (): JSX.Element => {
   );
 };
 
-export default withAuthenticationRequired(Layout);
+export default Layout;

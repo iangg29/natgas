@@ -26,6 +26,7 @@ const FormBlog = () => {
         url: "/blog",
         data: form,
       });
+      console.log(res);
     } catch (error: any) {
       alert(error.response.message);
       console.log(error.response);
@@ -63,6 +64,7 @@ const FormBlog = () => {
       <div className="mt-10 grid justify-center font-bold">
         <Title title={getTitle} />
         <img
+          alt={getTitle}
           src={preview}
           className="mt-10  rounded-md object-cover  sm:h-[250px] sm:w-[250px] md:h-[500px] md:w-[500px]"
         />

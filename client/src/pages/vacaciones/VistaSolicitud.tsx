@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import CardSolicitud from "../../components/Cards/CardSolicitud";
 import CardSolicitudVac from "../../components/Cards/CardSolicitudVac";
 import axios from "axios";
 import Page from "../../containers/Page";
 
 const VistaSolicitud = (): JSX.Element => {
-  const { user } = useAuth0();
+  const email = "jbelmonte@natgas.com";
 
   const [getVacations, setVacations] = React.useState<any[]>([]);
   const [getNatgasBlocks, setNatgasBlocks] = React.useState<any[]>([]);
@@ -15,8 +14,8 @@ const VistaSolicitud = (): JSX.Element => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/mypendingvacationrequests/${user?.email}`),
-          axios.get(`/natgasblock/mypendingngbrequests/${user?.email}`),
+          axios.get(`/vacation/mypendingvacationrequests/${email}`),
+          axios.get(`/natgasblock/mypendingngbrequests/${email}`),
         ]);
 
         setVacations(myVacations.data.vacationrequests);
@@ -25,7 +24,7 @@ const VistaSolicitud = (): JSX.Element => {
         alert(error.message);
       }
     })();
-  }, [user?.email]);
+  }, [email]);
 
   const approveNGB = async (id: string) => {
     try {

@@ -40,6 +40,7 @@ const FormBanner = () => {
         <img
           src={previewB}
           className="mt-10  rounded-md object-cover  sm:h-[250px] sm:w-[250px] md:h-[500px] md:w-[500px]"
+          alt={getTitleB}
         />
       </div>
       <div className="grid justify-center">

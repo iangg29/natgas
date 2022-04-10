@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { ChevronDownIcon, LogoutIcon, UserIcon } from "@heroicons/react/solid";
 import logoBig from "../../assets/img/IMAGOTIPO_contorno.png";
 import logoSmall from "../../assets/img/isotipo-contorno.png";
@@ -8,10 +7,6 @@ import { Menu, Transition } from "@headlessui/react";
 import SideBar from "../Sidebar/SideBar";
 
 const Header = (): JSX.Element => {
-  // TODO: Display routes in navbar. (From routes/navbar.ts)
-
-  const { user, logout } = useAuth0();
-
   return (
     <header className="shadow-bottom z-40 max-h-20 bg-natgas-azul py-4">
       <div className="relative flex h-full w-full items-center justify-around px-6 text-gray-100">
@@ -48,12 +43,12 @@ const Header = (): JSX.Element => {
                   <div
                     className="h-8 w-8 rounded-full"
                     style={{
-                      background: `url(${user?.picture}) center center no-repeat`,
+                      background: `url() center center no-repeat`,
                       backgroundSize: "cover",
                     }}
                   />
                   <div className="ml-2 mt-1 inline-flex content-center items-center justify-center">
-                    <span className="ml-2">{user?.name}</span>
+                    <span className="ml-2">Natgas</span>
                     <ChevronDownIcon
                       className="ml-2 -mr-1 h-5 w-5 text-white hover:text-natgas-azul-claro"
                       aria-hidden="true"
@@ -108,9 +103,6 @@ const Header = (): JSX.Element => {
                               ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
                               : "text-gray-900 dark:text-gray-100"
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                          onClick={() =>
-                            logout({ returnTo: window.location.origin })
-                          }
                         >
                           {active ? (
                             <LogoutIcon
