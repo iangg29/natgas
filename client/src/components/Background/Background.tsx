@@ -1,10 +1,8 @@
 import React from "react";
 
-const Background = () => {
+const Background = (): JSX.Element => {
   return (
-    <div className="matrix relative h-72 w-full bg-gradient-to-r from-[#00A99D] to-[#098B90]">
-      {" "}
-    </div>
+    <div className="relative matrix w-full h-full bg-gradient-to-r from-[#00A99D] to-[#098B90]"></div>
   );
 };
 
