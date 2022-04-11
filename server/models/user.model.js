@@ -39,4 +39,13 @@ module.exports = class extends Base {
             number,
         });
     }
+
+    async correctPassword() {
+        // const candidate
+        return await bcrypt.compare(this.password, userPassword);
+    }
+    static async correctPassword(candidatePassword, userPassword) {
+        // const candidate
+        return await bcrypt.compare(candidatePassword, userPassword);
+    }
 };
