@@ -18,6 +18,8 @@ const rowRouter = require('./routes/row.routes');
 const departmentRouter = require('./routes/department.routes');
 const rangosVacacionesRouter = require('./routes/rangovacaciones.routes');
 
+const authController = require('./controllers/auth.controller');
+
 // APP ERROR
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
