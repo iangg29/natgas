@@ -17,6 +17,7 @@ const reportRouter = require('./routes/report.routes');
 const rowRouter = require('./routes/row.routes');
 const departmentRouter = require('./routes/department.routes');
 const rangosVacacionesRouter = require('./routes/rangovacaciones.routes');
+const authRouter = require('./routes/auth.routes');
 
 const authController = require('./controllers/auth.controller');
 
@@ -82,6 +83,8 @@ app.get('/', (req, res) =>
             'Welcome to the natgas API, try hitting the /API/<yourResource> routes to know more',
     })
 );
+app.use('/auth', authRouter);
+app.use(authController.protect);
 app.use('/api/banner/', bannerRouter);
 app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);

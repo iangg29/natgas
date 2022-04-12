@@ -8,6 +8,7 @@ module.exports = class extends Base {
 
     constructor({ name, lastname, email, password, passwordConfirm }) {
         super();
+        this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
@@ -40,12 +41,7 @@ module.exports = class extends Base {
         });
     }
 
-    async correctPassword() {
-        // const candidate
-        return await bcrypt.compare(this.password, userPassword);
-    }
     static async correctPassword(candidatePassword, userPassword) {
-        // const candidate
         return await bcrypt.compare(candidatePassword, userPassword);
     }
 };

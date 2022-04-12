@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
-const db = require('../db/database');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const User = require('./../models/user.model');
@@ -36,6 +36,8 @@ const createSendToken = (user, statusCode, req, res) => {
 
     // Remove password from output
     user.password = undefined;
+    user.passwordConfirm = undefined;
+    user.tableName = undefined;
 
     res.status(statusCode).json({
         status: 'success',
@@ -55,29 +57,71 @@ exports.signUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
     });
 
-    newUser.save();
+    await newUser.save();
 
     return createSendToken(newUser, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
-    // con estos vamos a checar
-    // 1 checar si email y password existen
+
     if (!email || !password) {
-        // despues de llamar el next queremos que esta funcion termine
         return next(new AppError('Please provide email and password', 400));
     }
 
     // 2 checar si existe un usuario y si son correctas
-    const user = await User.findOne({ email }).select('+password'); //con el plus antes dle nombre agarramos los que tienen select false
-    // ya con esto lo tenemos hasheado pero debemos compararla con la original, esto va en el model porque s erefiere al negocio
-    // const correct = await user.correctPassword(password, user.password); //esta es una funcion de instancia, por eso esta en el resultado
+    const user = (await User.getOne('email', email))[0];
 
-    if (!user || !(await user.correctPassword(password, user.password))) {
-        return next(new AppError('Incorrect email or password', 401));
+    if (!user) return next(new AppError('Incorrect email', 401));
+
+    console.log(password, user.password);
+    const isCorrect = await User.correctPassword(password, user.password);
+    if (!isCorrect) {
+        return next(new AppError('Incorrect password', 401));
     } // si hasta aqui no ha mandado alv ps ya llegamos a lo bueno
 
     // 3 enviar la JWT de regreso al cliente
     createSendToken(user, 201, req, res);
+});
+
+exports.logout = (req, res, next) => {
+    res.cookie('jwt', 'loggedout', {
+        expires: new Date(Date.now() + 10 * 1000),
+    });
+    res.status(200).json({ status: 'success' });
+};
+
+exports.protect = catchAsync(async (req, res, next) => {
+    // 1) Getting the token and check if its there
+    let token;
+    if (
+        // es un estandard que el token vaya con este header y con el Bearer antes
+        req.headers.authorization &&
+        req.headers.authorization.startsWith('Bearer')
+    ) {
+        token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
+    }
+
+    if (!token) {
+        return next(
+            new AppError(
+                'You are not logged in. Please log in to get access',
+                401
+            )
+        );
+    }
+    // 2) Verification: Validate the token to view if the signature is valid
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+    // 3) Check if user still exists
+    const user = (await User.getOne('email', decoded.email))[0];
+    if (!user) {
+        return next(new AppError('The user does not longer exists', 401));
+    }
+
+    // 5) Next is called and the req accesses the protected route
+    req.user = user; //podria ser util
+    next();
 });
