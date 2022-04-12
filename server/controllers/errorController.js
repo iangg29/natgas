@@ -48,15 +48,10 @@ module.exports = (err, req, res, next) => {
         sendErrorDev(err, req, res);
     } else if (process.env.NODE_ENV === 'production') {
         // con esto identificaremos los errores de validación
-        // let error = Object.create(err);
-        // // con el create obtenemos hasta al padre en una copia
-        // if (err.name === 'CastError') error = handleCastErrorDB(err);
-        // if (err.code === 11000) error = handleDuplicateFieldsDB(err);
-        // if (err.name === 'ValidationError')
-        //     error = handleValidationErrorDB(err);
-        // if (err.name === 'JsonWebTokenError') error = handleJWTError(err);
-        // if (err.name === 'TokenExpiredError')
-        //     error = handleJWTExpiredError(err);
+        let error = Object.create(err);
+        if (err.name === 'JsonWebTokenError') error = handleJWTError(err);
+        if (err.name === 'TokenExpiredError')
+            error = handleJWTExpiredError(err);
         sendErrorProduction(error, req, res);
     }
 };

@@ -1,7 +1,12 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
-// esta es la generalizacion, esta va a funcionar para cada modelo
+/**
+ * Delete all rows from a table in the database.
+ * @constructor
+ * @param {string} Model - The Model of the table to delete.
+ * @param {array} field - The field to be searched when deleting
+ */
 exports.deleteOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
         await Model.deleteOne(field, req.params.id);
@@ -12,7 +17,7 @@ exports.deleteOne = (Model, field) =>
     });
 
 exports.deleteAll = (Model) =>
-    catchAsync(async(req, res) =>{
+    catchAsync(async (req, res) => {
         await Model.deleteAll();
         res.status(204).json({
             status: 'success',
@@ -24,7 +29,6 @@ exports.updateOne = (Model, field) =>
         const doc = await Model.updateOne(field, req.params.id, req.body);
 
         if (!doc[0]) {
-            // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
             const error = new AppError('No document found with that ID', 404);
             return next(error);
         }
@@ -50,13 +54,11 @@ exports.createOne = (Model) =>
 
 exports.getOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
-        const document = await Model.getOne(field, req.params.id);
-
-        // if (!document[0]) {
-        //     // ESTE ES SOLO PARA IDS QUE TENGAN FORMATO VALIDO
-        //     const error = new AppError('No document found with that ID', 404);
-        //     return next(error);
-        // }
+        const document = await Model.getOneLimit(
+            field,
+            req.params.id,
+            req.query
+        );
 
         res.status(200).json({
             status: 'success',

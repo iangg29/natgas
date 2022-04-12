@@ -6,12 +6,20 @@ class Base {
 
     constructor() {}
 
-    static getOne(field, id) {
+    static async getOne(field, id) {
         return db(this.table)
             .select('*')
             .where({
                 [field]: id,
             });
+    }
+    static async getOneLimit(field, id, queryString) {
+        const features = new APIFeatures(this.table, queryString)
+            .filter()
+            .limitFields();
+        return features.query.where({
+            [field]: id,
+        });
     }
 
     static async updateOne(field, id, body) {
