@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import InputLong from "../../components/Inputs/InputLong";
 import DateInputLong from "../../components/Inputs/DateInputLong";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
@@ -7,11 +6,11 @@ import axios from "axios";
 import Page from "../../containers/Page";
 
 const SolicitarVac = (): JSX.Element => {
-  const { user } = useAuth0();
-
   const [getStartDate, setStartdate] = useState<string>();
   const [getEndDate, setEndDate] = useState<string>();
   const [getSuplente, setSuplente] = useState<string>();
+
+  const email = "jbelmonte@natgas.com";
 
   const sendDate = async () => {
     try {
@@ -19,7 +18,7 @@ const SolicitarVac = (): JSX.Element => {
         startdate: getStartDate,
         enddate: getEndDate,
         substitute: getSuplente,
-        email: user?.email,
+        email: email,
       });
       alert("Petición de vacación creada correctamente");
       setEndDate("");
@@ -31,7 +30,11 @@ const SolicitarVac = (): JSX.Element => {
   };
 
   return (
-    <Page title="Solicitar Vacaciones" headTitle="Solicitar vacaciones">
+    <Page
+      title="Solicitar Vacaciones"
+      headTitle="Solicitar vacaciones"
+      padding={true}
+    >
       <div className="py-10">
         <div className="grid grid-cols-1">
           <div className="grid grid-rows-3">

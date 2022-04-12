@@ -1,22 +1,22 @@
-import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
-import { iRange, iRangeData } from "../../../shared/interfaces/app.interface";
-import { PlusCircleIcon } from "@heroicons/react/solid";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { iNews, iNewsData } from "../../shared/interfaces/app.interface";
 import axios, { AxiosResponse } from "axios";
+import { PlusCircleIcon } from "@heroicons/react/solid";
+import { Dialog, Transition } from "@headlessui/react";
 
 type Props = {
-  setRanges: (value: ((prevState: iRange[]) => iRange[]) | iRange[]) => void;
-  ranges: iRange[];
+  setNews: (value: ((prevState: iNews[]) => iNews[]) | iNews[]) => void;
+  news: iNews[];
 };
 
 type Inputs = {
-  maximum: number;
-  minimum: number;
-  days: number;
+  name: string;
+  date: string;
+  image: any;
 };
 
-const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
+const CreateNews = ({ news, setNews }: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
@@ -33,29 +33,27 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
     setIsOpen(true);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (data: iRangeData): void => {
-    const lastMax = ranges.length <= 0 ? -1 : ranges[ranges.length - 1].maximum;
-    if (parseInt(String(data.minimum)) > lastMax) {
-      if (parseInt(String(data.maximum)) < parseInt(String(data.minimum))) {
-        alert("El valor máximo debe de ser mayor al mínimo.");
-      } else {
-        (async () => {
-          await axios
-            .post("/rangos", data)
-            .then((res: AxiosResponse) => {
-              const newData: iRange = res.data.data.new[0];
-              setRanges([...ranges, newData]);
-            })
-            .catch((err) => {
-              console.trace(err);
-            });
-        })();
-        closeModal();
-        reset();
-      }
-    } else {
-      alert(`El valor mínimo debe de ser mayor a ${lastMax}`);
-    }
+  const onSubmit: SubmitHandler<Inputs> = (data: iNewsData): void => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("date", data.date);
+    formData.append("news_photo", data.image[0]);
+    (async () => {
+      await axios({
+        method: "POST",
+        url: "/news",
+        data: formData,
+      })
+        .then((res: AxiosResponse) => {
+          const newData: iNews = res.data.data.new[0];
+          setNews([...news, newData]);
+        })
+        .catch((err) => {
+          console.trace(err);
+        });
+    })();
+    closeModal();
+    reset();
   };
 
   return (
@@ -86,8 +84,6 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
             >
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
@@ -108,48 +104,49 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
                   as="h3"
                   className="text-xl font-bold leading-6 text-gray-100"
                 >
-                  Crear intervalo
+                  Crear anuncio
                 </Dialog.Title>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  encType="multipart/form-data"
+                >
                   <div className="my-4 flex flex-col space-y-3">
                     <input
-                      type="number"
-                      min={0}
-                      placeholder="Valor mínimo..."
+                      type="text"
+                      placeholder="Nombre..."
                       className="modal-input"
-                      {...register("minimum", {
+                      {...register("name", {
                         required: true,
                       })}
                     />
-                    {errors.minimum && (
+                    {errors.name && (
                       <span className="required-input-feedback">
                         El campo es requerido.
                       </span>
                     )}
                     <input
-                      type="number"
-                      min={0}
-                      {...register("maximum", {
+                      type="date"
+                      {...register("date", {
                         required: true,
                       })}
-                      placeholder="Valor máximo..."
+                      placeholder="Fecha..."
                       className="modal-input"
                     />
-                    {errors.maximum && (
+                    {errors.date && (
                       <span className="required-input-feedback">
                         El campo es requerido.
                       </span>
                     )}
                     <input
-                      type="number"
-                      min={0}
-                      {...register("days", {
+                      type="file"
+                      accept="image/*"
+                      {...register("image", {
                         required: true,
                       })}
-                      placeholder="Días de vacaciones..."
+                      placeholder="Imagen..."
                       className="modal-input"
                     />
-                    {errors.days && (
+                    {errors.image && (
                       <span className="required-input-feedback">
                         El campo es requerido.
                       </span>
@@ -173,4 +170,4 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
   );
 };
 
-export default CreateRange;
+export default CreateNews;

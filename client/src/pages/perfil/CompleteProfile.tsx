@@ -48,7 +48,11 @@ const CompleteProfile = (): JSX.Element => {
   }, [email]);
 
   return (
-    <Page title={`Completar perfil (${email})`} headTitle="Completar perfil">
+    <Page
+      title={`Completar perfil (${email})`}
+      headTitle="Completar perfil"
+      padding={true}
+    >
       <h1>{employee.email}</h1>
     </Page>
   );

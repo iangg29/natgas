@@ -4,7 +4,7 @@ import Page from "../../containers/Page";
 
 const AprobarSolicitudes = () => {
   return (
-    <Page title="Vacaciones" headTitle="Vacaciones">
+    <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
       <div className=" grid  gap-4 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
         <CardMiSolicitud
           name="Armando Gutiérrez"

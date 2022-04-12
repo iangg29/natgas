@@ -53,30 +53,8 @@ const EditableRow = ({
 
   return (
     <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-      <td className="px-6 py-4">
-        <input
-          type="number"
-          min={0}
-          placeholder="Valor mínimo..."
-          className="table-input"
-          defaultValue={rango.minimum}
-          {...register("minimum", {
-            required: true,
-          })}
-        />
-      </td>
-      <td className="px-6 py-4">
-        <input
-          type="number"
-          min={0}
-          placeholder="Valor máximo..."
-          className="table-input"
-          defaultValue={rango.maximum}
-          {...register("maximum", {
-            required: true,
-          })}
-        />
-      </td>
+      <td className="px-6 py-4">{rango.minimum}</td>
+      <td className="px-6 py-4">{rango.maximum}</td>
       <td className="px-6 py-4">
         <input
           type="number"

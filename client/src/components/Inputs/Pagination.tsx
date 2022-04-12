@@ -5,7 +5,7 @@ type Props = {
   getPage: any;
   setPage: any;
   reference: any;
-  limit : any;
+  limit: any;
 };
 
 const Pagination = ({

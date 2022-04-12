@@ -7,11 +7,16 @@ type Props = {
   setVal: any;
 };
 
-const InputLong = ({ getVal, setVal, label, placeholder }: Props): JSX.Element => {
+const InputLong = ({
+  getVal,
+  setVal,
+  label,
+  placeholder,
+}: Props): JSX.Element => {
   return (
     <>
       <label>
-        <div className="mb-2 text-md font-bold text-gray-700 dark:text-gray-300">
+        <div className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
           {label}
         </div>
         <input

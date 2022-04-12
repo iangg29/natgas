@@ -1,16 +1,14 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Helmet } from "react-helmet";
 import natgas from "../assets/img/NATGAS-2.jpg";
 import logo from "../assets/img/IMAGOTIPO_contorno.png";
+import { Link } from "react-router-dom";
 
 const Landing = (): JSX.Element => {
   // TODO: Implement final design.
 
-  const { loginWithRedirect } = useAuth0();
-
   return (
-     <>
+    <>
       <Helmet>
         <title>NatGas - Recursos Humanos</title>
       </Helmet>
@@ -23,16 +21,9 @@ const Landing = (): JSX.Element => {
       >
         <div className="mx-auto max-w-lg text-center">
           <img src={logo} alt="Natgas" className="mx-auto h-52 animate-pulse" />
-          <button
-            className="main-button"
-            onClick={() =>
-              loginWithRedirect({
-                redirectUri: `${process.env.REACT_APP_DOMAIN}/app`,
-              })
-            }
-          >
+          <Link to="/app/dashboard" className="main-button">
             Iniciar sesión
-          </button>
+          </Link>
         </div>
       </div>
     </>

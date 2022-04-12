@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
 import CardMiSolicitudNGB from "../../components/Cards/CardMiSolicitudNGB";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import Page from "../../containers/Page";
 
 const MisSolicitudes = (): JSX.Element => {
-  const { user } = useAuth0();
-
   const [getVacations, setVacations] = useState<any[]>([]);
   const [getNatgasBlocks, setNatgasBlocks] = useState<any[]>([]);
+
+  const email = "jbelmonte@natgas.com";
 
   React.useEffect(() => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/myvacationrequests/${user?.email}`),
-          axios.get(`/natgasblock/myngbrequests/${user?.email}`),
+          axios.get(`/vacation/myvacationrequests/${email}`),
+          axios.get(`/natgasblock/myngbrequests/${email}`),
         ]);
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);
@@ -24,12 +23,12 @@ const MisSolicitudes = (): JSX.Element => {
         alert(error.message);
       }
     })();
-  }, [user?.email]);
+  }, [email]);
 
   return (
     <>
-      <Page title="Vacaciones" headTitle="Vacaciones">
-        <div className=" grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
+        <div className=" mb-10  grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
               <CardMiSolicitudVac
@@ -51,8 +50,8 @@ const MisSolicitudes = (): JSX.Element => {
           )}
         </div>
       </Page>
-      <Page title="NatGas Blocks" headTitle="NatGas Blocks">
-        <div className=" grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      <Page title="NatGas Blocks" headTitle="NatGas Blocks" padding={true}>
+        <div className=" grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
               <CardMiSolicitudNGB

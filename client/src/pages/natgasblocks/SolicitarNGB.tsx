@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import DateInputLong from "../../components/Inputs/DateInputLong";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import axios from "axios";
 import Page from "../../containers/Page";
 
 const SolicitarNGB = (): JSX.Element => {
-  const { user } = useAuth0();
-
   const [getDate, setDate] = useState<string>();
   const [getRadio, setRadio] = useState<number>(0);
+
+  const email = "jbelmonte@natgas.com";
 
   const sendNGBRequest = async () => {
     try {
       await axios.post("/natgasblock/", {
         date: getDate,
         period: getRadio,
-        email: user?.email,
+        email: email,
       });
       alert("Petición de Natgas Block creada correctamente");
       setDate("");
@@ -28,7 +27,11 @@ const SolicitarNGB = (): JSX.Element => {
   };
 
   return (
-    <Page title="Solicitar NatGas Block" headTitle="Solicitar NGB">
+    <Page
+      title="Solicitar NatGas Block"
+      headTitle="Solicitar NGB"
+      padding={true}
+    >
       <div className="grid grid-cols-1">
         <DateInputLong
           getVal={getDate}

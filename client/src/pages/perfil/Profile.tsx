@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import Page from "../../containers/Page";
 import axios, { AxiosResponse } from "axios";
 import { IEmployee } from "../../shared/interfaces/app.interface";
@@ -24,12 +23,13 @@ const Profile = (): JSX.Element => {
     vacations: 0,
     verified: false,
   });
-  const { user } = useAuth0();
+
+  const email = "jbelmonte@natgas.com";
 
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/user/email/${user?.email}`)
+        .get(`/user/email/${email}`)
         .then((res: AxiosResponse) => {
           console.log(res.data.data.document[0]);
           setProfile(res.data.data.document[0]);
@@ -38,10 +38,10 @@ const Profile = (): JSX.Element => {
           console.trace(err);
         });
     })();
-  }, [user]);
+  }, [email]);
 
   return (
-    <Page title="Mi perfil" headTitle="Mi perfil">
+    <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
       <div className="font-gilroy-light">
         <hr />
         <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">

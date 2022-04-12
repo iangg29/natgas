@@ -1,30 +1,30 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import Page from "../containers/Page";
 import ButtonBar from "../components/ButtonBar/ButtonBar";
 import { Link } from "react-router-dom";
-import CardBlogs from "../components/Cards/CardBlogs";
-import TitleWhite from "../components/Title/TitleWhite";
+import DashCarousel from "../components/Carousel/DashCarousel";
+import { Helmet } from "react-helmet";
 
 const Dashboard = (): JSX.Element => {
-  const { user } = useAuth0();
-
   return (
-    <Page title={`Bienvenid@ ${user?.name}`} headTitle="Dashboard">
-      <div className="py-10">
-        <div className="grid">
-          <Link to="/app/requests">Requests</Link>
-          <Link to="/app/vacations/ranges">Rangos</Link>
+    <>
+      <Helmet>
+        <title>Dashboard</title>
+      </Helmet>
+      <div className="overflow-hidden">
+        <div className="container mx-auto mb-5 p-10">
+          <h1 className="text-center text-2xl font-bold font-bold text-natgas-azul dark:text-gray-50 md:text-left">
+            Bienvenid@
+          </h1>
+          <hr className="natgas-divisor" />
+          <DashCarousel />
+          <ButtonBar />
+          <div className="grid dark:text-gray-100">
+            <Link to="/app/requests">Requests</Link>
+            <Link to="/app/vacations/ranges">Rangos</Link>
+          </div>
         </div>
-        <ButtonBar />
-        <TitleWhite title="Últimos Natgas Blogs" />
-        <CardBlogs 
-          title={'Embajadores Natgas'}
-          description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc, amet nibh sed eu aliquam volutpat..."} 
-          date={"6/4/22"} 
-        />
       </div>
-    </Page>
+    </>
   );
 };
 
