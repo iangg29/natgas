@@ -1,12 +1,12 @@
-const db = require('./../db/database');
+const db = require('../db/database');
 
 /**
  * Remove fields from query string or makes them inaccessible.
- * @constructor
  * @param {string} Model - The Model of the table to restrict.
  * @param {array} fields - The fields to be excluded.
+ * @return {function} A function that restricts the fields that will be returned from the db.
  */
-const makeFieldsPrivate = (Model, ...fields) => {
+exports.makeFieldsPrivate = (Model, ...fields) => {
     return async (req, res, next) => {
         if (req.query.fields) {
             let queryFields = req.query.fields.split(',');
@@ -21,4 +21,14 @@ const makeFieldsPrivate = (Model, ...fields) => {
     };
 };
 
-module.exports = makeFieldsPrivate;
+/**
+ * Remove data from the body of a request to prevent user from updating certain fields.
+ * @param {array} fields - The fields to be excluded.
+ * @return {function} A function that restricts the information contained in the body of a function.
+ */
+exports.protectBody = (...fields) => {
+    return (req, res, next) => {
+        fields.forEach((field) => req.body[field] && delete req.body[field]);
+        next();
+    };
+};

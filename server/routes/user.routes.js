@@ -1,6 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
-const makeFieldsPrivate = require('../utils/privateFields');
+const { makeFieldsPrivate, restricBody } = require('../utils/protection');
 const User = require('../models/user.model');
 const router = express.Router();
 

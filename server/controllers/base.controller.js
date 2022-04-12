@@ -2,10 +2,10 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 /**
- * Delete all rows from a table in the database.
- * @constructor
- * @param {string} Model - The Model of the table to delete.
- * @param {array} field - The field to be searched when deleting
+ * Delete a specific row from a table in the database.
+ * @param {Obj} Model - The Model of the table to delete.
+ * @param {string} field - The field to be searched when deleting
+ * @return {function} - A function that deletes one row
  */
 exports.deleteOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
@@ -16,6 +16,11 @@ exports.deleteOne = (Model, field) =>
         });
     });
 
+/**
+ * Delete all rows from a table in the database.
+ * @param {Obj} Model - The Model of the table to delete.
+ * @return {function} - A function that deletes all rows of a table
+ */
 exports.deleteAll = (Model) =>
     catchAsync(async (req, res) => {
         await Model.deleteAll();
@@ -24,6 +29,12 @@ exports.deleteAll = (Model) =>
         });
     });
 
+/**
+ * Update a row from the database.
+ * @param {Obj} Model - The Model of the table to update.
+ * @param {string} field - The field to be searched by.
+ * @return {function} - A function that updates one row
+ */
 exports.updateOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
         const doc = await Model.updateOne(field, req.params.id, req.body);
@@ -39,6 +50,11 @@ exports.updateOne = (Model, field) =>
         });
     });
 
+/**
+ * Create a row in the specified model.
+ * @param {Obj} Model - The Model in which a new row will be created.
+ * @return {function} - A function that creates one row
+ */
 exports.createOne = (Model) =>
     catchAsync(async (req, res, next) => {
         console.log(req.body);
@@ -52,6 +68,12 @@ exports.createOne = (Model) =>
         });
     });
 
+/**
+ * Get an array of rows that coincide wih the field and the request params.
+ * @param {Obj} Model - The Model of the table to search in.
+ * @param {string} field - The field to be searched by.
+ * @return {function} - A function that querys based on certain conditions
+ */
 exports.getOne = (Model, field) =>
     catchAsync(async (req, res, next) => {
         const document = await Model.getOneLimit(
@@ -68,6 +90,11 @@ exports.getOne = (Model, field) =>
         });
     });
 
+/**
+ * Get an array of rows from a table.
+ * @param {Obj} Model - The Model of the table to find.
+ * @return {function} - A function that querys based on certain conditions
+ */
 exports.getAll = (Model) =>
     catchAsync(async (req, res) => {
         const documents = await Model.getAll(req.query);
