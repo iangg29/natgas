@@ -27,7 +27,11 @@ const SolicitarNGB = (): JSX.Element => {
   };
 
   return (
-    <Page title="Solicitar NatGas Block" headTitle="Solicitar NGB">
+    <Page
+      title="Solicitar NatGas Block"
+      headTitle="Solicitar NGB"
+      padding={true}
+    >
       <div className="grid grid-cols-1">
         <DateInputLong
           getVal={getDate}

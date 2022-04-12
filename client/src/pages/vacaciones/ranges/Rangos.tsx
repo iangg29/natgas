@@ -55,7 +55,11 @@ const Rangos = (): JSX.Element => {
   };
 
   return (
-    <Page title="Rangos vacacionales" headTitle="Rangos vacacionales">
+    <Page
+      title="Rangos vacacionales"
+      headTitle="Rangos vacacionales"
+      padding={true}
+    >
       <div className="flex flex-row justify-between">
         <button
           onClick={deleteAll}

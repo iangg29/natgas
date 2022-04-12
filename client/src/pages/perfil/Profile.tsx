@@ -41,7 +41,7 @@ const Profile = (): JSX.Element => {
   }, [email]);
 
   return (
-    <Page title="Mi perfil" headTitle="Mi perfil">
+    <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
       <div className="font-gilroy-light">
         <hr />
         <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">

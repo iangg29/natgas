@@ -59,7 +59,7 @@ const Employees = (): JSX.Element => {
   }, [page, nameSearch, numberSearch]);
 
   return (
-    <Page title="Empleados" headTitle="Empleados">
+    <Page title="Empleados" headTitle="Empleados" padding={true}>
       <h2 className="text-lg font-semibold">Buscar empleados</h2>
       <div
         className="mt-5 grid grid-cols-1 content-center items-center space-y-2 md:grid-cols-3 md:space-y-0"

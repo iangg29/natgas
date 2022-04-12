@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Loading from "../utils/Loading";
 import Main from "../containers/Main";
-import routes from "../routes";
+import routes, { IRoute } from "../routes";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
 import Error404 from "../pages/404";
@@ -15,7 +15,7 @@ const Layout = (): JSX.Element => {
         <Main>
           <Suspense fallback={<Loading />}>
             <Routes>
-              {routes.map((route, i) => {
+              {routes.map((route: IRoute, i: number) => {
                 return (
                   <Route
                     key={i}
