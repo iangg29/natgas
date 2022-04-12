@@ -1,33 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { MdOutlineAddCircle } from "react-icons/md";
 import CardCarousel from "../Cards/CardCarousel";
+import { iNews } from "../../shared/interfaces/app.interface";
+import axios, { AxiosResponse } from "axios";
+import CreateNews from "../News/CreateNews";
 
 const DashCarousel = (): JSX.Element => {
+  const [news, setNews] = useState<iNews[]>([]);
+
+  const deleteCard = (id: number): void => {
+    (async () => {
+      await axios
+        .delete(`/news/${id}`)
+        .then((res: AxiosResponse) => {
+          setNews(news.filter((item: iNews) => item.idNoticia !== id));
+        })
+        .catch((err) => {
+          console.trace(err);
+        });
+    })();
+  };
+
+  useEffect(() => {
+    (async () => {
+      await axios
+        .get("/news")
+        .then((res: AxiosResponse) => {
+          setNews(res.data.data.documents);
+        })
+        .catch((err) => {
+          console.trace(err);
+        });
+    })();
+  }, []);
+
   return (
     <div>
-      <div className="content-center x-auto">
+      <div className="">
         <Carousel
           centerMode={true}
           centerSlidePercentage={50}
           infiniteLoop={true}
           stopOnHover={true}
+          showThumbs={false}
           width="100%"
         >
-          <CardCarousel />
-          <CardCarousel />
-          <CardCarousel />
+          {news?.map((item: iNews, idx: number) => (
+            <CardCarousel news={item} key={idx} deleteCard={deleteCard} />
+          ))}
         </Carousel>
         <div className="flex justify-end">
-          <div className="flex flex-row">
-            <p className="font-gilroy-light text-lg text-natgas-sec-two mr-2">
-              Agregar anuncio
-            </p>
-            <button className=" text-3xl">
-              <MdOutlineAddCircle className="fill-[#43B02A]" />
-            </button>
-          </div>
+          <CreateNews setNews={setNews} news={news} />
         </div>
       </div>
     </div>

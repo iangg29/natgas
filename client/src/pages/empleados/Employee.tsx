@@ -42,6 +42,7 @@ const Employee = (): JSX.Element => {
     <Page
       title={employee.name + " " + employee.lastname}
       headTitle={employee.name}
+      padding={true}
     >
       <div className="font-gilroy-light">
         <hr />

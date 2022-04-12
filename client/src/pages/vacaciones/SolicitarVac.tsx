@@ -30,7 +30,11 @@ const SolicitarVac = (): JSX.Element => {
   };
 
   return (
-    <Page title="Solicitar Vacaciones" headTitle="Solicitar vacaciones">
+    <Page
+      title="Solicitar Vacaciones"
+      headTitle="Solicitar vacaciones"
+      padding={true}
+    >
       <div className="py-10">
         <div className="grid grid-cols-1">
           <div className="grid grid-rows-3">

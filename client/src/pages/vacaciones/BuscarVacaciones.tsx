@@ -50,7 +50,7 @@ const BuscarVacaciones = (): JSX.Element => {
   }, [getName, getPage, aprobado, rechazado, pendiente]);
 
   return (
-    <Page title="Vacaciones" headTitle="Vacaciones">
+    <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
       <div className="mb-2" ref={topRef}>
         <InputLong
           label="Buscar empleado"

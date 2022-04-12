@@ -16,14 +16,14 @@ const BuscarVacaciones = lazy(
   () => import("../pages/vacaciones/BuscarVacaciones"),
 );
 const Rangos = lazy(() => import("../pages/vacaciones/ranges/Rangos"));
-const TestPage = lazy(() => import("../pages/TestPage"));
+const ViewBlog = lazy(() => import("../pages/blog/ViewBlog"));
 
-type Route = {
+export type IRoute = {
   path: string;
   component: ExoticComponent;
 };
 
-const routes: Route[] = [
+const routes: IRoute[] = [
   {
     path: "/dashboard",
     component: Dashboard,
@@ -35,6 +35,10 @@ const routes: Route[] = [
   {
     path: "/vacations/ranges",
     component: Rangos,
+  },
+  {
+    path: "/vacations/search",
+    component: BuscarVacaciones,
   },
   {
     path: "/requests/pending",
@@ -65,14 +69,13 @@ const routes: Route[] = [
     component: MisSolicitudes,
   },
   {
-    path: "/vacations/search",
-    component: BuscarVacaciones,
-  },
-  {
     path: "/blog",
     component: Blog,
   },
-
+  {
+    path: "/blog/:slug",
+    component: ViewBlog,
+  },
   {
     path: "/blog/form",
     component: FormBlog,
@@ -80,10 +83,6 @@ const routes: Route[] = [
   {
     path: "/bannerform",
     component: FormBanner,
-  },
-  {
-    path: "/TestPage",
-    component: TestPage,
   },
 ];
 

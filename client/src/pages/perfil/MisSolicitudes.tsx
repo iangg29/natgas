@@ -27,7 +27,7 @@ const MisSolicitudes = (): JSX.Element => {
 
   return (
     <>
-      <Page title="Vacaciones" headTitle="Vacaciones">
+      <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
         <div className=" mb-10  grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
@@ -50,7 +50,7 @@ const MisSolicitudes = (): JSX.Element => {
           )}
         </div>
       </Page>
-      <Page title="NatGas Blocks" headTitle="NatGas Blocks">
+      <Page title="NatGas Blocks" headTitle="NatGas Blocks" padding={true}>
         <div className=" grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
