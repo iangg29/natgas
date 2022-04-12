@@ -1,6 +1,7 @@
 const multer = require('multer');
 const sharp = require('sharp');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 const createUpload = () => {
     const multerStorage = multer.memoryStorage();
@@ -11,7 +12,7 @@ const createUpload = () => {
         } else {
             cb(
                 new AppError('Not an image, please upload only images.', 404),
-                false
+                false,
             );
         }
     };

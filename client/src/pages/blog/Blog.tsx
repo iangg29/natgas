@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import BlogCard from "../../components/Cards/BlogCard";
-import Title from "../../components/Title/Title";
 import InputLong from "../../components/Inputs/InputLong";
 import { FaPlusCircle } from "react-icons/fa";
 import Pagination from "../../components/Inputs/Pagination";
 import { Link } from "react-router-dom";
+import { iBlog } from "../../shared/interfaces/app.interface";
+import Page from "../../containers/Page";
 
 const Blog = (): JSX.Element => {
-  const [getBlogs, setBlogs] = useState<any[]>([]);
-  const [getPage, setPage] = useState<any>(1);
+  const [getBlogs, setBlogs] = useState<iBlog[]>([]);
+  const [getPage, setPage] = useState<number>(1);
   const [getTitle, setTitle] = useState<string>("");
   const limit = 15;
   const topRef = useRef<any>(null);
@@ -29,8 +30,8 @@ const Blog = (): JSX.Element => {
     })();
   }, [getPage, getTitle]);
   return (
-    <>
-      <Title title="Natgas Blog" />
+    <Page title="Natgas Blog" headTitle="Natgas Blog" padding={true}>
+      <hr className="natgas-divisor" />
       <div className="my-5">
         <InputLong
           label="Buscar blog"
@@ -42,7 +43,7 @@ const Blog = (): JSX.Element => {
       <div className="mb-8 grid w-full justify-items-center pt-4" ref={topRef}>
         <Link
           to="/app/blog/form"
-          className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro"
+          className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro dark:text-gray-100"
         >
           <div className="inline-flex">
             <p className="mt-2 ml-4">Agregar Natgas Blog</p>
@@ -50,16 +51,10 @@ const Blog = (): JSX.Element => {
           </div>
         </Link>
       </div>
-
       <div className="grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         {getBlogs.length > 0 ? (
-          getBlogs.map((blog) => (
-            <BlogCard
-              image={blog.image}
-              title={blog.title}
-              content={blog.content}
-              date={new Date(blog.date).toLocaleDateString()}
-            />
+          getBlogs.map((blog: iBlog, idx: number) => (
+            <BlogCard blog={blog} key={idx} />
           ))
         ) : (
           <p>No existen blogs</p>
@@ -72,7 +67,7 @@ const Blog = (): JSX.Element => {
         reference={topRef}
         limit={limit}
       />
-    </>
+    </Page>
   );
 };
 

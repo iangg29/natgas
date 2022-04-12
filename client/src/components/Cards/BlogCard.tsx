@@ -1,32 +1,35 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { iBlog } from "../../shared/interfaces/app.interface";
 
-type Props = {
-  image: any;
-  title: string;
-  date: any;
-  content: string;
-};
-const BlogCard = ({ image, title, date, content }: Props): JSX.Element => {
+const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
+  const { image, title, content, slug, date } = blog;
+
   return (
     <div className="box-border h-[511px]  w-[400px] rounded-md border-2 shadow-md">
       <img
         className="inset-0 h-[236px] w-[400px] rounded-md object-cover"
         src={image}
-        alt={"Imagen " + title}
+        alt={title}
       />
-      <div className="h-{45px} left-{32px} top-{247px} border-b-2 border-natgas-gris-cool text-center text-2xl font-bold text-black  ">
+      <div className="h-{45px} left-{32px} top-{247px} border-b-2 border-natgas-gris-cool text-center text-2xl font-bold text-black dark:text-gray-50  ">
         {title}
       </div>
-      <div className=" h-[131px] pt-4 pl-4 pr-4 text-natgas-azul line-clamp-5 ">
+      <div className=" h-[131px] pt-4 pl-4 pr-4 text-natgas-azul line-clamp-5 dark:text-gray-100">
         {content}
       </div>
-      <div className="grid grid-cols-2 pt-12 pl-4">
-        <div className=" mt-2 text-sm font-bold text-natgas-gris-cool  ">
-          {date}
+      <div className="flex flex-row justify-between px-10 pt-12">
+        <div className="text-sm font-bold text-natgas-gris-cool">
+          {new Date(date).toLocaleDateString()}
         </div>
-        <button className=" ml-16 h-10 w-28  rounded-md bg-natgas-sec-one bg-gradient-to-r text-sm text-white">
-          Leer
-        </button>
+        <div>
+          <Link
+            to={`/app/blog/${slug}`}
+            className="rounded-md bg-natgas-sec-one bg-gradient-to-r px-4 py-1 text-sm text-white"
+          >
+            Leer
+          </Link>
+        </div>
       </div>
     </div>
   );

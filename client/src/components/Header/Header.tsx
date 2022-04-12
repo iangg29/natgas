@@ -5,6 +5,7 @@ import logoSmall from "../../assets/img/isotipo-contorno.png";
 import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import SideBar from "../Sidebar/SideBar";
+import routes, { NavbarLink } from "../../routes/navbar";
 
 const Header = (): JSX.Element => {
   return (
@@ -27,10 +28,11 @@ const Header = (): JSX.Element => {
         <div className="hidden md:block">
           <ul>
             <li>
-              <Link to="/app/employees">Reporte mensual</Link>
-              <Link className="ml-20" to="/app/employees">
-                Blog
-              </Link>
+              {routes.map((route: NavbarLink, idx: number) => (
+                <Link to={route.path} key={idx} className="mr-5">
+                  {route.name}
+                </Link>
+              ))}
             </li>
           </ul>
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ButtonBar = (): JSX.Element => {
   return (
@@ -6,12 +7,16 @@ const ButtonBar = (): JSX.Element => {
       <div className="w-full px-0 md:w-1/2 md:px-10">
         <div className="flex flex-row justify-around rounded-lg border-2 border-natgas-gris-cool py-4">
           <div className="grid items-center rounded-full bg-red-700">
-            <span className=" px-2 py-1 font-bold text-white">15</span>
+            <span className="px-1 py-0 text-xs font-bold text-white md:py-1 md:px-2 md:text-base">
+              15
+            </span>
           </div>
           <div className="grid items-center font-gilroy-light">
-            <p className="text-xl">Solicitudes pendientes</p>
+            <p className="text-base text-gray-900 dark:text-gray-100 md:text-xl">
+              Solicitudes pendientes
+            </p>
           </div>
-          <button className="rounded-full border-2 border-red-700 px-8 py-1 text-red-700 hover:bg-red-700 hover:text-white">
+          <button className="rounded-full border-2 border-red-700 px-1 py-0 text-xs text-red-700 hover:bg-red-700 hover:text-white md:py-1 md:px-8 md:text-base">
             Ver
           </button>
         </div>
@@ -24,14 +29,16 @@ const ButtonBar = (): JSX.Element => {
             </button>
           </div>
           <div className="w-full md:w-1/3">
-            <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white">
+            <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
               Registros
             </button>
           </div>
           <div className="w-full md:w-1/3">
-            <button className="general-btn border-natgas-azul-claro bg-natgas-azul-claro text-white hover:bg-transparent hover:text-natgas-azul">
-              Empleados
-            </button>
+            <Link to="/app/employees">
+              <button className="general-btn border-natgas-azul-claro bg-natgas-azul-claro text-white hover:bg-transparent hover:text-natgas-azul dark:hover:text-natgas-azul-claro">
+                Empleados
+              </button>
+            </Link>
           </div>
         </div>
       </div>

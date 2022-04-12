@@ -5,11 +5,16 @@ type Props = {
   title: string;
   headTitle: string;
   children: JSX.Element | JSX.Element[];
+  padding: boolean;
 };
 
-const Page = ({ children, headTitle, title }: Props): JSX.Element => {
+const Page = ({ children, headTitle, title, padding }: Props): JSX.Element => {
   return (
-    <div className="p-0 dark:text-gray-100 md:px-10">
+    <div
+      className={`container mx-auto py-10 dark:text-gray-100 ${
+        padding ? "px-10" : null
+      }`}
+    >
       <Helmet>
         <title>{headTitle} | NatGas</title>
       </Helmet>

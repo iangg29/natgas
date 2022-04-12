@@ -1,17 +1,26 @@
 import React from "react";
+import { iNews } from "../../shared/interfaces/app.interface";
+import { TrashIcon } from "@heroicons/react/solid";
 
-type Props = {
-  url?: string;
-};
-
-const CardCarousel = ({ url }: Props): JSX.Element => {
+const CardCarousel = ({
+  news,
+  deleteCard,
+}: {
+  news: iNews;
+  deleteCard: (id: number) => void;
+}): JSX.Element => {
   return (
-    <div className="">
-      <img
-        className=""
-        src="https://st.depositphotos.com/2290789/3667/i/600/depositphotos_36675429-stock-photo-king-lion-aslan.jpg"
-        alt="imagen"
-      />
+    <div className="relative">
+      <div className="absolute top-2 right-2">
+        <button
+          onClick={() => deleteCard(news.idNoticia)}
+          className="rounded-full bg-natgas-azul p-2 text-red-600"
+        >
+          <TrashIcon className="h-5 w-5" />
+        </button>
+      </div>
+      <img src={`http://localhost:5959/news/${news.image}`} alt={news.name} />
+      <p className="legend bg-natgas-azul">{news.name}</p>
     </div>
   );
 };
