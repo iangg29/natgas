@@ -20,6 +20,7 @@ const rangosVacacionesRouter = require('./routes/rangovacaciones.routes');
 const authRouter = require('./routes/auth.routes');
 const authController = require('./controllers/auth.controller');
 const newsRouter = require('./routes/news.routes');
+const asuetoRouter = require('./routes/asueto.routes');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -95,6 +96,7 @@ app.use('/api/row/', rowRouter);
 app.use('/api/department/', departmentRouter);
 app.use('/api/rangos/', rangosVacacionesRouter);
 app.use('/api/news/', newsRouter);
+app.use('/api/asuetos/', asuetoRouter);
 
 // ERROR HANDLER FOR UNHANDLED ROUTES
 // el asterisco dice que en cualquiera salte
