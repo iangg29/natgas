@@ -1,5 +1,6 @@
 const express = require('express');
 const natgasblockController = require('../controllers/natgasblock.controller');
+const abacController = require('../controllers/abac.controller');
 
 const router = express.Router();
 
@@ -13,9 +14,11 @@ router
     .patch(natgasblockController.updateNatgasblock)
     .delete(natgasblockController.deleteNatgasBlock);
 
-router.route('/approve/:id').patch(natgasblockController.approveNatgasblock);
+router
+    .route('/approve/:id')
+    .patch(abacController.limitRole('Leader'), natgasblockController.approveNatgasblock);
 
 router.route('/myngbrequests/:id').get(natgasblockController.getMyNatgasblocks);
-router.route('/mypendingngbrequests/:id').get(natgasblockController.getPending);
+router.route('/mypendingngbrequests/').get(abacController.limitRole('Leader'), natgasblockController.getPending);
 
 module.exports = router;

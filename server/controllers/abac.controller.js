@@ -26,8 +26,10 @@ const calcRoles = async (email) => {
 // 2) buscarlo en la tabla de detalles de empleo
 // 3) calcular sus permisos basandose en sus detalles
 // 4) agregar arreglo de roles a req -> req.roles
+
+
 exports.getRole = catchAsync(async (req, res, next) => {
-    if (!user.verified)
+    if (!req.user.verified)
         return next(
             new AppError(
                 'Tu perfil no ha sido completado. Vuelve más tarde',

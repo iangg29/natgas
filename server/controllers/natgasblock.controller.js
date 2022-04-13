@@ -39,7 +39,7 @@ exports.approveNatgasblock = catchAsync(async (req, res, next) => {
 exports.getPending = catchAsync(async (req, res, next) => {
     // GET DEPARTMENT AND POSITION
     const { position, departamento, email } = (
-        await UserDetails.getOne('email', req.params.id)
+        await UserDetails.getOne('email', req.user.email)
     )[0];
 
     if (position == 'Analista' || position == 'Especialista')

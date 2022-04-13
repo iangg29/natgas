@@ -20,17 +20,17 @@ router.route('/myvacationrequests/:id').get(vacationController.getMyVacations);
 router
     .route('/approvevacationrequest/:id')
     .patch(
-        abacController.limitRole('leader'),
+        abacController.limitRole('Leader'),
         vacationController.approveVacations
     );
 router
     .route('/discardvacationrequest/:id')
     .patch(
-        abacController.limitRole('leader'),
+        abacController.limitRole('Leader'),
         vacationController.discardVacations
     );
 router
-    .route('/mypendingvacationrequests/:id')
-    .get(abacController.limitRole('HR'), vacationController.getPending);
+    .route('/mypendingvacationrequests/')
+    .get(abacController.limitRole('Leader'), vacationController.getPending);
 
 module.exports = router;
