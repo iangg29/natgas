@@ -5,7 +5,8 @@ const router = express.Router();
 router
     .route('/')
     .get(asuetoController.getAsuetos)
-    .post(asuetoController.createAsueto);
+    .post(asuetoController.createAsueto)
+    .delete(asuetoController.deleteAsuetos);
 
 router
     .route('/:id')

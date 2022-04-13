@@ -12,6 +12,7 @@ const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
 const Blog = lazy(() => import("../pages/blog/Blog"));
 const FormBlog = lazy(() => import("../pages/blog/FormBlog"));
 const FormBanner = lazy(() => import("../pages/banner/FormBanner"));
+const Asuetos = lazy(()  => import("../pages/asuetos/asuetos"));
 const BuscarVacaciones = lazy(
   () => import("../pages/vacaciones/BuscarVacaciones"),
 );
@@ -83,6 +84,10 @@ const routes: IRoute[] = [
   {
     path: "/bannerform",
     component: FormBanner,
+  },
+  {
+    path: "/asuetos",
+    component: Asuetos,
   },
 ];
 
