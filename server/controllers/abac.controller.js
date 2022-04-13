@@ -4,8 +4,8 @@ const UserDetails = require('../models/views/useremployment.view.model.js');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
-const calcRoles = catchAsync(async (email) => {
-    const roles = ['employee'];
+const calcRoles = async (email) => {
+    const roles = ['Employee'];
     const userDetails = (await UserDetails.getOne('email', email))[0];
 
     if (userDetails.departamento === 'Talento y comunicacion') roles.push('HR');
@@ -17,8 +17,9 @@ const calcRoles = catchAsync(async (email) => {
     )
         roles.push('Leader');
 
+    console.log('ROLES IN CALCROLES: ', roles);
     return roles;
-});
+};
 
 // MIDDLEWARE 1 -> CALCULAR ROL
 // 1) checar si ya quedo el empleado registrado

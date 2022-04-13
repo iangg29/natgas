@@ -73,13 +73,13 @@ exports.login = catchAsync(async (req, res, next) => {
 
     if (!user) return next(new AppError('Incorrect email', 401));
 
-    console.log(password, user.password);
     const isCorrect = await User.correctPassword(password, user.password);
     if (!isCorrect) {
         return next(new AppError('Incorrect password', 401));
     } // si hasta aqui no ha mandado alv ps ya llegamos a lo bueno
 
-    if (user.verified) user.roles = abacController.calcRoles(user.email);
+    if (user.verified) user.roles = await abacController.calcRoles(user.email);
+    console.log(user);
 
     // 3 enviar la JWT de regreso al cliente
     createSendToken(user, 201, req, res);
