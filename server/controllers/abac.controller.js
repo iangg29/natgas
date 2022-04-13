@@ -27,7 +27,6 @@ const calcRoles = async (email) => {
 // 3) calcular sus permisos basandose en sus detalles
 // 4) agregar arreglo de roles a req -> req.roles
 
-
 exports.getRole = catchAsync(async (req, res, next) => {
     if (!req.user.verified)
         return next(

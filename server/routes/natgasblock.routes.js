@@ -4,6 +4,11 @@ const abacController = require('../controllers/abac.controller');
 
 const router = express.Router();
 
+router.route('/myngbrequests/').get(natgasblockController.getMyNatgasblocks);
+router
+    .route('/mypendingngbrequests/')
+    .get(abacController.limitRole('Leader'), natgasblockController.getPending);
+
 router
     .route('/')
     .get(natgasblockController.getNatgasblocks)
@@ -16,9 +21,9 @@ router
 
 router
     .route('/approve/:id')
-    .patch(abacController.limitRole('Leader'), natgasblockController.approveNatgasblock);
-
-router.route('/myngbrequests/:id').get(natgasblockController.getMyNatgasblocks);
-router.route('/mypendingngbrequests/').get(abacController.limitRole('Leader'), natgasblockController.getPending);
+    .patch(
+        abacController.limitRole('Leader'),
+        natgasblockController.approveNatgasblock
+    );
 
 module.exports = router;

@@ -9,10 +9,20 @@ const NatgasBlock = require('../models/natgasblock.model');
 
 exports.getNatgasblocks = base.getAll(Natgasblock);
 exports.getNatgasblock = base.getOne(Natgasblock, 'idNatgasblock');
-exports.getMyNatgasblocks = base.getOne(NatgasblockDetails, 'email');
 exports.createNatgasblock = base.createOne(Natgasblock);
 exports.updateNatgasblock = base.updateOne(Natgasblock, 'idNatgasblock');
 exports.deleteNatgasBlock = base.deleteOne(Natgasblock, 'idNatgasblock');
+
+exports.getMyNatgasblocks = catchAsync(async (req, res, next) => {
+    const ngbs = await NatgasblockDetails.getOne('email', req.user.email);
+
+    res.status(200).json({
+        message: 'User requests retrieved successfully',
+        data: {
+            document: ngbs,
+        },
+    });
+});
 
 exports.approveNatgasblock = catchAsync(async (req, res, next) => {
     // UPDATE NGB STATUS

@@ -5,6 +5,11 @@ const abacController = require('../controllers/abac.controller');
 const router = express.Router();
 
 router
+    .route('/mypendingvacationrequests/')
+    .get(abacController.limitRole('Leader'), vacationController.getPending);
+router.route('/myvacationrequests/').get(vacationController.getMyVacations);
+
+router
     .route('/')
     .get(vacationController.getVacations)
     .post(vacationController.createVacation);
@@ -14,8 +19,6 @@ router
     .get(vacationController.getVacation)
     .patch(vacationController.updateVacation)
     .delete(vacationController.deleteVacation);
-
-router.route('/myvacationrequests/:id').get(vacationController.getMyVacations);
 
 router
     .route('/approvevacationrequest/:id')
@@ -29,8 +32,5 @@ router
         abacController.limitRole('Leader'),
         vacationController.discardVacations
     );
-router
-    .route('/mypendingvacationrequests/')
-    .get(abacController.limitRole('Leader'), vacationController.getPending);
 
 module.exports = router;
