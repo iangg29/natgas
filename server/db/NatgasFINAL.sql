@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 12-04-2022 a las 20:20:32
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.10
+-- Servidor: localhost:8889
+-- Tiempo de generación: 13-04-2022 a las 16:12:08
+-- Versión del servidor: 5.7.34
+-- Versión de PHP: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `natgasfinal`
+-- Base de datos: `Natgas`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asueto`
+--
+
+CREATE TABLE `asueto` (
+  `idAsueto` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `asueto`
+--
+
+INSERT INTO `asueto` (`idAsueto`, `date`, `created_at`) VALUES
+(1, '2022-03-21', '2022-04-13 15:48:39');
 
 -- --------------------------------------------------------
 
@@ -34,8 +53,8 @@ CREATE TABLE `blogpost` (
   `content` varchar(2000) COLLATE utf8_spanish_ci NOT NULL,
   `slug` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
   `image` varchar(400) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -115,8 +134,8 @@ INSERT INTO `blogpost` (`idBlogPost`, `date`, `title`, `content`, `slug`, `image
 CREATE TABLE `departamento` (
   `idDepartamento` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -206,8 +225,8 @@ CREATE TABLE `natgasblock` (
   `status` tinyint(1) NOT NULL,
   `period` tinyint(1) NOT NULL,
   `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -278,8 +297,8 @@ CREATE TABLE `noticia` (
   `name` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `date` date NOT NULL,
   `image` varchar(400) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -333,8 +352,8 @@ CREATE TABLE `perfil` (
   `address` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `gender` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `contractdate` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -419,8 +438,8 @@ CREATE TABLE `pertenece` (
   `idDepartamento` int(11) NOT NULL,
   `position` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `date` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -490,8 +509,8 @@ CREATE TABLE `rangovacaciones` (
   `maximum` int(11) NOT NULL,
   `minimum` int(11) NOT NULL,
   `days` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -531,8 +550,8 @@ CREATE TABLE `registro` (
   `value` float NOT NULL,
   `date` date NOT NULL,
   `idReporte` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -560,8 +579,8 @@ INSERT INTO `registro` (`idRegistro`, `value`, `date`, `idReporte`, `created_at`
 CREATE TABLE `reporte` (
   `idReporte` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -589,8 +608,8 @@ CREATE TABLE `vacaciones` (
   `status` tinyint(1) NOT NULL,
   `substitute` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -667,7 +686,7 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedleader`, `startdate`, `enddat
 --
 DROP TABLE IF EXISTS `detallesdevacaciones`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesdevacaciones`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `vacaciones`.`substitute` AS `substitute`, `vacaciones`.`startdate` AS `startdate`, `vacaciones`.`enddate` AS `enddate`, `vacaciones`.`idVacaciones` AS `idVacaciones`, `vacaciones`.`verifiedleader` AS `verifiedleader`, `vacaciones`.`status` AS `status`, `vacaciones`.`idVacaciones` AS `id` FROM (((`vacaciones` join `perfil`) join `pertenece`) join `departamento`) WHERE `vacaciones`.`email` = `perfil`.`email` AND `perfil`.`email` = `pertenece`.`email` AND `pertenece`.`idDepartamento` = `departamento`.`idDepartamento` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesdevacaciones`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `vacaciones`.`substitute` AS `substitute`, `vacaciones`.`startdate` AS `startdate`, `vacaciones`.`enddate` AS `enddate`, `vacaciones`.`idVacaciones` AS `idVacaciones`, `vacaciones`.`verifiedleader` AS `verifiedleader`, `vacaciones`.`status` AS `status`, `vacaciones`.`idVacaciones` AS `id` FROM (((`vacaciones` join `perfil`) join `pertenece`) join `departamento`) WHERE ((`vacaciones`.`email` = `perfil`.`email`) AND (`perfil`.`email` = `pertenece`.`email`) AND (`pertenece`.`idDepartamento` = `departamento`.`idDepartamento`)) ;
 
 -- --------------------------------------------------------
 
@@ -676,7 +695,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `detallesempleo`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesempleo`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `perfil`.`vacations` AS `vacations`, `perfil`.`ngBlocks` AS `ngBlocks`, `pertenece`.`position` AS `position`, `departamento`.`name` AS `departamento`, `pertenece`.`date` AS `contrato`, `perfil`.`verified` AS `verified`, `perfil`.`number` AS `number` FROM ((`perfil` join `pertenece`) join `departamento`) WHERE `perfil`.`email` = `pertenece`.`email` AND `pertenece`.`idDepartamento` = `departamento`.`idDepartamento` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesempleo`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `perfil`.`vacations` AS `vacations`, `perfil`.`ngBlocks` AS `ngBlocks`, `pertenece`.`position` AS `position`, `departamento`.`name` AS `departamento`, `pertenece`.`date` AS `contrato`, `perfil`.`verified` AS `verified`, `perfil`.`number` AS `number` FROM ((`perfil` join `pertenece`) join `departamento`) WHERE ((`perfil`.`email` = `pertenece`.`email`) AND (`pertenece`.`idDepartamento` = `departamento`.`idDepartamento`)) ;
 
 -- --------------------------------------------------------
 
@@ -685,11 +704,17 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `detallesnatgasblock`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesnatgasblock`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `natgasblock`.`date` AS `date`, `natgasblock`.`status` AS `status`, `natgasblock`.`period` AS `period`, `natgasblock`.`idNatgasblock` AS `id` FROM (((`natgasblock` join `perfil`) join `pertenece`) join `departamento`) WHERE `natgasblock`.`email` = `perfil`.`email` AND `perfil`.`email` = `pertenece`.`email` AND `pertenece`.`idDepartamento` = `departamento`.`idDepartamento` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesnatgasblock`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `natgasblock`.`date` AS `date`, `natgasblock`.`status` AS `status`, `natgasblock`.`period` AS `period`, `natgasblock`.`idNatgasblock` AS `id` FROM (((`natgasblock` join `perfil`) join `pertenece`) join `departamento`) WHERE ((`natgasblock`.`email` = `perfil`.`email`) AND (`perfil`.`email` = `pertenece`.`email`) AND (`pertenece`.`idDepartamento` = `departamento`.`idDepartamento`)) ;
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `asueto`
+--
+ALTER TABLE `asueto`
+  ADD PRIMARY KEY (`idAsueto`);
 
 --
 -- Indices de la tabla `blogpost`
@@ -763,6 +788,12 @@ ALTER TABLE `vacaciones`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `asueto`
+--
+ALTER TABLE `asueto`
+  MODIFY `idAsueto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `blogpost`
 --
 ALTER TABLE `blogpost`
@@ -808,7 +839,7 @@ ALTER TABLE `rangovacaciones`
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `reporte`

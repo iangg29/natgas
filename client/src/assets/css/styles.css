@@ -10,7 +10,7 @@
 }
 
 .title-general {
-  @apply border-b-4 text-3xl border-natgas-gris-cool;
+  @apply border-b-4 ml-4 mr-4 text-3xl border-natgas-gris-cool;
 }
 
 .title-white {
