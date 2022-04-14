@@ -1,4 +1,5 @@
 const base = require('./base.controller');
+const Asueto = require('../models/asueto.model');
 const Vacation = require('../models/vacation.model');
 const User = require('../models/user.model');
 const UserDetails = require('../models/views/useremployment.view.model');
@@ -27,10 +28,31 @@ exports.approveVacations = catchAsync(async (req, res, next) => {
         })
     )[0];
 
+    
     // UPDATE USER VACATIONS LEFT
     const start = new Date(vacation.startdate);
     const end = new Date(vacation.enddate);
 
+   
+    //GET ASUETOS
+    const asuetos = (
+        await Asueto.getAll({})
+    );
+    // console.log(asuetos);
+
+    //FUNCION ASUETOS EN PERIODO DE VACACIONES
+    const findAsuetos = () =>{
+        let count = 0;
+        asuetos.forEach(asueto => {
+            if(asueto.date >= start && asueto.date<= end){
+                count++
+            }
+            
+        });
+        return count;
+    }
+    console.log(findAsuetos());
+    
     const vacationDays =
         (start.getTime() - end.getTime()) / (1000 * 3600 * 24) + 1;
 
