@@ -28,37 +28,6 @@ exports.approveVacations = catchAsync(async (req, res, next) => {
         })
     )[0];
 
-    
-    // UPDATE USER VACATIONS LEFT
-    const start = new Date(vacation.startdate);
-    const end = new Date(vacation.enddate);
-
-   
-    //GET ASUETOS
-    const asuetos = (
-        await Asueto.getAll({})
-    );
-    // console.log(asuetos);
-
-    //FUNCION ASUETOS EN PERIODO DE VACACIONES
-    const findAsuetos = () =>{
-        let count = 0;
-        asuetos.forEach(asueto => {
-            if(asueto.date >= start && asueto.date<= end){
-                count++
-            }
-            
-        });
-        return count;
-    }
-    
-    const vacationDays =
-        ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1)-findAsuetos();
-
-    const user = (await User.getOne('email', vacation.email))[0];
-    await User.updateOne('email', vacation.email, {
-        vacations: user.vacations - vacationDays,
-    });
 
     res.status(200).json({
         message: 'Vacations status updated successfully',

@@ -1,6 +1,7 @@
 const db = require('../db/database');
 const Base = require('./base.model');
 const User = require('./user.model');
+const Asueto = require('./asueto.model');
 const AppError = require('../utils/appError');
 
 module.exports = class extends Base {
@@ -32,12 +33,42 @@ module.exports = class extends Base {
                 400
             );
 
-        // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
+        const asuetos = (
+            await Asueto.getAll({})
+        );
+        
+        const findAsuetos = () =>{
+            let count = 0;
+            asuetos.forEach(asueto => {
+                if(asueto.date >= this.startdate && asueto.date<= this.enddate){
+                    count++
+                }
+                
+            });
+            return count;
+        }
+    
+        const findWeekend = (start, end) => {
+            let count = 0;
+            
+            while(end.getTime() >= start.getTime()){
+                start.setDate(start.getDate() + 1);
+                if(start.getDay() === 0 || start.getDay() === 6){
+                    count++
+                }
+            }
+            return count;
+        }
+        
+        
         const vacationDays =
-            (this.enddate.getTime() - this.startdate.getTime()) /
-                (1000 * 3600 * 24) +
-            1;
+            ((this.enddate.getTime() - this.startdate.getTime()) / (1000 * 3600 * 24) + 1)-findAsuetos() -findWeekend(this.startdate,this.enddate);
+    // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
+
         console.log(vacationDays);
+        await User.updateOne('email', user.email, {
+            vacations: user.vacations - vacationDays,
+        });
 
         if (vacationDays > user.vacations)
             throw new AppError(
