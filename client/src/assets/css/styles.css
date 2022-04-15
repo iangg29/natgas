@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 
+.login-splash {
+  background: url("../img/NATGAS-2.jpg") center center no-repeat;
+  background-size: cover;
+}
+
 .main-button {
   @apply rounded-md bg-natgas-azul-claro px-16 py-3 text-xs font-semibold text-white shadow;
 }

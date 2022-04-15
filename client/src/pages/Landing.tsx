@@ -21,7 +21,7 @@ const Landing = (): JSX.Element => {
       >
         <div className="mx-auto max-w-lg text-center">
           <img src={logo} alt="Natgas" className="mx-auto h-52 animate-pulse" />
-          <Link to="/app/dashboard" className="main-button">
+          <Link to="/login" className="main-button">
             Iniciar sesión
           </Link>
         </div>
