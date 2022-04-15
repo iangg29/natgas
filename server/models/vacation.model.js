@@ -34,18 +34,23 @@ module.exports = class Vacation extends Base {
                 400
             );
         
-       
+         // UPDATE USER VACATIONS LEFT
+        const start = new Date(this.startdate);
+        const end = new Date(this.enddate);
+
         const asuetos = (
             await Asueto.getAll({})
             );
         
-        
+        const diasasuetos = Vacation.findAsuetos(asuetos, this.startdate, this.enddate);
+        const weekends = Vacation.findWeekends(this.startdate, this.enddate);
+
         const vacationDays =
-            ((this.enddate.getTime() - this.startdate.getTime()) / (1000 * 3600 * 24) + 1) - Vacation.findAsuetos(asuetos, this.startdate, this.enddate) - Vacation.findWeekends(this.startdate, this.enddate);
+        ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
     // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
-
+        
         console.log(vacationDays);
-
+        console.log(user.vacations);
         if (vacationDays > user.vacations)
             throw new AppError(
                 'Los dias solicitados sobrepasan la cantidad de vacaciones disponibles',
