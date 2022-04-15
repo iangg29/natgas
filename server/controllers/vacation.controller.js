@@ -44,8 +44,6 @@ exports.approveVacations = catchAsync(async (req, res, next) => {
   
     const vacationDays =
         ((start.getTime() - end.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
-    
-    console.log(vacationDays);
 
     const user = (await User.getOne('email', vacation.email))[0];
     await User.updateOne('email', vacation.email, {
