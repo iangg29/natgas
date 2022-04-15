@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 13-04-2022 a las 16:12:08
+-- Tiempo de generación: 14-04-2022 a las 16:29:10
 -- Versión del servidor: 5.7.34
 -- Versión de PHP: 7.4.21
 
@@ -38,7 +38,8 @@ CREATE TABLE `asueto` (
 --
 
 INSERT INTO `asueto` (`idAsueto`, `date`, `created_at`) VALUES
-(1, '2022-03-21', '2022-04-13 15:48:39');
+(8, '2022-03-20', '2022-04-14 15:40:29'),
+(9, '2022-03-21', '2022-04-14 16:24:25');
 
 -- --------------------------------------------------------
 
@@ -395,7 +396,7 @@ INSERT INTO `perfil` (`email`, `password`, `name`, `lastname`, `vacations`, `ngB
 ('jayala@natgas.com', '$2a$12$YK.xzzZXSPoykK5mCE4lrujHEVqtmB.q3ukZ6oOVnHajYM4qYSSCC', 'Joan', 'Ayala', 8, 5, 3, 0, 'AAFJ911007P66', '1991-12-07', 4423353115, 'AVE DE LA LUZ 220, SATELITE , QUERETARO , QRO , C.P.76110', 'Masculino', '2019-10-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('jayalas@natgas.com', '$2a$12$vsOcG3xe6P4kOb4CP7jfbutaAqErNQZ0mdfFK5WWdTh1j4gBbdeQS', 'Jesus', 'Ayalas', 6, 5, 30, 1, 'AATJ930415AW3', '1993-04-15', 4427899927, 'JURIQUILLA 54, JURIQUILLA , QUERETARO , QRO , C.P.76226', 'Masculino', '2016-03-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('jbaez@natgas.com', '$2a$12$wMVxd8q5qwkqy7hgN7W4IeZ0I1Ocoe7QoouH9HdNuACJ7cGx3diNW', 'Joan', 'Baez', 6, 4, 4, 1, 'BATJ911007MZ0', '2000-01-26', 4427286925, 'JUAN ESCUTIA 44, NIÑOS HEROES , QUERETARO , QRO , C.P.76010', 'Masculino', '2022-08-21', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
-('jbelmonte@natgas.com', '$2a$12$Xw4GXMxnvYi3u0TZUtinkupf3Ixap/b9q93PHRDeANBr5l7UaKrCm', 'Jordi', 'Belmonte', 8, 5, 46, 0, 'BESJ000208DMA', '2000-02-08', 4428539127, 'CLLE INDEPENDENCIA 16, PINAL DE AMOLES , PINAL DE AMOLES , QRO , C.P.76300', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
+('jbelmonte@natgas.com', '$2a$12$Xw4GXMxnvYi3u0TZUtinkupf3Ixap/b9q93PHRDeANBr5l7UaKrCm', 'Jordi', 'Belmonte', 22, 5, 46, 0, 'BESJ000208DMA', '2000-02-08', 4428539127, 'CLLE INDEPENDENCIA 16, PINAL DE AMOLES , PINAL DE AMOLES , QRO , C.P.76300', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-14 11:26:41'),
 ('jbiosca@natgas.com', '$2a$12$6b4TJHxgjBgEg/pJA/lSxOvmuTsxXQNvoNpmPqzuXSKK0xwIhRZam', 'Jordi', 'Biosca', 9, 2, 18, 1, 'BICL0204153Y2', '1993-05-16', 4420117634, 'CALLE HIDALGO 206, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2016-03-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('jijijija@smartcode.com', '$2a$12$NOUXOSUi9VMkBzu0u48.sOET8PpBS0QT1wv7niFLeaS3EDJGRUrzC', 'Cesar', 'Jimenez', 0, 0, 72, 0, '', '0000-00-00', 0, '', '', '0000-00-00', '2022-04-12 05:44:59', '2022-04-12 01:12:57'),
 ('jmarti@natgas.com', '$2a$12$6TtfpinBBfsXQ/bkDZv.suINNhY3QPdTCtUb3pbUsYlC1kiel9Uhy', 'Joan', 'Marti', 8, 5, 42, 1, 'AEVJ000204VD0', '2000-02-04', 4425016169, 'CLLE ABETO OTE 66, LOS OLVERA , QUERETARO , QRO , C.P.76904', 'Masculino', '2016-03-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
@@ -491,7 +492,7 @@ INSERT INTO `pertenece` (`idPertenece`, `email`, `idDepartamento`, `position`, `
 (42, 'ibidault@natgas.com', 9, 'Especialista', '2001-06-19', '2001-06-21 05:00:00', NULL),
 (43, 'oaloy@natgas.com', 10, 'Coordinacion', '2002-06-19', '2002-06-21 05:00:00', NULL),
 (44, 'saltmiras@natgas.com', 11, 'Gerencia', '2003-06-19', '2003-06-21 05:00:00', NULL),
-(45, 'jbelmonte@natgas.com', 1, 'Direccion', '2004-06-19', '2004-06-21 05:00:00', NULL),
+(45, 'jbelmonte@natgas.com', 1, 'Analista', '2004-06-19', '2004-06-21 05:00:00', '2022-04-14 10:43:25'),
 (46, 'mbajona@natgas.com', 2, 'Analista', '2005-06-19', '2005-06-21 05:00:00', NULL),
 (47, 'jaguilar@natgas.com', 3, 'Especialista', '2006-06-19', '2006-06-21 05:00:00', NULL),
 (48, 'mjbarriga@natgas.com', 4, 'Coordinacion', '2007-06-19', '2007-06-21 05:00:00', NULL),
@@ -602,10 +603,10 @@ INSERT INTO `reporte` (`idReporte`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `vacaciones` (
   `idVacaciones` int(11) NOT NULL,
-  `verifiedleader` tinyint(1) NOT NULL,
+  `verifiedleader` tinyint(1) NOT NULL DEFAULT '0',
   `startdate` date NOT NULL,
   `enddate` date NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
   `substitute` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -666,18 +667,31 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedleader`, `startdate`, `enddat
 (47, 1, '2006-06-21', '2008-06-21', 1, 'MARC BAJONA GARCIA', 'jaguilar@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (48, 1, '2007-06-21', '2007-06-21', 1, 'JORDINA AGUILAR RODRIGUEZ', 'mjbarriga@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (49, 1, '2008-06-21', '2009-06-21', 1, 'MARIA JOSÉ BARRIGA SOTO', 'ravila@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(50, 1, '2009-06-21', '2010-06-21', 0, 'RAQUEL AVILA MASJUAN', 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-04-01 00:28:20'),
+(50, 1, '2009-06-21', '2010-06-21', 1, 'RAQUEL AVILA MASJUAN', 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-04-14 10:35:16'),
 (51, 0, '2001-06-21', '2002-06-21', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:08:19', '2022-03-28 00:08:19'),
 (52, 0, '2001-06-21', '2001-06-21', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:11:55', '2022-03-28 00:11:55'),
 (53, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:12:56', '2022-03-28 00:12:56'),
 (54, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:13:21', '2022-03-28 00:13:21'),
 (55, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:13:48', '2022-03-28 00:13:48'),
-(56, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:48', '2022-03-28 19:18:48'),
-(57, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:58', '2022-03-28 19:18:58'),
-(58, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-03-28 19:19:00'),
-(59, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-03-28 19:19:00'),
-(60, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-03-28 19:19:00'),
-(61, 0, '2022-03-27', '2022-03-28', 0, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:20:28', '2022-03-28 19:20:28');
+(56, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:48', '2022-04-14 11:00:43'),
+(57, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:58', '2022-04-14 10:57:38'),
+(58, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-04-14 10:57:19'),
+(59, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-04-14 10:51:48'),
+(60, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-04-14 10:50:29'),
+(61, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:20:28', '2022-04-14 10:47:48'),
+(62, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 15:39:56', '2022-04-14 10:47:23'),
+(63, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 15:43:58', '2022-04-14 10:46:31'),
+(64, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:01:09', '2022-04-14 11:01:15'),
+(65, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:05:09', '2022-04-14 11:05:16'),
+(66, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:13:11', '2022-04-14 11:13:17'),
+(67, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:15:01', '2022-04-14 11:15:06'),
+(68, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:20:06', '2022-04-14 11:20:10'),
+(69, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:22:53', '2022-04-14 11:23:06'),
+(70, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:23:35', '2022-04-14 11:23:41'),
+(71, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:24:39', '2022-04-14 11:24:48'),
+(72, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:25:30', '2022-04-14 11:25:35'),
+(73, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:25:50', '2022-04-14 11:25:55'),
+(74, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:26:20', '2022-04-14 11:26:41');
 
 -- --------------------------------------------------------
 
@@ -791,7 +805,7 @@ ALTER TABLE `vacaciones`
 -- AUTO_INCREMENT de la tabla `asueto`
 --
 ALTER TABLE `asueto`
-  MODIFY `idAsueto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idAsueto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `blogpost`
@@ -851,7 +865,7 @@ ALTER TABLE `reporte`
 -- AUTO_INCREMENT de la tabla `vacaciones`
 --
 ALTER TABLE `vacaciones`
-  MODIFY `idVacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `idVacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- Restricciones para tablas volcadas
