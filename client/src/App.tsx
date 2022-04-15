@@ -1,10 +1,10 @@
 import React, { lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./pages/auth/login";
-import ForgotPassword from "./pages/auth/forgotpassword";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Landing = lazy(() => import("./pages/Landing"));
+const Login = lazy(() => import("./pages/auth/login"));
+const ForgotPassword = lazy(() => import("./pages/auth/forgotpassword"));
 
 function App(): JSX.Element {
   return (
