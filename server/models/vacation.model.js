@@ -49,8 +49,6 @@ module.exports = class Vacation extends Base {
         ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
     // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
         
-        console.log(vacationDays);
-        console.log(user.vacations);
         if (vacationDays > user.vacations)
             throw new AppError(
                 'Los dias solicitados sobrepasan la cantidad de vacaciones disponibles',
