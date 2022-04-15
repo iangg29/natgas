@@ -3,6 +3,7 @@ import { ExoticComponent, lazy } from "react";
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Profile = lazy(() => import("../pages/perfil/Profile"));
 const CompleteProfile = lazy(() => import("../pages/perfil/CompleteProfile"));
+const ActualizaPerfil = lazy(() => import("../pages/perfil/ActualizaPerfil"));
 const Employees = lazy(() => import("../pages/empleados/Employees"));
 const Employee = lazy(() => import("../pages/empleados/Employee"));
 const SolicitarNGB = lazy(() => import("../pages/natgasblocks/SolicitarNGB"));
@@ -88,6 +89,10 @@ const routes: IRoute[] = [
   {
     path: "/asuetos",
     component: Asuetos,
+  },
+  {
+    path: "/profile/:id/update",
+    component: ActualizaPerfil,
   },
 ];
 

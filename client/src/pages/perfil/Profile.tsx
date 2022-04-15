@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
 import axios, { AxiosResponse } from "axios";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { IEmployment } from "../../shared/interfaces/app.interface";
 import { Link } from "react-router-dom";
 
 const Profile = (): JSX.Element => {
   // TODO: (Registra perfil) User is allowed to edit basic data while he is still pending of approval by HR.
-  const [profile, setProfile] = useState<IEmployee>({
+  const [profile, setProfile] = useState<IEmployment>({
     address: "",
     birthdate: "",
     cellphone: 0,
@@ -22,6 +22,9 @@ const Profile = (): JSX.Element => {
     updated_at: "",
     vacations: 0,
     verified: false,
+    position: "",
+    departamento: "",
+    contrato: "",
   });
 
   const email = "jbelmonte@natgas.com";
@@ -77,11 +80,11 @@ const Profile = (): JSX.Element => {
           </div>
           <div className="w-full md:w-1/3">
             <h4 className="font-gilroy-extrabold">Departamento</h4>
-            <span>Departamento</span>
+            <span>{profile.departamento}</span>
           </div>
           <div className="w-full md:w-1/3">
             <h4 className="font-gilroy-extrabold">Puesto</h4>
-            <span>Puesto</span>
+            <span>{profile.position}</span>
           </div>
         </div>
         <hr />
@@ -134,7 +137,7 @@ const Profile = (): JSX.Element => {
         </div>
         <div className="mt-4 text-center">
           <Link
-            to="/app/dashboard"
+            to={`/app/profile/${profile.number}/update`}
             className="rounded-full bg-natgas-sec-one px-8 py-3 text-white hover:bg-natgas-sec-two"
           >
             Editar perfil
