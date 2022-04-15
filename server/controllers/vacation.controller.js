@@ -33,47 +33,21 @@ exports.approveVacations = catchAsync(async (req, res, next) => {
     const start = new Date(vacation.startdate);
     const end = new Date(vacation.enddate);
 
-   
-    //GET ASUETOS
     const asuetos = (
         await Asueto.getAll({})
-    );
-    // console.log(asuetos);
-
-    //FUNCION ASUETOS EN PERIODO DE VACACIONES
-    const findAsuetos = () =>{
-        let count = 0;
-        asuetos.forEach(asueto => {
-            if(asueto.date >= start && asueto.date<= end){
-                count++
-            }
-            
-        });
-        return count;
-    }
-
-    const findWeekend = (start, end) => {
-        let count = 0;
-        
-        while(end.getTime() >= start.getTime()){
-            start.setDate(start.getDate() + 1);
-            if(start.getDay() === 0 || start.getDay() === 6){
-                count++
-            }
-        }
-        return count;
-    }
+        );
     
+
+    const diasasuetos = Vacation.findAsuetos(asuetos, start, end);
+    const weekends = Vacation.findWeekends(start, end);
+   
+  
     const vacationDays =
-        ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1)-findAsuetos() -findWeekend(start, end);
+        ((start.getTime() - end.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
     
+    console.log(vacationDays);
 
     const user = (await User.getOne('email', vacation.email))[0];
-    if (vacationDays > user.vacations)
-    throw new AppError(
-        'Los dias solicitados sobrepasan la cantidad de vacaciones disponibles',
-        400
-    );
     await User.updateOne('email', vacation.email, {
         vacations: user.vacations - vacationDays,
     });
