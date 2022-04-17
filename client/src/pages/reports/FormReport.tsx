@@ -21,7 +21,7 @@ const ReportForm = () => {
     }
   };
   return (
-    <Page title="Agregar indicador" headTitle="Nuevo Indicador">
+    <Page title="Agregar indicador" headTitle="Nuevo Indicador" padding={true}>
       <div className="flex h-[60vh] flex-col items-center justify-between">
         <div className="w-[100%]">
           <InputLong

@@ -21,12 +21,12 @@ const Reports = (): JSX.Element => {
   }, []);
 
   return (
-    <>
-      <Page title="Reportes" headTitle="Reportes">
-        <></>
-      </Page>
+    <Page title="Reportes" headTitle="Reportes" padding={false}>
       <div className="mb-8 grid w-full justify-items-center pt-4">
-        <Link to="/app/reports/new" className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro">
+        <Link
+          to="/app/reports/new"
+          className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro"
+        >
           <div className="inline-flex">
             <p className="mt-2 ml-4">Agregar Reporte Nuevo</p>
             <FaPlusCircle className="ml-4 mt-1.5 text-3xl text-natgas-verde" />
@@ -38,7 +38,7 @@ const Reports = (): JSX.Element => {
           <CardReporte report={rpt} />
         ))}
       </div>
-    </>
+    </Page>
   );
 };
 

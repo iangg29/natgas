@@ -59,7 +59,11 @@ const ReportForm = () => {
   };
 
   return (
-    <Page title={`Editar ${getReport.name}`} headTitle="Editar Indicador">
+    <Page
+      title={`Editar ${getReport.name}`}
+      headTitle="Editar Indicador"
+      padding={true}
+    >
       <div className="flex flex-col items-center justify-between">
         <div className="my-4 flex w-full flex-col items-center justify-between lg:flex-row">
           <div className="my-5 w-full lg:mx-5">
