@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Background from "../Background/Background";
 import TitleWhite from "../Title/TitleWhite";
+import { useNavigate } from "react-router-dom";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -26,6 +27,8 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
   const [getVisible, setVisible] = React.useState<boolean>(true);
   const [getValue, setValue] = React.useState<number>(0);
   const [getDate, setDate] = React.useState<Date>(new Date());
+  const navigate = useNavigate();
+
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -57,13 +60,11 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
   React.useEffect(() => {
     (async () => {
       try {
-        const departments = await axios.get(
-          `report/getRowsFromReport/${idReporte}`,
-        );
-        console.log(departments.data.data.documents);
-        setRows(departments.data.data.documents);
+        const rows = await axios.get(`report/getRowsFromReport/${idReporte}`);
+        console.log(rows.data.data.documents);
+        setRows(rows.data.data.documents);
         setLabels(
-          departments.data.data.documents
+          rows.data.data.documents
             .map((row: any) => new Date(row.date).toLocaleDateString())
             .reverse(),
         );
@@ -111,30 +112,44 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
           />
         </div>
       </div>
-      <div className="my-10 flex w-full flex-row items-center justify-around">
+      <div className="my-10 flex w-full flex-row items-center justify-center">
         {" "}
-        <PrimaryButton
-          label="Agregar reporte"
-          action={() => setVisible(!getVisible)}
-        />
+        <div className="mr-4">
+          <PrimaryButton
+            label="Agregar reporte"
+            action={() => setVisible(!getVisible)}
+          />
+        </div>
+        <div>
+          <PrimaryButton
+            label="Editar reporte"
+            action={() => navigate(`/app/reports/edit/${idReporte}`)}
+          />
+        </div>
       </div>
 
       {getVisible ? (
         <></>
       ) : (
-        <div className="flex w-full flex-grow flex-row items-center justify-around">
-          <InputLong
-            label="Valor del nuevo reporte"
-            placeholder="number"
-            getVal={getValue}
-            setVal={setValue}
-          />
-          <DateInputLong
-            label="Valor del nuevo reporte"
-            getVal={getDate}
-            setVal={setDate}
-          />
-          <PrimaryButton label="Agregar" action={handleSubmit} />
+        <div className="flex w-full flex-grow flex-col items-center justify-around  lg:flex-row">
+          <div className="my-5 w-full lg:mx-5">
+            <InputLong
+              label="Valor"
+              placeholder="number"
+              getVal={getValue}
+              setVal={setValue}
+            />
+          </div>
+          <div className="my-5 w-full lg:mx-5">
+            <DateInputLong
+              label="Fecha"
+              getVal={new Date(getDate).toISOString().split("T")[0]}
+              setVal={setDate}
+            />
+          </div>
+          <div className="lg:w-20vw md:10vw my-5">
+            <PrimaryButton label="Agregar" action={handleSubmit} />
+          </div>
         </div>
       )}
     </Background>

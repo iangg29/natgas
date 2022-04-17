@@ -20,6 +20,7 @@ const Reportes = lazy(() => import("../pages/reports/AllReports"));
 const Rangos = lazy(() => import("../pages/vacaciones/ranges/Rangos"));
 const TestPage = lazy(() => import("../pages/TestPage"));
 const ReportsForm = lazy(() => import("../pages/reports/FormReport"));
+const EditReports = lazy(() => import("../pages/reports/EditReport"));
 
 type Route = {
   path: string;
@@ -80,8 +81,12 @@ const routes: Route[] = [
     component: Reportes,
   },
   {
-      path: "/reports/new",
-      component: ReportsForm,
+    path: "/reports/new",
+    component: ReportsForm,
+  },
+  {
+    path: "/reports/edit/:id",
+    component: EditReports,
   },
   {
     path: "/blog",
@@ -90,16 +95,16 @@ const routes: Route[] = [
 
   {
     path: "/blog/form",
-    component:FormBlog,
+    component: FormBlog,
   },
   {
     path: "/bannerform",
-    component:FormBanner,
+    component: FormBanner,
   },
   {
     path: "/TestPage",
     component: TestPage,
-  }
+  },
 ];
 
 export default routes;
