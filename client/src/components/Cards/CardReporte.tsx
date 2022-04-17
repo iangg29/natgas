@@ -12,6 +12,9 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import DateInputLong from "../Inputs/DateInputLong";
+import InputLong from "../Inputs/InputLong";
+import PrimaryButton from "../Buttons/PrimaryButton";
 
 type Props = {
   report: any;
@@ -20,6 +23,9 @@ type Props = {
 const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
   const [getRows, setRows] = React.useState<any[]>([]);
   const [getLabels, setLabels] = React.useState<any[]>([]);
+  const [getVisible, setVisible] = React.useState<boolean>(true);
+  const [getValue, setValue] = React.useState<number>(0);
+  const [getDate, setDate] = React.useState<Date>(new Date());
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -54,7 +60,7 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
         const departments = await axios.get(
           `report/getRowsFromReport/${idReporte}`,
         );
-        console.log(departments);
+        console.log(departments.data.data.documents);
         setRows(departments.data.data.documents);
         setLabels(
           departments.data.data.documents
@@ -66,6 +72,23 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
       }
     })();
   }, [idReporte]);
+
+  const handleSubmit = async () => {
+    try {
+      await axios.post(`row/`, {
+        value: getValue,
+        date: getDate,
+        idReporte,
+      });
+      setRows([{ value: getValue }, ...getRows]);
+      setLabels([new Date(getDate).toLocaleDateString(), ...getLabels]);
+      setDate(new Date());
+      setValue(0);
+      setVisible(true);
+    } catch (error: any) {
+      alert(error.response.message);
+    }
+  };
 
   return (
     <Background bgColor="bg-[#007DBA] my-20">
@@ -88,6 +111,32 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
           />
         </div>
       </div>
+      <div className="my-10 flex w-full flex-row items-center justify-around">
+        {" "}
+        <PrimaryButton
+          label="Agregar reporte"
+          action={() => setVisible(!getVisible)}
+        />
+      </div>
+
+      {getVisible ? (
+        <></>
+      ) : (
+        <div className="flex w-full flex-grow flex-row items-center justify-around">
+          <InputLong
+            label="Valor del nuevo reporte"
+            placeholder="number"
+            getVal={getValue}
+            setVal={setValue}
+          />
+          <DateInputLong
+            label="Valor del nuevo reporte"
+            getVal={getDate}
+            setVal={setDate}
+          />
+          <PrimaryButton label="Agregar" action={handleSubmit} />
+        </div>
+      )}
     </Background>
   );
 };
