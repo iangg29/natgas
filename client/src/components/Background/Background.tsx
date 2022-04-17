@@ -1,8 +1,19 @@
 import React from "react";
 
-const Background = (): JSX.Element => {
+type Props = {
+  bgColor: string;
+  children: JSX.Element | JSX.Element[];
+};
+
+const Background = ({ children, bgColor }: Props) => {
   return (
-    <div className="relative matrix w-full h-full bg-gradient-to-r from-[#00A99D] to-[#098B90]"></div>
+    <div
+      className={`matrix relative w-full skew-y-[-2deg] p-10 py-20 ${bgColor}`}
+    >
+      <div className="align-center flex skew-y-[2deg] flex-col justify-around">
+        {children}
+      </div>
+    </div>
   );
 };
 

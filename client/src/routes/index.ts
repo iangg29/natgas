@@ -13,12 +13,16 @@ const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
 const Blog = lazy(() => import("../pages/blog/Blog"));
 const FormBlog = lazy(() => import("../pages/blog/FormBlog"));
 const FormBanner = lazy(() => import("../pages/banner/FormBanner"));
-const Asuetos = lazy(()  => import("../pages/asuetos/asuetos"));
+const Asuetos = lazy(() => import("../pages/asuetos/asuetos"));
 const BuscarVacaciones = lazy(
   () => import("../pages/vacaciones/BuscarVacaciones"),
 );
+const Reportes = lazy(() => import("../pages/reports/AllReports"));
 const Rangos = lazy(() => import("../pages/vacaciones/ranges/Rangos"));
 const ViewBlog = lazy(() => import("../pages/blog/ViewBlog"));
+const TestPage = lazy(() => import("../pages/TestPage"));
+const ReportsForm = lazy(() => import("../pages/reports/FormReport"));
+const EditReports = lazy(() => import("../pages/reports/EditReport"));
 
 export type IRoute = {
   path: string;
@@ -71,6 +75,22 @@ const routes: IRoute[] = [
     component: MisSolicitudes,
   },
   {
+    path: "/vacations/search",
+    component: BuscarVacaciones,
+  },
+  {
+    path: "/reports/",
+    component: Reportes,
+  },
+  {
+    path: "/reports/new",
+    component: ReportsForm,
+  },
+  {
+    path: "/reports/edit/:id",
+    component: EditReports,
+  },
+  {
     path: "/blog",
     component: Blog,
   },
@@ -93,6 +113,10 @@ const routes: IRoute[] = [
   {
     path: "/profile/:id/update",
     component: ActualizaPerfil,
+  },
+  {
+    path: "/TestPage",
+    component: TestPage,
   },
 ];
 
