@@ -49,12 +49,14 @@ const Asuetos = () => {
       
   const upload = async() => {
         try {
-            await axios.post("/asuetos/", {
+            const date = await axios.post("/asuetos/", {
                 date: getDate,
             });
-            window.location.reload();
-            alert("Asueto agregado correctamente");
+            console.log(date);
+            setDates([...getDates, date.data.data.new[0]])
             setDate("");
+            alert("Asueto agregado correctamente");
+            
             
             
         } catch (err: any) {
