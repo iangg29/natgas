@@ -1,9 +1,10 @@
 const db = require('../db/database');
 const Base = require('./base.model');
 const User = require('./user.model');
+const Asueto = require('./asueto.model');
 const AppError = require('../utils/appError');
 
-module.exports = class extends Base {
+module.exports = class Vacation extends Base {
     static table = 'vacaciones';
 
     constructor({ startdate, enddate, substitute, email }) {
@@ -15,6 +16,7 @@ module.exports = class extends Base {
 
         this.tableName = 'vacaciones';
     }
+
 
     async save() {
         // CHECK IF USER HAS USED ALL VACATION DAYS
@@ -31,14 +33,22 @@ module.exports = class extends Base {
                 'La fecha de fin de vacaciones debe de ser despues del inicio del periodo.',
                 400
             );
+        
+         // UPDATE USER VACATIONS LEFT
+        const start = new Date(this.startdate);
+        const end = new Date(this.enddate);
 
-        // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
+        const asuetos = (
+            await Asueto.getAll({})
+            );
+        
+        const diasasuetos = Vacation.findAsuetos(asuetos, this.startdate, this.enddate);
+        const weekends = Vacation.findWeekends(this.startdate, this.enddate);
+
         const vacationDays =
-            (this.enddate.getTime() - this.startdate.getTime()) /
-                (1000 * 3600 * 24) +
-            1;
-        console.log(vacationDays);
-
+        ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
+    // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
+        
         if (vacationDays > user.vacations)
             throw new AppError(
                 'Los dias solicitados sobrepasan la cantidad de vacaciones disponibles',
@@ -58,4 +68,29 @@ module.exports = class extends Base {
             idVacaciones,
         });
     }
+
+    static findAsuetos(asuetos, start, end) {
+        let count = 0;
+        asuetos.forEach(asueto => {
+            if(asueto.date >= start && asueto.date <= end){
+                count++
+            }
+            
+        });
+        return count;
+    }
+
+    static findWeekends(start, end) {
+        let count = 0;
+        
+        while(end.getTime() >= start.getTime()){
+            start.setDate(start.getDate() + 1);
+            if(start.getDay() === 0 || start.getDay() === 6){
+                count++
+            }
+        }
+        return count;
+
+    }
+
 };
