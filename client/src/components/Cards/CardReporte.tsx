@@ -134,6 +134,7 @@ const CardReporte = ({
           <PrimaryButton
             label="Eliminar reporte"
             action={() => deleteFunc(idReporte)}
+            bg="bg-red-600"
           />
         </div>
       </div>
