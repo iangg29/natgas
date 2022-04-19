@@ -34,6 +34,16 @@ const Asuetos = () => {
     }
   };
 
+  const deleteA = async (id: any) => {
+    try {
+      await axios.delete(`/asuetos/${id}`);
+      setDates(getDates.filter((date) => date.idAsueto !== id));
+      alert("La fecha de asueto ha sido eliminada con éxito.");
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   const upload = async () => {
     try {
       await axios.post("/asuetos/", {
