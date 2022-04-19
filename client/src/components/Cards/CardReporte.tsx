@@ -19,9 +19,13 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 
 type Props = {
   report: any;
+  deleteFunc: Function;
 };
 
-const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
+const CardReporte = ({
+  deleteFunc,
+  report: { idReporte, name },
+}: Props): JSX.Element => {
   const [getRows, setRows] = React.useState<any[]>([]);
   const [getLabels, setLabels] = React.useState<any[]>([]);
   const [getVisible, setVisible] = React.useState<boolean>(true);
@@ -114,16 +118,22 @@ const CardReporte = ({ report: { idReporte, name } }: Props): JSX.Element => {
       </div>
       <div className="my-10 flex w-full flex-row items-center justify-center">
         {" "}
-        <div className="mr-4">
+        <div className="m-4">
           <PrimaryButton
             label="Agregar reporte"
             action={() => setVisible(!getVisible)}
           />
         </div>
-        <div>
+        <div className="m-4">
           <PrimaryButton
             label="Editar reporte"
             action={() => navigate(`/app/reports/edit/${idReporte}`)}
+          />
+        </div>
+        <div className="m-4">
+          <PrimaryButton
+            label="Eliminar reporte"
+            action={() => deleteFunc(idReporte)}
           />
         </div>
       </div>

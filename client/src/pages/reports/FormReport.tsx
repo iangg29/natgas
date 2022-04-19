@@ -2,17 +2,20 @@ import { useState } from "react";
 import axios from "axios";
 import Page from "../../containers/Page";
 import InputLong from "../../components/Inputs/InputLong";
+import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 
 const ReportForm = () => {
   const [getIndicador, setIndicador] = useState<string>("");
+  const navigate = useNavigate();
 
   const sendReport = async () => {
     try {
-      await axios.post("/report/", {
+      await axios.post("report/", {
         name: getIndicador,
       });
       alert("Nuevo indicador creado correctamente");
+      navigate("/app/reports");
 
       setIndicador("");
     } catch (err: any) {

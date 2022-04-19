@@ -20,6 +20,16 @@ const Reports = (): JSX.Element => {
     })();
   }, []);
 
+  const handleDelete = async (id: any) => {
+    try {
+      await axios.delete(`report/${id}`);
+      alert("Reporte eliminado con éxito");
+      setReports(getReports.filter((rep) => rep.idReporte !== id));
+    } catch (error: any) {
+      alert(error.response.message);
+    }
+  };
+
   return (
     <Page title="Reportes" headTitle="Reportes" padding={false}>
       <div className="mb-8 grid w-full justify-items-center pt-4">
@@ -35,7 +45,7 @@ const Reports = (): JSX.Element => {
       </div>
       <div className="flex-col">
         {getReports.map((rpt: any) => (
-          <CardReporte report={rpt} />
+          <CardReporte report={rpt} deleteFunc={handleDelete} />
         ))}
       </div>
     </Page>
