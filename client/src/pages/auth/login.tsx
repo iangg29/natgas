@@ -23,7 +23,7 @@ const Login = (): JSX.Element => {
   const onSubmit: SubmitHandler<Inputs> = (data: any): void => {
     (async () => {
       await axios
-        .post("http://localhost:5959/auth/login", data)
+        .post("https://api.natgas.ian.software/auth/login", data)
         .then((res: AxiosResponse) => {
           console.log(res);
           reset();
