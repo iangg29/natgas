@@ -24,33 +24,6 @@ const Asuetos = () => {
     })();
   }, []);
 
-
-    const deleteAll = async () => {
-        try {
-            await axios.delete(`/asuetos/`);
-            setDates([]);
-            alert("Las fechas de asuetos han sido eliminadas.");
-          } catch (error: any) {
-          alert(error.message);
-          }
-      };
-      
-  const upload = async() => {
-        try {
-            const date = await axios.post("/asuetos/", {
-                date: getDate,
-            });
-            console.log(date);
-            setDates([...getDates, date.data.data.new[0]])
-            setDate("");
-            alert("Asueto agregado correctamente");
-            
-        } catch (err: any) {
-            console.log(err);
-            alert(err.message);
-        }
-  };
-
   const deleteAll = async () => {
     try {
       await axios.delete(`/asuetos/`);
