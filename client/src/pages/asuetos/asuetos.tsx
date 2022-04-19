@@ -24,14 +24,31 @@ const Asuetos = () => {
     })();
   }, []);
 
-  const deleteA = async (id: any) => {
-    try {
-      await axios.delete(`/asuetos/${id}`);
-      setDates(getDates.filter((date) => date.idAsueto !== id));
-      alert("La fecha de asueto ha sido eliminada con éxito.");
-    } catch (error: any) {
-      alert(error.message);
-    }
+
+    const deleteAll = async () => {
+        try {
+            await axios.delete(`/asuetos/`);
+            setDates([]);
+            alert("Las fechas de asuetos han sido eliminadas.");
+          } catch (error: any) {
+          alert(error.message);
+          }
+      };
+      
+  const upload = async() => {
+        try {
+            const date = await axios.post("/asuetos/", {
+                date: getDate,
+            });
+            console.log(date);
+            setDates([...getDates, date.data.data.new[0]])
+            setDate("");
+            alert("Asueto agregado correctamente");
+            
+        } catch (err: any) {
+            console.log(err);
+            alert(err.message);
+        }
   };
 
   const deleteAll = async () => {

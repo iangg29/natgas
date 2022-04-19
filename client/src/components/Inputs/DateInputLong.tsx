@@ -17,7 +17,7 @@ const DateInputLong = ({ label, getVal, setVal }: Props): JSX.Element => {
           onChange={(e) => setVal(e.target.value)}
           className="input-general w-full dark:border-0 dark:bg-gray-600"
           type="date"
-          value={getVal}
+          defaultValue={getVal}
         />
       </label>
     </>
