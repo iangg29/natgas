@@ -1,5 +1,3 @@
-import { HomeIcon, UserIcon } from "@heroicons/react/solid";
-
 export type NavbarLink = {
   path: string;
   name: string;
