@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../assets/img/Natgas-OFICIAL.png";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import axios, { AxiosResponse } from "axios";
 import { Helmet } from "react-helmet";
+import { LoginAuthAction } from "../../store/actions/auth.action";
+import { connect } from "react-redux";
 
 type Inputs = {
   email: string;
   password: string;
 };
 
-const Login = (): JSX.Element => {
+const Login = (props: any): JSX.Element => {
+  const { auth, login } = props;
   const year = new Date().getFullYear();
   const {
     register,
@@ -21,22 +23,12 @@ const Login = (): JSX.Element => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data: any): void => {
-    (async () => {
-      await axios
-        .post("https://api.natgas.ian.software/auth/login", data)
-        .then((res: AxiosResponse) => {
-          console.log(res);
-          reset();
-          navigate("/app/dashboard");
-        })
-        .catch((err) => {
-          const error = err.toJSON();
-          if (error.status === 401) {
-            alert("Usuario/Contraseña incorrectos.");
-          }
-        });
-    })();
+    login(data, navigate);
   };
+
+  useEffect(() => {
+    if (auth.isLoggedIn) navigate("/app/dashboard");
+  }, [auth]);
 
   return (
     <>
@@ -133,4 +125,18 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    login: (loginState: { email: string; password: string }, navigate: any) => {
+      dispatch(LoginAuthAction(loginState, navigate));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

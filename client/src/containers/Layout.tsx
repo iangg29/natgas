@@ -1,13 +1,21 @@
-import React, { Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import React, { Suspense, useEffect } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Loading from "../utils/Loading";
 import Main from "../containers/Main";
 import routes, { IRoute } from "../routes";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
 import Error404 from "../pages/404";
+import { connect } from "react-redux";
 
-const Layout = (): JSX.Element => {
+const Layout = (props: any): JSX.Element => {
+  const { auth } = props;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.isLoggedIn) navigate("/login");
+  }, [auth]);
+
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       <div className="flex w-full flex-1 flex-col">
@@ -35,4 +43,10 @@ const Layout = (): JSX.Element => {
   );
 };
 
-export default Layout;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(Layout);

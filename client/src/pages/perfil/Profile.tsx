@@ -3,9 +3,12 @@ import Page from "../../containers/Page";
 import axios, { AxiosResponse } from "axios";
 import { IEmployment } from "../../shared/interfaces/app.interface";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const Profile = (): JSX.Element => {
+const Profile = (props: any): JSX.Element => {
   // TODO: (Registra perfil) User is allowed to edit basic data while he is still pending of approval by HR.
+
+  const { auth } = props;
   const [profile, setProfile] = useState<IEmployment>({
     address: "",
     birthdate: "",
@@ -27,12 +30,10 @@ const Profile = (): JSX.Element => {
     contrato: "",
   });
 
-  const email = "jbelmonte@natgas.com";
-
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/user/email/${email}`)
+        .get(`/user/email/${auth.user.email}`)
         .then((res: AxiosResponse) => {
           console.log(res.data.data.document[0]);
           setProfile(res.data.data.document[0]);
@@ -41,7 +42,7 @@ const Profile = (): JSX.Element => {
           console.trace(err);
         });
     })();
-  }, [email]);
+  }, [auth.user]);
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
@@ -148,4 +149,10 @@ const Profile = (): JSX.Element => {
   );
 };
 
-export default Profile;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(Profile);
