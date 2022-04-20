@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { iBlog } from "../../shared/interfaces/app.interface";
 
 const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
-  const { image, title, content, slug, date } = blog;
+  const { image, title, content, slug, date, idBlogPost: id } = blog;
 
   return (
-    <div className="box-border h-[511px]  w-[400px] rounded-md border-2 shadow-md dark:bg-natgas-azul dark:border-natgas-azul">
+    <div className="box-border h-[511px]  w-[400px] rounded-md border-2 shadow-md dark:border-natgas-azul dark:bg-natgas-azul">
       <img
         className="inset-0 h-[236px] w-[400px] rounded-md object-cover"
         src={image}
@@ -25,9 +25,15 @@ const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
         <div>
           <Link
             to={`/app/blog/${slug}`}
-            className="rounded-md bg-natgas-sec-one bg-gradient-to-r px-4 py-1 text-sm text-white"
+            className="mr-2 rounded-md bg-natgas-sec-one bg-gradient-to-r px-4 py-1 text-sm text-white"
           >
             Leer
+          </Link>
+          <Link
+            to={`/app/blog/edit/${id}`}
+            className="rounded-md bg-natgas-azul bg-gradient-to-r px-4 py-1 text-sm text-white"
+          >
+            Editar
           </Link>
         </div>
       </div>
