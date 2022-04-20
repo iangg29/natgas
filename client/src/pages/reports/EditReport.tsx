@@ -28,6 +28,10 @@ const ReportForm = () => {
 
   const handleUpdateReport = async () => {
     try {
+      if (getReport.name === "") {
+        alert("Un indicador debe tener un nombre");
+        return;
+      }
       await axios.patch(`report/${id}`, {
         name: getReport.name,
       });

@@ -11,6 +11,10 @@ const ReportForm = () => {
 
   const sendReport = async () => {
     try {
+      if (getIndicador === "") {
+        alert("Un indicador debe tener un nombre");
+        return;
+      }
       await axios.post("report/", {
         name: getIndicador,
       });

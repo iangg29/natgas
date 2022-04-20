@@ -22,6 +22,9 @@ const Reports = (): JSX.Element => {
 
   const handleDelete = async (id: any) => {
     try {
+      if (!window.confirm("¿Está seguro de que quiere borrar el indicador?"))
+        return;
+
       await axios.delete(`report/${id}`);
       alert("Reporte eliminado con éxito");
       setReports(getReports.filter((rep) => rep.idReporte !== id));
@@ -38,8 +41,8 @@ const Reports = (): JSX.Element => {
           className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro"
         >
           <div className="inline-flex">
-            <p className="mt-2 ml-4">Agregar Reporte Nuevo</p>
-            <FaPlusCircle className="ml-4 mt-1.5 text-3xl text-natgas-verde" />
+            <p className="mt-2 ml-4">Agregar Indicador</p>
+            <FaPlusCircle className="ml-9 mt-1.5 text-3xl text-natgas-verde" />
           </div>
         </Link>
       </div>
