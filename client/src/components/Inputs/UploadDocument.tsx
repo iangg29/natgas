@@ -10,7 +10,7 @@ const UploadDocument = ({ label, onchange }: Props): JSX.Element => {
   };
   return (
     <label>
-      <div className="text-md mb-2 font-bold text-gray-700 ">{label}</div>
+      <div className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300 ">{label}</div>
       <input
         id="input"
         className="hidden"
@@ -20,7 +20,7 @@ const UploadDocument = ({ label, onchange }: Props): JSX.Element => {
       />
       <button
         onClick={handleClick}
-        className="h-[50px] w-[173px] rounded-[20px] border-4 border-natgas-gris-cool text-xl font-light text-natgas-gris-cool"
+        className="h-[50px]  dark:text-gray-300 w-[173px] rounded-[20px] border-4 border-natgas-gris-cool text-xl font-light text-natgas-gris-cool"
       >
         Elegir archivo
       </button>

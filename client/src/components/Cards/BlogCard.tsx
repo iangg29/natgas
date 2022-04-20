@@ -6,13 +6,13 @@ const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
   const { image, title, content, slug, date } = blog;
 
   return (
-    <div className="box-border h-[511px]  w-[400px] rounded-md border-2 shadow-md">
+    <div className="box-border h-[511px]  w-[400px] rounded-md border-2 shadow-md dark:bg-natgas-azul dark:border-natgas-azul">
       <img
         className="inset-0 h-[236px] w-[400px] rounded-md object-cover"
         src={image}
         alt={title}
       />
-      <div className="h-{45px} left-{32px} top-{247px} border-b-2 border-natgas-gris-cool text-center text-2xl font-bold text-black dark:text-gray-50  ">
+      <div className="h-{45px} left-{32px} top-{247px} border-b-2 border-natgas-azul text-center text-2xl font-bold text-black dark:text-gray-50  ">
         {title}
       </div>
       <div className=" h-[131px] pt-4 pl-4 pr-4 text-natgas-azul line-clamp-5 dark:text-gray-100">

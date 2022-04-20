@@ -11,11 +11,11 @@
 }
 
 .input-general {
-  @apply pl-4 pr-10 py-2 rounded-[20px] border-natgas-gris-cool border-[4px] placeholder-gray-600 focus:outline-none;
+  @apply pl-4 pr-10 py-2 rounded-[20px] border-natgas-gris-cool  dark:text-gray-200 border-[4px] placeholder-gray-600 focus:outline-none;
 }
 
 .title-general {
-  @apply border-b-4 ml-4 mr-4 text-3xl border-natgas-gris-cool;
+  @apply border-b-4 ml-4 mr-4 text-3xl dark:text-white border-natgas-gris-cool;
 }
 
 .title-white {
@@ -27,7 +27,7 @@
 }
 
 .primary-button-blue {
-  @apply w-48 rounded-full bg-gradient-to-r bg-natgas-azul py-4 text-sm text-white;
+  @apply w-48 rounded-full bg-gradient-to-r bg-natgas-azul dark:bg-natgas-azul-claro py-4 text-sm text-white;
 }
 
 .number-bold {

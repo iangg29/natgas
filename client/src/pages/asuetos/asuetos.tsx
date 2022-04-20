@@ -24,13 +24,19 @@ const Asuetos = () => {
     })();
   }, []);
 
-  const deleteAll = async () => {
-    try {
-      await axios.delete(`/asuetos/`);
-      setDates([]);
-      alert("Las fechas de asuetos han sido eliminadas.");
-    } catch (error: any) {
-      alert(error.message);
+  const deleteAll = (): void => {
+    if (window.confirm("¿Está seguro de que quiere borrar todo?")) {
+      (async () => {
+        await axios
+            .delete("/asuetos/")
+            .then((res: AxiosResponse) => {
+              alert("Las fechas de asuetos han sido eliminadas.");
+              setDates([]);
+            })
+            .catch((err) => {
+              console.trace(err);
+            });
+      })();
     }
   };
 
@@ -46,10 +52,11 @@ const Asuetos = () => {
 
   const upload = async () => {
     try {
-      await axios.post("/asuetos/", {
+      const date = await axios.post("/asuetos/", {
         date: getDate,
       });
-      window.location.reload();
+      console.log(date);
+      setDates([...getDates, date.data.data.new[0]]);
       alert("Asueto agregado correctamente");
       setDate("");
     } catch (err: any) {
@@ -114,7 +121,7 @@ const Asuetos = () => {
         <div className="mt-10 flex items-end justify-center">
           <DateInput label="Agregar asueto" getVal={getDate} setVal={setDate} />
           <button
-            className="focus:shadow-outline m-2 ml-10 h-10 rounded-full bg-natgas-azul px-5 text-white transition-colors  duration-150 hover:bg-natgas-verde"
+            className="focus:shadow-outline m-2 ml-10 h-10 rounded-full bg-natgas-azul dark:bg-natgas-azul-claro px-5 text-white transition-colors  duration-150 hover:bg-natgas-verde"
             onClick={() => upload()}
           >
             Confirmar

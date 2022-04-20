@@ -10,11 +10,11 @@ const DateInput = ({ label, getVal, setVal }: Props): JSX.Element => {
   return (
     <>
       <label>
-        <div className="mb-2 text-sm font-bold text-gray-700">{label}</div>
+        <div className="mb-2 text-sm font-bold text-gray-700 dark:text-gray-300">{label}</div>
         <input 
           onChange={(e) => setVal(e.target.value)}
           value={getVal} 
-          className="input-general md:w-80" 
+          className="input-general md:w-80 dark:border-0 dark:bg-gray-600"
           type="date" />
       </label>
     </>
