@@ -20,6 +20,7 @@ const BuscarVacaciones = lazy(
 const Reportes = lazy(() => import("../pages/reports/AllReports"));
 const Rangos = lazy(() => import("../pages/vacaciones/ranges/Rangos"));
 const ViewBlog = lazy(() => import("../pages/blog/ViewBlog"));
+const EditBlog = lazy(() => import("../pages/blog/EditBlog"));
 const TestPage = lazy(() => import("../pages/TestPage"));
 const ReportsForm = lazy(() => import("../pages/reports/FormReport"));
 const EditReports = lazy(() => import("../pages/reports/EditReport"));
@@ -101,6 +102,10 @@ const routes: IRoute[] = [
   {
     path: "/blog/form",
     component: FormBlog,
+  },
+  {
+    path: "/blog/edit/:id",
+    component: EditBlog,
   },
   {
     path: "/bannerform",

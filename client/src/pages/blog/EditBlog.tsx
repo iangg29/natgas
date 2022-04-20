@@ -1,54 +1,62 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import InputLong from "../../components/Inputs/InputLong";
 import InputP from "../../components/Inputs/InputP";
 import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const FormBlog = () => {
+  const { id } = useParams<string>();
   const [getTitle, setTitle] = useState<any>();
   const [getText, setText] = useState<any>();
   const [selectedFile, setSelectedFile] = useState<any>();
   const [preview, setPreview] = useState<any>();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const blog = await axios.get(`blog/${id}`);
+        setTitle(blog.data.data.document[0].title);
+        setText(blog.data.data.document[0].content);
+        setPreview(blog.data.data.document[0].image);
+      } catch (error: any) {
+        alert(error.response.message);
+      }
+    })();
+  }, []);
+
   const upload = async (e: any) => {
     try {
       e.preventDefault();
       const form = new FormData();
       form.append("title", getTitle);
-      form.append("date", new Date().toLocaleDateString());
       form.append("content", getText);
-      form.append("blog_photo", selectedFile);
+      if (selectedFile) form.append("blog_photo", selectedFile);
 
-      const res = await axios({
-        method: "POST",
-        url: "/blog",
+      await axios({
+        method: "PATCH",
+        url: `/blog/${id}`,
         data: form,
       });
+      alert("Blog updated successfully");
       navigate("/app/blog");
     } catch (error: any) {
       alert(error.response.message);
     }
   };
 
-  useEffect(() => {
-    if (!selectedFile) {
-      setPreview(undefined);
-      return;
-    }
-    const objectUrl = URL.createObjectURL(selectedFile);
-    setPreview(objectUrl);
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile]);
   const onSelectFile = (e: any) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
     }
     setSelectedFile(e.target.files[0]);
+    const objectUrl = URL.createObjectURL(e.target.files[0]);
+    setPreview(objectUrl);
   };
+
   return (
     <>
       <div className=" mt-6 grid gap-20  sm:grid-cols-1 md:grid-cols-2">
