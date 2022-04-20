@@ -34,7 +34,6 @@ const createSendToken = (user, statusCode, req, res) => {
 
     res.cookie('jwt', token, cookieOptions);
 
-    // Remove password from output
     user.password = undefined;
     user.passwordConfirm = undefined;
     user.tableName = undefined;
@@ -69,16 +68,14 @@ exports.login = catchAsync(async (req, res, next) => {
         return next(new AppError('Please provide email and password', 400));
     }
 
-    // 2 checar si existe un usuario y si son correctas
     const user = (await User.getOne('email', email))[0];
 
     if (!user) return next(new AppError('Incorrect email', 401));
     const isCorrect = await User.correctPassword(password, user.password);
     if (!isCorrect) {
         return next(new AppError('Incorrect password', 401));
-    } // si hasta aqui no ha mandado alv ps ya llegamos a lo bueno
+    }
 
-    // 3 enviar la JWT de regreso al cliente
     createSendToken(user, 201, req, res);
 });
 
@@ -90,10 +87,8 @@ exports.logout = (req, res, next) => {
 };
 
 exports.protect = catchAsync(async (req, res, next) => {
-    // 1) Getting the token and check if its there
     let token;
     if (
-        // es un estandard que el token vaya con este header y con el Bearer antes
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
     ) {
@@ -110,16 +105,12 @@ exports.protect = catchAsync(async (req, res, next) => {
             ),
         );
     }
-    // 2) Verification: Validate the token to view if the signature is valid
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-    // 3) Check if user still exists
     const user = (await User.getOne('email', decoded.email))[0];
     if (!user) {
         return next(new AppError('The user does not longer exists', 401));
     }
-
-    // 5) Next is called and the req accesses the protected route
-    req.user = user; //podria ser util
+    req.user = user;
     next();
 });
