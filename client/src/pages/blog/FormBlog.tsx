@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InputLong from "../../components/Inputs/InputLong";
+import DateInput from "../../components/Inputs/DateInput";
 import InputP from "../../components/Inputs/InputP";
 import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
@@ -8,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 const FormBlog = () => {
   const [getTitle, setTitle] = useState<any>();
+  const [getDate, setDate] = useState<any>(
+    new Date().toISOString().split("T")[0],
+  );
   const [getText, setText] = useState<any>();
   const [selectedFile, setSelectedFile] = useState<any>();
   const [preview, setPreview] = useState<any>();
@@ -18,11 +22,11 @@ const FormBlog = () => {
       e.preventDefault();
       const form = new FormData();
       form.append("title", getTitle);
-      form.append("date", new Date().toLocaleDateString());
+      form.append("date", getDate);
       form.append("content", getText);
       form.append("blog_photo", selectedFile);
 
-      const res = await axios({
+      await axios({
         method: "POST",
         url: "/blog",
         data: form,
@@ -58,6 +62,7 @@ const FormBlog = () => {
           getVal={getTitle}
           setVal={setTitle}
         />
+        <DateInput label="Fecha" getVal={getDate} setVal={setDate} />
         <UploadDocument label="Elegir archivo" onchange={onSelectFile} />
       </div>
       <div className="mt-10 grid justify-center font-bold dark:text-white">

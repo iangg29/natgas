@@ -14,7 +14,6 @@ const CardSolicitud = ({
   update,
   delete: deleteRow,
 }: Props): JSX.Element => {
-  console.log(row);
   const [getValue, setValue] = useState<number>(row.value);
   const [getDate, setDate] = useState<Date>(new Date(row.date));
   return (
