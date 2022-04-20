@@ -15,7 +15,7 @@ const InputP = ({ getVal, setVal, label, placeholder }: Props): JSX.Element => {
           {label}
         </div>
         <textarea
-          className="input-general h-[200%] w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200 "
+          className="input-general h-[200%] w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200 dark:text-gray-200 "
           placeholder={placeholder}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
             setVal(e.target.value)

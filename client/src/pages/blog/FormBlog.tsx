@@ -52,7 +52,7 @@ const FormBlog = () => {
   };
   return (
     <>
-      <div className="grid gap-20  sm:grid-cols-1 md:grid-cols-2">
+      <div className=" mt-6 grid gap-20  sm:grid-cols-1 md:grid-cols-2">
         <InputLong
           label="Título"
           placeholder="Título"
@@ -61,7 +61,7 @@ const FormBlog = () => {
         />
         <UploadDocument label="Elegir archivo" onchange={onSelectFile} />
       </div>
-      <div className="mt-10 grid justify-center font-bold">
+      <div className="mt-10 grid justify-center dark:text-white font-bold">
         <Title title={getTitle} />
         <img
           alt={getTitle}

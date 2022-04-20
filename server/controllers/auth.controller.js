@@ -18,17 +18,17 @@ const createSendToken = (user, statusCode, req, res) => {
     if (process.env.NODE_ENV === 'development') {
         cookieOptions = {
             expires: new Date(
-                Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 1000
+                Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 1000,
             ),
             httpOnly: true,
         };
     } else {
         cookieOptions = {
             expires: new Date(
-                Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 1000
+                Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 1000,
             ),
             httpOnly: true,
-            secure: req.secure || req.headders('x-forwarded-proto') === 'https',
+            secure: req.secure || req.headers('x-forwarded-proto') === 'https',
         };
     }
 
@@ -73,8 +73,6 @@ exports.login = catchAsync(async (req, res, next) => {
     const user = (await User.getOne('email', email))[0];
 
     if (!user) return next(new AppError('Incorrect email', 401));
-
-    console.log(password, user.password);
     const isCorrect = await User.correctPassword(password, user.password);
     if (!isCorrect) {
         return next(new AppError('Incorrect password', 401));
@@ -108,8 +106,8 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(
             new AppError(
                 'You are not logged in. Please log in to get access',
-                401
-            )
+                401,
+            ),
         );
     }
     // 2) Verification: Validate the token to view if the signature is valid
