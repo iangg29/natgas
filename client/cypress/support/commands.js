@@ -24,3 +24,7 @@ Cypress.Commands.add("login", () => {
     localStorage.setItem("auth", JSON.stringify(loginAuthState));
   });
 });
+
+Cypress.Commands.add("restoreLocalStorage", () => {
+  localStorage.removeItem("auth");
+});
