@@ -1,28 +1,5 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import axios from "axios";
+
 Cypress.Commands.add("login", () => {
   Cypress.log({
     name: "loginViaJWT",
@@ -38,6 +15,12 @@ Cypress.Commands.add("login", () => {
   };
 
   cy.request(options).then((res) => {
-    Cypress.log(res);
+    const loginAuthState = {
+      isLoggedIn: true,
+      user: res.body.data.user,
+      token: res.body.token,
+    };
+    axios.defaults.headers.common["Authorization"] = `Bearer ${res.body.token}`;
+    localStorage.setItem("auth", JSON.stringify(loginAuthState));
   });
 });
