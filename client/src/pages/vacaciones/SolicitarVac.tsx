@@ -4,13 +4,12 @@ import DateInputLong from "../../components/Inputs/DateInputLong";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import axios from "axios";
 import Page from "../../containers/Page";
+import { connect } from "react-redux";
 
-const SolicitarVac = (): JSX.Element => {
+const SolicitarVac = ({ auth }: any): JSX.Element => {
   const [getStartDate, setStartdate] = useState<string>();
   const [getEndDate, setEndDate] = useState<string>();
   const [getSuplente, setSuplente] = useState<string>();
-
-  const email = "jbelmonte@natgas.com";
 
   const sendDate = async () => {
     try {
@@ -18,7 +17,7 @@ const SolicitarVac = (): JSX.Element => {
         startdate: getStartDate,
         enddate: getEndDate,
         substitute: getSuplente,
-        email: email,
+        email: auth.user.email,
       });
       alert("Petición de vacación creada correctamente");
       setEndDate("");
@@ -73,4 +72,10 @@ const SolicitarVac = (): JSX.Element => {
   );
 };
 
-export default SolicitarVac;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(SolicitarVac);

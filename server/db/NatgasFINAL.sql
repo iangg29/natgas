@@ -3,7 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-04-2022 a las 03:01:38
+-- Tiempo de generación: 19-04-2022 a las 02:58:12
+
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.10
 
@@ -540,7 +541,7 @@ CREATE TABLE `registro` (
 --
 
 INSERT INTO `registro` (`idRegistro`, `value`, `date`, `idReporte`, `created_at`, `updated_at`) VALUES
-(1, 80, '2020-01-21', 1, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(1, 75, '2020-01-14', 1, '2022-03-27 16:49:40', '2022-04-17 01:10:53'),
 (2, 75, '2020-02-21', 1, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (3, 66, '2020-03-21', 1, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (4, 65, '2020-01-21', 2, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -549,7 +550,11 @@ INSERT INTO `registro` (`idRegistro`, `value`, `date`, `idReporte`, `created_at`
 (7, 45, '2021-03-01', 3, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (8, 75, '2021-04-01', 3, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (9, 66, '2021-07-01', 3, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(10, 120, '2020-01-02', 4, '2022-03-27 16:49:40', '2022-03-27 10:49:40');
+(10, 120, '2020-01-02', 4, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(18, 90, '2022-04-28', 2, '2022-04-17 00:29:16', '2022-04-18 19:07:39'),
+(23, 34, '2022-04-16', 4, '2022-04-17 00:33:10', '2022-04-16 19:33:10'),
+(24, 120, '2022-04-19', 1, '2022-04-19 00:07:21', '2022-04-18 19:07:21'),
+(25, 25, '2022-04-19', 2, '2022-04-19 00:07:29', '2022-04-18 19:07:29');
 
 -- --------------------------------------------------------
 
@@ -569,11 +574,10 @@ CREATE TABLE `reporte` (
 --
 
 INSERT INTO `reporte` (`idReporte`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'NPS', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(2, 'PorcentajeMujeres', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(3, 'PorcentajeHombres', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(4, 'ReducciónCO2', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(5, 'Ventas', '2022-04-08 17:33:32', '2022-04-08 12:33:32');
+(1, 'Net Promotor Score', '2022-03-27 16:49:40', '2022-04-16 20:47:55'),
+(2, 'Porcentaje de mujeres', '2022-03-27 16:49:40', '2022-04-18 19:07:51'),
+(3, 'Porcentaje de hombres', '2022-03-27 16:49:40', '2022-04-18 19:08:09'),
+(4, 'ReducciónCO2', '2022-03-27 16:49:40', '2022-03-27 10:49:40');
 
 -- --------------------------------------------------------
 
@@ -808,13 +812,13 @@ ALTER TABLE `rangovacaciones`
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `reporte`
 --
 ALTER TABLE `reporte`
-  MODIFY `idReporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idReporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `vacaciones`
@@ -843,7 +847,7 @@ ALTER TABLE `pertenece`
 -- Filtros para la tabla `registro`
 --
 ALTER TABLE `registro`
-  ADD CONSTRAINT `registro_ibfk_1` FOREIGN KEY (`idReporte`) REFERENCES `reporte` (`idReporte`);
+  ADD CONSTRAINT `registro_ibfk_1` FOREIGN KEY (`idReporte`) REFERENCES `reporte` (`idReporte`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `vacaciones`

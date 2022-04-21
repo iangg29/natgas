@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import { iBlog } from "../../shared/interfaces/app.interface";
 
 const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
-  const { image, title, content, slug, date } = blog;
+  const { image, title, content, slug, date, idBlogPost: id } = blog;
 
   return (
-    <div className="box-border h-[511px]  w-[400px] rounded-md border-2 shadow-md">
+    <div className="box-border h-[511px]  w-[400px] rounded-md border-2 shadow-md dark:border-natgas-azul dark:bg-natgas-azul">
       <img
         className="inset-0 h-[236px] w-[400px] rounded-md object-cover"
         src={image}
         alt={title}
       />
-      <div className="h-{45px} left-{32px} top-{247px} border-b-2 border-natgas-gris-cool text-center text-2xl font-bold text-black dark:text-gray-50  ">
+      <div className="h-{45px} left-{32px} top-{247px} border-b-2 border-natgas-azul text-center text-2xl font-bold text-black dark:text-gray-50  ">
         {title}
       </div>
       <div className=" h-[131px] pt-4 pl-4 pr-4 text-natgas-azul line-clamp-5 dark:text-gray-100">
@@ -25,9 +25,15 @@ const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
         <div>
           <Link
             to={`/app/blog/${slug}`}
-            className="rounded-md bg-natgas-sec-one bg-gradient-to-r px-4 py-1 text-sm text-white"
+            className="mr-2 rounded-md bg-natgas-sec-one bg-gradient-to-r px-4 py-1 text-sm text-white"
           >
             Leer
+          </Link>
+          <Link
+            to={`/app/blog/edit/${id}`}
+            className="rounded-md bg-natgas-azul bg-gradient-to-r px-4 py-1 text-sm text-white"
+          >
+            Editar
           </Link>
         </div>
       </div>

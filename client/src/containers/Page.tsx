@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import Title from "../components/Title/Title";
 
 type Props = {
   title: string;
@@ -18,9 +19,7 @@ const Page = ({ children, headTitle, title, padding }: Props): JSX.Element => {
       <Helmet>
         <title>{headTitle} | NatGas</title>
       </Helmet>
-      <h1 className="text-center text-2xl font-bold font-bold text-natgas-azul dark:text-gray-50 md:text-left">
-        {title}
-      </h1>
+      <Title title={title} />
       <div className="py-5">{children}</div>
     </div>
   );

@@ -3,10 +3,20 @@ const reportController = require('../controllers/report.controller');
 
 const router = express.Router();
 
-router.route('/').get(reportController.getReports).post(reportController.createReport)
-router.route('/:id')
+router
+    .route('/')
+    .get(reportController.getReports)
+    .post(reportController.createReport);
+router
+    .route('/:id')
     .get(reportController.getReport)
     .patch(reportController.updateReport)
     .delete(reportController.deleteReport);
+router
+    .route('/getRowsFromReport/:id')
+    .get(
+        reportController.getRowsMiddleware,
+        reportController.getRowsFromReport
+    );
 
 module.exports = router;

@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import CardSolicitud from "../../components/Cards/CardSolicitud";
 import CardSolicitudVac from "../../components/Cards/CardSolicitudVac";
-import axios from "axios";
+import axios, { AxiosPromise } from "axios";
 import Page from "../../containers/Page";
+import { connect } from "react-redux";
 
-const VistaSolicitud = (): JSX.Element => {
-  const email = "jbelmonte@natgas.com";
-
+const VistaSolicitud = ({ auth }: any): JSX.Element => {
   const [getVacations, setVacations] = React.useState<any[]>([]);
   const [getNatgasBlocks, setNatgasBlocks] = React.useState<any[]>([]);
 
@@ -14,8 +13,8 @@ const VistaSolicitud = (): JSX.Element => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/mypendingvacationrequests/${email}`),
-          axios.get(`/natgasblock/mypendingngbrequests/${email}`),
+          axios.get(`/vacation/mypendingvacationrequests/${auth.user.email}`),
+          axios.get(`/natgasblock/mypendingngbrequests/${auth.user.email}`),
         ]);
 
         setVacations(myVacations.data.vacationrequests);
@@ -24,7 +23,7 @@ const VistaSolicitud = (): JSX.Element => {
         alert(error.message);
       }
     })();
-  }, [email]);
+  }, [auth.user]);
 
   const approveNGB = async (id: string) => {
     try {
@@ -61,7 +60,7 @@ const VistaSolicitud = (): JSX.Element => {
   return (
     <>
       <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
-        <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
+        <div className=" grid  grid-cols-1 gap-5 py-10 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
               <CardSolicitudVac
@@ -105,4 +104,10 @@ const VistaSolicitud = (): JSX.Element => {
   );
 };
 
-export default VistaSolicitud;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(VistaSolicitud);

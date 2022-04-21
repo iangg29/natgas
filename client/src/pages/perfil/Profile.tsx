@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
 import axios, { AxiosResponse } from "axios";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { IEmployment } from "../../shared/interfaces/app.interface";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import Stats from "../../components/Profile/Stats";
 
-const Profile = (): JSX.Element => {
+const Profile = (props: any): JSX.Element => {
   // TODO: (Registra perfil) User is allowed to edit basic data while he is still pending of approval by HR.
-  const [profile, setProfile] = useState<IEmployee>({
+
+  const { auth } = props;
+  const [profile, setProfile] = useState<IEmployment>({
     address: "",
     birthdate: "",
     cellphone: 0,
@@ -22,23 +26,23 @@ const Profile = (): JSX.Element => {
     updated_at: "",
     vacations: 0,
     verified: false,
+    position: "",
+    departamento: "",
+    contrato: "",
   });
-
-  const email = "jbelmonte@natgas.com";
 
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/user/email/${email}`)
+        .get(`/user/email/${auth.user.email}`)
         .then((res: AxiosResponse) => {
-          console.log(res.data.data.document[0]);
           setProfile(res.data.data.document[0]);
         })
         .catch((err) => {
           console.trace(err);
         });
     })();
-  }, [email]);
+  }, [auth.user]);
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
@@ -77,11 +81,11 @@ const Profile = (): JSX.Element => {
           </div>
           <div className="w-full md:w-1/3">
             <h4 className="font-gilroy-extrabold">Departamento</h4>
-            <span>Departamento</span>
+            <span>{profile.departamento}</span>
           </div>
           <div className="w-full md:w-1/3">
             <h4 className="font-gilroy-extrabold">Puesto</h4>
-            <span>Puesto</span>
+            <span>{profile.position}</span>
           </div>
         </div>
         <hr />
@@ -92,27 +96,7 @@ const Profile = (): JSX.Element => {
           </div>
         </div>
         <hr />
-        <div className="grid grid-cols-1 py-10 text-gray-600 dark:text-gray-200 md:grid-cols-2">
-          <div className="flex flex-col space-y-10">
-            <div>
-              Vacaciones usadas: <span className="number-bold">3</span>
-            </div>
-            <div>
-              Vacaciones disponibles: <span className="number-bold">25</span>
-            </div>
-            <div>
-              Vacaciones ganadas: <span className="number-bold">4</span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-10">
-            <div>
-              Natgas Blocks usados: <span className="number-bold">4</span>
-            </div>
-            <div>
-              Natgas Blocks disponibles: <span className="number-bold">1</span>
-            </div>
-          </div>
-        </div>
+        <Stats user={auth.user} />
         <hr />
         <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
           <div className="w-full md:w-1/2">
@@ -134,7 +118,7 @@ const Profile = (): JSX.Element => {
         </div>
         <div className="mt-4 text-center">
           <Link
-            to="/app/dashboard"
+            to={`/app/profile/${profile.number}/update`}
             className="rounded-full bg-natgas-sec-one px-8 py-3 text-white hover:bg-natgas-sec-two"
           >
             Editar perfil
@@ -145,4 +129,10 @@ const Profile = (): JSX.Element => {
   );
 };
 
-export default Profile;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(Profile);

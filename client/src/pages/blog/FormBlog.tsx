@@ -1,35 +1,39 @@
 import React, { useEffect, useState } from "react";
 import InputLong from "../../components/Inputs/InputLong";
+import DateInput from "../../components/Inputs/DateInput";
 import InputP from "../../components/Inputs/InputP";
 import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FormBlog = () => {
   const [getTitle, setTitle] = useState<any>();
+  const [getDate, setDate] = useState<any>(
+    new Date().toISOString().split("T")[0],
+  );
   const [getText, setText] = useState<any>();
   const [selectedFile, setSelectedFile] = useState<any>();
   const [preview, setPreview] = useState<any>();
+  const navigate = useNavigate();
 
   const upload = async (e: any) => {
     try {
       e.preventDefault();
       const form = new FormData();
       form.append("title", getTitle);
-      form.append("date", new Date().toLocaleDateString());
+      form.append("date", getDate);
       form.append("content", getText);
       form.append("blog_photo", selectedFile);
-      console.log(selectedFile[0]);
 
-      const res = await axios({
+      await axios({
         method: "POST",
         url: "/blog",
         data: form,
       });
-      console.log(res);
+      navigate("/app/blog");
     } catch (error: any) {
       alert(error.response.message);
-      console.log(error.response);
     }
   };
 
@@ -48,20 +52,20 @@ const FormBlog = () => {
       return;
     }
     setSelectedFile(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
   return (
     <>
-      <div className="grid gap-20  sm:grid-cols-1 md:grid-cols-2">
+      <div className=" mt-6 grid gap-20  sm:grid-cols-1 md:grid-cols-2">
         <InputLong
           label="Título"
           placeholder="Título"
           getVal={getTitle}
           setVal={setTitle}
         />
+        <DateInput label="Fecha" getVal={getDate} setVal={setDate} />
         <UploadDocument label="Elegir archivo" onchange={onSelectFile} />
       </div>
-      <div className="mt-10 grid justify-center font-bold">
+      <div className="mt-10 grid justify-center font-bold dark:text-white">
         <Title title={getTitle} />
         <img
           alt={getTitle}

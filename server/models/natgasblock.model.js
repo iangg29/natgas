@@ -5,10 +5,11 @@ const AppError = require('../utils/appError');
 
 class NatgasBlock extends Base {
     static table = 'natgasblock';
+    static tableReference = db(this.table);
 
     constructor({ date, period, email }) {
         super();
-        this.date = new Date(date);
+        this.date = date;
         this.period = period;
         this.email = email;
 
@@ -26,7 +27,7 @@ class NatgasBlock extends Base {
         const thisMonth = await NatgasBlock.getOne(
             'email',
             this.email
-        ).whereRaw('MONTH(date) = ?', [this.date.getMonth() + 1]);
+        ).whereRaw('MONTH(date) = ?', [new Date(this.date).getMonth() + 1]);
 
         if (thisMonth.length > 0)
             throw new AppError(

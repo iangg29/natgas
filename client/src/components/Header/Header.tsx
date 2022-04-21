@@ -2,12 +2,17 @@ import React, { Fragment } from "react";
 import { ChevronDownIcon, LogoutIcon, UserIcon } from "@heroicons/react/solid";
 import logoBig from "../../assets/img/IMAGOTIPO_contorno.png";
 import logoSmall from "../../assets/img/isotipo-contorno.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import SideBar from "../Sidebar/SideBar";
 import routes, { NavbarLink } from "../../routes/navbar";
+import { LogoutAuthAction } from "../../store/actions/auth.action";
+import { connect } from "react-redux";
 
-const Header = (): JSX.Element => {
+const Header = (props: any): JSX.Element => {
+  const { auth, logout } = props;
+  const navigate = useNavigate();
+
   return (
     <header className="shadow-bottom z-40 max-h-20 bg-natgas-azul py-4">
       <div className="relative flex h-full w-full items-center justify-around px-6 text-gray-100">
@@ -42,15 +47,10 @@ const Header = (): JSX.Element => {
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className=" t-2 invisible inline-flex w-full justify-center rounded-md px-4 py-2 align-middle text-sm font-medium hover:bg-opacity-30 focus:outline-none md:visible">
-                  <div
-                    className="h-8 w-8 rounded-full"
-                    style={{
-                      background: `url() center center no-repeat`,
-                      backgroundSize: "cover",
-                    }}
-                  />
                   <div className="ml-2 mt-1 inline-flex content-center items-center justify-center">
-                    <span className="ml-2">Natgas</span>
+                    <span className="ml-2">
+                      {auth.user.name} {auth.user.lastname}
+                    </span>
                     <ChevronDownIcon
                       className="ml-2 -mr-1 h-5 w-5 text-white hover:text-natgas-azul-claro"
                       aria-hidden="true"
@@ -100,6 +100,7 @@ const Header = (): JSX.Element => {
                     <Menu.Item>
                       {({ active }) => (
                         <button
+                          onClick={() => logout(navigate)}
                           className={`${
                             active
                               ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
@@ -135,4 +136,18 @@ const Header = (): JSX.Element => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    logout: (navigate: any) => {
+      dispatch(LogoutAuthAction(navigate));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
