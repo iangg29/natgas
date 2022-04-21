@@ -1,10 +1,11 @@
 import React from "react";
 import ButtonBar from "../components/ButtonBar/ButtonBar";
-import { Link } from "react-router-dom";
 import DashCarousel from "../components/Carousel/DashCarousel";
 import { Helmet } from "react-helmet";
+import LastBlog from "../components/Dashboard/LastBlog";
+import { connect } from "react-redux";
 
-const Dashboard = (): JSX.Element => {
+const Dashboard = ({ auth }: any): JSX.Element => {
   return (
     <>
       <Helmet>
@@ -13,19 +14,23 @@ const Dashboard = (): JSX.Element => {
       <div className="overflow-hidden">
         <div className="container mx-auto mb-5 p-10">
           <h1 className="text-center text-2xl font-bold font-bold text-natgas-azul dark:text-gray-50 md:text-left">
-            Bienvenid@
+            Bienvenid{auth.user.gender === "Masculino" ? "o" : "a"}{" "}
+            {auth.user.name}
           </h1>
           <hr className="natgas-divisor" />
           <DashCarousel />
           <ButtonBar />
-          <div className="grid dark:text-gray-100">
-            <Link to="/app/requests">Requests</Link>
-            <Link to="/app/vacations/ranges">Rangos</Link>
-          </div>
         </div>
+        <LastBlog />
       </div>
     </>
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(Dashboard);

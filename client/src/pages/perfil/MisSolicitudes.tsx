@@ -3,19 +3,19 @@ import axios from "axios";
 import CardMiSolicitudNGB from "../../components/Cards/CardMiSolicitudNGB";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import Page from "../../containers/Page";
+import Title from "../../components/Title/Title";
+import { connect } from "react-redux";
 
-const MisSolicitudes = (): JSX.Element => {
+const MisSolicitudes = ({ auth }: any): JSX.Element => {
   const [getVacations, setVacations] = useState<any[]>([]);
   const [getNatgasBlocks, setNatgasBlocks] = useState<any[]>([]);
-
-  const email = "jbelmonte@natgas.com";
 
   React.useEffect(() => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/myvacationrequests/${email}`),
-          axios.get(`/natgasblock/myngbrequests/${email}`),
+          axios.get(`/vacation/myvacationrequests/${auth.user.email}`),
+          axios.get(`/natgasblock/myngbrequests/${auth.user.email}`),
         ]);
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);
@@ -23,12 +23,14 @@ const MisSolicitudes = (): JSX.Element => {
         alert(error.message);
       }
     })();
-  }, [email]);
+  }, [auth.user]);
 
   return (
     <>
-      <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
-        <div className=" mb-10  grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      <Page title="Mis solicitudes" headTitle="Vacaciones" padding={true}>
+        <br />
+        <Title title="Vacaciones" />
+        <div className="mb-20 mt-10 grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
               <CardMiSolicitudVac
@@ -49,9 +51,8 @@ const MisSolicitudes = (): JSX.Element => {
             <p>No cuentas con solicitudes de vacaciones</p>
           )}
         </div>
-      </Page>
-      <Page title="NatGas Blocks" headTitle="NatGas Blocks" padding={true}>
-        <div className=" grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+        <Title title="NatGas Blocks" />
+        <div className="mt-10 grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks.length > 0 ? (
             getNatgasBlocks.map((ngb) => (
               <CardMiSolicitudNGB
@@ -71,4 +72,10 @@ const MisSolicitudes = (): JSX.Element => {
   );
 };
 
-export default MisSolicitudes;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(MisSolicitudes);

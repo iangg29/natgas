@@ -12,7 +12,7 @@ module.exports = class extends Base {
         this.image = image || 'default.png';
 
         this.tableName = 'blogpost';
-        this.slug = title.toLowerCase().split(' ').join('-');
+        this.slug = this.title.toLowerCase().split(' ').join('-');
     }
 
     async save() {

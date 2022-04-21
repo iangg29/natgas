@@ -3,19 +3,18 @@ import DateInputLong from "../../components/Inputs/DateInputLong";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import axios from "axios";
 import Page from "../../containers/Page";
+import { connect } from "react-redux";
 
-const SolicitarNGB = (): JSX.Element => {
+const SolicitarNGB = ({ auth }: any): JSX.Element => {
   const [getDate, setDate] = useState<string>();
   const [getRadio, setRadio] = useState<number>(0);
-
-  const email = "jbelmonte@natgas.com";
 
   const sendNGBRequest = async () => {
     try {
       await axios.post("/natgasblock/", {
         date: getDate,
         period: getRadio,
-        email: email,
+        email: auth.user.email,
       });
       alert("Petición de Natgas Block creada correctamente");
       setDate("");
@@ -81,4 +80,10 @@ const SolicitarNGB = (): JSX.Element => {
   );
 };
 
-export default SolicitarNGB;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(SolicitarNGB);
