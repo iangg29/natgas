@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CardSolicitud from "../../components/Cards/CardSolicitud";
 import CardSolicitudVac from "../../components/Cards/CardSolicitudVac";
-import axios from "axios";
+import axios, { AxiosPromise } from "axios";
 import Page from "../../containers/Page";
 import { connect } from "react-redux";
 
@@ -23,7 +23,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
         alert(error.message);
       }
     })();
-  }, [auth.user.email]);
+  }, [auth.user]);
 
   const approveNGB = async (id: string) => {
     try {
@@ -60,7 +60,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
   return (
     <>
       <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
-        <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
+        <div className=" grid  grid-cols-1 gap-5 py-10 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac) => (
               <CardSolicitudVac
