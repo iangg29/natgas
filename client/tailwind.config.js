@@ -3,7 +3,9 @@ module.exports = {
     "./src/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/*.html",
+    "./node_modules/flowbite/**/*.js",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -30,5 +32,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/line-clamp"),
+    require("flowbite/plugin"),
+  ],
 };
