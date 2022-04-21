@@ -27,7 +27,7 @@ const LastBlog = (): JSX.Element => {
           Últimos Natgas Blogs
         </h3>
         <hr />
-        <div className="mt-10 flex flex-col justify-around space-x-6 md:flex-row">
+        <div className="mt-10 flex flex-col justify-around space-x-0 space-y-5 lg:flex-row lg:space-x-6 lg:space-y-0">
           {blogs?.map((blog: iBlog, idx: number) => (
             <LBlogCard key={idx} blog={blog} />
           ))}
