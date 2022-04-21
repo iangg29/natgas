@@ -30,7 +30,7 @@ const FormBlog = () => {
         alert(error.response.message);
       }
     })();
-  }, []);
+  }, [id]);
 
   const upload = async (e: any) => {
     try {

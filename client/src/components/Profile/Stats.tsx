@@ -4,7 +4,6 @@ import { IEmployee } from "../../shared/interfaces/app.interface";
 
 const Stats = ({ user }: { user: IEmployee }): JSX.Element => {
   const [usedVacations, setUsedVacations] = useState<number>(0);
-  const [earnedVacations, setEarnedVacations] = useState<number>(0);
   const [usedNatgasBlocks, setUsedNatgasBlocks] = useState<number>(0);
 
   useEffect(() => {
@@ -20,7 +19,7 @@ const Stats = ({ user }: { user: IEmployee }): JSX.Element => {
         alert(error.message);
       }
     })();
-  }, []);
+  }, [user.email]);
 
   return (
     <div className="grid grid-cols-1 py-10 text-gray-600 dark:text-gray-200 md:grid-cols-2">

@@ -1,4 +1,3 @@
-import { Title } from "chart.js";
 import React from "react";
 import Background from "../components/Background/Background";
 import TitleWhite from "../components/Title/TitleWhite";
