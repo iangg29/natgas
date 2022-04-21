@@ -47,13 +47,6 @@ const Header = (props: any): JSX.Element => {
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className=" t-2 invisible inline-flex w-full justify-center rounded-md px-4 py-2 align-middle text-sm font-medium hover:bg-opacity-30 focus:outline-none md:visible">
-                  <div
-                    className="h-8 w-8 rounded-full"
-                    style={{
-                      background: `url() center center no-repeat`,
-                      backgroundSize: "cover",
-                    }}
-                  />
                   <div className="ml-2 mt-1 inline-flex content-center items-center justify-center">
                     <span className="ml-2">
                       {auth.user.name} {auth.user.lastname}

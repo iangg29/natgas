@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  title: any;
+  title: string;
 };
 
 const Title = ({ title }: Props) => {

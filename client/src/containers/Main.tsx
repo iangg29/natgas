@@ -15,7 +15,7 @@ const Main = ({ children }: Props): JSX.Element => {
   return (
     // <main className="h-full overflow-y-auto p-10">
     <main className="h-full overflow-y-auto">
-      <div className="container mx-auto grid">{children}</div>
+      <div className="mx-auto">{children}</div>
     </main>
   );
 };

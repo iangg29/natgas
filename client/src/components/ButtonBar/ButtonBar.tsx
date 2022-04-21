@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ButtonBar = (): JSX.Element => {
+  const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [vacations, ngblocks] = await Promise.all([
+          axios.get("/vacation?verifiedleader=0"),
+          axios.get("/natgasblock?status=0"),
+        ]);
+        setCount(vacations.data.results + ngblocks.data.results);
+      } catch (error: any) {
+        alert(error);
+        console.trace(error);
+      }
+    })();
+  }, []);
+
   return (
     <div className="flex w-full flex-col md:flex-row">
       <div className="w-full px-0 md:w-1/2 md:px-10">
         <div className="flex flex-row justify-around rounded-lg border-2 border-natgas-gris-cool py-4">
           <div className="grid items-center rounded-full bg-red-700">
             <span className="px-1 py-0 text-xs font-bold text-white md:py-1 md:px-2 md:text-base">
-              15
+              {count}
             </span>
           </div>
           <div className="grid items-center font-gilroy-light">
@@ -16,9 +34,12 @@ const ButtonBar = (): JSX.Element => {
               Solicitudes pendientes
             </p>
           </div>
-          <button className="rounded-full border-2 border-red-700 px-1 py-0 text-xs text-red-700 hover:bg-red-700 hover:text-white md:py-1 md:px-8 md:text-base">
+          <Link
+            to="/app/requests/pending"
+            className="rounded-full border-2 border-red-700 px-1 py-0 text-xs text-red-700 hover:bg-red-700 hover:text-white md:py-1 md:px-8 md:text-base"
+          >
             Ver
-          </button>
+          </Link>
         </div>
       </div>
       <div className="mt-10 w-full md:mt-0 md:w-1/2">

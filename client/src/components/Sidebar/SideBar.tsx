@@ -1,10 +1,14 @@
 import { LogoutIcon, UserIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { FaBars } from "react-icons/fa";
+import { LogoutAuthAction } from "../../store/actions/auth.action";
+import { connect } from "react-redux";
 
-const SideBar = (): JSX.Element => {
+const SideBar = (props: any): JSX.Element => {
+  const { auth, logout } = props;
+  const navigate = useNavigate();
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -33,14 +37,9 @@ const SideBar = (): JSX.Element => {
                       : "text-gray-900 dark:text-gray-100"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
-                  <div
-                    className="h-8 w-8 rounded-full"
-                    style={{
-                      background: `url() center center no-repeat`,
-                      backgroundSize: "cover",
-                    }}
-                  />
-                  <span className="ml-2">Natgas</span>
+                  <span>
+                    {auth.user.name} {auth.user.lastname}
+                  </span>
                 </div>
               )}
             </Menu.Item>
@@ -108,6 +107,7 @@ const SideBar = (): JSX.Element => {
             <Menu.Item>
               {({ active }) => (
                 <button
+                  onClick={() => logout(navigate)}
                   className={`${
                     active
                       ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
@@ -133,4 +133,18 @@ const SideBar = (): JSX.Element => {
   );
 };
 
-export default SideBar;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    logout: (navigate: any) => {
+      dispatch(LogoutAuthAction(navigate));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
