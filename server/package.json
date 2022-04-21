@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node server.js",
         "start:dev": "nodemon server.js",
-        "start:prod": "NODE_ENV=production nodemon server.js"
+        "start:prod": "NODE_ENV=production nodemon server.js",
+        "doc": "jsdoc -c jsconf.json"
     },
     "author": "",
     "license": "ISC",
@@ -31,6 +32,7 @@
         "sharp": "^0.30.3"
     },
     "devDependencies": {
+        "jsdoc": "^3.6.10",
         "nodemon": "^2.0.15"
     }
 }
