@@ -3,10 +3,11 @@ const APIFeatures = require(`../utils/apiFeatures`);
 
 class Base {
     static table = '';
+    static tableReference = db(this.table);
 
     constructor() {}
 
-    static async getOne(field, id) {
+    static getOne(field, id) {
         return db(this.table)
             .select('*')
             .where({

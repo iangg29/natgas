@@ -5,6 +5,7 @@ const AppError = require('../utils/appError');
 
 class NatgasBlock extends Base {
     static table = 'natgasblock';
+    static tableReference = db(this.table);
 
     constructor({ date, period, email }) {
         super();
