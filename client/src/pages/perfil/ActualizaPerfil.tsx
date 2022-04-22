@@ -53,7 +53,6 @@ const ActualizaPerfil = (): JSX.Element => {
       await axios
         .patch(`/user/${id}`, data)
         .then((res: AxiosResponse) => {
-          console.log(res.data.data.document[0]);
           setProfile(res.data.data.document[0]);
         })
         .catch((err) => {
