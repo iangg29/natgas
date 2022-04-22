@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const User = require('./../models/user.model');
+const abacController = require('./abac.controller');
 
 const signToken = (email) => {
     return jwt.sign({ email }, process.env.JWT_SECRET, {
@@ -69,10 +70,13 @@ exports.login = catchAsync(async (req, res, next) => {
     const user = (await User.getOne('email', email))[0];
 
     if (!user) return next(new AppError('Incorrect email', 401));
+  
     const isCorrect = await User.correctPassword(password, user.password);
     if (!isCorrect) {
         return next(new AppError('Incorrect password', 401));
     }
+
+    if (user.verified) user.roles = await abacController.calcRoles(user.email);
 
     createSendToken(user, 201, req, res);
 });
