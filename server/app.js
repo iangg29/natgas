@@ -88,7 +88,7 @@ app.get('/', (req, res) =>
     })
 );
 app.use('/auth', authRouter);
-app.use(authController.protect);
+// app.use(authController.protect);
 // app.use(abacController.getRole);
 app.use('/api/banner/', bannerRouter);
 app.use('/api/blog/', blogRouter);
