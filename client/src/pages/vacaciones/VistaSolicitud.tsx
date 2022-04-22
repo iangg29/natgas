@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CardSolicitud from "../../components/Cards/CardSolicitud";
 import CardSolicitudVac from "../../components/Cards/CardSolicitudVac";
-import axios, { AxiosPromise } from "axios";
+import axios from "axios";
 import Page from "../../containers/Page";
 import { connect } from "react-redux";
 
