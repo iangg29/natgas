@@ -6,14 +6,14 @@ const AppError = require('../utils/appError');
 
 module.exports = class Vacation extends Base {
     static table = 'vacaciones';
+    static vacations = 0;
 
-    constructor({ startdate, enddate, substitute, email }) {
+    constructor({ startdate, enddate, substitute, email}) {
         super();
-        this.startdate = new Date(startdate);
-        this.enddate = new Date(enddate);
+        this.startdate = startdate;
+        this.enddate = enddate;
         this.substitute = substitute;
         this.email = email;
-
         this.tableName = 'vacaciones';
     }
 
@@ -28,28 +28,21 @@ module.exports = class Vacation extends Base {
             );
 
         // CHECK IF FIRST DATE IS EARLIER THAN SECOND DATE
-        if (this.startdate > this.enddate)
+        if (new Date(this.startdate) > new Date(this.enddate))
             throw new AppError(
                 'La fecha de fin de vacaciones debe de ser despues del inicio del periodo.',
                 400
             );
-        
-         // UPDATE USER VACATIONS LEFT
-        const start = new Date(this.startdate);
-        const end = new Date(this.enddate);
 
-        const asuetos = (
-            await Asueto.getAll({})
-            );
-        
-        const diasasuetos = Vacation.findAsuetos(asuetos, this.startdate, this.enddate);
-        const weekends = Vacation.findWeekends(this.startdate, this.enddate);
+        const asuetos = await db
+            .select('*').from('asueto').where('date', '>=' , this.startdate).andWhere('date', '<=' , this.enddate);
+        const diasasuetos = asuetos.length;
+        const weekends = Vacation.findWeekends(new Date(this.startdate), new Date(this.enddate));
+        Vacation.vacations = Vacation.calcVacationDays(new Date(this.startdate), new Date(this.enddate), diasasuetos, weekends);
 
-        const vacationDays =
-        ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
-    // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
-        
-        if (vacationDays > user.vacations)
+        // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
+
+        if (Vacation.vacations > user.vacations)
             throw new AppError(
                 'Los dias solicitados sobrepasan la cantidad de vacaciones disponibles',
                 400
@@ -69,20 +62,10 @@ module.exports = class Vacation extends Base {
         });
     }
 
-    static findAsuetos(asuetos, start, end) {
-        let count = 0;
-        asuetos.forEach(asueto => {
-            if(asueto.date >= start && asueto.date <= end){
-                count++
-            }
-            
-        });
-        return count;
-    }
 
     static findWeekends(start, end) {
         let count = 0;
-        
+
         while(end.getTime() >= start.getTime()){
             start.setDate(start.getDate() + 1);
             if(start.getDay() === 0 || start.getDay() === 6){
@@ -91,6 +74,17 @@ module.exports = class Vacation extends Base {
         }
         return count;
 
+    }
+    static calcVacationDays(start, end, diasasuetos, weekends){
+        let vacations = 0;
+        if(end.getTime() - start.getTime() === 0){
+            vacations = 1 - diasasuetos - weekends;
+
+        }
+        else{
+            vacations = ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
+        }
+        return vacations;
     }
 
 };
