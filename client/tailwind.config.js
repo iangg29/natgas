@@ -3,6 +3,7 @@ module.exports = {
     "./src/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/*.html",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {
@@ -30,5 +31,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("flowbite/plugin"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };

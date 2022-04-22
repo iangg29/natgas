@@ -6,7 +6,6 @@ const CompleteProfile = lazy(() => import("../pages/perfil/CompleteProfile"));
 const ActualizaPerfil = lazy(() => import("../pages/perfil/ActualizaPerfil"));
 const Employees = lazy(() => import("../pages/empleados/Employees"));
 const Employee = lazy(() => import("../pages/empleados/Employee"));
-const SolicitarNGB = lazy(() => import("../pages/natgasblocks/SolicitarNGB"));
 const SolicitarVac = lazy(() => import("../pages/vacaciones/SolicitarVac"));
 const VistaSolicitud = lazy(() => import("../pages/vacaciones/VistaSolicitud"));
 const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
@@ -66,10 +65,6 @@ const routes: IRoute[] = [
   {
     path: "/employee/:number",
     component: Employee,
-  },
-  {
-    path: "/natgasblocks/request",
-    component: SolicitarNGB,
   },
   {
     path: "/requests",

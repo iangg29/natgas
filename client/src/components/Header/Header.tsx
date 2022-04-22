@@ -8,6 +8,7 @@ import SideBar from "../Sidebar/SideBar";
 import routes, { NavbarLink } from "../../routes/navbar";
 import { LogoutAuthAction } from "../../store/actions/auth.action";
 import { connect } from "react-redux";
+import Toggler from "../DarkMode/Toggler";
 
 const Header = (props: any): JSX.Element => {
   const { auth, logout } = props;
@@ -96,6 +97,7 @@ const Header = (props: any): JSX.Element => {
                       </Menu.Item>
                     </Link>
                   </div>
+                  <Toggler />
                   <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
