@@ -11,6 +11,8 @@ const signToken = (email) => {
     });
 };
 
+exports.signToken = signToken;
+
 const createSendToken = (user, statusCode, req, res) => {
     const token = signToken(user.email);
     let cookieOptions;
@@ -45,6 +47,8 @@ const createSendToken = (user, statusCode, req, res) => {
         },
     });
 };
+
+exports.createSendToken = createSendToken;
 
 exports.signUp = catchAsync(async (req, res, next) => {
     const newUser = new User({
@@ -115,4 +119,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
     req.user = user;
     next();
+});
+
+exports.token = catchAsync(async (req, res, next) => {
+    createSendToken(req.user.email, 200, req, res);
 });
