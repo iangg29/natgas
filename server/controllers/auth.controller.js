@@ -70,7 +70,7 @@ exports.login = catchAsync(async (req, res, next) => {
     const user = (await User.getOne('email', email))[0];
 
     if (!user) return next(new AppError('Incorrect email', 401));
-  
+
     const isCorrect = await User.correctPassword(password, user.password);
     if (!isCorrect) {
         return next(new AppError('Incorrect password', 401));
@@ -90,14 +90,14 @@ exports.logout = (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
     let token;
-    if (
+    if (req.cookies.jwt) {
+        console.log('COOKIES', req.cookies);
+        token = req.cookies.jwt;
+    } else if (
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
-    ) {
+    )
         token = req.headers.authorization.split(' ')[1];
-    } else if (req.cookies.jwt) {
-        token = req.cookies.jwt;
-    }
 
     if (!token) {
         return next(
