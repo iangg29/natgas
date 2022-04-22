@@ -153,24 +153,24 @@ const ActualizaPerfil = (): JSX.Element => {
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Departamento</h4>
               {/* <span>{profile.departamento}</span> */}
-              <input 
+              {/* <input 
                 type="string"
                 defaultValue={profile.departamento}
                 {...register("departamento")}
                 placeholder="Departamento"
                 className="modal-input"
-              />
+              /> */}
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Puesto</h4>
               {/* <span>{profile.position}</span> */}
-              <input 
+              {/* <input 
                 type="string"
                 defaultValue={profile.position}
                 {...register("position")}
                 placeholder="Puesto"
                 className="modal-input"
-              />
+              /> */}
             </div>
           </div>
           <hr />
