@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Stats from "../../components/Profile/Stats";
 import { suspend } from "suspend-react";
+import ContentLoader from "react-content-loader";
 
 const Profile = (props: any): JSX.Element => {
   const { auth } = props;
@@ -116,77 +117,79 @@ const ProfileData = ({ auth }: any): JSX.Element => {
 
 const ProfileLoader = (): JSX.Element => {
   return (
-    <svg
-      role="img"
-      className="w-full"
-      aria-labelledby="loading-aria"
-      viewBox="0 0 400 230"
-      preserveAspectRatio="none"
-    >
-      <title id="loading-aria">Loading...</title>
-      <rect
-        x="0"
-        y="0"
-        width="100%"
-        height="100%"
-        clipPath="url(#clip-path)"
-        style={{ fill: "url('#fill')" }}
-      />
-      <defs>
-        <clipPath id="clip-path">
-          <rect x="3" y="41" rx="0" ry="0" width="55" height="11" />
-          <rect x="1" y="55" rx="0" ry="0" width="80" height="10" />
-          <rect x="39" y="60" rx="0" ry="0" width="8" height="2" />
-          <rect x="153" y="39" rx="0" ry="0" width="55" height="11" />
-          <rect x="153" y="55" rx="0" ry="0" width="80" height="10" />
-          <rect x="183" y="60" rx="0" ry="0" width="8" height="2" />
-          <rect x="312" y="37" rx="0" ry="0" width="55" height="11" />
-          <rect x="310" y="51" rx="0" ry="0" width="80" height="10" />
-          <rect x="348" y="56" rx="0" ry="0" width="8" height="2" />
-          <rect x="8" y="87" rx="0" ry="0" width="54" height="12" />
-          <rect x="9" y="105" rx="0" ry="0" width="199" height="11" />
-          <rect x="282" y="83" rx="0" ry="0" width="57" height="12" />
-          <rect x="281" y="100" rx="0" ry="0" width="79" height="14" />
-          <rect x="10" y="135" rx="0" ry="0" width="56" height="12" />
-          <rect x="11" y="151" rx="0" ry="0" width="53" height="12" />
-          <rect x="171" y="137" rx="0" ry="0" width="56" height="13" />
-          <rect x="318" y="133" rx="0" ry="0" width="58" height="12" />
-          <rect x="172" y="154" rx="0" ry="0" width="56" height="11" />
-          <rect x="319" y="149" rx="0" ry="0" width="58" height="10" />
-          <rect x="8" y="181" rx="0" ry="0" width="60" height="15" />
-          <rect x="9" y="202" rx="0" ry="0" width="96" height="11" />
-        </clipPath>
-        <linearGradient id="fill">
-          <stop offset="0.599964" stopColor="#f3f3f3" stopOpacity="1">
-            <animate
-              attributeName="offset"
-              values="-2; -2; 1"
-              keyTimes="0; 0.25; 1"
-              dur="2s"
-              repeatCount="indefinite"
-            ></animate>
-          </stop>
-          <stop offset="1.59996" stopColor="#ecebeb" stopOpacity="1">
-            <animate
-              attributeName="offset"
-              values="-1; -1; 2"
-              keyTimes="0; 0.25; 1"
-              dur="2s"
-              repeatCount="indefinite"
-            ></animate>
-          </stop>
-          <stop offset="2.59996" stopColor="#f3f3f3" stopOpacity="1">
-            <animate
-              attributeName="offset"
-              values="0; 0; 3"
-              keyTimes="0; 0.25; 1"
-              dur="2s"
-              repeatCount="indefinite"
-            ></animate>
-          </stop>
-        </linearGradient>
-      </defs>
-    </svg>
+    <ContentLoader viewBox="0 0 400 230">
+      <svg
+        role="img"
+        className="w-full"
+        aria-labelledby="loading-aria"
+        viewBox="0 0 400 230"
+        preserveAspectRatio="none"
+      >
+        <title id="loading-aria">Loading...</title>
+        <rect
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          clipPath="url(#clip-path)"
+          style={{ fill: "url('#fill')" }}
+        />
+        <defs>
+          <clipPath id="clip-path">
+            <rect x="3" y="41" rx="0" ry="0" width="55" height="11" />
+            <rect x="1" y="55" rx="0" ry="0" width="80" height="10" />
+            <rect x="39" y="60" rx="0" ry="0" width="8" height="2" />
+            <rect x="153" y="39" rx="0" ry="0" width="55" height="11" />
+            <rect x="153" y="55" rx="0" ry="0" width="80" height="10" />
+            <rect x="183" y="60" rx="0" ry="0" width="8" height="2" />
+            <rect x="312" y="37" rx="0" ry="0" width="55" height="11" />
+            <rect x="310" y="51" rx="0" ry="0" width="80" height="10" />
+            <rect x="348" y="56" rx="0" ry="0" width="8" height="2" />
+            <rect x="8" y="87" rx="0" ry="0" width="54" height="12" />
+            <rect x="9" y="105" rx="0" ry="0" width="199" height="11" />
+            <rect x="282" y="83" rx="0" ry="0" width="57" height="12" />
+            <rect x="281" y="100" rx="0" ry="0" width="79" height="14" />
+            <rect x="10" y="135" rx="0" ry="0" width="56" height="12" />
+            <rect x="11" y="151" rx="0" ry="0" width="53" height="12" />
+            <rect x="171" y="137" rx="0" ry="0" width="56" height="13" />
+            <rect x="318" y="133" rx="0" ry="0" width="58" height="12" />
+            <rect x="172" y="154" rx="0" ry="0" width="56" height="11" />
+            <rect x="319" y="149" rx="0" ry="0" width="58" height="10" />
+            <rect x="8" y="181" rx="0" ry="0" width="60" height="15" />
+            <rect x="9" y="202" rx="0" ry="0" width="96" height="11" />
+          </clipPath>
+          <linearGradient id="fill">
+            <stop offset="0.599964" stopColor="#f3f3f3" stopOpacity="1">
+              <animate
+                attributeName="offset"
+                values="-2; -2; 1"
+                keyTimes="0; 0.25; 1"
+                dur="2s"
+                repeatCount="indefinite"
+              ></animate>
+            </stop>
+            <stop offset="1.59996" stopColor="#ecebeb" stopOpacity="1">
+              <animate
+                attributeName="offset"
+                values="-1; -1; 2"
+                keyTimes="0; 0.25; 1"
+                dur="2s"
+                repeatCount="indefinite"
+              ></animate>
+            </stop>
+            <stop offset="2.59996" stopColor="#f3f3f3" stopOpacity="1">
+              <animate
+                attributeName="offset"
+                values="0; 0; 3"
+                keyTimes="0; 0.25; 1"
+                dur="2s"
+                repeatCount="indefinite"
+              ></animate>
+            </stop>
+          </linearGradient>
+        </defs>
+      </svg>
+    </ContentLoader>
   );
 };
 
