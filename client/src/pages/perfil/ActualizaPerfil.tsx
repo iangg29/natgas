@@ -130,7 +130,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input
                 type="string"
-                defaultValue={profile.birthdate}
+                defaultValue={new Date(profile.birthdate).toLocaleDateString()}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
                 className="modal-input"
@@ -152,25 +152,25 @@ const ActualizaPerfil = (): JSX.Element => {
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Departamento</h4>
-              {/* <span>{profile.departamento}</span>
+              {/* <span>{profile.departamento}</span> */}
               <input 
                 type="string"
                 defaultValue={profile.departamento}
                 {...register("departamento")}
                 placeholder="Departamento"
                 className="modal-input"
-              /> */}
+              />
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Puesto</h4>
-              {/* <span>{profile.position}</span>
+              {/* <span>{profile.position}</span> */}
               <input 
                 type="string"
                 defaultValue={profile.position}
                 {...register("position")}
                 placeholder="Puesto"
                 className="modal-input"
-              /> */}
+              />
             </div>
           </div>
           <hr />
@@ -179,7 +179,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
               <input
                 type="string"
-                defaultValue={profile.contractdate}
+                defaultValue={new Date(profile.contractdate).toLocaleDateString()}
                 {...register("contractdate")}
                 placeholder="Inicio de contrato"
                 className="modal-input"

@@ -66,3 +66,4 @@ exports.updateMyPassword = catchAsync(async () => {
         },
     });
 });
+
