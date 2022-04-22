@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
 import axios, { AxiosResponse } from "axios";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { IEmployment } from "../../shared/interfaces/app.interface";
 import { Link, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
   address: string;
@@ -22,6 +22,9 @@ type Inputs = {
   updated_at: string;
   vacations: number;
   verified: boolean;
+  position: string;
+  departamento: string;
+  contrato: string;
   };
 
 const ActualizaPerfil = (): JSX.Element => {
@@ -34,7 +37,7 @@ const ActualizaPerfil = (): JSX.Element => {
     } = useForm<Inputs>();
     const navigate = useNavigate();
 
-    const [profile, setProfile] = useState<IEmployee>({
+    const [profile, setProfile] = useState<IEmployment>({
       address: "",
       birthdate: "",
       cellphone: 0,
@@ -50,11 +53,14 @@ const ActualizaPerfil = (): JSX.Element => {
       updated_at: "",
       vacations: 0,
       verified: false,
+      position: "",
+      departamento: "",
+      contrato: "",
     });
   
     const email = "jbelmonte@natgas.com";
   
-    const onSubmit: SubmitHandler<Inputs> = (data: IEmployee): void => {
+    const onSubmit: SubmitHandler<Inputs> = (data: IEmployment): void => {
       (async () => {
         await axios
           .patch(`/user/${id}`, data)
@@ -137,7 +143,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input 
                 type="string"
-                defaultValue={profile.birthdate}
+                defaultValue={new Date(profile.birthdate).toLocaleDateString()}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
                 className="modal-input"
@@ -159,25 +165,25 @@ const ActualizaPerfil = (): JSX.Element => {
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Departamento</h4>
-              {/* <span>{profile.departamento}</span>
+              {/* <span>{profile.departamento}</span> */}
               <input 
                 type="string"
                 defaultValue={profile.departamento}
                 {...register("departamento")}
                 placeholder="Departamento"
                 className="modal-input"
-              /> */}
+              />
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Puesto</h4>
-              {/* <span>{profile.position}</span>
+              {/* <span>{profile.position}</span> */}
               <input 
                 type="string"
                 defaultValue={profile.position}
                 {...register("position")}
                 placeholder="Puesto"
                 className="modal-input"
-              /> */}
+              />
             </div>
           </div>
           <hr />
@@ -186,7 +192,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
               <input 
                 type="string"
-                defaultValue={profile.contractdate}
+                defaultValue={new Date(profile.contractdate).toLocaleDateString()}
                 {...register("contractdate")}
                 placeholder="Inicio de contrato"
                 className="modal-input"
