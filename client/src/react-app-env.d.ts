@@ -13,7 +13,6 @@ declare global {
     }
   }
 }
-
 declare module "./icons";
 
 export {};

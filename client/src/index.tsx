@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
+import "flowbite";
+
 import "./assets/css/styles.css";
 import App from "./App";
 import Loading from "./utils/Loading";

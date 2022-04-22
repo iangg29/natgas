@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import Stats from "../../components/Profile/Stats";
 import { suspend } from "suspend-react";
 import ContentLoader from "react-content-loader";
+import RequestNGB from "../../components/NatgasBlocks/RequestNGB";
 
 const Profile = (props: any): JSX.Element => {
   const { auth } = props;
@@ -21,12 +22,7 @@ const Profile = (props: any): JSX.Element => {
       <hr />
       <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
         <div className="w-full md:w-1/2">
-          <Link
-            to="/app/natgasblocks/request"
-            className="rounded-full border-2 border-natgas-azul-claro px-8 py-3 hover:bg-natgas-azul-claro hover:text-white"
-          >
-            Solicitar Natgas Block
-          </Link>
+          <RequestNGB user={auth.user} />
         </div>
         <div className="w-full md:w-1/2">
           <Link
