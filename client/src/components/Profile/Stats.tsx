@@ -4,7 +4,6 @@ import { IEmployee } from "../../shared/interfaces/app.interface";
 
 const Stats = ({ user }: { user: IEmployee }): JSX.Element => {
   const [usedVacations, setUsedVacations] = useState<number>(0);
-  const [earnedVacations, setEarnedVacations] = useState<number>(0);
   const [usedNatgasBlocks, setUsedNatgasBlocks] = useState<number>(0);
 
   useEffect(() => {
