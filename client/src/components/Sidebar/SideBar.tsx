@@ -5,6 +5,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { FaBars } from "react-icons/fa";
 import { LogoutAuthAction } from "../../store/actions/auth.action";
 import { connect } from "react-redux";
+import Toggler from "../DarkMode/Toggler";
 
 const SideBar = (props: any): JSX.Element => {
   const { auth, logout } = props;
@@ -52,8 +53,9 @@ const SideBar = (props: any): JSX.Element => {
               </Menu.Item>
             </Link>
           </div>
+          <Toggler />
           <div className="px-1 py-1 ">
-            <Link to="/app/employees">
+            <Link to="/app/reports/">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -86,41 +88,6 @@ const SideBar = (props: any): JSX.Element => {
               </Menu.Item>
             </Link>
           </div>
-          <div className="px-1 py-1 ">
-            <Link to="/app/employees">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active
-                        ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
-                        : "text-gray-900 dark:text-gray-100"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    Reporte mensual
-                  </button>
-                )}
-              </Menu.Item>
-            </Link>
-          </div>
-          <div className="px-1 py-1 ">
-            <Link to="/app/employees">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active
-                        ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
-                        : "text-gray-900 dark:text-gray-100"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
-                    Reporte mensual
-                  </button>
-                )}
-              </Menu.Item>
-            </Link>
-          </div>
-
           <div className="px-1 py-1">
             <Menu.Item>
               {({ active }) => (
