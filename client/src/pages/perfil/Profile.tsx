@@ -8,6 +8,7 @@ import Stats from "../../components/Profile/Stats";
 import { suspend } from "suspend-react";
 import ContentLoader from "react-content-loader";
 import RequestNGB from "../../components/NatgasBlocks/RequestNGB";
+import RequestVacations from "../../components/Vacaciones/RequestVacations";
 
 const Profile = (props: any): JSX.Element => {
   const { auth } = props;
@@ -25,12 +26,7 @@ const Profile = (props: any): JSX.Element => {
           <RequestNGB user={auth.user} />
         </div>
         <div className="w-full md:w-1/2">
-          <Link
-            to="/app/vacations/request"
-            className="rounded-full border-2 border-natgas-verde px-8 py-3 hover:bg-natgas-verde hover:text-white"
-          >
-            Solicitar vacaciones
-          </Link>
+          <RequestVacations user={auth.user}/>
         </div>
       </div>
       <div className="mt-4 text-center">
