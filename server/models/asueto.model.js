@@ -6,7 +6,7 @@ module.exports = class extends Base {
 
     constructor({ date }) {
         super();
-        this.date = new Date(date);
+        this.date = date;
         this.tableName = 'asueto';
     }
 
