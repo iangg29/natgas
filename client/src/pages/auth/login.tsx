@@ -105,10 +105,10 @@ const Login = (props: any): JSX.Element => {
                   Iniciar sesión
                 </button>
                 <Link
-                  to="/password/recover"
+                  to="/signup"
                   className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"
                 >
-                  Olvidé mi contraseña
+                  Crea una cuenta
                 </Link>
               </div>
             </div>
