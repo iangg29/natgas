@@ -136,7 +136,7 @@ type Inputs = {
                                 <div className="flex flex-col space-y-5">
                                     <button
                                     type="submit"
-                                    className="mx-auto mt-5 w-3/4 rounded-xl border border-natgas-azul bg-natgas-azul px-10 py-1 font-semibold text-white shadow-lg transition-all hover:bg-transparent hover:text-natgas-azul md:w-1/2"
+                                    className="mx-auto mt-5 w-3/4 rounded-xl border border-natgas-verde bg-natgas-verde px-10 py-1 font-semibold text-white shadow-lg transition-all hover:bg-transparent hover:text-natgas-verde md:w-1/2"
                                     >
                                     Registrarte
                                     </button>
