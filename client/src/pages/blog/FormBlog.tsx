@@ -6,14 +6,15 @@ import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { MySwal } from "../../utils/AlertHandler";
 
 const FormBlog = () => {
-  const [getTitle, setTitle] = useState<any>();
-  const [getDate, setDate] = useState<any>(
+  const [getTitle, setTitle] = useState<string>("");
+  const [getDate, setDate] = useState<string>(
     new Date().toISOString().split("T")[0],
   );
-  const [getText, setText] = useState<any>();
-  const [selectedFile, setSelectedFile] = useState<any>();
+  const [getText, setText] = useState<string>("");
+  const [selectedFile, setSelectedFile] = useState<any>(null);
   const [preview, setPreview] = useState<any>();
   const navigate = useNavigate();
 
@@ -30,10 +31,23 @@ const FormBlog = () => {
         method: "POST",
         url: "/blog",
         data: form,
+      }).then(() => {
+        MySwal.fire({
+          title: "¡Creado!",
+          icon: "success",
+          text: "El post ha sido creado.",
+          confirmButtonColor: "#002b49",
+        }).then(() => {
+          navigate("/app/blog");
+        });
       });
-      navigate("/app/blog");
     } catch (error: any) {
-      alert(error.response.message);
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.response.message,
+        confirmButtonColor: "#002b49",
+      });
     }
   };
 
@@ -46,6 +60,7 @@ const FormBlog = () => {
     setPreview(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
+
   const onSelectFile = (e: any) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
@@ -53,6 +68,7 @@ const FormBlog = () => {
     }
     setSelectedFile(e.target.files[0]);
   };
+
   return (
     <>
       <div className=" mt-6 grid gap-20  sm:grid-cols-1 md:grid-cols-2">

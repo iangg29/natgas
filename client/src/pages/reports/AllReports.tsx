@@ -4,6 +4,7 @@ import axios from "axios";
 import CardReporte from "../../components/Cards/CardReporte";
 import { FaPlusCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Reports = (): JSX.Element => {
   const [getReports, setReports] = React.useState<any[]>([]);
@@ -12,25 +13,49 @@ const Reports = (): JSX.Element => {
     (async () => {
       try {
         const reports = await axios.get("/report");
-        console.log(reports);
         setReports(reports.data.data.documents);
       } catch (error: any) {
-        alert(error.response.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.response.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, []);
 
   const handleDelete = async (id: any) => {
-    try {
-      if (!window.confirm("¿Está seguro de que quiere borrar el indicador?"))
-        return;
-
-      await axios.delete(`report/${id}`);
-      alert("Reporte eliminado con éxito");
-      setReports(getReports.filter((rep) => rep.idReporte !== id));
-    } catch (error: any) {
-      alert(error.response.message);
-    }
+    await MySwal.fire({
+      title: "¿Está seguro de que quiere eliminar el indicador?",
+      text: "No podrás revertir esta acción",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002b49",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          axios.delete(`report/${id}`).then(() => {
+            MySwal.fire({
+              title: "¡Eliminado!",
+              icon: "success",
+              text: "Reporte eliminado con éxito.",
+              confirmButtonColor: "#002b49",
+            });
+            setReports(getReports.filter((rep) => rep.idReporte !== id));
+          });
+        } catch (error: any) {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.response.message,
+            confirmButtonColor: "#002b49",
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -47,7 +72,7 @@ const Reports = (): JSX.Element => {
         </Link>
       </div>
       <div className="flex-col">
-        {getReports.map((rpt: any) => (
+        {getReports?.map((rpt: any) => (
           <CardReporte report={rpt} deleteFunc={handleDelete} />
         ))}
       </div>

@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { iRange, iRangeData } from "../../shared/interfaces/app.interface";
 import axios, { AxiosResponse } from "axios";
 import { VacationsRangeInputs } from "../../shared/types/app.type";
+import { MySwal } from "../../utils/AlertHandler";
 
 type Props = {
   rango: iRange;
@@ -43,8 +44,13 @@ const EditableRow = ({
           newRanges[index] = updatedRange;
           setRanges(newRanges);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
     reset();

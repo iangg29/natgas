@@ -10,10 +10,9 @@ const Main = ({ children }: Props): JSX.Element => {
       top: 0,
       behavior: "smooth",
     });
-  }, []);
+  });
 
   return (
-    // <main className="h-full overflow-y-auto p-10">
     <main className="h-full overflow-y-auto">
       <div className="mx-auto">{children}</div>
     </main>

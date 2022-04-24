@@ -23,6 +23,7 @@ const Login = (props: any): JSX.Element => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data: any): void => {
+    reset();
     login(data, navigate);
   };
 
@@ -36,7 +37,7 @@ const Login = (props: any): JSX.Element => {
         <title>NatGas | Login</title>
       </Helmet>
       <div className="flex h-screen w-full flex-row">
-        <div className="flex w-full flex-col justify-around md:w-1/2">
+        <div className="flex w-full flex-col justify-around lg:w-1/2">
           <div className="mx-auto w-1/3">
             <Link to="/">
               <img src={logo} alt="Natgas" />
@@ -104,12 +105,6 @@ const Login = (props: any): JSX.Element => {
                 >
                   Iniciar sesión
                 </button>
-                <Link
-                  to="/password/recover"
-                  className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"
-                >
-                  Olvidé mi contraseña
-                </Link>
               </div>
             </div>
           </form>
@@ -119,11 +114,16 @@ const Login = (props: any): JSX.Element => {
             </p>
           </div>
         </div>
-        <div className="login-splash hidden w-full md:block md:w-1/2"></div>
+        <div className="login-splash hidden w-full lg:block lg:w-1/2"></div>
       </div>
     </>
   );
 };
+
+/*
+ * Recover password btn.
+ * <Link to="/password/recover" className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"> Olvidé mi contraseña </Link>
+ * */
 
 const mapStateToProps = (state: any) => {
   return {

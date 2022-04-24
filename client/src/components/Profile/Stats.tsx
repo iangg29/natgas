@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { IEmployee } from "../../shared/interfaces/app.interface";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Stats = ({ user }: { user: IEmployee }): JSX.Element => {
   const [usedVacations, setUsedVacations] = useState<number>(0);
@@ -16,7 +17,12 @@ const Stats = ({ user }: { user: IEmployee }): JSX.Element => {
         setUsedVacations(usedVac.data.results);
         setUsedNatgasBlocks(usedNgB.data.results);
       } catch (error: any) {
-        alert(error.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, []);

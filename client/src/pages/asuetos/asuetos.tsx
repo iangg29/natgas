@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Title from "../../components/Title/Title";
 import DateInput from "../../components/Inputs/DateInput";
 import axios, { AxiosResponse } from "axios";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Asuetos = () => {
   const [getDates, setDates] = useState<any[]>([]);
@@ -9,60 +10,103 @@ const Asuetos = () => {
 
   useEffect(() => {
     (async () => {
-      try {
-        await axios
-          .get(`/asuetos/`)
-          .then((res: AxiosResponse) => {
-            setDates(res.data.data.documents);
-          })
-          .catch((err) => {
-            console.trace(err);
+      await axios
+        .get(`/asuetos/`)
+        .then((res: AxiosResponse) => {
+          setDates(res.data.data.documents);
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
           });
-      } catch (error: any) {
-        alert(error.message);
-      }
+        });
     })();
   }, []);
 
   const deleteAll = (): void => {
-    if (window.confirm("¿Está seguro de que quiere borrar todo?")) {
-      (async () => {
-        await axios
+    MySwal.fire({
+      title: "¿Está seguro de que quiere eliminar todo?",
+      text: "No podrás revertir esta acción",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#002b49",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        (async () => {
+          await axios
             .delete("/asuetos/")
             .then((res: AxiosResponse) => {
-              alert("Las fechas de asuetos han sido eliminadas.");
+              MySwal.fire({
+                title: "¡Eliminadas!",
+                icon: "success",
+                text: "Las fechas de asuetos han sido eliminadas.",
+                confirmButtonColor: "#002b49",
+              });
               setDates([]);
             })
-            .catch((err) => {
-              console.trace(err);
+            .catch((error) => {
+              MySwal.fire({
+                title: "¡Error!",
+                icon: "error",
+                text: error.message,
+                confirmButtonColor: "#002b49",
+              });
             });
-      })();
-    }
+        })();
+      }
+    });
   };
 
   const deleteA = async (id: any) => {
-    try {
-      await axios.delete(`/asuetos/${id}`);
-      setDates(getDates.filter((date) => date.idAsueto !== id));
-      alert("La fecha de asueto ha sido eliminada con éxito.");
-    } catch (error: any) {
-      alert(error.message);
-    }
+    await axios
+      .delete(`/asuetos/${id}`)
+      .then(() => {
+        setDates(getDates.filter((date) => date.idAsueto !== id));
+        MySwal.fire({
+          title: "¡Eliminada!",
+          icon: "success",
+          text: "La fecha de asueto ha sido eliminada con éxito.",
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      });
   };
 
   const upload = async () => {
-    try {
-      const date = await axios.post("/asuetos/", {
+    await axios
+      .post("/asuetos/", {
         date: getDate,
+      })
+      .then((res: AxiosResponse) => {
+        setDates([...getDates, res.data.data.new[0]]);
+        MySwal.fire({
+          title: "¡Creado!",
+          icon: "success",
+          text: "Asueto agregado correctamente",
+          confirmButtonColor: "#002b49",
+        });
+        setDate("");
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       });
-      console.log(date);
-      setDates([...getDates, date.data.data.new[0]]);
-      alert("Asueto agregado correctamente");
-      setDate("");
-    } catch (err: any) {
-      console.log(err);
-      alert(err.message);
-    }
   };
 
   return (
@@ -81,9 +125,9 @@ const Asuetos = () => {
                 </th>
               </tr>
             </thead>
-            {getDates.length > 0 ? (
-              getDates.map((date) => (
-                <tbody>
+            <tbody>
+              {getDates?.length > 0 ? (
+                getDates?.map((date: any, idx: number) => (
                   <tr className="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
                       {new Date(date.date).toLocaleDateString()}
@@ -105,11 +149,11 @@ const Asuetos = () => {
                       </button>
                     </td>
                   </tr>
-                </tbody>
-              ))
-            ) : (
-              <p className="ml-4 text-lg">No existen fechas de asuetos</p>
-            )}
+                ))
+              ) : (
+                <p className="ml-4 text-lg">No existen fechas de asuetos</p>
+              )}
+            </tbody>
           </table>
         </div>
         <button
@@ -121,7 +165,7 @@ const Asuetos = () => {
         <div className="mt-10 flex items-end justify-center">
           <DateInput label="Agregar asueto" getVal={getDate} setVal={setDate} />
           <button
-            className="focus:shadow-outline m-2 ml-10 h-10 rounded-full bg-natgas-azul dark:bg-natgas-azul-claro px-5 text-white transition-colors  duration-150 hover:bg-natgas-verde"
+            className="focus:shadow-outline m-2 ml-10 h-10 rounded-full bg-natgas-azul px-5 text-white transition-colors duration-150  hover:bg-natgas-verde dark:bg-natgas-azul-claro"
             onClick={() => upload()}
           >
             Confirmar

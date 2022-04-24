@@ -7,6 +7,7 @@ import Pagination from "../../components/Inputs/Pagination";
 import { Link } from "react-router-dom";
 import { iBlog } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Blog = (): JSX.Element => {
   const [getBlogs, setBlogs] = useState<iBlog[]>([]);
@@ -20,12 +21,17 @@ const Blog = (): JSX.Element => {
       try {
         const [blogs] = await Promise.all([
           axios.get(
-            `/blog?title_like=${getTitle}&sort=idBlogPost&limit=${limit}&page=${getPage}`,
+            `/blog?title_like=${getTitle}&sort=-created_at&limit=${limit}&page=${getPage}`,
           ),
         ]);
         setBlogs(blogs.data.data.documents);
       } catch (error: any) {
-        alert(error.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [getPage, getTitle]);

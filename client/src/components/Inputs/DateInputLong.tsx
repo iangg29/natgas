@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 type Props = {
   label: string; //Escribir de inicio o de fin
@@ -14,7 +14,9 @@ const DateInputLong = ({ label, getVal, setVal }: Props): JSX.Element => {
           {label}
         </div>
         <input
-          onChange={(e) => setVal(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setVal(e.target.value)
+          }
           className="input-general w-full dark:border-0 dark:bg-gray-600"
           type="date"
           defaultValue={getVal}
