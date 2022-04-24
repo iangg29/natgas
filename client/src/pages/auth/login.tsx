@@ -37,7 +37,7 @@ const Login = (props: any): JSX.Element => {
         <title>NatGas | Login</title>
       </Helmet>
       <div className="flex h-screen w-full flex-row">
-        <div className="flex w-full flex-col justify-around md:w-1/2">
+        <div className="flex w-full flex-col justify-around lg:w-1/2">
           <div className="mx-auto w-1/3">
             <Link to="/">
               <img src={logo} alt="Natgas" />
@@ -114,7 +114,7 @@ const Login = (props: any): JSX.Element => {
             </p>
           </div>
         </div>
-        <div className="login-splash hidden w-full md:block md:w-1/2"></div>
+        <div className="login-splash hidden w-full lg:block lg:w-1/2"></div>
       </div>
     </>
   );
