@@ -78,5 +78,8 @@
   },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }
