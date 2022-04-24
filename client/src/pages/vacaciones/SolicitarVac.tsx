@@ -5,6 +5,7 @@ import PrimaryButton from "../../components/Buttons/PrimaryButton";
 import axios from "axios";
 import Page from "../../containers/Page";
 import { connect } from "react-redux";
+import { MySwal } from "../../utils/AlertHandler";
 
 const SolicitarVac = ({ auth }: any): JSX.Element => {
   const [getStartDate, setStartdate] = useState<string>();
@@ -24,7 +25,12 @@ const SolicitarVac = ({ auth }: any): JSX.Element => {
       setStartdate("");
       setSuplente("");
     } catch (error: any) {
-      alert(error.message);
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.message,
+        confirmButtonColor: "#002b49",
+      });
     }
   };
 

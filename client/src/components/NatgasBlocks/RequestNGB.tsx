@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { ChangeEvent, Fragment, useState } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/outline";
 import axios from "axios";
+import { MySwal } from "../../utils/AlertHandler";
 
 const RequestNGB = ({ user }: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -15,12 +16,22 @@ const RequestNGB = ({ user }: any): JSX.Element => {
         period: getRadio,
         email: user.email,
       });
-      alert("Petición de Natgas Block creada correctamente");
+      await MySwal.fire({
+        title: "¡Creado!",
+        icon: "success",
+        text: "Petición de Natgas Block creada correctamente",
+        confirmButtonColor: "#002b49",
+      });
       closeModal();
       setDate("");
       setRadio(0);
-    } catch (err: any) {
-      alert(err.message);
+    } catch (error: any) {
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.message,
+        confirmButtonColor: "#002b49",
+      });
       closeModal();
       setDate("");
       setRadio(0);

@@ -15,6 +15,7 @@ import {
 } from "../../shared/interfaces/app.interface";
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import Pagination from "../../components/Inputs/Pagination";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Employees = (): JSX.Element => {
   const [employees, setEmployees] = useState<IEmployment[]>([]);
@@ -48,8 +49,13 @@ const Employees = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setDepartments([...departments, ...res.data.data.documents]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, []);
@@ -65,8 +71,13 @@ const Employees = (): JSX.Element => {
           }name_like=${nameSearch}&number_like=${numberSearch}&sort=number&limit=${limit}&page=${page}`,
         );
         setEmployees(employeesPromise.data.data.documents);
-      } catch (err: any) {
-        console.trace(err);
+      } catch (error: any) {
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [page, nameSearch, numberSearch, selectedDepartment]);

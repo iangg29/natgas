@@ -5,6 +5,7 @@ import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import Page from "../../containers/Page";
 import Title from "../../components/Title/Title";
 import { connect } from "react-redux";
+import { MySwal } from "../../utils/AlertHandler";
 
 const MisSolicitudes = ({ auth }: any): JSX.Element => {
   const [getVacations, setVacations] = useState<any[]>([]);
@@ -20,7 +21,12 @@ const MisSolicitudes = ({ auth }: any): JSX.Element => {
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);
       } catch (error: any) {
-        alert(error.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [auth.user]);
@@ -31,8 +37,8 @@ const MisSolicitudes = ({ auth }: any): JSX.Element => {
         <br />
         <Title title="Vacaciones" />
         <div className="mb-20 mt-10 grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-          {getVacations.length > 0 ? (
-            getVacations.map((vac) => (
+          {getVacations?.length > 0 ? (
+            getVacations?.map((vac) => (
               <CardMiSolicitudVac
                 name={vac.name + " " + vac.lastname}
                 department={vac.departamento}
@@ -53,8 +59,8 @@ const MisSolicitudes = ({ auth }: any): JSX.Element => {
         </div>
         <Title title="NatGas Blocks" />
         <div className="mt-10 grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-          {getNatgasBlocks.length > 0 ? (
-            getNatgasBlocks.map((ngb) => (
+          {getNatgasBlocks?.length > 0 ? (
+            getNatgasBlocks?.map((ngb) => (
               <CardMiSolicitudNGB
                 name={ngb.name + " " + ngb.lastname}
                 department={ngb.departamento}

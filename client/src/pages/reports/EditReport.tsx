@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Page from "../../containers/Page";
 import InputLong from "../../components/Inputs/InputLong";
 import Title from "../../components/Title/Title";
 import CardRow from "../../components/Cards/CardRow";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
+import { MySwal } from "../../utils/AlertHandler";
 
 const ReportForm = () => {
   const { id } = useParams<string>();
@@ -21,7 +22,12 @@ const ReportForm = () => {
         setRows(rows.data.data.documents);
         setReport(report.data.data.document[0]);
       } catch (error: any) {
-        alert(error.response.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.response.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [id]);
@@ -29,37 +35,80 @@ const ReportForm = () => {
   const handleUpdateReport = async () => {
     try {
       if (getReport.name === "") {
-        alert("Un indicador debe tener un nombre");
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: "Un indicador debe tener un nombre",
+          confirmButtonColor: "#002b49",
+        });
         return;
       }
-      await axios.patch(`report/${id}`, {
-        name: getReport.name,
-      });
-      alert("Indicador actualizado correctamente");
+      await axios
+        .patch(`report/${id}`, {
+          name: getReport.name,
+        })
+        .then(() => {
+          MySwal.fire({
+            title: "¡Actualizado!",
+            icon: "success",
+            text: "Indicador actualizado correctamente",
+            confirmButtonColor: "#002b49",
+          });
+        });
     } catch (error: any) {
-      alert(error.response.message);
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.response.message,
+        confirmButtonColor: "#002b49",
+      });
     }
   };
 
   const handleDelete = async (id: number) => {
-    try {
-      await axios.delete(`row/${id}`);
-      alert("Reporte eliminado con exito");
-      setRows(getRows.filter((row) => row.idRegistro !== id));
-    } catch (error: any) {
-      alert(error.response.message);
-    }
+    await axios
+      .delete(`row/${id}`)
+      .then(() =>
+        MySwal.fire({
+          title: "¡Eliminado!",
+          icon: "success",
+          text: "Reporte eliminado con éxito.",
+          confirmButtonColor: "#002b49",
+        }).then(() => {
+          setRows(getRows.filter((row) => row.idRegistro !== id));
+        }),
+      )
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      });
   };
   const handleUpdate = async (id: number, value: number, date: Date) => {
-    try {
-      await axios.patch(`row/${id}`, {
+    await axios
+      .patch(`row/${id}`, {
         value,
         date,
+      })
+      .then(() => {
+        MySwal.fire({
+          title: "¡Actualizado!",
+          icon: "success",
+          text: "Reporte actualizado con éxito.",
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       });
-      alert("Reporte actualizado con exito");
-    } catch (error: any) {
-      alert(error.response.message);
-    }
   };
 
   return (
@@ -88,7 +137,7 @@ const ReportForm = () => {
             <Title title="Reportes" />
           </div>
           <div className="my-4 flex w-full flex-col items-center justify-between">
-            {getRows.map((row) => (
+            {getRows?.map((row) => (
               <CardRow row={row} update={handleUpdate} delete={handleDelete} />
             ))}
           </div>

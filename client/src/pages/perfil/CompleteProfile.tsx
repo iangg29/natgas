@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import Page from "../../containers/Page";
 import { IEmployee } from "../../shared/interfaces/app.interface";
+import { MySwal } from "../../utils/AlertHandler";
 
 const CompleteProfile = (): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
 
-  let { email } = useParams();
+  let { email } = useParams<string>();
 
   const [employee, setEmployee] = useState<IEmployee>({
     address: "",
@@ -26,6 +27,7 @@ const CompleteProfile = (): JSX.Element => {
     vacations: 0,
     verified: false,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -33,16 +35,29 @@ const CompleteProfile = (): JSX.Element => {
         .get(`/user/email/${email}`)
         .then((res: AxiosResponse) => {
           if (res.data.data.document.size !== 1) {
-            return <Navigate to="/app/employees" />;
+            navigate("/app/employees");
+            return;
           }
           if (res.data.data.document[0].verified) {
-            alert("El usuario ya ha sido verificado.");
-            return <Navigate to="/app/employees" />;
+            MySwal.fire({
+              title: "¡Error!",
+              icon: "error",
+              text: "El usuario ya ha sido verificado.",
+              confirmButtonColor: "#002b49",
+            }).then(() => {
+              navigate("/app/employees");
+              return;
+            });
           }
           setEmployee(res.data.data.document[0]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, [email]);

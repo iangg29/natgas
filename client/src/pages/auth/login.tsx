@@ -23,6 +23,7 @@ const Login = (props: any): JSX.Element => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data: any): void => {
+    reset();
     login(data, navigate);
   };
 
@@ -104,12 +105,6 @@ const Login = (props: any): JSX.Element => {
                 >
                   Iniciar sesión
                 </button>
-                <Link
-                  to="/password/recover"
-                  className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"
-                >
-                  Olvidé mi contraseña
-                </Link>
               </div>
             </div>
           </form>
@@ -124,6 +119,11 @@ const Login = (props: any): JSX.Element => {
     </>
   );
 };
+
+/*
+ * Recover password btn.
+ * <Link to="/password/recover" className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"> Olvidé mi contraseña </Link>
+ * */
 
 const mapStateToProps = (state: any) => {
   return {

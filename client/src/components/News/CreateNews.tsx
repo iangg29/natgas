@@ -4,6 +4,7 @@ import { iNews, iNewsData } from "../../shared/interfaces/app.interface";
 import axios, { AxiosResponse } from "axios";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { Dialog, Transition } from "@headlessui/react";
+import { MySwal } from "../../utils/AlertHandler";
 
 type Props = {
   setNews: (value: ((prevState: iNews[]) => iNews[]) | iNews[]) => void;
@@ -48,8 +49,13 @@ const CreateNews = ({ news, setNews }: Props): JSX.Element => {
           const newData: iNews = res.data.data.new[0];
           setNews([...news, newData]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
     closeModal();

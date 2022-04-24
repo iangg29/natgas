@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 type Props = {
   label: string;
@@ -23,7 +23,9 @@ const InputLong = ({
           className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
           type="text"
           placeholder={placeholder}
-          onChange={(e) => setVal(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setVal(e.target.value)
+          }
           value={getVal}
         />
       </label>
