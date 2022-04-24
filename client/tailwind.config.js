@@ -5,6 +5,7 @@ module.exports = {
     "./public/*.html",
     "./node_modules/flowbite/**/*.js",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {

@@ -8,6 +8,7 @@ import Loading from "./utils/Loading";
 import axios from "axios";
 import { Provider } from "react-redux";
 import store from "./store";
+import "flowbite";
 
 // TODO: E2E & Unit testing is still pending. (Cypress).
 // TODO: For Blog posts, an S3 server (File management) is required, GCP provides one. [API]

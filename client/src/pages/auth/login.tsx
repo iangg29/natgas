@@ -17,7 +17,6 @@ const Login = (props: any): JSX.Element => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<Inputs>();
   const navigate = useNavigate();
@@ -29,7 +28,7 @@ const Login = (props: any): JSX.Element => {
 
   useEffect(() => {
     if (auth.isLoggedIn) navigate("/app/dashboard");
-  }, [auth]);
+  }, [auth, navigate]);
 
   return (
     <>
