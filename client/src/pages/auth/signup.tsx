@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
+import axios from "axios";
+import { MySwal } from "../../utils/AlertHandler";
 
 type Inputs = {
     name: string;
@@ -13,8 +15,7 @@ type Inputs = {
     passwordConfirm: string;
   };
 
-  const Signup = (props: any): JSX.Element => {
-    const { login } = props;
+  const Signup = (): JSX.Element => {
     const year = new Date().getFullYear();
     const {
         register,
@@ -26,7 +27,26 @@ type Inputs = {
     const navigate = useNavigate();
       
     const onSubmit: SubmitHandler<Inputs> = (data: any): void => {
-        login(data, navigate);
+        (async() => {
+            await axios.post("/user", data).then(() => {
+                reset();
+                MySwal.fire({
+                    title: "¡Registrado!",
+                    icon: "success",
+                    text: "Tu cuenta ha sido creada.",
+                    confirmButtonColor: "#002b49"
+                }).then(() => {
+                    navigate("/login");
+                });
+            }).catch(error => {
+                MySwal.fire({
+                    title: "¡Error!",
+                    icon: "error",
+                    text: error.message,
+                    confirmButtonColor: "#002b49"
+                })
+            });
+        })();
     };
 
     return (
@@ -46,27 +66,43 @@ type Inputs = {
                             <h2 className="font-bebas-bold text-2xl">Crea una cuenta</h2>
                                 <div className="my-5 mx-auto flex w-3/4 flex-col space-y-2 md:w-1/2">
                                     <label
-                                        htmlFor="text"
+                                        htmlFor="nameinput"
                                         className="text-left font-gilroy-light"
                                     >
                                         Nombre:
                                     </label>
                                     <input
-                                        type="email"
-                                        id="emailInput"
+                                        type="text"
+                                        id="nameinput"
                                         className="rounded-lg border-0 bg-gray-200 focus:outline-0"
+                                        {...register("name", {
+                                            required: true,
+                                        })}
                                     />
+                                    {errors.email?.type === "required" && (
+                                        <span className="text-xs text-red-700">
+                                            Debes ingresar un nombre.
+                                        </span>
+                                    )}
                                     <label
-                                        htmlFor="text"
+                                        htmlFor="lastnameinput"
                                         className="text-left font-gilroy-light"
                                     >
                                         Apellido:
                                     </label>
                                     <input
-                                        type="email"
-                                        id="emailInput"
+                                        type="text"
+                                        id="lastnameinput"
                                         className="rounded-lg border-0 bg-gray-200 focus:outline-0"
+                                        {...register("lastname", {
+                                            required: true,
+                                        })}
                                     />
+                                    {errors.email?.type === "required" && (
+                                        <span className="text-xs text-red-700">
+                                            Debes ingresar un apellido.
+                                        </span>
+                                    )}
                                     <label
                                         htmlFor="emailInput"
                                         className="text-left font-gilroy-light"
@@ -107,17 +143,27 @@ type Inputs = {
                                             minLength: 8,
                                         })}
                                     />
+                                    {errors.password?.type === "minLength" && (
+                                    <span className="text-xs text-red-700">
+                                        La contraseña debe de tener al menos 8 caracteres.
+                                    </span>
+                                    )}
+                                    {errors.password?.type === "required" && (
+                                        <span className="text-xs text-red-700">
+                                            Debes ingresar la contraseña.
+                                        </span>
+                                    )}
                                     <label
-                                        htmlFor="passwordInput"
+                                        htmlFor="passwordconfirminput"
                                         className="text-left font-gilroy-light"
                                     >
                                         Confirma contraseña:
                                     </label>
                                     <input
                                         type="password"
-                                        id="passwordInput"
+                                        id="passwordconfirminput"
                                         className="rounded-lg border-0 bg-gray-200 focus:outline-0"
-                                        {...register("password", {
+                                        {...register("passwordConfirm", {
                                             required: true,
                                             minLength: 8,
                                         })}
@@ -129,26 +175,26 @@ type Inputs = {
                                     )}
                                     {errors.password?.type === "required" && (
                                         <span className="text-xs text-red-700">
-                                            Debes ingresar la contraseña.
+                                            Debes confirmar la contraseña.
                                         </span>
                                     )}
-                                    </div>
-                                <div className="flex flex-col space-y-5">
-                                    <button
-                                    type="submit"
-                                    className="mx-auto mt-5 w-3/4 rounded-xl border border-natgas-verde bg-natgas-verde px-10 py-1 font-semibold text-white shadow-lg transition-all hover:bg-transparent hover:text-natgas-verde md:w-1/2"
-                                    >
-                                    Registrarte
-                                    </button>
-                                    <Link
-                                        to="/login"
-                                        className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"
-                                    >
-                                        Regresar
-                                    </Link>
                                 </div>
-                        </div>
-                    </form> 
+                                    <div className="flex flex-col space-y-5">
+                                        <button
+                                            type="submit"
+                                            className="mx-auto mt-5 w-3/4 rounded-xl border border-natgas-verde bg-natgas-verde px-10 py-1 font-semibold text-white shadow-lg transition-all hover:bg-transparent hover:text-natgas-verde md:w-1/2"
+                                        >
+                                            Registrarte
+                                        </button>
+                                        <Link
+                                            to="/login"
+                                            className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"
+                                        >
+                                            Regresar
+                                        </Link>
+                                    </div>
+                            </div>
+                        </form> 
                     <div className="mx-auto text-center">
                         <p className="text-xs text-gray-400">
                             Copyright &copy; {year} | NatGas
