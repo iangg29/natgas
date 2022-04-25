@@ -4,6 +4,7 @@ import { iRange, iRangeData } from "../../../shared/interfaces/app.interface";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
+import { MySwal } from "../../../utils/AlertHandler";
 
 type Props = {
   setRanges: (value: ((prevState: iRange[]) => iRange[]) | iRange[]) => void;
@@ -37,7 +38,12 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
     const lastMax = ranges.length <= 0 ? -1 : ranges[ranges.length - 1].maximum;
     if (parseInt(String(data.minimum)) > lastMax) {
       if (parseInt(String(data.maximum)) < parseInt(String(data.minimum))) {
-        alert("El valor máximo debe de ser mayor al mínimo.");
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: "El valor máximo debe de ser mayor al mínimo.",
+          confirmButtonColor: "#002b49",
+        });
       } else {
         (async () => {
           await axios
@@ -46,15 +52,25 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
               const newData: iRange = res.data.data.new[0];
               setRanges([...ranges, newData]);
             })
-            .catch((err) => {
-              console.trace(err);
+            .catch((error) => {
+              MySwal.fire({
+                title: "¡Error!",
+                icon: "error",
+                text: error.message,
+                confirmButtonColor: "#002b49",
+              });
             });
         })();
         closeModal();
         reset();
       }
     } else {
-      alert(`El valor mínimo debe de ser mayor a ${lastMax}`);
+      MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: `El valor mínimo debe de ser mayor a ${lastMax}`,
+        confirmButtonColor: "#002b49",
+      });
     }
   };
 

@@ -4,18 +4,19 @@ import Background from "../Background/Background";
 import TitleWhite from "../Title/TitleWhite";
 import { useNavigate } from "react-router-dom";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import DateInputLong from "../Inputs/DateInputLong";
 import InputLong from "../Inputs/InputLong";
 import PrimaryButton from "../Buttons/PrimaryButton";
+import { MySwal } from "../../utils/AlertHandler";
 
 type Props = {
   report: any;
@@ -65,7 +66,6 @@ const CardReporte = ({
     (async () => {
       try {
         const rows = await axios.get(`report/getRowsFromReport/${idReporte}`);
-        console.log(rows.data.data.documents);
         setRows(rows.data.data.documents);
         setLabels(
           rows.data.data.documents
@@ -73,7 +73,12 @@ const CardReporte = ({
             .reverse(),
         );
       } catch (error: any) {
-        alert(error.response.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.response.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [idReporte]);
@@ -91,7 +96,12 @@ const CardReporte = ({
       setValue(0);
       setVisible(true);
     } catch (error: any) {
-      alert(error.response.message);
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.response.message,
+        confirmButtonColor: "#002b49",
+      });
     }
   };
 

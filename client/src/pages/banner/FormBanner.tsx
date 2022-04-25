@@ -3,6 +3,7 @@ import InputLong from "../../components/Inputs/InputLong";
 import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
 import axios from "axios";
+import { MySwal } from "../../utils/AlertHandler";
 
 const FormBanner = () => {
   const [getTitleB, setTitleB] = useState<any>();
@@ -16,18 +17,21 @@ const FormBanner = () => {
       form.append("name", getTitleB);
       form.append("date", new Date().toLocaleDateString());
       form.append("news_photo", selectedFileB);
-      console.log(selectedFileB[0]);
-
       await axios({
         method: "POST",
         url: "/banner",
         data: form,
       });
     } catch (error: any) {
-      alert(error.response.message);
-      console.log(error.response);
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.response.message,
+        confirmButtonColor: "#002b49",
+      });
     }
   };
+
   useEffect(() => {
     if (!selectedFileB) {
       setPreviewB(undefined);
@@ -37,13 +41,13 @@ const FormBanner = () => {
     setPreviewB(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFileB]);
+
   const onSelectFile = (e: any) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFileB(undefined);
       return;
     }
     setSelectedFileB(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   return (

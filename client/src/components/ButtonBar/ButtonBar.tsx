@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { MySwal } from "../../utils/AlertHandler";
 
 const ButtonBar = (): JSX.Element => {
   const [count, setCount] = useState<number>(0);
@@ -14,8 +15,12 @@ const ButtonBar = (): JSX.Element => {
         ]);
         setCount(vacations.data.results + ngblocks.data.results);
       } catch (error: any) {
-        alert(error);
-        console.trace(error);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, []);

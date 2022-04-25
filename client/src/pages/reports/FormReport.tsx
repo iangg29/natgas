@@ -4,6 +4,7 @@ import Page from "../../containers/Page";
 import InputLong from "../../components/Inputs/InputLong";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/Buttons/PrimaryButton";
+import { MySwal } from "../../utils/AlertHandler";
 
 const ReportForm = () => {
   const [getIndicador, setIndicador] = useState<string>("");
@@ -12,19 +13,36 @@ const ReportForm = () => {
   const sendReport = async () => {
     try {
       if (getIndicador === "") {
-        alert("Un indicador debe tener un nombre");
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: "Un indicador debe tener un nombre",
+          confirmButtonColor: "#002b49",
+        });
         return;
       }
-      await axios.post("report/", {
-        name: getIndicador,
+      await axios
+        .post("report/", {
+          name: getIndicador,
+        })
+        .then(() => {
+          setIndicador("");
+          MySwal.fire({
+            title: "¡Creado!",
+            icon: "error",
+            text: "Nuevo indicador creado correctamente",
+            confirmButtonColor: "#002b49",
+          }).then(() => {
+            navigate("/app/reports");
+          });
+        });
+    } catch (error: any) {
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.message,
+        confirmButtonColor: "#002b49",
       });
-      alert("Nuevo indicador creado correctamente");
-      navigate("/app/reports");
-
-      setIndicador("");
-    } catch (err: any) {
-      console.log(err);
-      alert(err.message);
     }
   };
   return (

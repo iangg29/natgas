@@ -5,6 +5,7 @@ import CardCarousel from "../Cards/CardCarousel";
 import { iNews } from "../../shared/interfaces/app.interface";
 import axios, { AxiosResponse } from "axios";
 import CreateNews from "../News/CreateNews";
+import { MySwal } from "../../utils/AlertHandler";
 
 const DashCarousel = (): JSX.Element => {
   const [news, setNews] = useState<iNews[]>([]);
@@ -16,8 +17,13 @@ const DashCarousel = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setNews(news.filter((item: iNews) => item.idNoticia !== id));
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   };
@@ -29,8 +35,13 @@ const DashCarousel = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setNews(res.data.data.documents);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, []);

@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { MySwal } from "../../utils/AlertHandler";
 
 type Inputs = {
   address: string;
@@ -46,8 +47,6 @@ const ActualizaPerfil = (): JSX.Element => {
     verified: false,
   });
 
-  const email = "jbelmonte@natgas.com";
-
   const onSubmit: SubmitHandler<Inputs> = (data: IEmployee): void => {
     (async () => {
       await axios
@@ -55,8 +54,13 @@ const ActualizaPerfil = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setProfile(res.data.data.document[0]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
       navigate("/app/profile");
     })();
@@ -65,16 +69,20 @@ const ActualizaPerfil = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/user/email/${email}`)
+        .get(`/user/${id}`)
         .then((res: AxiosResponse) => {
-          console.log(res.data.data.document[0]);
           setProfile(res.data.data.document[0]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
-  }, [email]);
+  }, [id]);
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>

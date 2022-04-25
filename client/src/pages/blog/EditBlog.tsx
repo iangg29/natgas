@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import DateInput from "../../components/Inputs/DateInput";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import InputLong from "../../components/Inputs/InputLong";
 import InputP from "../../components/Inputs/InputP";
 import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
 import axios from "axios";
+import { MySwal } from "../../utils/AlertHandler";
 
 const FormBlog = () => {
   const { id } = useParams<string>();
@@ -27,7 +28,12 @@ const FormBlog = () => {
           new Date(blog.data.data.document[0].date).toISOString().split("T")[0],
         );
       } catch (error: any) {
-        alert(error.response.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.response.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [id]);
@@ -45,11 +51,23 @@ const FormBlog = () => {
         method: "PATCH",
         url: `/blog/${id}`,
         data: form,
+      }).then(() => {
+        MySwal.fire({
+          title: "¡Actualizado!",
+          icon: "success",
+          text: "El blog ha sido actualizado",
+          confirmButtonColor: "#002b49",
+        }).then(() => {
+          navigate("/app/blog");
+        });
       });
-      alert("Blog updated successfully");
-      navigate("/app/blog");
     } catch (error: any) {
-      alert(error.response.message);
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.response.message,
+        confirmButtonColor: "#002b49",
+      });
     }
   };
 

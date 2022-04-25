@@ -4,6 +4,7 @@ import { iBlog } from "../../shared/interfaces/app.interface";
 import axios, { AxiosResponse } from "axios";
 import Loading from "../../utils/Loading";
 import { Helmet } from "react-helmet";
+import { MySwal } from "../../utils/AlertHandler";
 
 const ViewBlog = (): JSX.Element => {
   const [blog, setBlog] = useState<iBlog>();
@@ -16,8 +17,13 @@ const ViewBlog = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setBlog(res.data.data.document[0]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, [slug]);
