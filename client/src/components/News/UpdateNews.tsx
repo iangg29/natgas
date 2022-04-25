@@ -1,7 +1,7 @@
-import React, { Fragment,useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { iNews, iNewsData } from "../../shared/interfaces/app.interface";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import { PencilIcon } from "@heroicons/react/solid";
 
@@ -39,7 +39,6 @@ const UpdateNews = ( {id, news, setName, setDate, setImage} : any): JSX.Element 
     formData.append("date", data.date);
     formData.append("news_photo", data.image[0]);
     console.log(id);
-    
        axios({
         method: "PATCH",
         url:`/news/${id}`,
@@ -62,9 +61,8 @@ const UpdateNews = ( {id, news, setName, setDate, setImage} : any): JSX.Element 
           onClick={openModal}
           className="rounded-full bg-natgas-azul p-2 text-white "
         >
-          <PencilIcon className="h-5 w-5" ></PencilIcon>
+          <PencilIcon className="h-5 w-5"/>
         </button>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -156,7 +154,7 @@ const UpdateNews = ( {id, news, setName, setDate, setImage} : any): JSX.Element 
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-natgas-azul-claro px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-natgas-azul focus-visible:ring-offset-2"
                     >
-                      Actualizar
+                      Actualizar Noticia
                     </button>
                   </div>
                 </form>
