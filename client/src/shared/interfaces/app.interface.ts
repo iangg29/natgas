@@ -61,3 +61,11 @@ export interface iNews extends iNewsData {
   created_at: string;
   updated_at: string;
 }
+
+export interface IBelong {
+ idPertenece: number,
+ email: string,
+ idDepartamento: number,
+ position: string,
+ updated_at: string;
+}
