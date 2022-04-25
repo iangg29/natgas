@@ -4,7 +4,6 @@ import Loading from "../utils/Loading";
 import Main from "../containers/Main";
 import routes, { IRoute } from "../routes";
 import Header from "../components/Header/Header";
-import Footer from "../components/Footer";
 import Error404 from "../pages/404";
 import { connect } from "react-redux";
 
@@ -26,7 +25,7 @@ const Layout = (props: any): JSX.Element => {
 
   useEffect(() => {
     if (!auth.isLoggedIn) navigate("/login");
-  }, [auth]);
+  }, [auth, navigate]);
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
@@ -49,7 +48,6 @@ const Layout = (props: any): JSX.Element => {
             </Routes>
           </Suspense>
         </Main>
-        <Footer />
       </div>
     </div>
   );

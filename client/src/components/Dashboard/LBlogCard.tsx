@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const LBlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
   return (
-    <div className="w-full overflow-hidden rounded-lg bg-gray-50 text-center shadow-lg md:w-1/3">
+    <div className="w-full overflow-hidden rounded-lg bg-gray-50 text-center shadow-lg lg:w-1/3">
       <img src={blog.image} alt={blog.title} className="w-full" />
       <div className="px-6 py-4 text-gray-900">
         <div className="mb-2 font-quicksand-bold text-xl">{blog.title}</div>

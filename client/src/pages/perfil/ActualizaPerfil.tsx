@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { connect } from "react-redux";
 
+
 type Inputs = {
   address: string;
   birthdate: string;

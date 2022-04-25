@@ -19,7 +19,7 @@ const CardCarousel = ({
           <TrashIcon className="h-5 w-5" />
         </button>
       </div>
-      <img src={`http://localhost:5959/news/${news.image}`} alt={news.name} />
+      <img src={`/news/${news.image}`} alt={news.name} />
       <p className="legend bg-natgas-azul">{news.name}</p>
     </div>
   );

@@ -38,22 +38,7 @@ exports.approveVacations = catchAsync(async (req, res, next) => {
         })
     )[0];
 
-    
-    // UPDATE USER VACATIONS LEFT
-    const start = new Date(vacation.startdate);
-    const end = new Date(vacation.enddate);
-
-    const asuetos = (
-        await Asueto.getAll({})
-        );
-    
-
-    const diasasuetos = Vacation.findAsuetos(asuetos, start, end);
-    const weekends = Vacation.findWeekends(start, end);
-   
-  
-    const vacationDays =
-        ((start.getTime() - end.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
+    const vacationDays = Vacation.vacations;
 
     const user = (await User.getOne('email', vacation.email))[0];
     await User.updateOne('email', vacation.email, {
@@ -126,3 +111,4 @@ exports.getPending = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllVacationDetails = base.getAll(VacationDetails);
+

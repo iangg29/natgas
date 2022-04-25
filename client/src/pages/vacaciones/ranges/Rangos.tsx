@@ -5,6 +5,7 @@ import { iRange } from "../../../shared/interfaces/app.interface";
 import CreateRange from "./CreateRange";
 import ReadOnlyRow from "../../../components/Table/ReadOnlyRow";
 import EditableRow from "../../../components/Table/EditableRow";
+import { MySwal } from "../../../utils/AlertHandler";
 
 const Rangos = (): JSX.Element => {
   const [rangos, setRangos] = useState<iRange[]>([]);
@@ -17,8 +18,13 @@ const Rangos = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setRangos(res.data.data.documents);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, []);
@@ -32,8 +38,13 @@ const Rangos = (): JSX.Element => {
             rangos.filter((rango: iRange) => rango.idRangoVacaciones !== id),
           );
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   };
@@ -47,8 +58,13 @@ const Rangos = (): JSX.Element => {
             alert("Se han borrado todos los rangos");
             setRangos([]);
           })
-          .catch((err) => {
-            console.trace(err);
+          .catch((error) => {
+            MySwal.fire({
+              title: "¡Error!",
+              icon: "error",
+              text: error.message,
+              confirmButtonColor: "#002b49",
+            });
           });
       })();
     }

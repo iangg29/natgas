@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import Stats from "../../components/Profile/Stats";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Employee = (): JSX.Element => {
   const { number } = useParams<string>();
@@ -33,8 +34,13 @@ const Employee = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setEmployee(res.data.data.document[0]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, [number]);
