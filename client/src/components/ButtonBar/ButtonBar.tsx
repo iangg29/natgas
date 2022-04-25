@@ -50,14 +50,20 @@ const ButtonBar = (): JSX.Element => {
       <div className="mt-10 w-full md:mt-0 md:w-1/2">
         <div className="flex flex-col space-y-10 py-4 text-center md:flex-row md:space-y-0">
           <div className="w-full md:w-1/3">
-            <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
-              Vacaciones
-            </button>
+            <Link to="/app/vacations/ranges">
+              <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
+                Vacaciones
+              </button>
+            </Link>
+            
           </div>
           <div className="w-full md:w-1/3">
-            <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
-              Registros
-            </button>
+            <Link to="app/profile/:email/complete">
+              <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
+                Registros
+              </button>
+            </Link>
+            
           </div>
           <div className="w-full md:w-1/3">
             <Link to="/app/employees">
