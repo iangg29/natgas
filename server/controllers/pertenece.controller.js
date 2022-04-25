@@ -1,7 +1,7 @@
 const base = require('./base.controller');
 const Pertenece = require('../models/pertenece.model');
 
-exports.getPertenece = base.getOne(Pertenece, 'idPertenece');
+exports.getPertenece = base.getOne(Pertenece, 'email');
 exports.createPertenece = base.createOne(Pertenece);
-exports.updatePertenece = base.updateOne(Pertenece, 'idPertenece');
-exports.deletePertenece = base.deleteOne(Pertenece, 'idPertenece');
+exports.updatePertenece = base.updateOne(Pertenece, 'email');
+exports.deletePertenece = base.deleteOne(Pertenece, 'email');

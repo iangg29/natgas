@@ -16,7 +16,7 @@ module.exports = class extends Base {
     }
 
     async save() {
-        const belong = await db
+        const idPertenece = await db
             .insert({
                 email: this.email,
                 idDepartamento: this.idDepartamento,
@@ -25,7 +25,7 @@ module.exports = class extends Base {
             })
             .into(this.tableName);
         return db.select('*').from(this.tableName).where({
-            idPertenece: belong,
+            idPertenece,
         });
     }
 };

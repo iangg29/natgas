@@ -1,30 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
-import axios, { AxiosResponse } from "axios";
-import { IEmployee } from "../../shared/interfaces/app.interface";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { IEmployee, IBelong } from "../../shared/interfaces/app.interface";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { connect } from "react-redux";
 
 type Inputs = {
   address: string;
   birthdate: string;
   cellphone: number;
   contractdate: string;
-  created_at: string;
-  email: string;
-  gender: string;
-  lastname: string;
-  name: string;
-  ngBlocks: number;
-  number: number;
   rfc: string;
-  updated_at: string;
-  vacations: number;
-  verified: boolean;
+  position: string;
+  idDepartamento: number;  
 };
 
-const ActualizaPerfil = (): JSX.Element => {
-  const { id } = useParams<string>();
+const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   const { register, handleSubmit } = useForm<Inputs>();
   const navigate = useNavigate();
 
@@ -46,35 +38,49 @@ const ActualizaPerfil = (): JSX.Element => {
     verified: false,
   });
 
-  const email = "jbelmonte@natgas.com";
+  const [belong, setBelong] = useState<IBelong>({
+    idPertenece: 0,
+    email: "",
+    idDepartamento: 0,
+    position: "",
+    updated_at: "",
+  });
 
-  const onSubmit: SubmitHandler<Inputs> = (data: IEmployee): void => {
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
     (async () => {
-      await axios
-        .patch(`/user/${id}`, data)
-        .then((res: AxiosResponse) => {
-          setProfile(res.data.data.document[0]);
-        })
-        .catch((err) => {
-          console.trace(err);
-        });
+      try{
+          await axios.patch(`/user/${auth.user.number}`, {
+            address: data.address,
+            birthdate: data.birthdate,
+            cellphone: data.cellphone,
+            contractdate: data.contractdate,
+            rfc: data.rfc,
+          });
+          await axios.patch(`/pertenece/email/${auth.user.email}`, {
+            idDepartamento: data.idDepartamento,
+            position: data.position,
+          });
+        }catch (error: any){
+          alert(error.message);
+        }
       navigate("/app/profile");
     })();
-  };
+  }
 
   useEffect(() => {
-    (async () => {
-      await axios
-        .get(`/user/email/${email}`)
-        .then((res: AxiosResponse) => {
-          console.log(res.data.data.document[0]);
-          setProfile(res.data.data.document[0]);
-        })
-        .catch((err) => {
-          console.trace(err);
-        });
+    (
+      async () => {
+      try{
+        const perfil = await axios.get(`/user/email/${auth.user.email}`);
+        const pertenece = await axios.get(`/pertenece/email/${auth.user.email}`);
+
+        setProfile(perfil.data.data.document);
+        setBelong(pertenece.data.data.document);
+      }catch (error: any) {
+        alert(error.message);
+      }
     })();
-  }, [email]);
+  }, [auth.user.email]);
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
@@ -86,7 +92,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">RFC</h4>
               <input
                 type="string"
-                defaultValue={profile.rfc}
+                defaultValue={auth.user.rfc}
                 {...register("rfc")}
                 placeholder="RFC"
                 className="modal-input"
@@ -96,7 +102,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Teléfono</h4>
               <input
                 type="number"
-                defaultValue={profile.cellphone}
+                defaultValue={auth.user.cellphone}
                 {...register("cellphone")}
                 placeholder="Teléfono"
                 className="modal-input"
@@ -104,14 +110,7 @@ const ActualizaPerfil = (): JSX.Element => {
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Correo electrónico</h4>
-              <span>{profile.email}</span>
-              {/* <input 
-                type="string"
-                defaultValue={profile.email}
-                {...register("email")}
-                placeholder="Correo electrónico"
-                className="modal-input"
-              /> */}
+              <span>{auth.user.email}</span>
             </div>
           </div>
           <hr />
@@ -120,7 +119,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Dirección</h4>
               <input
                 type="string"
-                defaultValue={profile.address}
+                defaultValue={auth.user.address}
                 {...register("address")}
                 placeholder="Dirección"
                 className="modal-input"
@@ -130,7 +129,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input
                 type="string"
-                defaultValue={new Date(profile.birthdate).toLocaleDateString()}
+                defaultValue={new Date(auth.user.birthdate).toLocaleDateString()}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
                 className="modal-input"
@@ -141,36 +140,27 @@ const ActualizaPerfil = (): JSX.Element => {
           <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">No. Empleado</h4>
-              <span>{profile.number}</span>
-              {/* <input 
-                type="number"
-                defaultValue={profile.number}
-                {...register("number")}
-                placeholder="No. empleado"
-                className="modal-input"
-              /> */}
+              <span>{auth.user.number}</span>
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Departamento</h4>
-              {/* <span>{profile.departamento}</span> */}
-              {/* <input 
-                type="string"
-                defaultValue={profile.departamento}
-                {...register("departamento")}
+              <input 
+                type="number"
+                defaultValue={belong.idDepartamento}
+                {...register("idDepartamento")}
                 placeholder="Departamento"
                 className="modal-input"
-              /> */}
+              />
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Puesto</h4>
-              {/* <span>{profile.position}</span> */}
-              {/* <input 
+              <input 
                 type="string"
-                defaultValue={profile.position}
+                defaultValue={belong.position}
                 {...register("position")}
                 placeholder="Puesto"
                 className="modal-input"
-              /> */}
+              />
             </div>
           </div>
           <hr />
@@ -179,7 +169,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
               <input
                 type="string"
-                defaultValue={new Date(profile.contractdate).toLocaleDateString()}
+                defaultValue={new Date(auth.user.contractdate).toLocaleDateString()}
                 {...register("contractdate")}
                 placeholder="Inicio de contrato"
                 className="modal-input"
@@ -211,4 +201,10 @@ const ActualizaPerfil = (): JSX.Element => {
   );
 };
 
-export default ActualizaPerfil;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, null)(ActualizaPerfil);
