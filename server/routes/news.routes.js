@@ -12,6 +12,14 @@ router
         filesController.formatNewsImage,
         newsController.createNews,
     );
-router.route('/:id').delete(newsController.deleteNews);
+router
+    .route('/:id')
+    .get(newsController.getOneNews)
+    .patch(
+        filesController.uploadBannerPhoto,
+        filesController.formatNewsImage,
+        newsController.updateNews
+    )
+    .delete(newsController.deleteNews);
 
 module.exports = router;

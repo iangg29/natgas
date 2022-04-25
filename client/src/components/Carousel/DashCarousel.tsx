@@ -22,19 +22,6 @@ const DashCarousel = (): JSX.Element => {
     })();
   };
 
-  const updateCard = (id: number): void => {
-    (async () => {
-      await axios
-        .delete(`/news/${id}`)
-        .then((res: AxiosResponse) => {
-          setNews(news.filter((item: iNews) => item.idNoticia !== id));
-        })
-        .catch((err) => {
-          console.trace(err);
-        });
-    })();
-  };
-
   useEffect(() => {
     (async () => {
       await axios
@@ -60,7 +47,7 @@ const DashCarousel = (): JSX.Element => {
           width="100%"
         >
           {news?.map((item: iNews, idx: number) => (
-            <CardCarousel news={item} key={idx} deleteCard={deleteCard} updateCard={updateCard}  />
+            <CardCarousel news={item} key={idx} deleteCard={deleteCard}/>
           ))}
         </Carousel>
         <div className="flex justify-end">
