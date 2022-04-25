@@ -5,6 +5,7 @@ import Pagination from "../../components/Inputs/Pagination";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
 import CheckBox from "../../components/Inputs/CheckBox";
 import Page from "../../containers/Page";
+import { MySwal } from "../../utils/AlertHandler";
 
 const BuscarVacaciones = (): JSX.Element => {
   const [getVacations, setVacations] = useState<any[]>([]);
@@ -17,7 +18,7 @@ const BuscarVacaciones = (): JSX.Element => {
   const topRef = useRef<any>(null);
 
   useEffect(() => {
-    if (pendiente || rechazado || aprobado)
+    if (pendiente || rechazado || aprobado) {
       (async () => {
         try {
           const [myVacations] = await Promise.all([
@@ -38,13 +39,22 @@ const BuscarVacaciones = (): JSX.Element => {
             ),
           ]);
           setVacations(myVacations.data.data.documents);
-          console.log(myVacations.data.data.documents);
         } catch (error: any) {
-          alert(error.message);
+          await MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         }
       })();
-    else {
-      alert("Se debe seleccionar al menos un status");
+    } else {
+      MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: "Se debe seleccionar al menos un status",
+        confirmButtonColor: "#002b49",
+      });
       setAprobado(true);
     }
   }, [getName, getPage, aprobado, rechazado, pendiente]);

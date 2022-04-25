@@ -8,7 +8,7 @@ module.exports = class extends Base {
         super();
         this.name = name;
         this.image = image;
-        this.date = new Date(date);
+        this.date = date;
 
         this.tableName = 'noticia';
     }

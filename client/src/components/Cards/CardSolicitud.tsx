@@ -16,7 +16,6 @@ const CardSolicitud = ({
   turn,
   approve,
 }: Props): JSX.Element => {
-  console.log(id);
   return (
     <>
       <div className="box-border h-48 w-96 rounded-lg  border-2 p-4 shadow-md">

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import CardSolicitud from "../../components/Cards/CardSolicitud";
 import CardSolicitudVac from "../../components/Cards/CardSolicitudVac";
-import axios, { AxiosPromise } from "axios";
+import axios from "axios";
 import Page from "../../containers/Page";
 import { connect } from "react-redux";
+import { MySwal } from "../../utils/AlertHandler";
 
 const VistaSolicitud = ({ auth }: any): JSX.Element => {
   const [getVacations, setVacations] = React.useState<any[]>([]);
@@ -20,49 +21,87 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
         setVacations(myVacations.data.vacationrequests);
         setNatgasBlocks(myNatgasBlocks.data.natgasBlocks);
       } catch (error: any) {
-        alert(error.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [auth.user]);
 
   const approveNGB = async (id: string) => {
-    try {
-      await axios.patch(`/natgasblock/approve/${id}`);
-      setNatgasBlocks(getNatgasBlocks.filter((ngb) => ngb.id !== id));
-
-      alert("La solicitud de NGB ha sido aprobada con éxito.");
-    } catch (error: any) {
-      alert(error.message);
-    }
+    await axios
+      .patch(`/natgasblock/approve/${id}`)
+      .then(() => {
+        setNatgasBlocks(getNatgasBlocks.filter((ngb) => ngb.id !== id));
+        MySwal.fire({
+          title: "¡Aprobada!",
+          icon: "success",
+          text: "La solicitud de NGB ha sido aprobada con éxito.",
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      });
   };
 
   const approveVac = async (id: string) => {
-    try {
-      await axios.patch(`/vacation/approvevacationrequest/${id}`);
-      setVacations(getVacations.filter((vac) => vac.id !== id));
-
-      alert("La solicitud de Vacaciones ha sido aprobada con éxito.");
-    } catch (error: any) {
-      alert(error.message);
-    }
+    await axios
+      .patch(`/vacation/approvevacationrequest/${id}`)
+      .then(() => {
+        setVacations(getVacations.filter((vac) => vac.id !== id));
+        MySwal.fire({
+          title: "¡Aprobada!",
+          icon: "success",
+          text: "La solicitud de Vacaciones ha sido aprobada con éxito.",
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      });
   };
   const discardVac = async (id: string) => {
-    try {
-      await axios.patch(`/vacation/discardvacationrequest/${id}`);
-      setVacations(getVacations.filter((vac) => vac.id !== id));
-
-      alert("La solicitud de Vacaciones ha sido rechazada con éxito.");
-    } catch (error: any) {
-      alert(error.message);
-    }
+    await axios
+      .patch(`/vacation/discardvacationrequest/${id}`)
+      .then(() => {
+        setVacations(getVacations.filter((vac) => vac.id !== id));
+        MySwal.fire({
+          title: "¡Aprobada!",
+          icon: "success",
+          text: "La solicitud de Vacaciones ha sido rechazada con éxito.",
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      });
   };
 
   return (
     <>
       <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
         <div className=" grid  grid-cols-1 gap-5 py-10 lg:grid-cols-2 xl:grid-cols-3">
-          {getVacations.length > 0 ? (
-            getVacations.map((vac) => (
+          {getVacations?.length > 0 ? (
+            getVacations?.map((vac) => (
               <CardSolicitudVac
                 id={vac.id}
                 approve={approveVac}
@@ -82,8 +121,8 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
       </Page>
       <Page title="NatGas Blocks" headTitle="NatGas Blocks" padding={true}>
         <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
-          {getNatgasBlocks.length > 0 ? (
-            getNatgasBlocks.map((ngb) => (
+          {getNatgasBlocks?.length > 0 ? (
+            getNatgasBlocks?.map((ngb) => (
               <CardSolicitud
                 id={ngb.id}
                 name={ngb.name + " " + ngb.lastname}

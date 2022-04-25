@@ -3,7 +3,9 @@ module.exports = {
     "./src/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/*.html",
+    "./node_modules/flowbite/**/*.js",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -28,7 +30,21 @@ module.exports = {
         "natgas-sec-one": "#00A99D",
         "natgas-sec-two": "#098B90",
       },
+      keyframes: {
+        "move-bg": {
+          to: {
+            backgroundPosition: "400% 0",
+          },
+        },
+      },
+      animation: {
+        "move-bg": "move-bg 8s infinite linear",
+      },
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("flowbite/plugin"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };

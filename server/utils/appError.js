@@ -1,5 +1,10 @@
+/** Class representing operational app error */
 class AppError extends Error {
-    // el constructor se llama cada vez que se crea un objeto
+    /**
+     * Create an operational AppError.
+     * @param {string} message - The error message.
+     * @param {number} statusCode - The y value.
+     */
     constructor(message, statusCode) {
         super(message);
         this.statusCode = statusCode;

@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Listbox, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import Page from "../../containers/Page";
@@ -15,10 +15,18 @@ import {
 } from "../../shared/interfaces/app.interface";
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import Pagination from "../../components/Inputs/Pagination";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Employees = (): JSX.Element => {
   const [employees, setEmployees] = useState<IEmployment[]>([]);
-  const [departments, setDepartments] = useState<IDepartment[]>([]);
+  const [departments, setDepartments] = useState<IDepartment[]>([
+    {
+      idDepartamento: -1,
+      name: "Departamento",
+      created_at: "",
+      updated_at: "",
+    },
+  ]);
 
   const [nameSearch, setNameSearch] = useState<string>("");
   const [numberSearch, setNumberSearch] = useState<string>("");
@@ -32,34 +40,50 @@ const Employees = (): JSX.Element => {
 
   const filterDepartment = (department: IDepartment) => {
     setSelectedDepartment(department);
-    // @ts-ignore
-    setEmployees(
-      employees.filter(
-        (employee: any) => employee.departamento === department.name,
-      ),
-    );
   };
 
   useEffect(() => {
     (async () => {
+      await axios
+        .get("/department")
+        .then((res: AxiosResponse) => {
+          setDepartments([...departments, ...res.data.data.documents]);
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
+        });
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
       try {
-        const [employeesPromise, departmentsPromise] = await Promise.all([
-          axios.get(
-            `/user/employment?name_like=${nameSearch}&number_like=${numberSearch}&sort=number&limit=${limit}&page=${page}`,
-          ),
-          axios.get("/department"),
-        ]);
+        const employeesPromise = await axios.get(
+          `/user/employment?${
+            selectedDepartment.name !== "Departamento"
+              ? `departamento_like=${selectedDepartment?.name}&`
+              : ""
+          }name_like=${nameSearch}&number_like=${numberSearch}&sort=number&limit=${limit}&page=${page}`,
+        );
         setEmployees(employeesPromise.data.data.documents);
-        setDepartments(departmentsPromise.data.data.documents);
-      } catch (err: any) {
-        alert(err.message);
-        console.trace(err);
+      } catch (error: any) {
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
-  }, [page, nameSearch, numberSearch]);
+  }, [page, nameSearch, numberSearch, selectedDepartment]);
 
   return (
-    <Page title="Empleados" headTitle="Empleados" padding={true}>
+    <Page title="Empleados" headTitle="Empleados" padding={false}>
       <h2 className="text-lg font-semibold">Buscar empleados</h2>
       <div
         className="mt-5 grid grid-cols-1 content-center items-center space-y-2 md:grid-cols-3 md:space-y-0"
@@ -84,7 +108,7 @@ const Employees = (): JSX.Element => {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {departments.map((department: IDepartment, idx: number) => (
+                  {departments?.map((department: IDepartment, idx: number) => (
                     <Listbox.Option
                       key={idx}
                       className={({ active }) =>

@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
+import Stats from "../../components/Profile/Stats";
+import { MySwal } from "../../utils/AlertHandler";
 
 const Employee = (): JSX.Element => {
   const { number } = useParams<string>();
@@ -32,8 +34,13 @@ const Employee = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setEmployee(res.data.data.document[0]);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, [number]);
@@ -94,47 +101,9 @@ const Employee = (): JSX.Element => {
           </div>
         </div>
         <hr />
-        <div className="grid grid-cols-1 py-10 dark:text-gray-200 md:grid-cols-2">
-          <div className="flex flex-col space-y-10">
-            <div>
-              Vacaciones usadas: <span className="number-bold">3</span>
-            </div>
-            <div>
-              Vacaciones disponibles: <span className="number-bold">25</span>
-            </div>
-            <div>
-              Vacaciones ganadas: <span className="number-bold">4</span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-10">
-            <div>
-              Natgas Blocks usados: <span className="number-bold">4</span>
-            </div>
-            <div>
-              Natgas Blocks disponibles: <span className="number-bold">1</span>
-            </div>
-          </div>
-        </div>
+        <Stats user={employee} />
         <hr />
-        <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
-          <div className="w-full md:w-1/2">
-            <Link
-              to="/app/natgasblocks/request"
-              className="rounded-full border-2 border-natgas-azul-claro px-8 py-3 hover:bg-natgas-azul-claro hover:text-white"
-            >
-              Solicitar Natgas Block
-            </Link>
-          </div>
-          <div className="w-full md:w-1/2">
-            <Link
-              to="/app/vacations/request"
-              className="rounded-full border-2 border-natgas-verde px-8 py-3 hover:bg-natgas-verde hover:text-white"
-            >
-              Solicitar vacaciones
-            </Link>
-          </div>
-        </div>
-        <div className="mt-4 text-center">
+        <div className="mt-14 text-center">
           <Link
             to="/app/dashboard"
             className="rounded-full bg-natgas-sec-one px-8 py-3 text-white hover:bg-natgas-sec-two"

@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import LBlogCard from "./LBlogCard";
 import { iBlog } from "../../shared/interfaces/app.interface";
 import { Link } from "react-router-dom";
+import { MySwal } from "../../utils/AlertHandler";
 
 const LastBlog = (): JSX.Element => {
   const [blogs, setBlogs] = useState<iBlog[]>([]);
@@ -14,8 +15,13 @@ const LastBlog = (): JSX.Element => {
         .then((res: AxiosResponse) => {
           setBlogs(res.data.data.documents);
         })
-        .catch((err) => {
-          console.trace(err);
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
     })();
   }, []);
@@ -27,7 +33,7 @@ const LastBlog = (): JSX.Element => {
           Últimos Natgas Blogs
         </h3>
         <hr />
-        <div className="mt-10 flex flex-col justify-around space-x-6 md:flex-row">
+        <div className="mt-10 flex flex-col justify-around space-x-0 space-y-5 lg:flex-row lg:space-x-6 lg:space-y-0">
           {blogs?.map((blog: iBlog, idx: number) => (
             <LBlogCard key={idx} blog={blog} />
           ))}

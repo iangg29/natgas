@@ -9,15 +9,25 @@ const AppError = require('../utils/appError');
 
 exports.getVacations = base.getAll(Vacation);
 exports.getVacation = base.getOne(VacationDetails, 'idVacaciones');
-exports.getMyVacations = base.getOne(VacationDetails, 'email');
 exports.createVacation = base.createOne(Vacation);
 exports.updateVacation = base.updateOne(Vacation, 'idVacaciones');
 exports.deleteVacation = base.deleteOne(Vacation, 'idVacaciones');
 
+exports.getMyVacations = catchAsync(async (req, res, next) => {
+    const vacations = await VacationDetails.getOne('email', req.user.email);
+
+    res.status(200).json({
+        message: 'User requests retrieved successfully',
+        data: {
+            document: vacations,
+        },
+    });
+});
+
 exports.approveVacations = catchAsync(async (req, res, next) => {
     // CHECK IF IT IS ALREADY APPROVED
     const currVac = (await Vacation.getOne('idVacaciones', req.params.id))[0];
-    if ((currVac.status == 1))
+    if (currVac.status == 1)
         next(new AppError('Esta vacacion ya ha sido actualizada.', 400));
 
     // SET VACATIONS STATUS
@@ -28,22 +38,7 @@ exports.approveVacations = catchAsync(async (req, res, next) => {
         })
     )[0];
 
-    
-    // UPDATE USER VACATIONS LEFT
-    const start = new Date(vacation.startdate);
-    const end = new Date(vacation.enddate);
-
-    const asuetos = (
-        await Asueto.getAll({})
-        );
-    
-
-    const diasasuetos = Vacation.findAsuetos(asuetos, start, end);
-    const weekends = Vacation.findWeekends(start, end);
-   
-  
-    const vacationDays =
-        ((start.getTime() - end.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
+    const vacationDays = Vacation.vacations;
 
     const user = (await User.getOne('email', vacation.email))[0];
     await User.updateOne('email', vacation.email, {
@@ -73,15 +68,15 @@ exports.discardVacations = catchAsync(async (req, res, next) => {
 exports.getPending = catchAsync(async (req, res, next) => {
     // GET DEPARTMENT AND POSITION
     const { position, departamento, email } = (
-        await UserDetails.getOne('email', req.params.id)
+        await UserDetails.getOne('email', req.user.email)
     )[0];
 
     if (position === 'Analista' || position === 'Especialista')
         next(
             new AppError(
                 'El puesto de este empleado no es el adecuado para aprobar solicitudes',
-                400,
-            ),
+                400
+            )
         );
     // GET PENDING REQUESTS
     let vacationrequests = VacationDetails.tableReference
@@ -115,5 +110,5 @@ exports.getPending = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getAllVacationDetails=base.getAll(VacationDetails);
+exports.getAllVacationDetails = base.getAll(VacationDetails);
 
