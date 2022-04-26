@@ -65,13 +65,7 @@ const CardReporte = ({
   React.useEffect(() => {
     (async () => {
       try {
-        const rows = await axios.get(`report/getRowsFromReport/${idReporte}`);
-        setRows(rows.data.data.documents);
-        setLabels(
-          rows.data.data.documents
-            .map((row: any) => new Date(row.date).toLocaleDateString())
-            .reverse(),
-        );
+        await getReports();
       } catch (error: any) {
         await MySwal.fire({
           title: "¡Error!",
@@ -83,6 +77,25 @@ const CardReporte = ({
     })();
   }, [idReporte]);
 
+  const getReports = async () => {
+    try {
+      const rows = await axios.get(`report/getRowsFromReport/${idReporte}`);
+      setRows(rows.data.data.documents);
+      setLabels(
+        rows.data.data.documents
+          .map((row: any) => new Date(row.date).toLocaleDateString())
+          .reverse(),
+      );
+    } catch (error: any) {
+      await MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.response.message,
+        confirmButtonColor: "#002b49",
+      });
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       await axios.post(`row/`, {
@@ -90,8 +103,7 @@ const CardReporte = ({
         date: getDate,
         idReporte,
       });
-      setRows([{ value: getValue }, ...getRows]);
-      setLabels([new Date(getDate).toLocaleDateString(), ...getLabels]);
+      await getReports();
       setDate(new Date());
       setValue(0);
       setVisible(true);
@@ -126,7 +138,7 @@ const CardReporte = ({
           />
         </div>
       </div>
-      <div className="my-10 flex w-full flex-row items-center justify-center">
+      <div className="my-10 flex w-full flex-col items-center justify-center lg:flex-row">
         {" "}
         <div className="m-4">
           <PrimaryButton
