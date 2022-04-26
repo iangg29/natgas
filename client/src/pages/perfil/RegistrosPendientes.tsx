@@ -3,12 +3,10 @@ import Title from "../../components/Title/Title";
 import CardCompletarUsuario from "../../components/Cards/CardCompletarUsuario";
 import axios from "axios";
 import {MySwal} from "../../utils/AlertHandler";
-import CardSolicitudVac from "../../components/Cards/CardSolicitudVac";
 import Loading from "../../utils/Loading";
 
 
-
-const RegistrosPendientes = () : JSX.Element => {
+const RegistrosPendientes = (): JSX.Element => {
     const [pendingRegisters, setPendingRegisters] = useState<any[]>();
 
     useEffect(() => {
@@ -41,14 +39,16 @@ const RegistrosPendientes = () : JSX.Element => {
 
     return (
         <>
-            <div className = "mt-4"><Title  title = "Registros pendientes"/> </div>
-            <div className = "mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+            <div className="mt-4"><Title title="Registros pendientes"/></div>
+            <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
                 {pendingRegisters.length > 0 ? (
                     pendingRegisters?.map((card) => (
                         <CardCompletarUsuario
-                            name = {card.name}
-                            email = {card.email}
-                            action= {() => {return 0}}
+                            name={card.name}
+                            email={card.email}
+                            action={() => {
+                                return 0
+                            }}
                         />
                     ))
                 ) : (
@@ -62,7 +62,6 @@ const RegistrosPendientes = () : JSX.Element => {
 
     );
 }
-
 
 
 export default RegistrosPendientes;

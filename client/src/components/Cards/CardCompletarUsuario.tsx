@@ -1,8 +1,8 @@
 import React from 'react'
 
 type Props = {
-    name: any,
-    email: any,
+    name: string,
+    email: string,
     action: any,
 };
 
