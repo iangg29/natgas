@@ -37,8 +37,13 @@ const handleJWTError = (err) =>
 const handleJWTExpiredError = (err) =>
     new AppError('Your session has expired. Please login again.', 401);
 
-// si le damos 4 va a reconocer solo que estamos definiendo un middleware para errores que solo se va a llamar cuando haya
-// errores
+/**
+ * catch all errors and send a personalized reponse depending on the error name
+ * @param {Obj} error - The error caught by the middleware.
+ * @param {Obj} req - The req object.
+ * @param {Obj} res - The res object.
+ * @param {function} next - The next function.
+ */
 module.exports = (err, req, res, next) => {
     console.log(err);
     err.statusCode = err.statusCode || 500;
