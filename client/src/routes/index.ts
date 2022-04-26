@@ -22,6 +22,7 @@ const ViewBlog = lazy(() => import("../pages/blog/ViewBlog"));
 const EditBlog = lazy(() => import("../pages/blog/EditBlog"));
 const ReportsForm = lazy(() => import("../pages/reports/FormReport"));
 const EditReports = lazy(() => import("../pages/reports/EditReport"));
+const TestPage = lazy(() => import("../pages/testpage"));
 
 export type IRoute = {
   path: string;
@@ -112,6 +113,10 @@ const routes: IRoute[] = [
   {
     path: "/profile/:id/update",
     component: ActualizaPerfil,
+  },
+  {
+    path: "/test",
+    component: TestPage,
   },
 ];
 
