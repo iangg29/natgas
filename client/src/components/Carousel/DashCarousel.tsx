@@ -58,7 +58,7 @@ const DashCarousel = (): JSX.Element => {
           width="100%"
         >
           {news?.map((item: iNews, idx: number) => (
-            <CardCarousel news={item} key={idx} deleteCard={deleteCard} />
+            <CardCarousel news={item} key={idx} deleteCard={deleteCard}/>
           ))}
         </Carousel>
         <div className="flex justify-end">
