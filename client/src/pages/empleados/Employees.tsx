@@ -85,7 +85,7 @@ const Employees = (): JSX.Element => {
   }, [page, nameSearch, numberSearch, selectedDepartment]);
 
   return (
-    <Page title="Empleados" headTitle="Empleados" padding={false}>
+    <Page title="Empleados" headTitle="Empleados" padding={true}>
       <h2 className="text-lg font-semibold">Buscar empleados</h2>
       <div
         className="mt-5 grid grid-cols-1 content-center items-center space-y-2 md:grid-cols-3 md:space-y-0"
@@ -178,7 +178,7 @@ const Employees = (): JSX.Element => {
         </div>
       </div>
       <hr className="my-10 rounded border-2 bg-natgas-gris-cool text-natgas-gris-cool dark:border-gray-600" />
-      <div className="mt-10 grid grid-cols-1 gap-2 text-gray-50 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+      <div className="my-10 grid grid-cols-1 gap-2 text-gray-50 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         {employees?.map((employee: iEmployment, idx: number) => (
           <div
             key={idx}

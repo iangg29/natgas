@@ -117,7 +117,7 @@ const Asuetos = () => {
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="mt-0 w-full text-left text-sm text-gray-500 dark:text-gray-400 md:mt-5">
           <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-            <tr className="text-sm sm:text-lg md:text-xl">
+            <tr className="text-sm">
               <th scope="col" className="px-6 py-3">
                 Fecha de Asueto
               </th>
@@ -161,7 +161,7 @@ const Asuetos = () => {
         <div className="text-center md:text-left">
           <DateInput label="Agregar asueto" getVal={getDate} setVal={setDate} />
         </div>
-        <div className="grid place-items-center">
+        <div className="grid place-items-end">
           <button
             className="focus:shadow-outline ml-0 rounded-full bg-natgas-azul px-8 py-1 text-white transition-colors duration-150 hover:bg-natgas-verde dark:bg-natgas-azul-claro md:ml-4 md:py-2"
             onClick={() => upload()}

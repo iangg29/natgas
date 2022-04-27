@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import Background from "../Background/Background";
-import TitleWhite from "../Title/TitleWhite";
 import { useNavigate } from "react-router-dom";
+import Title from "../Title/Title";
 import {
   BarElement,
   CategoryScale,
   Chart as ChartJS,
   Legend,
   LinearScale,
-  Title,
+  Title as ChartTitle,
   Tooltip,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
@@ -41,7 +41,7 @@ const CardReporte = ({
     CategoryScale,
     LinearScale,
     BarElement,
-    Title,
+    ChartTitle,
     Tooltip,
     Legend,
   );
@@ -124,7 +124,7 @@ const CardReporte = ({
 
   return (
     <Background bgColor="bg-[#007DBA] my-20">
-      <TitleWhite title={name} />
+      <Title title={name} white={true} />
       <br />
       <div className="flex items-center justify-center">
         <div className="align-center h-[60vh] w-[80vw] flex-col">

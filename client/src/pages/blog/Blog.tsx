@@ -57,7 +57,7 @@ const Blog = (): JSX.Element => {
           </div>
         </Link>
       </div>
-      <div className="grid  gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {getBlogs.length > 0 ? (
           getBlogs.map((blog: iBlog, idx: number) => (
             <BlogCard blog={blog} key={idx} />

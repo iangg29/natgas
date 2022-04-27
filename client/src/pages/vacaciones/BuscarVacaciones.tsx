@@ -68,7 +68,7 @@ const BuscarVacaciones = (): JSX.Element => {
           setVal={setName}
           placeholder="Buscar..."
         />
-        <div className="mt-4 flex items-center justify-around">
+        <div className="mt-4 flex flex-col items-center justify-around space-y-2 md:flex-row md:space-y-0">
           <CheckBox label="Aprobados" getVal={aprobado} setVal={setAprobado} />
           <CheckBox
             label="Rechazados"
@@ -83,7 +83,7 @@ const BuscarVacaciones = (): JSX.Element => {
         </div>
       </div>
       <div className="py-5">
-        <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
+        <div className=" grid grid-cols-1 gap-5 py-10 md:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac, idx: number) => (
               <CardMiSolicitudVac

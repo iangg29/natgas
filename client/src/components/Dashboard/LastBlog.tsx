@@ -28,7 +28,7 @@ const LastBlog = (): JSX.Element => {
 
   return (
     <div className="lastblog-content mb-32">
-      <div className="container mx-auto px-20 pt-20 pb-16 font-quicksand-bold text-white">
+      <div className="container mx-auto px-5 pt-20 pb-16 font-quicksand-bold text-white md:px-20">
         <h3 className="pb-5 text-right font-gilroy-extrabold text-2xl">
           Últimos Natgas Blogs
         </h3>

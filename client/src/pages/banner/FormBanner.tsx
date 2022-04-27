@@ -4,6 +4,7 @@ import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
 import axios from "axios";
 import { MySwal } from "../../utils/AlertHandler";
+import Page from "../../containers/Page";
 
 const FormBanner = () => {
   const [getTitleB, setTitleB] = useState<string>("");
@@ -51,7 +52,7 @@ const FormBanner = () => {
   };
 
   return (
-    <>
+    <Page title="Crear anuncio" headTitle="Crear anuncio" padding={true}>
       <div className="grid gap-20  sm:grid-cols-1 md:grid-cols-2">
         <InputLong
           label="Título"
@@ -70,11 +71,11 @@ const FormBanner = () => {
         />
       </div>
       <div className="grid justify-center">
-        <button onClick={uploadB} className="primary-button-blue  mt-4">
+        <button onClick={uploadB} className="primary-button-blue mt-4">
           Subir
         </button>
       </div>
-    </>
+    </Page>
   );
 };
 
