@@ -16,8 +16,8 @@ router
 router
     .route('/:id')
     .get(natgasblockController.getNatgasblock)
-    .patch(natgasblockController.updateNatgasblock)
-    .delete(natgasblockController.deleteNatgasBlock);
+    .patch(abacController.limitRole('Leader'),natgasblockController.updateNatgasblock)
+    .delete(abacController.limitRole('Leader'),natgasblockController.deleteNatgasBlock);
 
 router
     .route('/approve/:id')
