@@ -43,8 +43,7 @@ module.exports = class Blog extends Base {
             new Date(this.date).getDate() + 1000 * 60 * 60 * 24 * 30 * 2
         );
 
-        // const cronExpr = `${deleteDate.getMinutes()} ${deleteDate.getHours()} ${deleteDate.getDate()} ${deleteDate.getMonth()} ${deleteDate.getDay()}`;
-        const cronExpr = '10 * * * * *';
+        const cronExpr = `${deleteDate.getMinutes()} ${deleteDate.getHours()} ${deleteDate.getDate()} ${deleteDate.getMonth()} ${deleteDate.getDay()}`;
 
         // SET CRON
         cron.schedule(
