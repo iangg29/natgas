@@ -9,6 +9,7 @@ import {
 import Page from "../../containers/Page";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
+import Title from "../../components/Title/Title";
 
 const CompleteProfile = (): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
@@ -88,6 +89,7 @@ const CompleteProfile = (): JSX.Element => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="py-10">
         <div className="">
+          <Title title={`Datos personales - ${email}`}/>
           <div className="grid grid-rows-3 grid-flow-col gap-4">
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -149,6 +151,7 @@ const CompleteProfile = (): JSX.Element => {
       </div>
       <div className="py-10">
         <div className="">
+        <Title title="Registro empresarial"/>
           <div className="grid grid-rows-3 grid-flow-col gap-4">
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
