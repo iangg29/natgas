@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CardMiSolicitudNGB from "../../components/Cards/CardMiSolicitudNGB";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
@@ -11,7 +11,7 @@ const MisSolicitudes = ({ auth }: any): JSX.Element => {
   const [getVacations, setVacations] = useState<any[]>([]);
   const [getNatgasBlocks, setNatgasBlocks] = useState<any[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
@@ -38,7 +38,7 @@ const MisSolicitudes = ({ auth }: any): JSX.Element => {
         <Title title="Vacaciones" />
         <div className="mb-20 mt-10 grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations?.length > 0 ? (
-            getVacations?.map((vac) => (
+            getVacations?.map((vac: any, idx: number) => (
               <CardMiSolicitudVac
                 name={vac.name + " " + vac.lastname}
                 department={vac.departamento}
@@ -51,6 +51,7 @@ const MisSolicitudes = ({ auth }: any): JSX.Element => {
                     ? "Rechazado"
                     : "Pendiente"
                 }
+                key={idx}
               />
             ))
           ) : (
@@ -60,13 +61,14 @@ const MisSolicitudes = ({ auth }: any): JSX.Element => {
         <Title title="NatGas Blocks" />
         <div className="mt-10 grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks?.length > 0 ? (
-            getNatgasBlocks?.map((ngb) => (
+            getNatgasBlocks?.map((ngb: any, idx: number) => (
               <CardMiSolicitudNGB
                 name={ngb.name + " " + ngb.lastname}
                 department={ngb.departamento}
                 date={new Date(ngb.date).toLocaleDateString()}
                 turn={ngb.turn ? "Segunda mitad" : "Primera mitad"}
                 state={ngb.status ? "Aprobado" : "Pendiente"}
+                key={idx}
               />
             ))
           ) : (
