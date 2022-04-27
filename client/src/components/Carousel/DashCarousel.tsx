@@ -48,7 +48,7 @@ const DashCarousel = (): JSX.Element => {
 
   const updateCarousel = (id: any): (payload: iNews) => void => {
     return (payload: iNews): void => {
-      const newNews = news.map((value: iNews): iNews => value.idNoticia === id ? payload : value)
+      setNews(news.map((value: iNews): iNews => value.idNoticia === id ? payload : value))
     }
   }
 
@@ -64,7 +64,7 @@ const DashCarousel = (): JSX.Element => {
           width="100%"
         >
           {news?.map((item: iNews, idx: number) => (
-            <CardCarousel updateCard={updateCarousel(idx)} news={item} key={idx} deleteCard={deleteCard}/>
+            <CardCarousel updateCard={updateCarousel(item.idNoticia)} news={item} key={idx} deleteCard={deleteCard}/>
           ))}
         </Carousel>
         <div className="flex justify-end">

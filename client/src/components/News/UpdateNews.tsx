@@ -15,9 +15,7 @@ type Inputs = {
 const UpdateNews = ({
   id,
   news,
-  setName,
-  setDate,
-  setImage,
+  update
 }: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
@@ -47,10 +45,7 @@ const UpdateNews = ({
         data: formData,
       })
         .then((response: AxiosResponse) => {
-          const { name, date, image } = response.data.data.data[0];
-          setName(name);
-          setDate(date);
-          setImage(image);
+          update(response.data.data.data[0])
         })
         .catch((error) => {
           MySwal.fire({
