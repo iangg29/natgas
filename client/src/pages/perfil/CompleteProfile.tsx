@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import Page from "../../containers/Page";
 import { IEmployee } from "../../shared/interfaces/app.interface";
@@ -7,7 +8,13 @@ import { MySwal } from "../../utils/AlertHandler";
 
 const CompleteProfile = (): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
-
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IEmployee>();
+  
   let { email } = useParams<string>();
 
   const [employee, setEmployee] = useState<IEmployee>({
@@ -29,11 +36,12 @@ const CompleteProfile = (): JSX.Element => {
   });
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const onSubmit: SubmitHandler<IEmployee> = (data: any): void => {
     (async () => {
       await axios
-        .get(`/user/email/${email}`)
+        .get(`/user/email/${email}`, data)
         .then((res: AxiosResponse) => {
+          reset();
           if (res.data.data.document.size !== 1) {
             navigate("/app/employees");
             return;
@@ -60,7 +68,8 @@ const CompleteProfile = (): JSX.Element => {
           });
         });
     })();
-  }, [email]);
+  };
+  
 
   return (
     <Page
@@ -69,6 +78,77 @@ const CompleteProfile = (): JSX.Element => {
       padding={true}
     >
       <h1>{employee.email}</h1>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="py-10">
+        <div className="grid grid-cols-2">
+          <div className="grid grid-rows-5">
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                RFC
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="text"
+                placeholder="RFC"
+                {...register("rfc")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Dirección
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="text"
+                placeholder="RFC"
+                {...register("address")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Fecha de nacimiento
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="date"
+                placeholder="Fecha"
+                {...register("birthdate")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Teléfono
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="text"
+                placeholder="RFC"
+                {...register("cellphone")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Género
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="text"
+                placeholder="Género"
+                {...register("gender")} 
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="lg:h-30 sm:h-37 flex">
+        <div className="m-auto">
+          {" "}
+          <button className="primary-button bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two" type="submit">
+            Confirmar registro
+          </button>
+        </div>
+      </div>
+    </form>
     </Page>
   );
 };
