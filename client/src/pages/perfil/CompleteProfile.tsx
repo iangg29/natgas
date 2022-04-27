@@ -44,6 +44,10 @@ const CompleteProfile = (): JSX.Element => {
   });
   const navigate = useNavigate();
 
+  const [employees, setEmployees] = useState<IEmployment[]>([]);
+  const [departments, setDepartments] = useState<IDepartment>();
+
+  
   const onSubmit: SubmitHandler<IEmployee> = (data: any): void => {
     (async () => {
       await axios
@@ -88,8 +92,8 @@ const CompleteProfile = (): JSX.Element => {
       <h1>{employee.email}</h1>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="py-10">
+      <Title title={`Datos personales - ${email}`}/>
         <div className="">
-          <Title title={`Datos personales - ${email}`}/>
           <div className="grid grid-rows-3 grid-flow-col gap-4">
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -130,7 +134,7 @@ const CompleteProfile = (): JSX.Element => {
               </label>
               <input
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="number"
+                type="text"
                 placeholder="Teléfono"
                 {...register("cellphone")} 
               />
@@ -162,6 +166,7 @@ const CompleteProfile = (): JSX.Element => {
                 placeholder="Departamento"
                 {...register("rfc")} 
               >
+
               </select>
             </div>
             <div className="m-4 h-16 ">
