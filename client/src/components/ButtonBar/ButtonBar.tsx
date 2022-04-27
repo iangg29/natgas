@@ -26,8 +26,8 @@ const ButtonBar = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="flex w-full flex-col md:flex-row">
-      <div className="w-full px-0 md:w-1/2 md:px-10">
+    <div className="mt-5 flex w-full flex-col lg:mt-0 lg:flex-row">
+      <div className="w-full px-0 md:px-10 lg:w-1/2">
         <div className="flex flex-row justify-around rounded-lg border-2 border-natgas-gris-cool py-4">
           <div className="grid items-center rounded-full bg-red-700">
             <span className="px-1 py-0 text-xs font-bold text-white md:py-1 md:px-2 md:text-base">
@@ -47,12 +47,14 @@ const ButtonBar = (): JSX.Element => {
           </Link>
         </div>
       </div>
-      <div className="mt-10 w-full md:mt-0 md:w-1/2">
+      <div className="mt-6 w-full lg:mt-0 lg:w-1/2">
         <div className="flex flex-col space-y-10 py-4 text-center md:flex-row md:space-y-0">
           <div className="w-full md:w-1/3">
-            <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
-              Vacaciones
-            </button>
+            <Link to="/app/vacations/search">
+              <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
+                Vacaciones
+              </button>
+            </Link>
           </div>
           <div className="w-full md:w-1/3">
             <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
