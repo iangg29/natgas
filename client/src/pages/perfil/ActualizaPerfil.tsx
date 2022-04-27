@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
 import axios from "axios";
-import { iEmployee, iBelong } from "../../shared/interfaces/app.interface";
+import { iBelong, iEmployee } from "../../shared/interfaces/app.interface";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { connect } from "react-redux";
+import { MySwal } from "../../utils/AlertHandler";
 
 type Inputs = {
   address: string;
@@ -74,11 +75,15 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
         const pertenece = await axios.get(
           `/pertenece/email/${auth.user.email}`,
         );
-
         setProfile(perfil.data.data.document);
         setBelong(pertenece.data.data.document);
       } catch (error: any) {
-        alert(error.message);
+        await MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       }
     })();
   }, [auth.user.email]);
