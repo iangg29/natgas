@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { iEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
 
-const Stats = ({ user }: { user: IEmployee }): JSX.Element => {
+const Stats = ({ user }: { user: iEmployee }): JSX.Element => {
   const [usedVacations, setUsedVacations] = useState<number>(0);
   const [usedNatgasBlocks, setUsedNatgasBlocks] = useState<number>(0);
 

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
 import axios from "axios";
-import { IEmployee, IBelong } from "../../shared/interfaces/app.interface";
+import { iEmployee, iBelong } from "../../shared/interfaces/app.interface";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { connect } from "react-redux";
-
 
 type Inputs = {
   address: string;
@@ -14,14 +13,14 @@ type Inputs = {
   contractdate: string;
   rfc: string;
   position: string;
-  idDepartamento: number;  
+  idDepartamento: number;
 };
 
 const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   const { register, handleSubmit } = useForm<Inputs>();
   const navigate = useNavigate();
 
-  const [profile, setProfile] = useState<IEmployee>({
+  const [profile, setProfile] = useState<iEmployee>({
     address: "",
     birthdate: "",
     cellphone: 0,
@@ -39,7 +38,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
     verified: false,
   });
 
-  const [belong, setBelong] = useState<IBelong>({
+  const [belong, setBelong] = useState<iBelong>({
     idPertenece: 0,
     email: "",
     idDepartamento: 0,
@@ -49,35 +48,36 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
     (async () => {
-      try{
-          await axios.patch(`/user/${auth.user.number}`, {
-            address: data.address,
-            birthdate: data.birthdate,
-            cellphone: data.cellphone,
-            contractdate: data.contractdate,
-            rfc: data.rfc,
-          });
-          await axios.patch(`/pertenece/email/${auth.user.email}`, {
-            idDepartamento: data.idDepartamento,
-            position: data.position,
-          });
-        }catch (error: any){
-          alert(error.message);
-        }
+      try {
+        await axios.patch(`/user/${auth.user.number}`, {
+          address: data.address,
+          birthdate: data.birthdate,
+          cellphone: data.cellphone,
+          contractdate: data.contractdate,
+          rfc: data.rfc,
+        });
+        await axios.patch(`/pertenece/email/${auth.user.email}`, {
+          idDepartamento: data.idDepartamento,
+          position: data.position,
+        });
+      } catch (error: any) {
+        alert(error.message);
+      }
       navigate("/app/profile");
     })();
-  }
+  };
 
   useEffect(() => {
-    (
-      async () => {
-      try{
+    (async () => {
+      try {
         const perfil = await axios.get(`/user/email/${auth.user.email}`);
-        const pertenece = await axios.get(`/pertenece/email/${auth.user.email}`);
+        const pertenece = await axios.get(
+          `/pertenece/email/${auth.user.email}`,
+        );
 
         setProfile(perfil.data.data.document);
         setBelong(pertenece.data.data.document);
-      }catch (error: any) {
+      } catch (error: any) {
         alert(error.message);
       }
     })();
@@ -130,7 +130,9 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input
                 type="string"
-                defaultValue={new Date(auth.user.birthdate).toLocaleDateString()}
+                defaultValue={new Date(
+                  auth.user.birthdate,
+                ).toLocaleDateString()}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
                 className="modal-input"
@@ -145,7 +147,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Departamento</h4>
-              <input 
+              <input
                 type="number"
                 defaultValue={belong.idDepartamento}
                 {...register("idDepartamento")}
@@ -155,7 +157,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Puesto</h4>
-              <input 
+              <input
                 type="string"
                 defaultValue={belong.position}
                 {...register("position")}
@@ -170,7 +172,9 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
               <input
                 type="string"
-                defaultValue={new Date(auth.user.contractdate).toLocaleDateString()}
+                defaultValue={new Date(
+                  auth.user.contractdate,
+                ).toLocaleDateString()}
                 {...register("contractdate")}
                 placeholder="Inicio de contrato"
                 className="modal-input"

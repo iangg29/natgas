@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import Page from "../../containers/Page";
 import axios from "axios";
-import { IEmployment } from "../../shared/interfaces/app.interface";
+import { iEmployment } from "../../shared/interfaces/app.interface";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Stats from "../../components/Profile/Stats";
@@ -42,7 +42,7 @@ const Profile = (props: any): JSX.Element => {
 };
 
 const ProfileData = ({ auth }: any): JSX.Element => {
-  const data: IEmployment = suspend(
+  const data: iEmployment = suspend(
     async () => {
       const res: any = await axios.get(`/user/email/${auth.user.email}`);
       return await res.data.data.document[0];
