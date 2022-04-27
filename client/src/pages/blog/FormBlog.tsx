@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import InputLong from "../../components/Inputs/InputLong";
 import DateInput from "../../components/Inputs/DateInput";
 import InputP from "../../components/Inputs/InputP";
@@ -61,7 +61,7 @@ const FormBlog = () => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
-  const onSelectFile = (e: any) => {
+  const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
