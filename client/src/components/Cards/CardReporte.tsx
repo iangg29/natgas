@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Background from "../Background/Background";
 import TitleWhite from "../Title/TitleWhite";
@@ -19,19 +19,22 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import { MySwal } from "../../utils/AlertHandler";
 
 type Props = {
-  report: any;
-  deleteFunc: Function;
+  report: {
+    idReporte: number;
+    name: string;
+  };
+  deleteFunc: (id: number) => void;
 };
 
 const CardReporte = ({
   deleteFunc,
   report: { idReporte, name },
 }: Props): JSX.Element => {
-  const [getRows, setRows] = React.useState<any[]>([]);
-  const [getLabels, setLabels] = React.useState<any[]>([]);
-  const [getVisible, setVisible] = React.useState<boolean>(true);
-  const [getValue, setValue] = React.useState<number>(0);
-  const [getDate, setDate] = React.useState<Date>(new Date());
+  const [getRows, setRows] = useState<any[]>([]);
+  const [getLabels, setLabels] = useState<any[]>([]);
+  const [getVisible, setVisible] = useState<boolean>(true);
+  const [getValue, setValue] = useState<number>(0);
+  const [getDate, setDate] = useState<Date>(new Date());
   const navigate = useNavigate();
 
   ChartJS.register(
