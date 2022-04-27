@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import InputLong from "../../components/Inputs/InputLong";
 import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
@@ -6,7 +6,7 @@ import axios from "axios";
 import { MySwal } from "../../utils/AlertHandler";
 
 const FormBanner = () => {
-  const [getTitleB, setTitleB] = useState<any>();
+  const [getTitleB, setTitleB] = useState<string>("");
   const [selectedFileB, setSelectedFileB] = useState<any>();
   const [previewB, setPreviewB] = useState<any>();
 
@@ -42,7 +42,7 @@ const FormBanner = () => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFileB]);
 
-  const onSelectFile = (e: any) => {
+  const onSelectFile = (e: ChangeEvent<HTMLInputElement>): void => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFileB(undefined);
       return;
