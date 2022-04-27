@@ -156,7 +156,7 @@ const CompleteProfile = (): JSX.Element => {
               </label>
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                placeholder="RFC"
+                placeholder="Departamento"
                 {...register("rfc")} 
               >
               </select>
@@ -167,7 +167,7 @@ const CompleteProfile = (): JSX.Element => {
               </label>
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                placeholder="Dirección"
+                placeholder="Puesto"
                 {...register("address")} 
               >
 
