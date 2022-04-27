@@ -7,6 +7,7 @@ import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
 import axios, { AxiosResponse } from "axios";
 import { MySwal } from "../../utils/AlertHandler";
+import Page from "../../containers/Page";
 
 const FormBlog = () => {
   const { id } = useParams<string>();
@@ -83,8 +84,8 @@ const FormBlog = () => {
   };
 
   return (
-    <>
-      <div className=" mt-6 grid gap-20  sm:grid-cols-1 md:grid-cols-2">
+    <Page title="Editar blog" headTitle="Editar blog" padding={true}>
+      <div className="mt-6 grid gap-x-20 gap-y-10 sm:grid-cols-1 md:grid-cols-2">
         <InputLong
           label="Título"
           placeholder="Título"
@@ -94,12 +95,12 @@ const FormBlog = () => {
         <DateInput label="Fecha" getVal={getDate} setVal={setDate} />
         <UploadDocument label="Elegir archivo" onchange={onSelectFile} />
       </div>
-      <div className="mt-10 grid justify-center font-bold dark:text-white">
+      <div className="my-10 grid justify-center dark:text-white">
         <Title title={getTitle} />
         <img
           alt={getTitle}
-          src={preview}
-          className="mt-10  rounded-md object-cover  sm:h-[250px] sm:w-[250px] md:h-[500px] md:w-[500px]"
+          src={`${process.env.REACT_APP_API_URL}/blog/${preview}`}
+          className="mx-auto mt-10 w-full rounded-md object-cover sm:w-4/5 md:w-1/2"
         />
       </div>
       <div>
@@ -108,6 +109,8 @@ const FormBlog = () => {
           placeholder="Escribir aquí..."
           getVal={getText}
           setVal={setText}
+          rows={10}
+          cols={20}
         />
         <div className="grid justify-center">
           <button onClick={upload} className="primary-button-blue  mt-4">
@@ -115,7 +118,7 @@ const FormBlog = () => {
           </button>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 
