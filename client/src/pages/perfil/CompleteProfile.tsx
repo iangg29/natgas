@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import Page from "../../containers/Page";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { iEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
 
 const CompleteProfile = (): JSX.Element => {
@@ -10,7 +10,7 @@ const CompleteProfile = (): JSX.Element => {
 
   let { email } = useParams<string>();
 
-  const [employee, setEmployee] = useState<IEmployee>({
+  const [employee, setEmployee] = useState<iEmployee>({
     address: "",
     birthdate: "",
     cellphone: 0,
@@ -60,7 +60,7 @@ const CompleteProfile = (): JSX.Element => {
           });
         });
     })();
-  }, [email]);
+  }, [email, navigate]);
 
   return (
     <Page

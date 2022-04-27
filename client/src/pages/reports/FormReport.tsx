@@ -10,17 +10,17 @@ const ReportForm = () => {
   const [getIndicador, setIndicador] = useState<string>("");
   const navigate = useNavigate();
 
-  const sendReport = async () => {
-    try {
-      if (getIndicador === "") {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: "Un indicador debe tener un nombre",
-          confirmButtonColor: "#002b49",
-        });
-        return;
-      }
+  const sendReport = () => {
+    if (getIndicador === "") {
+      MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: "Un indicador debe tener un nombre",
+        confirmButtonColor: "#002b49",
+      });
+      return;
+    }
+    (async () => {
       await axios
         .post("report/", {
           name: getIndicador,
@@ -35,15 +35,16 @@ const ReportForm = () => {
           }).then(() => {
             navigate("/app/reports");
           });
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
-    } catch (error: any) {
-      await MySwal.fire({
-        title: "¡Error!",
-        icon: "error",
-        text: error.message,
-        confirmButtonColor: "#002b49",
-      });
-    }
+    })();
   };
   return (
     <Page title="Agregar indicador" headTitle="Nuevo Indicador" padding={true}>

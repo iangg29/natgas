@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { iBlog } from "../../shared/interfaces/app.interface";
 import axios, { AxiosResponse } from "axios";
-import Loading from "../../utils/Loading";
 import { Helmet } from "react-helmet";
 import { MySwal } from "../../utils/AlertHandler";
 
 const ViewBlog = (): JSX.Element => {
-  const [blog, setBlog] = useState<iBlog>();
+  const [blog, setBlog] = useState<iBlog>({
+    content: "",
+    created_at: "",
+    date: "",
+    idBlogPost: 0,
+    image: "",
+    slug: "",
+    title: "",
+    updated_at: "",
+  });
   const { slug } = useParams<string>();
 
   useEffect(() => {
@@ -27,10 +35,6 @@ const ViewBlog = (): JSX.Element => {
         });
     })();
   }, [slug]);
-
-  if (blog === undefined) {
-    return <Loading />;
-  }
 
   return (
     <>

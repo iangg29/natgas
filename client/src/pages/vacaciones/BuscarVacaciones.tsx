@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import InputLong from "../../components/Inputs/InputLong";
 import Pagination from "../../components/Inputs/Pagination";
 import CardMiSolicitudVac from "../../components/Cards/CardMiSolicitudVac";
@@ -20,33 +20,33 @@ const BuscarVacaciones = (): JSX.Element => {
   useEffect(() => {
     if (pendiente || rechazado || aprobado) {
       (async () => {
-        try {
-          const [myVacations] = await Promise.all([
-            axios.get(
-              `/vacation/details?&sort=-startdate&${
-                (pendiente || rechazado) && aprobado
-                  ? "status=1,0"
-                  : pendiente || rechazado
-                  ? "status=0"
-                  : "status=1"
-              }&name_like=${getName}&page=${getPage}&limit=${limit}&${
-                (rechazado || aprobado) && pendiente
-                  ? "verifiedleader=1,0"
-                  : rechazado || aprobado
-                  ? "verifiedleader=1"
-                  : "verifiedleader=0"
-              }`,
-            ),
-          ]);
-          setVacations(myVacations.data.data.documents);
-        } catch (error: any) {
-          await MySwal.fire({
-            title: "¡Error!",
-            icon: "error",
-            text: error.message,
-            confirmButtonColor: "#002b49",
+        await axios
+          .get(
+            `/vacation/details?&sort=-startdate&${
+              (pendiente || rechazado) && aprobado
+                ? "status=1,0"
+                : pendiente || rechazado
+                ? "status=0"
+                : "status=1"
+            }&name_like=${getName}&page=${getPage}&limit=${limit}&${
+              (rechazado || aprobado) && pendiente
+                ? "verifiedleader=1,0"
+                : rechazado || aprobado
+                ? "verifiedleader=1"
+                : "verifiedleader=0"
+            }`,
+          )
+          .then((res: AxiosResponse) => {
+            setVacations(res.data.data.documents);
+          })
+          .catch((error) => {
+            MySwal.fire({
+              title: "¡Error!",
+              icon: "error",
+              text: error.message,
+              confirmButtonColor: "#002b49",
+            });
           });
-        }
       })();
     } else {
       MySwal.fire({
@@ -68,7 +68,7 @@ const BuscarVacaciones = (): JSX.Element => {
           setVal={setName}
           placeholder="Buscar..."
         />
-        <div className="mt-4 flex items-center justify-around">
+        <div className="mt-4 flex flex-col items-center justify-around space-y-2 md:flex-row md:space-y-0">
           <CheckBox label="Aprobados" getVal={aprobado} setVal={setAprobado} />
           <CheckBox
             label="Rechazados"
@@ -83,7 +83,7 @@ const BuscarVacaciones = (): JSX.Element => {
         </div>
       </div>
       <div className="py-5">
-        <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
+        <div className=" grid grid-cols-1 gap-5 py-10 md:grid-cols-2 xl:grid-cols-3">
           {getVacations.length > 0 ? (
             getVacations.map((vac, idx: number) => (
               <CardMiSolicitudVac

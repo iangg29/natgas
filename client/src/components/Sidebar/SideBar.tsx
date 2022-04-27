@@ -1,4 +1,4 @@
-import { LogoutIcon, UserIcon } from "@heroicons/react/solid";
+import { LogoutIcon, MenuIcon, UserIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
@@ -14,7 +14,7 @@ const SideBar = (props: any): JSX.Element => {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex-gray focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-gray-100">
-          <FaBars />
+          <MenuIcon className="h-8 w-8" />
         </Menu.Button>
       </div>
 
@@ -55,7 +55,7 @@ const SideBar = (props: any): JSX.Element => {
           </div>
           <Toggler />
           <div className="px-1 py-1 ">
-            <Link to="/app/reports/">
+            <Link to="/app/reports">
               <Menu.Item>
                 {({ active }) => (
                   <button

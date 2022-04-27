@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import InputLong from "../../components/Inputs/InputLong";
 import DateInput from "../../components/Inputs/DateInput";
 import InputP from "../../components/Inputs/InputP";
@@ -7,6 +7,7 @@ import Title from "../../components/Title/Title";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { MySwal } from "../../utils/AlertHandler";
+import Page from "../../containers/Page";
 
 const FormBlog = () => {
   const [getTitle, setTitle] = useState<string>("");
@@ -61,7 +62,7 @@ const FormBlog = () => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
-  const onSelectFile = (e: any) => {
+  const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
@@ -70,8 +71,8 @@ const FormBlog = () => {
   };
 
   return (
-    <>
-      <div className=" mt-6 grid gap-20  sm:grid-cols-1 md:grid-cols-2">
+    <Page title="Crear nuevo blog" headTitle="Crear nuevo blog" padding={true}>
+      <div className=" mt-6 grid gap-x-20 gap-y-10  sm:grid-cols-1 md:grid-cols-2">
         <InputLong
           label="Título"
           placeholder="Título"
@@ -81,12 +82,12 @@ const FormBlog = () => {
         <DateInput label="Fecha" getVal={getDate} setVal={setDate} />
         <UploadDocument label="Elegir archivo" onchange={onSelectFile} />
       </div>
-      <div className="mt-10 grid justify-center font-bold dark:text-white">
+      <div className="my-10 grid justify-center font-bold dark:text-white">
         <Title title={getTitle} />
         <img
           alt={getTitle}
           src={preview}
-          className="mt-10  rounded-md object-cover  sm:h-[250px] sm:w-[250px] md:h-[500px] md:w-[500px]"
+          className="mt-0  rounded-md object-cover  sm:h-[250px] sm:w-[250px] md:h-[500px] md:w-[500px]"
         />
       </div>
       <div>
@@ -95,6 +96,8 @@ const FormBlog = () => {
           placeholder="Escribir aquí..."
           getVal={getText}
           setVal={setText}
+          cols={30}
+          rows={10}
         />
         <div className="grid justify-center">
           <button onClick={upload} className="primary-button-blue  mt-4">
@@ -102,7 +105,7 @@ const FormBlog = () => {
           </button>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 

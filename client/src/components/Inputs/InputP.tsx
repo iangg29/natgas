@@ -5,9 +5,18 @@ type Props = {
   placeholder: string;
   getVal: any;
   setVal: any;
+  cols: number;
+  rows: number;
 };
 
-const InputP = ({ getVal, setVal, label, placeholder }: Props): JSX.Element => {
+const InputP = ({
+  getVal,
+  setVal,
+  label,
+  placeholder,
+  cols,
+  rows,
+}: Props): JSX.Element => {
   return (
     <>
       <label>
@@ -15,8 +24,10 @@ const InputP = ({ getVal, setVal, label, placeholder }: Props): JSX.Element => {
           {label}
         </div>
         <textarea
-          className="input-general h-[200%] w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200 dark:text-gray-200 "
+          className="input-general w-full dark:border-0 dark:bg-gray-600 dark:text-gray-200 dark:placeholder-gray-200 "
           placeholder={placeholder}
+          cols={cols}
+          rows={rows}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
             setVal(e.target.value)
           }

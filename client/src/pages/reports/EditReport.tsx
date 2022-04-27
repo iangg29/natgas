@@ -17,8 +17,10 @@ const ReportForm = () => {
   useEffect(() => {
     (async () => {
       try {
-        const rows = await axios.get(`row?idReporte=${id}&sort=date`);
-        const report = await axios.get(`report/${id}`);
+        const [rows, report] = await Promise.all([
+          axios.get(`row?idReporte=${id}&sort=date`),
+          axios.get(`report/${id}`),
+        ]);
         setRows(rows.data.data.documents);
         setReport(report.data.data.document[0]);
       } catch (error: any) {
@@ -32,17 +34,17 @@ const ReportForm = () => {
     })();
   }, [id]);
 
-  const handleUpdateReport = async () => {
-    try {
-      if (getReport.name === "") {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: "Un indicador debe tener un nombre",
-          confirmButtonColor: "#002b49",
-        });
-        return;
-      }
+  const handleUpdateReport = (): void => {
+    if (getReport.name === "") {
+      MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: "Un indicador debe tener un nombre",
+        confirmButtonColor: "#002b49",
+      });
+      return;
+    }
+    (async () => {
       await axios
         .patch(`report/${id}`, {
           name: getReport.name,
@@ -54,15 +56,16 @@ const ReportForm = () => {
             text: "Indicador actualizado correctamente",
             confirmButtonColor: "#002b49",
           });
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.response.message,
+            confirmButtonColor: "#002b49",
+          });
         });
-    } catch (error: any) {
-      await MySwal.fire({
-        title: "¡Error!",
-        icon: "error",
-        text: error.response.message,
-        confirmButtonColor: "#002b49",
-      });
-    }
+    })();
   };
 
   const handleDelete = async (id: number) => {

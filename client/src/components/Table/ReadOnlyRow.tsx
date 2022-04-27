@@ -17,25 +17,26 @@ const ReadOnlyRow = ({
   setEditableRow,
   last,
 }: Props): JSX.Element => {
+  const { minimum, maximum, days, idRangoVacaciones } = rango;
   return (
     <tr
       className="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
       key={idx}
     >
-      <td className="px-6 py-4">{rango.minimum}</td>
-      <td className="px-6 py-4">{rango.maximum}</td>
-      <td className="px-6 py-4">{rango.days}</td>
+      <td className="px-6 py-4">{minimum}</td>
+      <td className="px-6 py-4">{maximum}</td>
+      <td className="px-6 py-4">{days}</td>
       <td className="px-6 py-4">
         <div className="flex flex-row justify-around">
           <button
-            onClick={() => setEditableRow(rango.idRangoVacaciones)}
+            onClick={() => setEditableRow(idRangoVacaciones)}
             className="font-medium text-yellow-500 hover:underline dark:text-yellow-500"
           >
             <PencilAltIcon className="h-5 w-5" />
           </button>
           {last ? (
             <button
-              onClick={() => deleteRange(rango.idRangoVacaciones)}
+              onClick={() => deleteRange(idRangoVacaciones)}
               className="font-medium text-red-600 hover:underline dark:text-red-500"
             >
               <TrashIcon className="h-5 w-5" />

@@ -10,7 +10,7 @@ type Props = {
 const CheckBox = ({ label, getVal, setVal }: Props): JSX.Element => {
   return (
     <Switch.Group>
-      <div className="flex items-center">
+      <div className="flex justify-between">
         <Switch.Label className="mr-4">{label}</Switch.Label>
         <Switch
           checked={getVal}

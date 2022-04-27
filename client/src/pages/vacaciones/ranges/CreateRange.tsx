@@ -26,7 +26,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsOpen(false);
   };
 

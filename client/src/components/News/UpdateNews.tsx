@@ -1,14 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { iNews, iNewsData } from "../../shared/interfaces/app.interface";
-import axios from "axios";
+import { iNewsData } from "../../shared/interfaces/app.interface";
+import axios, { AxiosResponse } from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import { PencilIcon } from "@heroicons/react/solid";
-
-type Props = {
-  setNews: (value: ((prevState: iNews[]) => iNews[]) | iNews[]) => void;
-  news: iNews[];
-};
+import { MySwal } from "../../utils/AlertHandler";
 
 type Inputs = {
   name: string;
@@ -16,7 +12,13 @@ type Inputs = {
   image: any;
 };
 
-const UpdateNews = ( {id, news, setName, setDate, setImage} : any): JSX.Element => {
+const UpdateNews = ({
+  id,
+  news,
+  setName,
+  setDate,
+  setImage,
+}: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
@@ -25,7 +27,7 @@ const UpdateNews = ( {id, news, setName, setDate, setImage} : any): JSX.Element 
     formState: { errors },
   } = useForm<Inputs>();
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsOpen(false);
   };
 
@@ -38,31 +40,41 @@ const UpdateNews = ( {id, news, setName, setDate, setImage} : any): JSX.Element 
     formData.append("name", data.name);
     formData.append("date", data.date);
     formData.append("news_photo", data.image[0]);
-    console.log(id);
-       axios({
+    (async () => {
+      await axios({
         method: "PATCH",
-        url:`/news/${id}`,
-        data: formData,}).then((updatedNews: any) => {
-          setName(updatedNews.data.data.data[0].name)
-          setDate(updatedNews.data.data.data[0].date)
-          setImage(updatedNews.data.data.data[0].image)
-        }).catch((err: any) => {
-          console.log(err, err.response)
-        }).finally(() => {
+        url: `/news/${id}`,
+        data: formData,
+      })
+        .then((response: AxiosResponse) => {
+          const { name, date, image } = response.data.data.data[0];
+          setName(name);
+          setDate(date);
+          setImage(image);
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
+        })
+        .finally(() => {
           closeModal();
           reset();
         });
-        
+    })();
   };
 
   return (
     <>
-        <button
-          onClick={openModal}
-          className="rounded-full bg-natgas-azul p-2 text-white "
-        >
-          <PencilIcon className="h-5 w-5"/>
-        </button>
+      <button
+        onClick={openModal}
+        className="rounded-full bg-natgas-azul p-2 text-white "
+      >
+        <PencilIcon className="h-5 w-5" />
+      </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"

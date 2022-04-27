@@ -35,7 +35,7 @@ const CardSolicitud = ({
       <div className="my-5 w-full lg:mx-5">
         <DateInputLong
           label="Fecha"
-          getVal={new Date(getDate).toISOString().split("T")[0]}
+          getVal={getDate.toISOString().split("T")[0]}
           setVal={setDate}
         />
       </div>

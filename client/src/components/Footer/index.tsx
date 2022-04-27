@@ -4,7 +4,7 @@ import logo from "../../assets/img/Imagotipos NATGAS.png";
 import { GlobeAltIcon } from "@heroicons/react/solid";
 
 const Footer = (): JSX.Element => {
-  const year = new Date().getFullYear();
+  const year: number = new Date().getFullYear();
 
   return (
     <div className="container mx-auto flex max-w-7xl flex-col items-center px-8 py-8 sm:flex-row">
