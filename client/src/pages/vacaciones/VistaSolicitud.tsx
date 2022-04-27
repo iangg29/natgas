@@ -14,8 +14,8 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/mypendingvacationrequests/${auth.user.email}`),
-          axios.get(`/natgasblock/mypendingngbrequests/${auth.user.email}`),
+          axios.get(`/vacation/mypendingvacationrequests/`),
+          axios.get(`/natgasblock/mypendingngbrequests/`),
         ]);
 
         setVacations(myVacations.data.vacationrequests);
