@@ -6,13 +6,12 @@ import UpdateNews from "../News/UpdateNews";
 const CardCarousel = ({
   news,
   deleteCard,
+  updateCard
 }: {
   news: iNews;
   deleteCard: (id: number) => void;
+  updateCard: (payload: iNews) => void;
 }): JSX.Element => {
-  const [date, setDate] = useState<string>(news.date);
-  const [name, setName] = useState<string>(news.name);
-  const [image, setImage] = useState<string>(news.image);
   return (
     <div className="relative">
       <div className="absolute top-2 right-2">
@@ -27,13 +26,11 @@ const CardCarousel = ({
         <UpdateNews
           id={news.idNoticia}
           news={news}
-          setDate={setDate}
-          setName={setName}
-          setImage={setImage}
+          update={updateCard}
         />
       </div>
-      <img src={`${process.env.REACT_APP_API_URL}/news/${image}`} alt={name} />
-      <p className="legend bg-natgas-azul">{name}</p>
+      <img src={`${process.env.REACT_APP_API_URL}/news/${news.image}`} alt={news.name} />
+      <p className="legend bg-natgas-azul">{news.name}</p>
     </div>
   );
 };
