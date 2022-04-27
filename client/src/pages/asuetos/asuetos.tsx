@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Title from "../../components/Title/Title";
 import DateInput from "../../components/Inputs/DateInput";
 import axios, { AxiosResponse } from "axios";
 import { MySwal } from "../../utils/AlertHandler";
+import { SweetAlertResult } from "sweetalert2";
+import Page from "../../containers/Page";
+import { TrashIcon } from "@heroicons/react/solid";
+import { iAsueto } from "../../shared/interfaces/app.interface";
 
 const Asuetos = () => {
-  const [getDates, setDates] = useState<any[]>([]);
-  const [getDate, setDate] = useState<any>();
+  const [getDates, setDates] = useState<iAsueto[]>([]);
+  const [getDate, setDate] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -35,7 +38,7 @@ const Asuetos = () => {
       confirmButtonColor: "#002b49",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar!",
-    }).then((result) => {
+    }).then((result: SweetAlertResult) => {
       if (result.isConfirmed) {
         (async () => {
           await axios
@@ -66,7 +69,7 @@ const Asuetos = () => {
     await axios
       .delete(`/asuetos/${id}`)
       .then(() => {
-        setDates(getDates.filter((date) => date.idAsueto !== id));
+        setDates(getDates.filter((date: iAsueto) => date.idAsueto !== id));
         MySwal.fire({
           title: "¡Eliminada!",
           icon: "success",
@@ -110,69 +113,64 @@ const Asuetos = () => {
   };
 
   return (
-    <>
-      <div className="mt-4">
-        <Title title="Asuetos" />
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="mt-10 w-full text-left text-sm text-gray-500 dark:text-gray-400">
-            <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-              <tr className="text-xl">
-                <th scope="col" className="px-6 py-3">
-                  Fecha de Asueto
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  <span className="sr-only">Borrar</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {getDates?.length > 0 ? (
-                getDates?.map((date: any, idx: number) => (
-                  <tr className="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                      {new Date(date.date).toLocaleDateString()}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                      <button onClick={() => deleteA(date.idAsueto)}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5 hover:text-red-600"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <p className="ml-4 text-lg">No existen fechas de asuetos</p>
-              )}
-            </tbody>
-          </table>
-        </div>
+    <Page title="Asuetos" headTitle="Asuetos" padding={true}>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="mt-0 w-full text-left text-sm text-gray-500 dark:text-gray-400 md:mt-5">
+          <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+            <tr className="text-sm sm:text-lg md:text-xl">
+              <th scope="col" className="px-6 py-3">
+                Fecha de Asueto
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
+                Borrar
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {getDates?.length > 0 ? (
+              getDates?.map((date: iAsueto, idx: number) => (
+                <tr
+                  className="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700"
+                  key={idx}
+                >
+                  <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
+                    {new Date(date.date).toLocaleDateString()}
+                  </td>
+                  <td className="whitespace-nowrap px-6 py-4 text-center font-medium text-gray-900 dark:text-white">
+                    <button onClick={() => deleteA(date.idAsueto)}>
+                      <TrashIcon className="h-5 w-5" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <p className="ml-4 text-lg">No existen fechas de asuetos</p>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="text-center md:text-left">
         <button
           className="focus:shadow-outline m-2 mt-10 ml-4 h-10 rounded-full bg-red-700 px-5 text-red-100 transition-colors duration-150 hover:bg-red-800"
           onClick={() => deleteAll()}
         >
           Borrar todo
         </button>
-        <div className="mt-10 flex items-end justify-center">
+      </div>
+      <div className="mt-10 flex flex-col justify-center space-y-5 md:mt-0 md:flex-row md:space-y-0">
+        <div className="text-center md:text-left">
           <DateInput label="Agregar asueto" getVal={getDate} setVal={setDate} />
+        </div>
+        <div className="grid place-items-center">
           <button
-            className="focus:shadow-outline m-2 ml-10 h-10 rounded-full bg-natgas-azul px-5 text-white transition-colors duration-150  hover:bg-natgas-verde dark:bg-natgas-azul-claro"
+            className="focus:shadow-outline ml-0 rounded-full bg-natgas-azul px-8 py-1 text-white transition-colors duration-150 hover:bg-natgas-verde dark:bg-natgas-azul-claro md:ml-4 md:py-2"
             onClick={() => upload()}
           >
             Confirmar
           </button>
         </div>
       </div>
-    </>
+    </Page>
   );
 };
 
