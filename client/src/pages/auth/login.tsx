@@ -13,7 +13,7 @@ type Inputs = {
 
 const Login = (props: any): JSX.Element => {
   const { auth, login } = props;
-  const year = new Date().getFullYear();
+  const year: number = new Date().getFullYear();
   const {
     register,
     handleSubmit,

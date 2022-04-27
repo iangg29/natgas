@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  title: string;
-};
-
-const TitleWhite = ({ title }: Props) => {
+const TitleWhite = ({ title }: { title: string }) => {
   return <div className="title-white">{title}</div>;
 };
 

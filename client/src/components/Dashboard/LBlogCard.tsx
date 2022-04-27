@@ -9,10 +9,8 @@ const LBlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
       <div className="px-6 py-4 text-gray-900">
         <div className="mb-2 font-quicksand-bold text-xl">{blog.title}</div>
         <hr />
-        <p className="mt-5 mb-10 text-justify font-quicksand-regular text-base text-gray-700">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-          quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-          nihil.
+        <p className="mt-5 mb-10 truncate text-justify font-quicksand-regular text-base text-gray-700">
+          {blog.content}
         </p>
         <div className="mx-2 flex flex-row justify-between">
           <p className="font-gilroy-extrabold text-natgas-gris-cool">

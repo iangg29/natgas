@@ -26,7 +26,7 @@ const CreateNews = ({ news, setNews }: Props): JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsOpen(false);
   };
 

@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  title: string;
-};
-
-const Title = ({ title }: Props) => {
+const Title = ({ title }: { title: string }) => {
   return <div className="title-general">{title}</div>;
 };
 
