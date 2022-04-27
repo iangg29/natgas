@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { iBlog } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import { MySwal } from "../../utils/AlertHandler";
+import AbacContainer from "../../containers/abacContainer";
 
 const Blog = (): JSX.Element => {
   const [getBlogs, setBlogs] = useState<iBlog[]>([]);
@@ -46,17 +47,19 @@ const Blog = (): JSX.Element => {
           placeholder="Buscar..."
         />
       </div>
-      <div className="mb-8 grid w-full justify-items-center pt-4" ref={topRef}>
-        <Link
-          to="/app/blog/form"
-          className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro dark:text-gray-100"
-        >
-          <div className="inline-flex">
-            <p className="mt-2 ml-4">Agregar Natgas Blog</p>
-            <FaPlusCircle className="ml-4 mt-1.5 text-3xl text-natgas-verde" />
+      <AbacContainer required_role={'HR'}>
+          <div className="mb-8 grid w-full justify-items-center pt-4" ref={topRef}>
+            <Link
+              to="/app/blog/form"
+              className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro dark:text-gray-100"
+            >
+              <div className="inline-flex">
+                <p className="mt-2 ml-4">Agregar Natgas Blog</p>
+                <FaPlusCircle className="ml-4 mt-1.5 text-3xl text-natgas-verde" />
+              </div>
+            </Link>
           </div>
-        </Link>
-      </div>
+      </AbacContainer>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {getBlogs.length > 0 ? (
           getBlogs.map((blog: iBlog, idx: number) => (
