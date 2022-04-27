@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { PaperAirplaneIcon } from "@heroicons/react/outline";
 import axios from "axios";
 import { MySwal } from "../../utils/AlertHandler";
+import { CalendarIcon, UserIcon, XIcon } from "@heroicons/react/solid";
 
 const RequestVacations = ({ user }: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -97,17 +98,20 @@ const RequestVacations = ({ user }: any): JSX.Element => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul">
+              <div className="relative my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul">
                 <Dialog.Title
                   as="h3"
                   className="text-xl font-bold leading-6 text-gray-900 dark:text-gray-50"
                 >
                   Solicitar Vacaciones
                 </Dialog.Title>
-                <div className="mt-0 py-0">
+                <div className="mt-2 pb-5">
+                  <div className="mt-5 mb-2 text-sm font-bold text-gray-700 dark:text-gray-200">
+                    Fecha de inicio
+                  </div>
                   <div className="relative">
-                    <div className="mt-5 mb-2 text-sm font-bold text-gray-700 dark:text-gray-200">
-                      Fecha de inicio de vacaciones
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <CalendarIcon className="h-5 w-5 text-natgas-azul dark:text-gray-100" />
                     </div>
                     <input
                       type="date"
@@ -117,8 +121,13 @@ const RequestVacations = ({ user }: any): JSX.Element => {
                         setStartdate(e.target.value)
                       }
                     />
-                    <div className="mt-5 mb-2 text-sm font-bold text-gray-700 dark:text-gray-200">
-                      Fecha de fin de vacaciones
+                  </div>
+                  <div className="mt-5 mb-2 text-sm font-bold text-gray-700 dark:text-gray-200">
+                    Fecha fin
+                  </div>
+                  <div className="relative">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <CalendarIcon className="h-5 w-5 text-natgas-azul dark:text-gray-100" />
                     </div>
                     <input
                       type="date"
@@ -128,8 +137,13 @@ const RequestVacations = ({ user }: any): JSX.Element => {
                         setEndDate(e.target.value)
                       }
                     />
-                    <div className="mt-5 mb-2 text-sm font-bold text-gray-700 dark:text-gray-200">
-                      Nombre del suplente
+                  </div>
+                  <div className="mt-5 mb-2 text-sm font-bold text-gray-700 dark:text-gray-200">
+                    Nombre del suplente
+                  </div>
+                  <div className="relative">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <UserIcon className="h-5 w-5 text-natgas-azul dark:text-gray-100" />
                     </div>
                     <input
                       type="text"
@@ -140,17 +154,21 @@ const RequestVacations = ({ user }: any): JSX.Element => {
                       }
                     />
                   </div>
-                  <br />
-                  <div className="text-right">
-                    <button
-                      onClick={sendVacationsRequest}
-                      type="button"
-                      className="inline-flex items-center rounded-lg bg-natgas-azul px-6 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 hover:underline hover:shadow-xl focus:outline-none focus:ring-0 focus:ring-blue-300 dark:bg-natgas-azul-claro"
-                    >
-                      Solicitar
-                      <PaperAirplaneIcon className="ml-2 h-5 w-5" />
-                    </button>
-                  </div>
+                </div>
+                <div className="text-right">
+                  <button
+                    onClick={sendVacationsRequest}
+                    type="button"
+                    className="inline-flex items-center rounded-lg bg-natgas-azul px-6 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 hover:underline hover:shadow-xl focus:outline-none focus:ring-0 focus:ring-blue-300 dark:bg-natgas-azul-claro"
+                  >
+                    Solicitar
+                    <PaperAirplaneIcon className="ml-2 h-5 w-5" />
+                  </button>
+                </div>
+                <div className="absolute top-3 right-3">
+                  <button onClick={closeModal}>
+                    <XIcon className="h-5 w-5 text-natgas-azul dark:text-gray-100" />
+                  </button>
                 </div>
               </div>
             </Transition.Child>

@@ -3,6 +3,7 @@ import React, { ChangeEvent, Fragment, useState } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/outline";
 import axios from "axios";
 import { MySwal } from "../../utils/AlertHandler";
+import { CalendarIcon, XIcon } from "@heroicons/react/solid";
 
 const RequestNGB = ({ user }: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -91,28 +92,20 @@ const RequestNGB = ({ user }: any): JSX.Element => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul">
+              <div className="relative my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul">
                 <Dialog.Title
                   as="h3"
                   className="text-xl font-bold leading-6 text-gray-900 dark:text-gray-50"
                 >
                   Solicitar Natgas Block
                 </Dialog.Title>
-                <div className="mt-2 py-5">
+                <div className="mt-2 pb-5 pt-2">
+                  <div className="mb-3 text-sm font-bold text-gray-700 dark:text-gray-200">
+                    Fecha
+                  </div>
                   <div className="relative">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                      <svg
-                        className="h-5 w-5 text-gray-500 dark:text-gray-200"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
+                      <CalendarIcon className="h-5 w-5 text-natgas-azul dark:text-gray-100" />
                     </div>
                     <input
                       type="date"
@@ -162,6 +155,11 @@ const RequestNGB = ({ user }: any): JSX.Element => {
                   >
                     Solicitar
                     <PaperAirplaneIcon className="ml-2 h-5 w-5" />
+                  </button>
+                </div>
+                <div className="absolute top-3 right-3">
+                  <button onClick={closeModal}>
+                    <XIcon className="h-5 w-5 text-natgas-azul dark:text-gray-100" />
                   </button>
                 </div>
               </div>
