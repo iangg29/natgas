@@ -1,40 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import DateInput from "../../components/Inputs/DateInput";
 import { useNavigate, useParams } from "react-router-dom";
 import InputLong from "../../components/Inputs/InputLong";
 import InputP from "../../components/Inputs/InputP";
 import UploadDocument from "../../components/Inputs/UploadDocument";
 import Title from "../../components/Title/Title";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { MySwal } from "../../utils/AlertHandler";
 
 const FormBlog = () => {
   const { id } = useParams<string>();
-  const [getTitle, setTitle] = useState<any>();
-  const [getDate, setDate] = useState<any>();
-  const [getText, setText] = useState<any>();
+  const [getTitle, setTitle] = useState<string>("");
+  const [getDate, setDate] = useState<string>("");
+  const [getText, setText] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<any>();
   const [preview, setPreview] = useState<any>();
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      try {
-        const blog = await axios.get(`blog/${id}`);
-        setTitle(blog.data.data.document[0].title);
-        setText(blog.data.data.document[0].content);
-        setPreview(blog.data.data.document[0].image);
-        setDate(
-          new Date(blog.data.data.document[0].date).toISOString().split("T")[0],
-        );
-      } catch (error: any) {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.response.message,
-          confirmButtonColor: "#002b49",
+      await axios
+        .get(`blog/${id}`)
+        .then((res: AxiosResponse) => {
+          const { title, content, image, date } = res.data.data.document[0];
+          setTitle(title);
+          setText(content);
+          setPreview(image);
+          setDate(new Date(date).toISOString().split("T")[0]);
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.response.message,
+            confirmButtonColor: "#002b49",
+          });
         });
-      }
     })();
   }, [id]);
 
@@ -71,7 +72,7 @@ const FormBlog = () => {
     }
   };
 
-  const onSelectFile = (e: any) => {
+  const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);
       return;

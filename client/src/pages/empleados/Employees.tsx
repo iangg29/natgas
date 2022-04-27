@@ -62,23 +62,25 @@ const Employees = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const employeesPromise = await axios.get(
+      await axios
+        .get(
           `/user/employment?${
             selectedDepartment.name !== "Departamento"
               ? `departamento_like=${selectedDepartment?.name}&`
               : ""
           }name_like=${nameSearch}&number_like=${numberSearch}&sort=number&limit=${limit}&page=${page}`,
-        );
-        setEmployees(employeesPromise.data.data.documents);
-      } catch (error: any) {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.message,
-          confirmButtonColor: "#002b49",
+        )
+        .then((res: AxiosResponse) => {
+          setEmployees(res.data.data.documents);
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
-      }
     })();
   }, [page, nameSearch, numberSearch, selectedDepartment]);
 

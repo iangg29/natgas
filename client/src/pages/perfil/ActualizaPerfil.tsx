@@ -49,32 +49,40 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
     (async () => {
-      try {
-        await axios.patch(`/user/${auth.user.number}`, {
+      await Promise.all([
+        axios.patch(`/user/${auth.user.number}`, {
           address: data.address,
           birthdate: data.birthdate,
           cellphone: data.cellphone,
           contractdate: data.contractdate,
           rfc: data.rfc,
-        });
-        await axios.patch(`/pertenece/email/${auth.user.email}`, {
+        }),
+        axios.patch(`/pertenece/email/${auth.user.email}`, {
           idDepartamento: data.idDepartamento,
           position: data.position,
+        }),
+      ])
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
+        })
+        .finally(() => {
+          navigate("/app/profile");
         });
-      } catch (error: any) {
-        alert(error.message);
-      }
-      navigate("/app/profile");
     })();
   };
 
   useEffect(() => {
     (async () => {
       try {
-        const perfil = await axios.get(`/user/email/${auth.user.email}`);
-        const pertenece = await axios.get(
-          `/pertenece/email/${auth.user.email}`,
-        );
+        const [perfil, pertenece] = await Promise.all([
+          axios.get(`/user/email/${auth.user.email}`),
+          axios.get(`/pertenece/email/${auth.user.email}`),
+        ]);
         setProfile(perfil.data.data.document);
         setBelong(pertenece.data.data.document);
       } catch (error: any) {

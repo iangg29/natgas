@@ -8,30 +8,37 @@ import { connect } from "react-redux";
 import { MySwal } from "../../utils/AlertHandler";
 
 const SolicitarVac = ({ auth }: any): JSX.Element => {
-  const [getStartDate, setStartdate] = useState<string>();
-  const [getEndDate, setEndDate] = useState<string>();
-  const [getSuplente, setSuplente] = useState<string>();
+  const [getStartDate, setStartdate] = useState<string>("");
+  const [getEndDate, setEndDate] = useState<string>("");
+  const [getSuplente, setSuplente] = useState<string>("");
 
   const sendDate = async () => {
-    try {
-      await axios.post("/vacation/", {
+    await axios
+      .post("/vacation/", {
         startdate: getStartDate,
         enddate: getEndDate,
         substitute: getSuplente,
         email: auth.user.email,
+      })
+      .then(() => {
+        MySwal.fire({
+          title: "¡Enviado!",
+          icon: "success",
+          text: "Petición de vacación creada correctamente",
+          confirmButtonColor: "#002b49",
+        });
+        setEndDate("");
+        setStartdate("");
+        setSuplente("");
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
       });
-      alert("Petición de vacación creada correctamente");
-      setEndDate("");
-      setStartdate("");
-      setSuplente("");
-    } catch (error: any) {
-      await MySwal.fire({
-        title: "¡Error!",
-        icon: "error",
-        text: error.message,
-        confirmButtonColor: "#002b49",
-      });
-    }
   };
 
   return (
