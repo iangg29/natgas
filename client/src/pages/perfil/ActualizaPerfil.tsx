@@ -105,11 +105,11 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">RFC</h4>
               <input
-                type="string"
+                type="text"
                 defaultValue={auth.user.rfc}
                 {...register("rfc")}
                 placeholder="RFC"
-                className="modal-input"
+                className="profile-input"
               />
             </div>
             <div className="w-full md:w-1/3">
@@ -119,7 +119,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
                 defaultValue={auth.user.cellphone}
                 {...register("cellphone")}
                 placeholder="Teléfono"
-                className="modal-input"
+                className="profile-input"
               />
             </div>
             <div className="w-full md:w-1/3">
@@ -132,23 +132,23 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             <div className="w-full md:w-1/2">
               <h4 className="font-gilroy-extrabold">Dirección</h4>
               <input
-                type="string"
+                type="text"
                 defaultValue={auth.user.address}
                 {...register("address")}
                 placeholder="Dirección"
-                className="modal-input"
+                className="profile-input"
               />
             </div>
             <div className="w-full md:w-1/2">
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input
-                type="string"
-                defaultValue={new Date(
-                  auth.user.birthdate,
-                ).toLocaleDateString()}
+                type="date"
+                defaultValue={new Date(auth.user.birthdate)
+                  .toISOString()
+                  .slice(0, -14)}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
-                className="modal-input"
+                className="profile-input"
               />
             </div>
           </div>
@@ -165,17 +165,17 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
                 defaultValue={belong.idDepartamento}
                 {...register("idDepartamento")}
                 placeholder="Departamento"
-                className="modal-input"
+                className="profile-input"
               />
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Puesto</h4>
               <input
-                type="string"
+                type="text"
                 defaultValue={belong.position}
                 {...register("position")}
                 placeholder="Puesto"
-                className="modal-input"
+                className="profile-input"
               />
             </div>
           </div>
@@ -184,13 +184,13 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
               <input
-                type="string"
-                defaultValue={new Date(
-                  auth.user.contractdate,
-                ).toLocaleDateString()}
+                type="date"
+                defaultValue={new Date(auth.user.contractdate)
+                  .toISOString()
+                  .slice(0, -14)}
                 {...register("contractdate")}
                 placeholder="Inicio de contrato"
-                className="modal-input"
+                className="profile-input"
               />
             </div>
           </div>
