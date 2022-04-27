@@ -60,7 +60,7 @@ const CompleteProfile = (): JSX.Element => {
           });
         });
     })();
-  }, [email]);
+  }, [email, navigate]);
 
   return (
     <Page
