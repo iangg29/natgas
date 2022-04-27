@@ -10,39 +10,41 @@ const RequestNGB = ({ user }: any): JSX.Element => {
   const [getRadio, setRadio] = useState<number>(0);
 
   const sendNGBRequest = async () => {
-    try {
-      await axios.post("/natgasblock/", {
+    await axios
+      .post("/natgasblock/", {
         date: getDate,
         period: getRadio,
         email: user.email,
+      })
+      .then(() => {
+        closeModal();
+        MySwal.fire({
+          title: "¡Creado!",
+          icon: "success",
+          text: "Petición de Natgas Block creada correctamente",
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .finally(() => {
+        closeModal();
+        setDate("");
+        setRadio(0);
       });
-      await MySwal.fire({
-        title: "¡Creado!",
-        icon: "success",
-        text: "Petición de Natgas Block creada correctamente",
-        confirmButtonColor: "#002b49",
-      });
-      closeModal();
-      setDate("");
-      setRadio(0);
-    } catch (error: any) {
-      await MySwal.fire({
-        title: "¡Error!",
-        icon: "error",
-        text: error.message,
-        confirmButtonColor: "#002b49",
-      });
-      closeModal();
-      setDate("");
-      setRadio(0);
-    }
   };
 
-  function closeModal() {
+  function closeModal(): void {
     setIsOpen(false);
   }
 
-  function openModal() {
+  function openModal(): void {
     setIsOpen(true);
   }
 

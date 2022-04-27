@@ -2,6 +2,7 @@ import React, { ChangeEvent, Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PaperAirplaneIcon } from "@heroicons/react/outline";
 import axios from "axios";
+import { MySwal } from "../../utils/AlertHandler";
 
 const RequestVacations = ({ user }: any): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -10,25 +11,39 @@ const RequestVacations = ({ user }: any): JSX.Element => {
   const [getSuplente, setSuplente] = useState<string>("");
 
   const sendVacationsRequest = async () => {
-    try {
-      await axios.post("/vacations/request/", {
+    await axios
+      .post("/vacations/request/", {
         startdate: getStartDate,
         enddate: getEndDate,
         substitute: getSuplente,
         email: user.email,
+      })
+      .then(() => {
+        closeModal();
+        MySwal.fire({
+          title: "¡Creado!",
+          icon: "success",
+          text: "Petición de vacación creada correctamente",
+          confirmButtonColor: "#002b49",
+        });
+        setEndDate("");
+        setStartdate("");
+        setSuplente("");
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .finally(() => {
+        closeModal();
+        setEndDate("");
+        setStartdate("");
+        setSuplente("");
       });
-      alert("Petición de vacación creada correctamente");
-      closeModal();
-      setEndDate("");
-      setStartdate("");
-      setSuplente("");
-    } catch (error: any) {
-      alert(error.message);
-      closeModal();
-      setEndDate("");
-      setStartdate("");
-      setSuplente("");
-    }
   };
 
   function closeModal() {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import Background from "../Background/Background";
 import TitleWhite from "../Title/TitleWhite";
 import { useNavigate } from "react-router-dom";
@@ -81,22 +81,24 @@ const CardReporte = ({
   }, [idReporte]);
 
   const getReports = async () => {
-    try {
-      const rows = await axios.get(`report/getRowsFromReport/${idReporte}`);
-      setRows(rows.data.data.documents);
-      setLabels(
-        rows.data.data.documents
-          .map((row: any) => new Date(row.date).toLocaleDateString())
-          .reverse(),
-      );
-    } catch (error: any) {
-      await MySwal.fire({
-        title: "¡Error!",
-        icon: "error",
-        text: error.response.message,
-        confirmButtonColor: "#002b49",
+    await axios
+      .get(`report/getRowsFromReport/${idReporte}`)
+      .then((res: AxiosResponse) => {
+        setRows(res.data.data.documents);
+        setLabels(
+          res.data.data.documents
+            .map((row: any) => new Date(row.date).toLocaleDateString())
+            .reverse(),
+        );
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.response.message,
+          confirmButtonColor: "#002b49",
+        });
       });
-    }
   };
 
   const handleSubmit = async () => {
