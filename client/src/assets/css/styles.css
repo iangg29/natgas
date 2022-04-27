@@ -15,7 +15,7 @@
 }
 
 .title-general {
-  @apply ml-4 mr-4 border-natgas-gris-cool text-3xl dark:text-white font-helvetica-bold;
+  @apply ml-4 mr-4 border-natgas-gris-cool border-b-2 text-natgas-azul text-3xl font-helvetica-bold;
 }
 
 .title-white {
