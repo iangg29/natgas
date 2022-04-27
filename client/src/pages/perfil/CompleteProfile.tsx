@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
+import {
+  IDepartment,
+  IEmployment,
+} from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
@@ -16,6 +20,9 @@ const CompleteProfile = (): JSX.Element => {
   } = useForm<IEmployee>();
   
   let { email } = useParams<string>();
+
+  //const [departments, setDepartments] = useParams<IDepartment([])>;
+
 
   const [employee, setEmployee] = useState<IEmployee>({
     address: "",
@@ -80,8 +87,8 @@ const CompleteProfile = (): JSX.Element => {
       <h1>{employee.email}</h1>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="py-10">
-        <div className="grid grid-cols-2">
-          <div className="grid grid-rows-5">
+        <div className="">
+          <div className="grid grid-rows-3 grid-flow-col gap-4">
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
                 RFC
@@ -100,7 +107,7 @@ const CompleteProfile = (): JSX.Element => {
               <input
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="text"
-                placeholder="RFC"
+                placeholder="Dirección"
                 {...register("address")} 
               />
             </div>
@@ -121,8 +128,8 @@ const CompleteProfile = (): JSX.Element => {
               </label>
               <input
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="text"
-                placeholder="RFC"
+                type="number"
+                placeholder="Teléfono"
                 {...register("cellphone")} 
               />
             </div>
@@ -134,6 +141,79 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="text"
                 placeholder="Género"
+                {...register("gender")} 
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="py-10">
+        <div className="">
+          <div className="grid grid-rows-3 grid-flow-col gap-4">
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Departamento
+              </label>
+              <select
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                placeholder="RFC"
+                {...register("rfc")} 
+              >
+              </select>
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Puesto
+              </label>
+              <select
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                placeholder="Dirección"
+                {...register("address")} 
+              >
+
+              </select>
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Inicio de contrato
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="date"
+                placeholder="Fecha"
+                {...register("contractdate")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Natgas Blocks disponibles
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="number"
+                placeholder="5"
+                {...register("ngBlocks")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Días de vacaciones disponibles
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="number"
+                placeholder="10"
+                {...register("gender")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Días de vacaciones ganados
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="number"
+                placeholder="5"
                 {...register("gender")} 
               />
             </div>
