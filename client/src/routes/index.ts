@@ -74,7 +74,7 @@ const routes: IRoute[] = [
     component: BuscarVacaciones,
   },
   {
-    path: "/reports/",
+    path: "/reports",
     component: Reportes,
   },
   {

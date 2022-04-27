@@ -55,7 +55,7 @@ const SideBar = (props: any): JSX.Element => {
           </div>
           <Toggler />
           <div className="px-1 py-1 ">
-            <Link to="/app/reports/">
+            <Link to="/app/reports">
               <Menu.Item>
                 {({ active }) => (
                   <button
