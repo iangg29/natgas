@@ -16,13 +16,15 @@ const CardMiSolicitudVac = ({
 }: Props): JSX.Element => {
   return (
     <div className="box-border w-full rounded-lg border-2  p-4 shadow-md dark:border-0 dark:bg-natgas-azul ">
-      <div className="h-10 border-b-2 border-natgas-azul py-1 text-center font-bold  text-natgas-azul dark:border-gray-300 dark:text-gray-100">
-        {name} - {department}
+      <div className="border-b-2 border-natgas-azul pt-1 pb-5 text-center font-bold  text-natgas-azul dark:border-gray-300 dark:text-gray-100">
+        <h4>
+          {name} - {department}
+        </h4>
       </div>
       <div className="my-4 py-1 text-center text-sm font-light">
         {dateinit} a {datefin}
       </div>
-      <div className="py-0.25 text-center text-sm font-bold text-natgas-azul dark:text-gray-200">
+      <div className="py-1 text-center text-sm font-bold text-natgas-azul dark:text-gray-200">
         Vacaciones
       </div>
       <div className="mt-2 grid-cols-2 py-4 text-center">
