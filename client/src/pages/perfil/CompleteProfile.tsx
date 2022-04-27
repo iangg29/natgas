@@ -166,7 +166,6 @@ const CompleteProfile = (): JSX.Element => {
                 placeholder="Departamento"
                 {...register("rfc")} 
               >
-
               </select>
             </div>
             <div className="m-4 h-16 ">
@@ -178,7 +177,11 @@ const CompleteProfile = (): JSX.Element => {
                 placeholder="Puesto"
                 {...register("address")} 
               >
-
+                <option value="analista">Analista</option>
+                <option value="especialista">Especialista</option>
+                <option value="gerencia">Gerencia</option>
+                <option value="direccion">Dirección</option>
+                <option value="coordinacion">Coordinación</option>
               </select>
             </div>
             <div className="m-4 h-16 ">
@@ -211,7 +214,7 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="number"
                 placeholder="10"
-                {...register("gender")} 
+                {...register("vacations")} 
               />
             </div>
             <div className="m-4 h-16 ">
@@ -222,7 +225,7 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="number"
                 placeholder="5"
-                {...register("gender")} 
+                {...register("vacations")} 
               />
             </div>
           </div>
