@@ -20,6 +20,10 @@ const routes: NavbarLink[] = [
     path: "/app/blog",
     name: "Blog",
   },
+  {
+    path: "/app/reports",
+    name: "Reportes Mensuales",
+  },
 ];
 
 export default routes;
