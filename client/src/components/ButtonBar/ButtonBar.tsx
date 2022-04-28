@@ -58,7 +58,7 @@ const ButtonBar = (): JSX.Element => {
             
           </div>
           <div className="w-full md:w-1/3">
-            <Link to="app/profile/:email/complete">
+            <Link to="/app/pending/profiles">
               <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
                 Registros
               </button>

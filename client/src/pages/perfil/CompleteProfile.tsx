@@ -2,15 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
-import {
-  IDepartment,
-  IEmployment,
-} from "../../shared/interfaces/app.interface";
+import { IDepartment } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
 import Title from "../../components/Title/Title";
-
 
 const CompleteProfile = (): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
@@ -22,9 +18,6 @@ const CompleteProfile = (): JSX.Element => {
   } = useForm<IEmployee>();
   
   let { email } = useParams<string>();
-
-  //const [departments, setDepartments] = useParams<IDepartment([])>;
-
 
   const [employee, setEmployee] = useState<IEmployee>({
     address: "",
@@ -43,12 +36,10 @@ const CompleteProfile = (): JSX.Element => {
     vacations: 0,
     verified: false,
   });
-
  
-  
   const navigate = useNavigate();
 
-  const [employees, setEmployees] = useState<IEmployment[]>([]);
+  //const [employees, setEmployees] = useState<IEmployment[]>([]);
   const [departments, setDepartments] = useState<IDepartment[]>([]);
 
   useEffect(() =>{
@@ -66,7 +57,6 @@ const CompleteProfile = (): JSX.Element => {
       }); 
     })();
   },[]);
-
   
   const onSubmit: SubmitHandler<IEmployee> = (data: any): void => {
     (async () => {
@@ -123,8 +113,15 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="text"
                 placeholder="RFC"
-                {...register("rfc")} 
+                {...register("rfc", {
+                  required: true
+                })} 
               />
+              {errors.rfc?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -134,8 +131,15 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="text"
                 placeholder="Teléfono"
-                {...register("cellphone")} 
+                {...register("cellphone", {
+                  required: true
+                })} 
               />
+              {errors.rfc?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -145,19 +149,35 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="text"
                 placeholder="Dirección"
-                {...register("address")} 
+                {...register("address", {
+                  required: true
+                })} 
               />
+              {errors.address?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
                 Género
               </label>
-              <input
+              <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="text"
                 placeholder="Género"
-                {...register("gender")} 
-              />
+                {...register("gender", {
+                  required: true
+                })} 
+              >
+                <option value="hombre">Hombre</option>
+                <option value="mujer">Mujer</option>
+              </select>
+              {errors.gender?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -167,8 +187,15 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="date"
                 placeholder="Fecha"
-                {...register("birthdate")} 
+                {...register("birthdate", {
+                  required: true
+                })} 
               />
+              {errors.birthdate?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -184,16 +211,23 @@ const CompleteProfile = (): JSX.Element => {
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 placeholder="Departamento"
-                {...register("name")} 
+                {...register("rfc", {
+                  required: true
+                })} 
               >
               {departments?.length > 0 ? (
                 departments?.map((card) => (
                   <option value={card.name}> {card.name} </option>
                 ))
               ) : (
-                <p>No cuentas con solicitudes de Natgas Blocks por el momento</p>
-          )}
+                <p>No hay departamentos disponibles</p>
+              )}
               </select>
+              {errors.rfc?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -203,8 +237,15 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="number"
                 placeholder="5"
-                {...register("ngBlocks")} 
+                {...register("ngBlocks", {
+                required: true
+                })} 
               />
+              {errors.ngBlocks?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -213,7 +254,9 @@ const CompleteProfile = (): JSX.Element => {
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 placeholder="Puesto"
-                {...register("address")} 
+                {...register("address", {
+                  required: true
+                })} 
               >
                 <option value="analista">Analista</option>
                 <option value="especialista">Especialista</option>
@@ -221,6 +264,11 @@ const CompleteProfile = (): JSX.Element => {
                 <option value="direccion">Dirección</option>
                 <option value="coordinacion">Coordinación</option>
               </select>
+              {errors.birthdate?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -230,8 +278,15 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="number"
                 placeholder="10"
-                {...register("vacations")} 
+                {...register("vacations", {
+                  required: true
+                })} 
               />
+              {errors.vacations?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -241,8 +296,15 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="date"
                 placeholder="Fecha"
-                {...register("contractdate")} 
+                {...register("contractdate", {
+                  required: true
+                })} 
               />
+              {errors.contractdate?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -252,8 +314,15 @@ const CompleteProfile = (): JSX.Element => {
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 type="number"
                 placeholder="5"
-                {...register("vacations")} 
+                {...register("vacations", {
+                  required: true
+                })} 
               />
+              {errors.vacations?.type === "required" && (
+                <span className="text-xs text-red-700">
+                  Debes llenar este campo.
+                </span>
+              )}
             </div>
           </div>
         </div>
