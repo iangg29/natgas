@@ -57,7 +57,6 @@ exports.updateOne = (Model, field) =>
  */
 exports.createOne = (Model) =>
     catchAsync(async (req, res, next) => {
-        console.log(req.body);
         const document = await new Model(req.body).save();
 
         res.status(201).json({
