@@ -155,6 +155,7 @@ const CardReporte = ({
             label="Agregar reporte"
             action={() => setVisible(!getVisible)}
           />
+          
         </div>
         <div className="m-4">
           <PrimaryButton

@@ -28,7 +28,7 @@ const Layout = (props: any): JSX.Element => {
   }, [auth, navigate]);
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex bg-gray-50 dark:bg-gray-900">
       <div className="flex w-full flex-1 flex-col">
         <Header />
         <Main>
