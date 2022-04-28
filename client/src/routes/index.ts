@@ -111,7 +111,7 @@ const routes: IRoute[] = [
     component: Asuetos,
   },
   {
-    path: "/profile/:id/update",
+    path: "/profile/:email/update",
     component: ActualizaPerfil,
   },
   {

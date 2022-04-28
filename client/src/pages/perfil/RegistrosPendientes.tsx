@@ -46,9 +46,6 @@ const RegistrosPendientes = (): JSX.Element => {
                         <CardCompletarUsuario
                             name={card.name}
                             email={card.email}
-                            action={() => {
-                                return 0
-                            }}
                         />
                     ))
                 ) : (

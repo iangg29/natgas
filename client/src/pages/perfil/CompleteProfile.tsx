@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
@@ -10,6 +10,7 @@ import Page from "../../containers/Page";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
 import Title from "../../components/Title/Title";
+
 
 const CompleteProfile = (): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
@@ -42,10 +43,29 @@ const CompleteProfile = (): JSX.Element => {
     vacations: 0,
     verified: false,
   });
+
+ 
+  
   const navigate = useNavigate();
 
   const [employees, setEmployees] = useState<IEmployment[]>([]);
-  const [departments, setDepartments] = useState<IDepartment>();
+  const [departments, setDepartments] = useState<IDepartment[]>([]);
+
+  useEffect(() =>{
+    (async() => {
+      await axios.get('/department/').then((res: AxiosResponse)  => {
+        setDepartments(res.data.data.documents);
+
+      }).catch(error => {
+          MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      }); 
+    })();
+  },[]);
 
   
   const onSubmit: SubmitHandler<IEmployee> = (data: any): void => {
@@ -164,8 +184,15 @@ const CompleteProfile = (): JSX.Element => {
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 placeholder="Departamento"
-                {...register("rfc")} 
+                {...register("name")} 
               >
+              {departments?.length > 0 ? (
+                departments?.map((card) => (
+                  <option value={card.name}> {card.name} </option>
+                ))
+              ) : (
+                <p>No cuentas con solicitudes de Natgas Blocks por el momento</p>
+          )}
               </select>
             </div>
             <div className="m-4 h-16 ">
