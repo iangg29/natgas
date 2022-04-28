@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import Background from "../Background/Background";
 import { useNavigate } from "react-router-dom";
@@ -105,7 +105,7 @@ const CardReporte = ({
     try {
       await axios.post(`row/`, {
         value: getValue,
-        date: getDate,
+        date: getDate.toISOString().split("T")[0],
         idReporte,
       });
       await getReports();
@@ -116,11 +116,13 @@ const CardReporte = ({
       await MySwal.fire({
         title: "¡Error!",
         icon: "error",
-        text: error.response.message,
+        text: error.message,
         confirmButtonColor: "#002b49",
       });
     }
   };
+
+  const id = useId();
 
   return (
     <Background bgColor="bg-[#007DBA] my-20">
@@ -169,7 +171,7 @@ const CardReporte = ({
       {getVisible ? (
         <></>
       ) : (
-        <div className="flex w-full flex-grow flex-col items-center justify-around  lg:flex-row">
+        <div className="flex w-full flex-grow flex-col items-center justify-around lg:flex-row">
           <div className="my-5 w-full lg:mx-5">
             <InputLong
               label="Valor"
@@ -185,7 +187,7 @@ const CardReporte = ({
               setVal={setDate}
             />
           </div>
-          <div className="lg:w-20vw md:10vw my-5">
+          <div className="lg:w-20vw md:10vw my-5" id={`${id}-add-btn`}>
             <PrimaryButton label="Agregar" action={handleSubmit} />
           </div>
         </div>

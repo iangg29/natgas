@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { CheckIcon, XIcon } from "@heroicons/react/solid";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { iRange, iRangeData } from "../../shared/interfaces/app.interface";
@@ -57,6 +57,8 @@ const EditableRow = ({
     setEditableRow(-1);
   };
 
+  const id = useId();
+
   return (
     <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
       <td className="px-6 py-4">{rango.minimum}</td>
@@ -77,12 +79,14 @@ const EditableRow = ({
         <div className="flex flex-row justify-around">
           <button
             onClick={handleSubmit(onSubmit)}
+            id={`${id}-confirm`}
             className="font-medium text-natgas-verde hover:underline"
           >
             <CheckIcon className="h-5 w-5" />
           </button>
           <button
             onClick={cancelEdit}
+            id={`${id}-cancel`}
             className="font-medium text-red-500 hover:underline"
           >
             <XIcon className="h-5 w-5" />
