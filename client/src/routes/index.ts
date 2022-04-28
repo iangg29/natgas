@@ -55,7 +55,7 @@ const routes: IRoute[] = [
     component: Profile,
   },
   {
-    path: "/profile/complete",
+    path: "/profile/:email/complete",
     component: CompleteProfile,
   },
   {
