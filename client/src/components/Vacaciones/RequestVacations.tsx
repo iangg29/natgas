@@ -13,7 +13,7 @@ const RequestVacations = ({ user }: any): JSX.Element => {
 
   const sendVacationsRequest = async () => {
     await axios
-      .post("/vacations/request/", {
+      .post("/vacation", {
         startdate: getStartDate,
         enddate: getEndDate,
         substitute: getSuplente,
@@ -98,7 +98,10 @@ const RequestVacations = ({ user }: any): JSX.Element => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="relative my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul">
+              <div
+                className="relative my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul"
+                id="requestVacationsModal"
+              >
                 <Dialog.Title
                   as="h3"
                   className="text-xl font-bold leading-6 text-gray-900 dark:text-gray-50"
@@ -117,6 +120,7 @@ const RequestVacations = ({ user }: any): JSX.Element => {
                       type="date"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600  dark:bg-natgas-azul-claro dark:text-white dark:placeholder-gray-100 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                       placeholder="Select date"
+                      id="datefromInput"
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setStartdate(e.target.value)
                       }
@@ -133,6 +137,7 @@ const RequestVacations = ({ user }: any): JSX.Element => {
                       type="date"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600  dark:bg-natgas-azul-claro dark:text-white dark:placeholder-gray-100 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                       placeholder="Select date"
+                      id="datetoInput"
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setEndDate(e.target.value)
                       }
@@ -149,6 +154,7 @@ const RequestVacations = ({ user }: any): JSX.Element => {
                       type="text"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600  dark:bg-natgas-azul-claro dark:text-white dark:placeholder-gray-100 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                       placeholder="Ej: Juan Pérez"
+                      id="backupInput"
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setSuplente(e.target.value)
                       }
@@ -159,6 +165,7 @@ const RequestVacations = ({ user }: any): JSX.Element => {
                   <button
                     onClick={sendVacationsRequest}
                     type="button"
+                    id="requestTriggerBtn"
                     className="inline-flex items-center rounded-lg bg-natgas-azul px-6 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 hover:underline hover:shadow-xl focus:outline-none focus:ring-0 focus:ring-blue-300 dark:bg-natgas-azul-claro"
                   >
                     Solicitar
