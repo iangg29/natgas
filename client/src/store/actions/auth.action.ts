@@ -18,11 +18,6 @@ const LoginAuthAction = (
             "Content-Type": "application/json",
           },
         })
-        /*.post("https://api.natgas.ian.software/auth/login", credentials, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })*/
         .then((res: AxiosResponse) => {
           const { data } = res;
           if (data.status === "success") {
