@@ -155,7 +155,6 @@ const CardReporte = ({
             label="Agregar reporte"
             action={() => setVisible(!getVisible)}
           />
-          
         </div>
         <div className="m-4">
           <PrimaryButton
@@ -193,6 +192,7 @@ const CardReporte = ({
           </div>
           <div className="lg:w-20vw md:10vw my-5" id={`${id}-add-btn`}>
             <PrimaryButton label="Agregar" action={handleSubmit} />
+            <button onClick={() => setVisible(!getVisible)}>Cancelar</button>
           </div>
         </div>
       )}
