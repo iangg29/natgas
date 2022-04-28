@@ -29,7 +29,7 @@ const ReportForm = () => {
           setIndicador("");
           MySwal.fire({
             title: "¡Creado!",
-            icon: "error",
+            icon: "success",
             text: "Nuevo indicador creado correctamente",
             confirmButtonColor: "#002b49",
           }).then(() => {
