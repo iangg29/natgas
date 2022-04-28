@@ -92,7 +92,10 @@ const RequestNGB = ({ user }: any): JSX.Element => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="relative my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul">
+              <div
+                className="relative my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-natgas-azul"
+                id="requestNGBModal"
+              >
                 <Dialog.Title
                   as="h3"
                   className="text-xl font-bold leading-6 text-gray-900 dark:text-gray-50"
@@ -111,6 +114,7 @@ const RequestNGB = ({ user }: any): JSX.Element => {
                       type="date"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600  dark:bg-natgas-azul-claro dark:text-white dark:placeholder-gray-100 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                       placeholder="Select date"
+                      id="ngbDateInput"
                       onChange={(e: ChangeEvent<HTMLInputElement>) =>
                         setDate(e.target.value)
                       }
@@ -150,6 +154,7 @@ const RequestNGB = ({ user }: any): JSX.Element => {
                 <div className="text-right">
                   <button
                     onClick={sendNGBRequest}
+                    id="ngbRequestTrigger"
                     type="button"
                     className="inline-flex items-center rounded-lg bg-natgas-azul px-6 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 hover:underline hover:shadow-xl focus:outline-none focus:ring-0 focus:ring-blue-300 dark:bg-natgas-azul-claro"
                   >
