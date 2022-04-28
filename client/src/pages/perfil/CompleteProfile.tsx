@@ -94,7 +94,7 @@ const CompleteProfile = (): JSX.Element => {
       <div className="py-10">
       <Title title={`Datos personales - ${email}`}/>
         <div className="">
-          <div className="grid grid-rows-3 grid-flow-col gap-4">
+          <div className="grid grid-cols-2  gap-4">
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
                 RFC
@@ -104,28 +104,6 @@ const CompleteProfile = (): JSX.Element => {
                 type="text"
                 placeholder="RFC"
                 {...register("rfc")} 
-              />
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Dirección
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="text"
-                placeholder="Dirección"
-                {...register("address")} 
-              />
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Fecha de nacimiento
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="date"
-                placeholder="Fecha"
-                {...register("birthdate")} 
               />
             </div>
             <div className="m-4 h-16 ">
@@ -141,6 +119,17 @@ const CompleteProfile = (): JSX.Element => {
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Dirección
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="text"
+                placeholder="Dirección"
+                {...register("address")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
                 Género
               </label>
               <input
@@ -150,13 +139,24 @@ const CompleteProfile = (): JSX.Element => {
                 {...register("gender")} 
               />
             </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Fecha de nacimiento
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="date"
+                placeholder="Fecha"
+                {...register("birthdate")} 
+              />
+            </div>
           </div>
         </div>
       </div>
       <div className="py-10">
         <div className="">
         <Title title="Registro empresarial"/>
-          <div className="grid grid-rows-3 grid-flow-col gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
                 Departamento
@@ -167,6 +167,17 @@ const CompleteProfile = (): JSX.Element => {
                 {...register("rfc")} 
               >
               </select>
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Natgas Blocks disponibles
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="number"
+                placeholder="5"
+                {...register("ngBlocks")} 
+              />
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
@@ -186,28 +197,6 @@ const CompleteProfile = (): JSX.Element => {
             </div>
             <div className="m-4 h-16 ">
               <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Inicio de contrato
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="date"
-                placeholder="Fecha"
-                {...register("contractdate")} 
-              />
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Natgas Blocks disponibles
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="number"
-                placeholder="5"
-                {...register("ngBlocks")} 
-              />
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
                 Días de vacaciones disponibles
               </label>
               <input
@@ -215,6 +204,17 @@ const CompleteProfile = (): JSX.Element => {
                 type="number"
                 placeholder="10"
                 {...register("vacations")} 
+              />
+            </div>
+            <div className="m-4 h-16 ">
+              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+                Inicio de contrato
+              </label>
+              <input
+                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+                type="date"
+                placeholder="Fecha"
+                {...register("contractdate")} 
               />
             </div>
             <div className="m-4 h-16 ">
