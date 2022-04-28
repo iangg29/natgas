@@ -105,7 +105,7 @@ const CardReporte = ({
     try {
       await axios.post(`row/`, {
         value: getValue,
-        date: getDate.toISOString().split("T")[0],
+        date: getDate,
         idReporte,
       });
       await getReports();
@@ -138,7 +138,10 @@ const CardReporte = ({
                 {
                   label: name,
                   data: getRows.map((row) => row.value).reverse(),
-                  backgroundColor: "#43B02A",
+                  backgroundColor: [
+                    "#43B02A",
+                    "#002B49",
+                  ]
                 },
               ],
             }}
