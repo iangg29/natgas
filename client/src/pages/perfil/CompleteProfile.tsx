@@ -254,7 +254,7 @@ const CompleteProfile = (): JSX.Element => {
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 placeholder="Puesto"
-                {...register("address", {
+                {...register("rfc", {
                   required: true
                 })} 
               >
