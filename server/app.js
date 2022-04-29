@@ -88,7 +88,7 @@ app.get('/', (req, res) =>
             'Welcome to the natgas API, try hitting the /API/<yourResource> routes to know more',
     })
 );
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
 app.use(authController.protect);
 app.use(abacController.getRole);
 app.use('/api/banner/', bannerRouter);
