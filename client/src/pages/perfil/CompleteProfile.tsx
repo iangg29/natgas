@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
-import { IDepartment } from "../../shared/interfaces/app.interface";
+import { IDepartment, IEmployment } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import { IEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
@@ -16,10 +16,10 @@ const CompleteProfile = (): JSX.Element => {
     reset,
     formState: { errors },
   } = useForm<IEmployee>();
-  
+
   let { email } = useParams<string>();
 
-  const [employee, setEmployee] = useState<IEmployee>({
+  const [employee, setEmployee] = useState<IEmployment>({
     address: "",
     birthdate: "",
     cellphone: 0,
@@ -35,6 +35,9 @@ const CompleteProfile = (): JSX.Element => {
     updated_at: "",
     vacations: 0,
     verified: false,
+    position: "",
+    departamento: "",
+    contrato: "",
   });
  
   const navigate = useNavigate();
@@ -58,10 +61,10 @@ const CompleteProfile = (): JSX.Element => {
     })();
   },[]);
   
-  const onSubmit: SubmitHandler<IEmployee> = (data: any): void => {
+  const onSubmit: SubmitHandler<IEmployee> = (data: IEmployee): void => {
     (async () => {
       await axios
-        .get(`/user/email/${email}`, data)
+        .patch(`/user/email/${data.email}`, {...data, verified: 1})
         .then((res: AxiosResponse) => {
           reset();
           if (res.data.data.document.size !== 1) {
@@ -91,7 +94,6 @@ const CompleteProfile = (): JSX.Element => {
         });
     })();
   };
-  
 
   return (
     <Page
@@ -211,7 +213,7 @@ const CompleteProfile = (): JSX.Element => {
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
                 placeholder="Departamento"
-                {...register("rfc", {
+                {...register("name", {
                   required: true
                 })} 
               >
@@ -253,7 +255,7 @@ const CompleteProfile = (): JSX.Element => {
               </label>
               <select
                 className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                placeholder="Puesto"
+                placeholder="position"
                 {...register("rfc", {
                   required: true
                 })} 
@@ -330,7 +332,9 @@ const CompleteProfile = (): JSX.Element => {
       <div className="lg:h-30 sm:h-37 flex">
         <div className="m-auto">
           {" "}
-          <button className="primary-button bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two" type="submit">
+          <button className="primary-button bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two" 
+          type="submit"
+          >
             Confirmar registro
           </button>
         </div>
