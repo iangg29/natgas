@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import { iBelong, iEmployee } from "../../shared/interfaces/app.interface";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -50,7 +50,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
     (async () => {
       await Promise.all([
-        axios.patch(`/user/${auth.user.number}`, {
+        axios.patch(`/user/me`, {
           address: data.address,
           birthdate: data.birthdate,
           cellphone: data.cellphone,
@@ -78,21 +78,15 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const [perfil, pertenece] = await Promise.all([
-          axios.get(`/user/email/${auth.user.email}`),
-          axios.get(`/pertenece/email/${auth.user.email}`),
-        ]);
-        setProfile(perfil.data.data.document);
-        setBelong(pertenece.data.data.document);
-      } catch (error: any) {
-        await MySwal.fire({
+      axios.get(`/user/me`).then((res: AxiosResponse) => {
+        setProfile(res.data.data.documents)
+      }).catch(error => {
+        MySwal.fire({
           title: "¡Error!",
           icon: "error",
           text: error.message,
           confirmButtonColor: "#002b49",
-        });
-      }
+        });});
     })();
   }, [auth.user.email]);
 
@@ -153,48 +147,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             </div>
           </div>
           <hr />
-          <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
-            <div className="w-full md:w-1/3">
-              <h4 className="font-gilroy-extrabold">No. Empleado</h4>
-              <span>{auth.user.number}</span>
-            </div>
-            <div className="w-full md:w-1/3">
-              <h4 className="font-gilroy-extrabold">Departamento</h4>
-              <input
-                type="number"
-                defaultValue={belong.idDepartamento}
-                {...register("idDepartamento")}
-                placeholder="Departamento"
-                className="profile-input"
-              />
-            </div>
-            <div className="w-full md:w-1/3">
-              <h4 className="font-gilroy-extrabold">Puesto</h4>
-              <input
-                type="text"
-                defaultValue={belong.position}
-                {...register("position")}
-                placeholder="Puesto"
-                className="profile-input"
-              />
-            </div>
-          </div>
-          <hr />
-          <div className="flex flex-col py-10 text-gray-600 dark:text-gray-200 md:flex-row">
-            <div className="w-full md:w-1/3">
-              <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
-              <input
-                type="date"
-                defaultValue={new Date(auth.user.contractdate)
-                  .toISOString()
-                  .slice(0, -14)}
-                {...register("contractdate")}
-                placeholder="Inicio de contrato"
-                className="profile-input"
-              />
-            </div>
-          </div>
-          <hr />
+
           <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
             <div className="w-full md:w-1/2">
               <button

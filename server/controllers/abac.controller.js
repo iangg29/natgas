@@ -37,11 +37,13 @@ const calcRoles = async (email) => {
  */
 exports.getRole = catchAsync(async (req, res, next) => {
     if (!req.user.verified) {
-        req.roles = ["notVerified"];
+        req.roles = ["notVerified"]
+    }
+    else{
+        req.roles = await calcRoles(req.user.email);
+        next();
     }
 
-    req.roles = await calcRoles(req.user.email);
-    next();
 });
 
 /**
