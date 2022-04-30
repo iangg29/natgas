@@ -25,6 +25,8 @@ const Layout = (props: any): JSX.Element => {
 
   useEffect(() => {
     if (!auth.isLoggedIn) navigate("/login");
+
+    if (!auth.user.verified) navigate(`/app/profile/${auth.user.email}/update`)
   }, [auth, navigate]);
 
   return (

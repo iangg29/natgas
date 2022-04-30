@@ -36,13 +36,10 @@ const calcRoles = async (email) => {
  * A middleware that creates an attribule roles in the req obj to be accessed later.
  */
 exports.getRole = catchAsync(async (req, res, next) => {
-    if (!req.user.verified)
-        return next(
-            new AppError(
-                'Tu perfil no ha sido completado. Vuelve más tarde',
-                401
-            )
-        );
+    if (!req.user.verified) {
+        req.roles = ["notVerified"];
+    }
+
     req.roles = await calcRoles(req.user.email);
     next();
 });
