@@ -13,7 +13,7 @@ type Inputs = {
 
 const Login = (props: any): JSX.Element => {
   const { auth, login } = props;
-  const year = new Date().getFullYear();
+  const year: number = new Date().getFullYear();
   const {
     register,
     handleSubmit,
@@ -56,7 +56,7 @@ const Login = (props: any): JSX.Element => {
                 <input
                   type="email"
                   id="emailInput"
-                  className="rounded-lg border-0 bg-gray-200 focus:outline-0"
+                  className="rounded-lg border-0 bg-gray-200 font-helvetica-regular focus:outline-0"
                   {...register("email", {
                     maxLength: 50,
                     required: true,
@@ -81,7 +81,7 @@ const Login = (props: any): JSX.Element => {
                 <input
                   type="password"
                   id="passwordInput"
-                  className="rounded-lg border-0 bg-gray-200 focus:outline-0"
+                  className="rounded-lg border-0 bg-gray-200 font-helvetica-regular focus:outline-0"
                   {...register("password", {
                     required: true,
                     minLength: 8,
@@ -125,11 +125,6 @@ const Login = (props: any): JSX.Element => {
     </>
   );
 };
-
-/*
- * Recover password btn.
- * <Link to="/password/recover" className="mx-auto font-quicksand-regular text-sm text-natgas-azul hover:underline"> Olvidé mi contraseña </Link>
- * */
 
 const mapStateToProps = (state: any) => {
   return {

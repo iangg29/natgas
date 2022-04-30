@@ -1,15 +1,15 @@
-import React from "react";
-import axios from "axios";
+import React, { useId, useState } from "react";
+import axios, { AxiosResponse } from "axios";
 import Background from "../Background/Background";
-import TitleWhite from "../Title/TitleWhite";
 import { useNavigate } from "react-router-dom";
+import Title from "../Title/Title";
 import {
   BarElement,
   CategoryScale,
   Chart as ChartJS,
   Legend,
   LinearScale,
-  Title,
+  Title as ChartTitle,
   Tooltip,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
@@ -19,26 +19,29 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import { MySwal } from "../../utils/AlertHandler";
 
 type Props = {
-  report: any;
-  deleteFunc: Function;
+  report: {
+    idReporte: number;
+    name: string;
+  };
+  deleteFunc: (id: number) => void;
 };
 
 const CardReporte = ({
   deleteFunc,
   report: { idReporte, name },
 }: Props): JSX.Element => {
-  const [getRows, setRows] = React.useState<any[]>([]);
-  const [getLabels, setLabels] = React.useState<any[]>([]);
-  const [getVisible, setVisible] = React.useState<boolean>(true);
-  const [getValue, setValue] = React.useState<number>(0);
-  const [getDate, setDate] = React.useState<Date>(new Date());
+  const [getRows, setRows] = useState<any[]>([]);
+  const [getLabels, setLabels] = useState<any[]>([]);
+  const [getVisible, setVisible] = useState<boolean>(true);
+  const [getValue, setValue] = useState<number>(0);
+  const [getDate, setDate] = useState<Date>(new Date());
   const navigate = useNavigate();
 
   ChartJS.register(
     CategoryScale,
     LinearScale,
     BarElement,
-    Title,
+    ChartTitle,
     Tooltip,
     Legend,
   );
@@ -65,13 +68,7 @@ const CardReporte = ({
   React.useEffect(() => {
     (async () => {
       try {
-        const rows = await axios.get(`report/getRowsFromReport/${idReporte}`);
-        setRows(rows.data.data.documents);
-        setLabels(
-          rows.data.data.documents
-            .map((row: any) => new Date(row.date).toLocaleDateString())
-            .reverse(),
-        );
+        await getReports();
       } catch (error: any) {
         await MySwal.fire({
           title: "¡Error!",
@@ -83,15 +80,35 @@ const CardReporte = ({
     })();
   }, [idReporte]);
 
+  const getReports = async () => {
+    await axios
+      .get(`report/getRowsFromReport/${idReporte}`)
+      .then((res: AxiosResponse) => {
+        setRows(res.data.data.documents);
+        setLabels(
+          res.data.data.documents
+            .map((row: any) => new Date(row.date).toLocaleDateString())
+            .reverse(),
+        );
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.response.message,
+          confirmButtonColor: "#002b49",
+        });
+      });
+  };
+
   const handleSubmit = async () => {
     try {
       await axios.post(`row/`, {
         value: getValue,
-        date: getDate,
+        date: getDate.toISOString().split("T")[0],
         idReporte,
       });
-      setRows([{ value: getValue }, ...getRows]);
-      setLabels([new Date(getDate).toLocaleDateString(), ...getLabels]);
+      await getReports();
       setDate(new Date());
       setValue(0);
       setVisible(true);
@@ -99,15 +116,17 @@ const CardReporte = ({
       await MySwal.fire({
         title: "¡Error!",
         icon: "error",
-        text: error.response.message,
+        text: error.message,
         confirmButtonColor: "#002b49",
       });
     }
   };
 
+  const id = useId();
+
   return (
     <Background bgColor="bg-[#007DBA] my-20">
-      <TitleWhite title={name} />
+      <Title title={name} white={true} />
       <br />
       <div className="flex items-center justify-center">
         <div className="align-center h-[60vh] w-[80vw] flex-col">
@@ -126,7 +145,7 @@ const CardReporte = ({
           />
         </div>
       </div>
-      <div className="my-10 flex w-full flex-row items-center justify-center">
+      <div className="my-10 flex w-full flex-col items-center justify-center lg:flex-row">
         {" "}
         <div className="m-4">
           <PrimaryButton
@@ -152,7 +171,7 @@ const CardReporte = ({
       {getVisible ? (
         <></>
       ) : (
-        <div className="flex w-full flex-grow flex-col items-center justify-around  lg:flex-row">
+        <div className="flex w-full flex-grow flex-col items-center justify-around lg:flex-row">
           <div className="my-5 w-full lg:mx-5">
             <InputLong
               label="Valor"
@@ -168,7 +187,7 @@ const CardReporte = ({
               setVal={setDate}
             />
           </div>
-          <div className="lg:w-20vw md:10vw my-5">
+          <div className="lg:w-20vw md:10vw my-5" id={`${id}-add-btn`}>
             <PrimaryButton label="Agregar" action={handleSubmit} />
           </div>
         </div>

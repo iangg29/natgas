@@ -1,4 +1,4 @@
-export interface IEmployee {
+export interface iEmployee {
   address: string;
   birthdate: string;
   cellphone: number;
@@ -16,13 +16,13 @@ export interface IEmployee {
   verified: boolean;
 }
 
-export interface IEmployment extends IEmployee {
+export interface iEmployment extends iEmployee {
   position: string;
   departamento: string;
   contrato: string;
 }
 
-export interface IDepartment {
+export interface iDepartment {
   idDepartamento: number;
   name: string;
   created_at: string;
@@ -62,10 +62,16 @@ export interface iNews extends iNewsData {
   updated_at: string;
 }
 
-export interface IBelong {
- idPertenece: number,
- email: string,
- idDepartamento: number,
- position: string,
- updated_at: string;
+export interface iBelong {
+  idPertenece: number;
+  email: string;
+  idDepartamento: number;
+  position: string;
+  updated_at: string;
+}
+
+export interface iAsueto {
+  idAsueto: number;
+  date: string;
+  created_at: string;
 }

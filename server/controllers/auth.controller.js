@@ -5,6 +5,11 @@ const AppError = require('../utils/appError');
 const User = require('./../models/user.model');
 const abacController = require('./abac.controller');
 
+/**
+ * Sign a JWT with the email of a user.
+ * @param {string} email - The email used to sign the token.
+ * @return {string} - A signed jwt
+ */
 const signToken = (email) => {
     return jwt.sign({ email }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
@@ -13,6 +18,13 @@ const signToken = (email) => {
 
 exports.signToken = signToken;
 
+/**
+ * Create a signed JWT and sent it to a user.
+ * @param {Obj} user - The user used to sign the token.
+ * @param {number} statusCode - The status code of the response.
+ * @param {Obj} req - The req object.
+ * @param {Obj} res - The res object.
+ */
 const createSendToken = (user, statusCode, req, res) => {
     const token = signToken(user.email);
     let cookieOptions;
@@ -92,6 +104,9 @@ exports.logout = (req, res, next) => {
     res.status(200).json({ status: 'success' });
 };
 
+/**
+ * Middleware to protect routes to only allow authenticated users to access further middlewares down the pipeline.
+ */
 exports.protect = catchAsync(async (req, res, next) => {
     let token;
     if (req.cookies.jwt) {

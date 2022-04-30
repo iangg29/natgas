@@ -17,6 +17,7 @@ const authState = {
     address: "",
     gender: "",
     contractdate: "",
+    roles: [],
     created_at: "",
     updated_at: "",
   },

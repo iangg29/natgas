@@ -10,16 +10,16 @@ import { Listbox, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import Page from "../../containers/Page";
 import {
-  IDepartment,
-  IEmployment,
+  iDepartment,
+  iEmployment,
 } from "../../shared/interfaces/app.interface";
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import Pagination from "../../components/Inputs/Pagination";
 import { MySwal } from "../../utils/AlertHandler";
 
 const Employees = (): JSX.Element => {
-  const [employees, setEmployees] = useState<IEmployment[]>([]);
-  const [departments, setDepartments] = useState<IDepartment[]>([
+  const [employees, setEmployees] = useState<iEmployment[]>([]);
+  const [departments, setDepartments] = useState<iDepartment[]>([
     {
       idDepartamento: -1,
       name: "Departamento",
@@ -30,7 +30,7 @@ const Employees = (): JSX.Element => {
 
   const [nameSearch, setNameSearch] = useState<string>("");
   const [numberSearch, setNumberSearch] = useState<string>("");
-  const [selectedDepartment, setSelectedDepartment] = useState<IDepartment>(
+  const [selectedDepartment, setSelectedDepartment] = useState<iDepartment>(
     departments[0],
   );
 
@@ -38,7 +38,7 @@ const Employees = (): JSX.Element => {
   const topRef = useRef<any>(null);
   const limit = 25;
 
-  const filterDepartment = (department: IDepartment) => {
+  const filterDepartment = (department: iDepartment) => {
     setSelectedDepartment(department);
   };
 
@@ -62,28 +62,30 @@ const Employees = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const employeesPromise = await axios.get(
+      await axios
+        .get(
           `/user/employment?${
             selectedDepartment.name !== "Departamento"
               ? `departamento_like=${selectedDepartment?.name}&`
               : ""
           }name_like=${nameSearch}&number_like=${numberSearch}&sort=number&limit=${limit}&page=${page}`,
-        );
-        setEmployees(employeesPromise.data.data.documents);
-      } catch (error: any) {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.message,
-          confirmButtonColor: "#002b49",
+        )
+        .then((res: AxiosResponse) => {
+          setEmployees(res.data.data.documents);
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
         });
-      }
     })();
   }, [page, nameSearch, numberSearch, selectedDepartment]);
 
   return (
-    <Page title="Empleados" headTitle="Empleados" padding={false}>
+    <Page title="Empleados" headTitle="Empleados" padding={true}>
       <h2 className="text-lg font-semibold">Buscar empleados</h2>
       <div
         className="mt-5 grid grid-cols-1 content-center items-center space-y-2 md:grid-cols-3 md:space-y-0"
@@ -108,7 +110,7 @@ const Employees = (): JSX.Element => {
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {departments?.map((department: IDepartment, idx: number) => (
+                  {departments?.map((department: iDepartment, idx: number) => (
                     <Listbox.Option
                       key={idx}
                       className={({ active }) =>
@@ -176,8 +178,8 @@ const Employees = (): JSX.Element => {
         </div>
       </div>
       <hr className="my-10 rounded border-2 bg-natgas-gris-cool text-natgas-gris-cool dark:border-gray-600" />
-      <div className="mt-10 grid grid-cols-1 gap-2 text-gray-50 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-        {employees?.map((employee: IEmployment, idx: number) => (
+      <div className="my-10 grid grid-cols-1 gap-2 text-gray-50 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+        {employees?.map((employee: iEmployment, idx: number) => (
           <div
             key={idx}
             className="w-full rounded-lg bg-natgas-azul text-center shadow"

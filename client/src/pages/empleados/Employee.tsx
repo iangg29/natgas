@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { iEmployee } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import Stats from "../../components/Profile/Stats";
 import { MySwal } from "../../utils/AlertHandler";
@@ -9,7 +9,7 @@ import { MySwal } from "../../utils/AlertHandler";
 const Employee = (): JSX.Element => {
   const { number } = useParams<string>();
 
-  const [employee, setEmployee] = useState<IEmployee>({
+  const [employee, setEmployee] = useState<iEmployee>({
     address: "",
     birthdate: "",
     cellphone: 0,

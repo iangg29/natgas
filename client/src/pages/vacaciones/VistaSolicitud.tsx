@@ -14,8 +14,8 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/mypendingvacationrequests/${auth.user.email}`),
-          axios.get(`/natgasblock/mypendingngbrequests/${auth.user.email}`),
+          axios.get(`/vacation/mypendingvacationrequests/`),
+          axios.get(`/natgasblock/mypendingngbrequests/`),
         ]);
 
         setVacations(myVacations.data.vacationrequests);
@@ -101,7 +101,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
       <Page title="Vacaciones" headTitle="Vacaciones" padding={true}>
         <div className=" grid  grid-cols-1 gap-5 py-10 lg:grid-cols-2 xl:grid-cols-3">
           {getVacations?.length > 0 ? (
-            getVacations?.map((vac) => (
+            getVacations?.map((vac: any, idx: number) => (
               <CardSolicitudVac
                 id={vac.id}
                 approve={approveVac}
@@ -110,6 +110,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
                 department={vac.departamento}
                 dateinit={new Date(vac.startdate).toLocaleDateString()}
                 datefin={new Date(vac.enddate).toLocaleDateString()}
+                key={idx}
               />
             ))
           ) : (
@@ -122,7 +123,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
       <Page title="NatGas Blocks" headTitle="NatGas Blocks" padding={true}>
         <div className=" grid  gap-5 py-10 md:grid-cols-1  lg:grid-cols-2 xl:grid-cols-3">
           {getNatgasBlocks?.length > 0 ? (
-            getNatgasBlocks?.map((ngb) => (
+            getNatgasBlocks?.map((ngb: any, idx: number) => (
               <CardSolicitud
                 id={ngb.id}
                 name={ngb.name + " " + ngb.lastname}
@@ -130,6 +131,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
                 date={new Date(ngb.date).toLocaleDateString()}
                 turn={ngb.turn ? "Segunda mitad" : "Primera mitad"}
                 approve={approveNGB}
+                key={idx}
               />
             ))
           ) : (

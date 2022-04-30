@@ -26,7 +26,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsOpen(false);
   };
 
@@ -51,6 +51,12 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
             .then((res: AxiosResponse) => {
               const newData: iRange = res.data.data.new[0];
               setRanges([...ranges, newData]);
+              MySwal.fire({
+                title: "¡Creado!",
+                icon: "success",
+                text: "Se ha creado un nuevo rango.",
+                confirmButtonColor: "#002b49",
+              });
             })
             .catch((error) => {
               MySwal.fire({
@@ -79,6 +85,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
       <button
         type="button"
         onClick={openModal}
+        id="create-new-range"
         className="rounded-md bg-natgas-verde px-4 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       >
         <PlusCircleIcon className="h-5 w-5" />
@@ -117,7 +124,10 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-natgas-azul p-6 text-left align-middle text-gray-50 shadow-xl transition-all">
+              <div
+                className="my-8 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-natgas-azul p-6 text-left align-middle text-gray-50 shadow-xl transition-all"
+                id="createRangeModal"
+              >
                 <Dialog.Title
                   as="h3"
                   className="text-xl font-bold leading-6 text-gray-100"
@@ -129,6 +139,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
                     <input
                       type="number"
                       min={0}
+                      id="minimumInput"
                       placeholder="Valor mínimo..."
                       className="modal-input"
                       {...register("minimum", {
@@ -143,6 +154,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
                     <input
                       type="number"
                       min={0}
+                      id="maximumInput"
                       {...register("maximum", {
                         required: true,
                       })}
@@ -157,6 +169,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
                     <input
                       type="number"
                       min={0}
+                      id="daysInput"
                       {...register("days", {
                         required: true,
                       })}
@@ -172,6 +185,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
                   <div className="mt-4 text-right">
                     <button
                       type="submit"
+                      id="createRangeTrigger"
                       className="inline-flex justify-center rounded-md border border-transparent bg-natgas-azul-claro px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-natgas-azul focus-visible:ring-offset-2"
                     >
                       Crear

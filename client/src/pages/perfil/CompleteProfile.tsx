@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { IDepartment, IEmployment } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
-import { IEmployee } from "../../shared/interfaces/app.interface";
+import { iEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
 import Title from "../../components/Title/Title";
 
@@ -20,6 +20,7 @@ const CompleteProfile = (): JSX.Element => {
   let { email } = useParams<string>();
 
   const [employee, setEmployee] = useState<IEmployment>({
+
     address: "",
     birthdate: "",
     cellphone: 0,

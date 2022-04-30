@@ -6,7 +6,6 @@ const CompleteProfile = lazy(() => import("../pages/perfil/CompleteProfile"));
 const ActualizaPerfil = lazy(() => import("../pages/perfil/ActualizaPerfil"));
 const Employees = lazy(() => import("../pages/empleados/Employees"));
 const Employee = lazy(() => import("../pages/empleados/Employee"));
-const SolicitarVac = lazy(() => import("../pages/vacaciones/SolicitarVac"));
 const VistaSolicitud = lazy(() => import("../pages/vacaciones/VistaSolicitud"));
 const MisSolicitudes = lazy(() => import("../pages/perfil/MisSolicitudes"));
 const Blog = lazy(() => import("../pages/blog/Blog"));
@@ -33,10 +32,6 @@ const routes: IRoute[] = [
   {
     path: "/dashboard",
     component: Dashboard,
-  },
-  {
-    path: "/vacations/request",
-    component: SolicitarVac,
   },
   {
     path: "/vacations/ranges",
@@ -71,11 +66,7 @@ const routes: IRoute[] = [
     component: MisSolicitudes,
   },
   {
-    path: "/vacations/search",
-    component: BuscarVacaciones,
-  },
-  {
-    path: "/reports/",
+    path: "/reports",
     component: Reportes,
   },
   {

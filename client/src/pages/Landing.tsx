@@ -29,7 +29,7 @@ const Landing = (): JSX.Element => {
                   <div className="grid place-items-center">
                     <Link
                       to="/login"
-                      className="block inline-flex w-auto items-center rounded-full bg-natgas-azul py-3 px-8 text-xs leading-none text-gray-50 shadow-lg sm:text-sm"
+                      className="block inline-flex w-auto items-center rounded-full bg-natgas-azul py-3 px-8 text-xs leading-none text-gray-50 sm:text-sm"
                     >
                       Iniciar Sesión
                     </Link>

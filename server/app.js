@@ -20,7 +20,7 @@ const rangosVacacionesRouter = require('./routes/rangovacaciones.routes');
 const authRouter = require('./routes/auth.routes');
 const newsRouter = require('./routes/news.routes');
 const asuetoRouter = require('./routes/asueto.routes');
-const belongRouter = require('./routes/pertenece.route');
+const belongRouter = require('./routes/pertenece.routes');
 
 // MIDDLEWARES
 const authController = require('./controllers/auth.controller');
@@ -89,8 +89,8 @@ app.get('/', (req, res) =>
     })
 );
 app.use('/auth', authRouter);
-// app.use(authController.protect);
-// app.use(abacController.getRole);
+app.use(authController.protect);
+app.use(abacController.getRole);
 app.use('/api/banner/', bannerRouter);
 app.use('/api/blog/', blogRouter);
 app.use('/api/user/', userRouter);

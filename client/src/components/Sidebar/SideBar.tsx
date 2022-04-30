@@ -1,4 +1,4 @@
-import { LogoutIcon, UserIcon } from "@heroicons/react/solid";
+import { LogoutIcon, MenuIcon, ChartPieIcon, NewspaperIcon, UserIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
@@ -13,8 +13,8 @@ const SideBar = (props: any): JSX.Element => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex-gray focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-gray-100">
-          <FaBars />
+        <Menu.Button className="inline-flex-gray focus:outline-none text-white hover:text-natgas-azul-claro">
+          <MenuIcon className="h-8 w-8" />
         </Menu.Button>
       </div>
 
@@ -55,7 +55,7 @@ const SideBar = (props: any): JSX.Element => {
           </div>
           <Toggler />
           <div className="px-1 py-1 ">
-            <Link to="/app/reports/">
+            <Link to="/app/reports">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -64,7 +64,14 @@ const SideBar = (props: any): JSX.Element => {
                         ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
                         : "text-gray-900 dark:text-gray-100"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
+                  >{active ? (
+                    <ChartPieIcon
+                      className="mr-2 h-5 w-5 text-natgas-azul-claro dark:text-natgas-azul"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <ChartPieIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                  )}
                     Reporte mensual
                   </button>
                 )}
@@ -81,7 +88,14 @@ const SideBar = (props: any): JSX.Element => {
                         ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
                         : "text-gray-900 dark:text-gray-100"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >
+                  >{active ? (
+                    <NewspaperIcon
+                      className="mr-2 h-5 w-5 text-natgas-azul-claro dark:text-natgas-azul"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <NewspaperIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                  )}
                     Blog
                   </button>
                 )}
