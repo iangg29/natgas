@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
-import { IDepartment, IEmployment } from "../../shared/interfaces/app.interface";
+import { iDepartment, iEmployment } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import { iEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
@@ -15,11 +15,11 @@ const CompleteProfile = (): JSX.Element => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<IEmployee>();
+  } = useForm<iEmployee>();
 
   let { email } = useParams<string>();
 
-  const [employee, setEmployee] = useState<IEmployment>({
+  const [employee, setEmployee] = useState<iEmployment>({
 
     address: "",
     birthdate: "",
@@ -44,7 +44,7 @@ const CompleteProfile = (): JSX.Element => {
   const navigate = useNavigate();
 
   //const [employees, setEmployees] = useState<IEmployment[]>([]);
-  const [departments, setDepartments] = useState<IDepartment[]>([]);
+  const [departments, setDepartments] = useState<iDepartment[]>([]);
 
   useEffect(() =>{
     (async() => {
@@ -62,7 +62,7 @@ const CompleteProfile = (): JSX.Element => {
     })();
   },[]);
   
-  const onSubmit: SubmitHandler<IEmployee> = (data: IEmployee): void => {
+  const onSubmit: SubmitHandler<iEmployee> = (data: iEmployee): void => {
     (async () => {
       await axios
         .patch(`/user/email/${data.email}`, {...data, verified: 1})
