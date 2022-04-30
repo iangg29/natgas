@@ -21,6 +21,7 @@ const ViewBlog = lazy(() => import("../pages/blog/ViewBlog"));
 const EditBlog = lazy(() => import("../pages/blog/EditBlog"));
 const ReportsForm = lazy(() => import("../pages/reports/FormReport"));
 const EditReports = lazy(() => import("../pages/reports/EditReport"));
+const RegistrosPendientes = lazy(() => import("../pages/perfil/RegistrosPendientes"));
 
 export type IRoute = {
   path: string;
@@ -103,6 +104,10 @@ const routes: IRoute[] = [
   {
     path: "/profile/me",
     component: ActualizaPerfil,
+  },
+  {
+    path: "/pending/profiles",
+    component: RegistrosPendientes ,
   },
 ];
 
