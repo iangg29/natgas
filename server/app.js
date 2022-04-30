@@ -26,6 +26,9 @@ const belongRouter = require('./routes/pertenece.routes');
 const authController = require('./controllers/auth.controller');
 const abacController = require('./controllers/abac.controller');
 
+// CRON TASKS
+const User = require('./models/user.model');
+
 // APP ERROR
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -113,6 +116,9 @@ app.all('*', (req, res, next) => {
     );
     next(error);
 });
+
+// CRON TASKS
+// User.createUserNGBUpdateTask();
 
 app.use(globalErrorHandler);
 

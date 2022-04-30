@@ -1,6 +1,6 @@
 const db = require('../db/database');
 const Base = require('./base.model');
-const { createBlogDeleteTask } = require('../controllers/cron.controller');
+const cron = require('node-cron');
 const AppError = require('../utils/appError');
 
 module.exports = class Blog extends Base {
@@ -18,7 +18,7 @@ module.exports = class Blog extends Base {
     }
 
     async save() {
-        const previous = await db(tableName).where({
+        const previous = await db(this.tableName).where({
             slug: this.slug,
         });
         if (previous.length > 0)
@@ -37,7 +37,23 @@ module.exports = class Blog extends Base {
             })
             .into(this.tableName);
 
-        createBlogDeleteTask(idBlogPost, this.date);
+        // CREATE A DELETE DATE IN THE FUTURE
+        const deleteDate = new Date(
+            new Date(this.date).getDate() + 1000 * 60 * 60 * 24 * 30 * 2
+        );
+
+        const cronExpr = `${deleteDate.getMinutes()} ${deleteDate.getHours()} ${deleteDate.getDate()} ${deleteDate.getMonth()} ${deleteDate.getDay()}`;
+
+        // SET CRON
+        cron.schedule(
+            cronExpr,
+            async function () {
+                await Blog.deleteOne('idBlogPost', idBlogPost);
+
+                console.log('Destroyed Blog: ', idBlogPost);
+            },
+            false
+        );
 
         return db.select('*').from(this.tableName).where({
             idBlogPost,
