@@ -1,15 +1,20 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React, {useEffect} from 'react';
+import {connect} from "react-redux";
 
 type Props = {
-    children: JSX.Element;
+    children: JSX.Element | JSX.Element[];
     required_role: string;
     auth: any;
 }
 
-const AbacContainer = ({children, required_role, auth}:Props) : JSX.Element => {
+const AbacContainer = ({children, required_role, auth}: Props): JSX.Element => {
     const {user: {roles}} = auth;
-    return(
+
+    useEffect(() => {
+        console.log(roles);
+    });
+
+    return (
         <>
             {roles.includes(required_role) ? children : <div></div>}
         </>
@@ -23,7 +28,6 @@ const mapStateToProps = (state: any) => {
         auth: state.authState,
     };
 };
-
 
 
 export default connect(mapStateToProps)(AbacContainer);
