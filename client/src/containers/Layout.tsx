@@ -6,6 +6,7 @@ import routes, { IRoute } from "../routes";
 import Header from "../components/Header/Header";
 import Error404 from "../pages/404";
 import { connect } from "react-redux";
+import {MySwal} from "../utils/AlertHandler";
 
 const Layout = (props: any): JSX.Element => {
   const { auth } = props;
@@ -25,6 +26,16 @@ const Layout = (props: any): JSX.Element => {
 
   useEffect(() => {
     if (!auth.isLoggedIn) navigate("/login");
+
+    if (!auth.user.verified){
+      MySwal.fire({
+        title: "Cuenta no verificada",
+        icon: "warning",
+        text: "Su cuenta aun no ha sido verificada, por favor ingrese los siguientes datos y espere a que Recursos Humanos verifique su cuenta.",
+        confirmButtonColor: "#002b49",
+      })
+      navigate(`/app/profile/me`)
+    }
   }, [auth, navigate]);
 
   return (

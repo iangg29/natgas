@@ -28,7 +28,7 @@ const Signup = (): JSX.Element => {
   const onSubmit: SubmitHandler<Inputs> = (data: any): void => {
     (async () => {
       await axios
-        .post("/user", data)
+        .post("/auth/signup", data)
         .then(() => {
           reset();
           MySwal.fire({

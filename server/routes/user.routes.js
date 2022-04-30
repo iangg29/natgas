@@ -7,9 +7,13 @@ const router = express.Router();
 
 router.route('/employment').get(userController.getAllUserEmploymentDetails);
 router
+    .route('/me')
+    .get(userController.getMe)
+    .patch(userController.updateMe)
+router
     .route('/employment/:id')
     .get(userController.getOneUsersEmploymentDetails);
-router.use(abacController.limitRole('HR'), makeFieldsPrivate(User, 'password', 'created_at', 'updated_at'));
+router.use( abacController.limitRole('HR'), makeFieldsPrivate(User, 'password', 'created_at', 'updated_at'));
 router.route('/').get(userController.getUsers).post(userController.createUser);
 router
     .route('/:id')
