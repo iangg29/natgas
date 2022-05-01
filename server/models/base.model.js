@@ -70,7 +70,7 @@ class Base {
      * @return {obj} - A knex queryobj that will get the new value.
      */
     static async updateAll(body) {
-        return await db(this.table).update(body).where();
+        return await db(this.table).update(body);
     }
 
     /**
