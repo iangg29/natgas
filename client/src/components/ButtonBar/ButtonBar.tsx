@@ -54,14 +54,30 @@ const ButtonBar = (): JSX.Element => {
               </Link>
             </div>
             <div className="w-full md:w-1/3">
-              <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
-                Registros
-              </button>
+              <Link to="/app/pending/profiles">
+                <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
+                  Registros
+                </button>
+              </Link>
             </div>
             <div className="w-full md:w-1/3">
               <Link to="/app/employees">
-                <button className="general-btn border-natgas-azul-claro bg-natgas-azul-claro text-white hover:bg-transparent hover:text-natgas-azul dark:hover:text-natgas-azul-claro">
+                <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
                   Empleados
+                </button>
+              </Link>
+            </div>
+            <div className="w-full md:w-1/3">
+              <Link to="/app/vacations/ranges">
+                <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
+                  Intervalos vacaciones
+                </button>
+              </Link>
+            </div>
+            <div className="w-full md:w-1/3">
+              <Link to="/app/asuetos">
+                <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
+                  Asuetos
                 </button>
               </Link>
             </div>

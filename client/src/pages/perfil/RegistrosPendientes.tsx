@@ -12,7 +12,7 @@ const RegistrosPendientes = (): JSX.Element => {
     useEffect(() => {
         (async () => {
             try {
-                await axios.get(`/user/employment?verified=0`).then(res => {
+                await axios.get(`/user/?verified=0`).then(res => {
                     setPendingRegisters(res.data.data.documents);
                 }).catch(error => {
                     MySwal.fire({
@@ -38,7 +38,7 @@ const RegistrosPendientes = (): JSX.Element => {
     }
 
     return (
-        <>
+        <div className='m-10'>
             <div className="mt-4"><Title title="Registros pendientes"/></div>
             <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
                 {pendingRegisters.length > 0 ? (
@@ -55,7 +55,7 @@ const RegistrosPendientes = (): JSX.Element => {
                 )}
 
             </div>
-        </>
+        </div>
 
     );
 }
