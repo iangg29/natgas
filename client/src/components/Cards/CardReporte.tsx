@@ -105,7 +105,7 @@ const CardReporte = ({
     try {
       await axios.post(`row/`, {
         value: getValue,
-        date: getDate.toISOString().split("T")[0],
+        date: getDate,
         idReporte,
       });
       await getReports();
@@ -138,7 +138,10 @@ const CardReporte = ({
                 {
                   label: name,
                   data: getRows.map((row) => row.value).reverse(),
-                  backgroundColor: "#43B02A",
+                  backgroundColor: [
+                    "#43B02A",
+                    "#002B49",
+                  ]
                 },
               ],
             }}
@@ -172,7 +175,7 @@ const CardReporte = ({
         <></>
       ) : (
         <div className="flex w-full flex-grow flex-col items-center justify-around lg:flex-row">
-          <div className="my-5 w-full lg:mx-5">
+          <div className="my-5 w-full lg:mx-5 -mt-3">
             <InputLong
               label="Valor"
               placeholder="number"
@@ -180,7 +183,7 @@ const CardReporte = ({
               setVal={setValue}
             />
           </div>
-          <div className="my-5 w-full lg:mx-5">
+          <div className="my-5 w-full lg:mx-5 -mt-3">
             <DateInputLong
               label="Fecha"
               getVal={new Date(getDate).toISOString().split("T")[0]}
@@ -189,6 +192,9 @@ const CardReporte = ({
           </div>
           <div className="lg:w-20vw md:10vw my-5" id={`${id}-add-btn`}>
             <PrimaryButton label="Agregar" action={handleSubmit} />
+          </div>
+          <div>
+            <button className="general-btn border-red-600 bg-red-600 ml-2 py-3 px-16" onClick={() => setVisible(!getVisible)} >Cancelar</button>
           </div>
         </div>
       )}
