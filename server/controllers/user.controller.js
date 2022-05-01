@@ -12,7 +12,25 @@ exports.createUser = base.createOne(User);
 exports.updateUser = base.updateOne(User, 'number');
 exports.deleteUser = base.deleteOne(User, 'number');
 
-exports.getAllUserEmploymentDetails = base.getAll(UserEmployment);
+exports.getAllUserEmploymentDetails = catchAsync(async (req, res, next) => {
+    let documents = await UserEmployment.getAll(req.query);
+    let employees = new Set();
+
+    documents.sort((a, b) => b.date - a.date);
+    documents = documents.filter((el) => {
+        if (!employees.has(el.email)) {
+            employees.add(el.email);
+            return el;
+        }
+    });
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            documents,
+        },
+    });
+});
 exports.getOneUsersEmploymentDetails = base.getOne(UserEmployment, 'email');
 
 exports.getMe = catchAsync(async (req, res, next) => {
@@ -67,4 +85,3 @@ exports.updateMyPassword = catchAsync(async () => {
         },
     });
 });
-
