@@ -15,14 +15,7 @@ const ButtonBar = (): JSX.Element => {
           axios.get("/natgasblock/mypendingngbrequests/"),
         ]);
         setCount(vacations.data.results + ngblocks.data.results);
-      } catch (error: any) {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.message,
-          confirmButtonColor: "#002b49",
-        });
-      }
+      } catch (error: any){}
     })();
   }, []);
 
