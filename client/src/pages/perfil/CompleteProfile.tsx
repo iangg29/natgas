@@ -7,50 +7,54 @@ import Page from "../../containers/Page";
 import { iEmployee } from "../../shared/interfaces/app.interface";
 import { MySwal } from "../../utils/AlertHandler";
 import Title from "../../components/Title/Title";
+import InputLong from "../../components/Inputs/InputLong";
+import Input from "../../components/Inputs/Input";
+import DateInputLong from "../../components/Inputs/DateInputLong";
+import PrimaryButton from "../../components/Buttons/PrimaryButton";
+import DateInput from "../../components/Inputs/DateInput";
+import ButtonLight from "../../components/Buttons/buttonLight";
+import { Link } from "react-router-dom";
+import Employee from "../empleados/Employee";
 
-const CompleteProfile = (): JSX.Element => {
+
+const CompleteProfile = ({ auth }: any): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<iEmployee>();
 
   let { email } = useParams<string>();
-
-  const [employee, setEmployee] = useState<iEmployment>({
-
-    address: "",
-    birthdate: "",
-    cellphone: 0,
-    contractdate: "",
-    created_at: "",
-    email: "",
-    gender: "",
-    lastname: "",
-    name: "",
-    ngBlocks: 0,
-    number: 0,
-    rfc: "",
-    updated_at: "",
-    vacations: 0,
-    verified: false,
-    position: "",
-    departamento: "",
-    contrato: "",
-  });
- 
+  const [employee, setEmployee] = useState<any>({});
+  const [departments, setDepartments] = useState<iDepartment[]>([]);
+  const [pertenece, setPertenece] = useState<any>({ email: "", idDepartamento: 1, position: "Especialista", date: new Date()});
   const navigate = useNavigate();
 
   //const [employees, setEmployees] = useState<IEmployment[]>([]);
-  const [departments, setDepartments] = useState<iDepartment[]>([]);
 
   useEffect(() =>{
-    (async() => {
-      await axios.get('/department/').then((res: AxiosResponse)  => {
+    (() => {
+      axios.get('/department/').then((res: AxiosResponse)  => {
         setDepartments(res.data.data.documents);
-
+      }).catch(error => {
+          MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      }); 
+      axios.get(`/user/email/${email}`).then((res: AxiosResponse)  => {
+        const user = res.data.data.document[0];
+        if(user.verified) {
+            MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: "Este usuario ya ha sido verificado",
+            confirmButtonColor: "#002b49",
+          });
+          navigate("/app/employees");
+        }
+        const birthdate = user.birthdate ? new Date(user.birthdate.split('T')[0]) : new Date()
+        const contractdate = user.contractdate ? new Date(user.contractdate.split('T')[0]) : new Date()
+        setEmployee({...user,  contractdate, birthdate});
+        setPertenece({...pertenece, email: user.email})
       }).catch(error => {
           MySwal.fire({
           title: "¡Error!",
@@ -60,288 +64,135 @@ const CompleteProfile = (): JSX.Element => {
         });
       }); 
     })();
-  },[]);
+  },[auth]);
   
-  const onSubmit: SubmitHandler<iEmployee> = (data: iEmployee): void => {
-    (async () => {
-      await axios
-        .patch(`/user/email/${data.email}`, {...data, verified: 1})
-        .then((res: AxiosResponse) => {
-          reset();
-          if (res.data.data.document.size !== 1) {
-            navigate("/app/employees");
-            return;
-          }
-          if (res.data.data.document[0].verified) {
-            MySwal.fire({
-              title: "¡Error!",
-              icon: "error",
-              text: "El usuario ya ha sido verificado.",
-              confirmButtonColor: "#002b49",
-            }).then(() => {
-              navigate("/app/employees");
-              return;
-            });
-          }
-          setEmployee(res.data.data.document[0]);
-        })
-        .catch((error) => {
-          MySwal.fire({
-            title: "¡Error!",
-            icon: "error",
-            text: error.message,
-            confirmButtonColor: "#002b49",
-          });
+  const onSubmit = (): void => { 
+   (async () => {
+    await Promise.all([
+      axios.patch(`/user/${employee.number}`, {
+        address: employee.address,
+        birthdate: employee.birthdate,
+        ngblocks: employee.ngBlocks,
+        vacations: employee.vacations,
+        contractdate: employee.contractdate,
+        rfc: employee.rfc,
+        verified: 1,
+      }),
+      axios.post(`/pertenece/`, {
+        idDepartamento: pertenece.idDepartamento,
+        position: pertenece.position,
+        email: employee.email,
+        date: pertenece.date,
+      }),
+    ])
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
         });
-    })();
-  };
-
+      })
+      .finally(() => {
+        navigate("/app/employees");
+      });
+  })();
+};
+  
   return (
     <Page
-      title={`Completar perfil (${email})`}
+      title={`Completar perfil : ${employee.name} ${employee.lastname}`}
       headTitle="Completar perfil"
       padding={true}
-    >
-      <h1>{employee.email}</h1>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="py-10">
-      <Title title={`Datos personales - ${email}`}/>
-        <div className="">
-          <div className="grid grid-cols-2  gap-4">
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                RFC
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="text"
-                placeholder="RFC"
-                {...register("rfc", {
-                  required: true
-                })} 
-              />
-              {errors.rfc?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Teléfono
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="text"
-                placeholder="Teléfono"
-                {...register("cellphone", {
-                  required: true
-                })} 
-              />
-              {errors.rfc?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Dirección
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="text"
-                placeholder="Dirección"
-                {...register("address", {
-                  required: true
-                })} 
-              />
-              {errors.address?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Género
-              </label>
-              <select
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                placeholder="Género"
-                {...register("gender", {
-                  required: true
-                })} 
-              >
-                <option value="hombre">Hombre</option>
-                <option value="mujer">Mujer</option>
-              </select>
-              {errors.gender?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Fecha de nacimiento
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="date"
-                placeholder="Fecha"
-                {...register("birthdate", {
-                  required: true
-                })} 
-              />
-              {errors.birthdate?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
+    > 
+    <div className="font-gilroy-light">
+    <hr />
+      <Title title="Datos personales"/>
+      <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+      <div className="w-full md:w-1/3">
+      <InputLong label="Numero de vacaciones" getVal={employee.vacations} setVal={(val: number) => setEmployee({...employee, vacations: val})} placeholder="Dias de vacaciones"/>
       </div>
-      <div className="py-10">
-        <div className="">
-        <Title title="Registro empresarial"/>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Departamento
-              </label>
-              <select
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                placeholder="Departamento"
-                {...register("name", {
-                  required: true
-                })} 
-              >
-              {departments?.length > 0 ? (
-                departments?.map((card) => (
-                  <option value={card.name}> {card.name} </option>
-                ))
-              ) : (
-                <p>No hay departamentos disponibles</p>
-              )}
-              </select>
-              {errors.rfc?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Natgas Blocks disponibles
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="number"
-                placeholder="5"
-                {...register("ngBlocks", {
-                required: true
-                })} 
-              />
-              {errors.ngBlocks?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Puesto
-              </label>
-              <select
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                placeholder="position"
-                {...register("rfc", {
-                  required: true
-                })} 
-              >
-                <option value="analista">Analista</option>
-                <option value="especialista">Especialista</option>
-                <option value="gerencia">Gerencia</option>
-                <option value="direccion">Dirección</option>
-                <option value="coordinacion">Coordinación</option>
-              </select>
-              {errors.birthdate?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Días de vacaciones disponibles
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="number"
-                placeholder="10"
-                {...register("vacations", {
-                  required: true
-                })} 
-              />
-              {errors.vacations?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Inicio de contrato
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="date"
-                placeholder="Fecha"
-                {...register("contractdate", {
-                  required: true
-                })} 
-              />
-              {errors.contractdate?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-            <div className="m-4 h-16 ">
-              <label className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
-                Días de vacaciones ganados
-              </label>
-              <input
-                className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
-                type="number"
-                placeholder="5"
-                {...register("vacations", {
-                  required: true
-                })} 
-              />
-              {errors.vacations?.type === "required" && (
-                <span className="text-xs text-red-700">
-                  Debes llenar este campo.
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
+      <div className="w-full md:w-1/3">
+      <InputLong label="Numero de natgas blocks" getVal={employee.ngBlocks} setVal={(val: number) => setEmployee({...employee, ngBlocks: val})} placeholder="Dias de natgas blocks"/>
       </div>
-      <div className="lg:h-30 sm:h-37 flex">
-        <div className="m-auto">
-          {" "}
-          <button className="primary-button bg-gradient-to-r from-natgas-sec-one to-natgas-sec-two" 
-          type="submit"
-          >
-            Confirmar registro
-          </button>
-        </div>
+      <div className="w-full md:w-1/3">
+      <InputLong label="RFC" getVal={employee.rfc} setVal={(val: any) => setEmployee({...employee, rfc: val})} placeholder="RFC"/>
       </div>
-    </form>
-    </Page>
+      </div>
+      <div className="flex flex-col space-y-6 py-1 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+      <div className="w-full">
+      <InputLong label="Dirección" getVal={employee.address} setVal={(val: any) => setEmployee({...employee, address: val})} placeholder="Dirección"/>
+      </div>
+      </div>
+      <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+      <div className="w-full md:w-1/2">
+      <DateInputLong label="Fecha de nacimiento" getVal={employee.birthdate?.toISOString().split('T')[0]} setVal={(val: any) => setEmployee({...employee, birthdate: val})}/>
+      </div>
+      <div className="w-full md:w-1/2">
+      <DateInputLong label="Fecha de inicio de contrato" getVal={employee.contractdate?.toISOString().split('T')[0]} setVal={(val: any) => setEmployee({...employee, contractdate: val})}/>
+      </div>
+      </div>
+      <hr />
+      <Title title="Datos laborales"/>
+      <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+      <div className="w-full md:w-1/2">
+      <div className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+        Departamento
+      </div>
+      <select
+        className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+        placeholder="Departamento"
+        value={pertenece.idDepartamento}
+        onChange={(e) => setPertenece({...pertenece, idDepartamento: e.target.value})}
+      >
+        {departments?.length > 0 ? (
+          departments?.map((card) => (
+            <option value={card.idDepartamento}> {card.name} </option>
+          ))
+        ) : (
+          <p>No hay departamentos disponibles</p>
+        )}
+      </select>
+      </div>
+      <div className="w-full md:w-1/2">
+      <div className="text-md mb-2 font-bold text-gray-700 dark:text-gray-300">
+        Posición
+      </div>
+      <select
+        className="input-general w-full dark:border-0 dark:bg-gray-600 dark:placeholder-gray-200"
+        placeholder="Posicion"
+        value={pertenece.position}
+        onChange={(e) => setPertenece({...pertenece, position: e.target.value})}
+      >
+        <option value="Analista">Analista</option>
+        <option value="Especialista">Especialista</option>
+        <option value="Gerencia">Gerencia</option>
+        <option value="Direccion">Dirección</option>
+        <option value="Coordinacion">Coordinación</option>
+      </select>
+      </div>
+      </div>
+      <div className="flex flex-col space-y-6 py-2 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+      <div className="w-full ">
+      <DateInputLong label="Fecha de inicio de trabajo en el departamento" getVal={pertenece.date?.toISOString().split('T')[0]} setVal={(val: any) => setPertenece({...employee, date: val})}/>
+      </div>
+      </div>
+      <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
+      <div className="w-full md:w-1/2">
+      <ButtonLight action={onSubmit} label="Completar Perfil"/>
+      </div>
+      <div className="w-full md:w-1/2 py-3">
+              <Link
+                to="/app/employees"
+                className="rounded-full border-2 border-natgas-verde px-8 py-3 hover:bg-natgas-verde hover:text-white"
+              >
+                Cancelar
+              </Link>
+            </div>
+      </div>
+      </div>
+
+     </Page>
   );
 };
 
