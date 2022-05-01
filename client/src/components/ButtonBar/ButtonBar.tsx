@@ -11,8 +11,8 @@ const ButtonBar = (): JSX.Element => {
     (async () => {
       try {
         const [vacations, ngblocks] = await Promise.all([
-          axios.get("/vacation?verifiedleader=0"),
-          axios.get("/natgasblock?status=0"),
+          axios.get("/vacation/mypendingvacationrequests/"),
+          axios.get("/natgasblock/mypendingngbrequests/"),
         ]);
         setCount(vacations.data.results + ngblocks.data.results);
       } catch (error: any) {
