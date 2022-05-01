@@ -27,7 +27,7 @@ const authController = require('./controllers/auth.controller');
 const abacController = require('./controllers/abac.controller');
 
 // CRON TASKS
-const User = require('./models/user.model');
+const { createUserNGBUpdateTask } = require('./controllers/cron.controller');
 
 // APP ERROR
 const AppError = require('./utils/appError');
@@ -118,7 +118,7 @@ app.all('*', (req, res, next) => {
 });
 
 // CRON TASKS
-// User.createUserNGBUpdateTask();
+createUserNGBUpdateTask();
 
 app.use(globalErrorHandler);
 

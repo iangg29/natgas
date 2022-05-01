@@ -2,7 +2,6 @@ const db = require('../db/database');
 const Base = require('./base.model');
 const bcrypt = require('bcryptjs');
 const AppError = require('../utils/appError');
-const cron = require('node-cron');
 
 module.exports = class User extends Base {
     static table = 'perfil';
@@ -44,15 +43,5 @@ module.exports = class User extends Base {
 
     static async correctPassword(candidatePassword, userPassword) {
         return await bcrypt.compare(candidatePassword, userPassword);
-    }
-
-    static createUserNGBUpdateTask() {
-        const cronExpr = '1 * * * * *';
-        // const cronExpr = '0 0 1 1 *';
-
-        cron.schedule(cronExpr, async function () {
-            await db(this.table).update({ ngBlocks: 5 }).where();
-            console.log('All users NGB requests avalilable set to 5');
-        });
     }
 };
