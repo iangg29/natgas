@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const compression = require('compression');
 const xss = require('xss-clean');
+const csrf = require('csurf');
 
 // ROUTERS
 const bannerRouter = require('./routes/banner.routes');
@@ -43,6 +44,7 @@ app.enable('trust proxy');
 app.use(cors());
 app.options('*', cors());
 app.use(xss());
+app.use(csrf());
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -80,9 +82,9 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 
-// BODY PARSER, reading from body into req.body
-app.use(express.json()); // con esto le decimos que no se pase mas largo de este body
-app.use(express.urlencoded({ extended: true })); // extended es para que nos permita hacer querys mas complejas
+// REQUEST INFORMATION MIDDLEWARES
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(compression());
