@@ -24,9 +24,6 @@ jobs:
     - name: Install back dependencies
       working-directory: server
       run: npm ci
-    - name: Build
-      working-directory: client
-      run: npm run build
     - name: Test
       uses: cypress-io/github-action@v2.9.7
       with:
