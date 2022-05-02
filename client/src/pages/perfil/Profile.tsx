@@ -31,7 +31,7 @@ const Profile = (props: any): JSX.Element => {
       </div>
       <div className="mt-4 text-center">
         <Link
-          to={`/app/profile/${auth.user.number}/update`}
+          to={`/app/profile/me`}
           className="rounded-full bg-natgas-sec-one px-8 py-3 text-white hover:bg-natgas-sec-two"
         >
           Editar perfil

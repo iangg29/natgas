@@ -23,7 +23,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
 
   const [profile, setProfile] = useState<iEmployee>({
     address: "",
-    birthdate: "",
+    birthdate: new Date().toISOString().slice(0, -14),
     cellphone: 0,
     contractdate: "",
     created_at: "",
@@ -39,14 +39,6 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
     verified: false,
   });
 
-  const [belong, setBelong] = useState<iBelong>({
-    idPertenece: 0,
-    email: "",
-    idDepartamento: 0,
-    position: "",
-    updated_at: "",
-  });
-
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
     (async () => {
       await Promise.all([
@@ -56,10 +48,6 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
           cellphone: data.cellphone,
           contractdate: data.contractdate,
           rfc: data.rfc,
-        }),
-        axios.patch(`/pertenece/email/${auth.user.email}`, {
-          idDepartamento: data.idDepartamento,
-          position: data.position,
         }),
       ])
         .catch((error) => {
@@ -78,17 +66,19 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      axios.get(`/user/me`).then((res: AxiosResponse) => {
-        setProfile(res.data.data.documents)
-      }).catch(error => {
-        MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.message,
-          confirmButtonColor: "#002b49",
-        });});
-    })();
-  }, [auth.user.email]);
+      axios
+        .get(`/user/me`)
+        .then((res: AxiosResponse) => {
+          setProfile(res.data.data.documents)
+        }).catch(error => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });});
+      })();
+  });
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
@@ -103,7 +93,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
                 defaultValue={auth.user.rfc}
                 {...register("rfc")}
                 placeholder="RFC"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
             <div className="w-full md:w-1/3">
@@ -113,7 +103,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
                 defaultValue={auth.user.cellphone}
                 {...register("cellphone")}
                 placeholder="Teléfono"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
             <div className="w-full md:w-1/3">
@@ -130,7 +120,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
                 defaultValue={auth.user.address}
                 {...register("address")}
                 placeholder="Dirección"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
             <div className="w-full md:w-1/2">
@@ -142,7 +132,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
                   .slice(0, -14)}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
           </div>
