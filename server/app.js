@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const compression = require('compression');
+const xss = require('xss-clean');
 
 // ROUTERS
 const bannerRouter = require('./routes/banner.routes');
@@ -39,10 +40,9 @@ const globalErrorHandler = require('./controllers/errorController');
 const app = express();
 
 app.enable('trust proxy');
-
 app.use(cors());
-
 app.options('*', cors());
+app.use(xss());
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
