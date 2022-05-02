@@ -245,11 +245,15 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
         </div>
         <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
           <div className="w-full md:w-1/2">
-            <ButtonLight action={onSubmit} label="Completar Perfil" />
+          <Link
+              to="/app/pending/profiles/"
+            >
+              <ButtonLight action={onSubmit} label="Completar Perfil" />
+            </Link>
           </div>
           <div className="w-full py-3 md:w-1/2">
             <Link
-              to="/app/employees"
+              to="/app/pending/profiles/"
               className="rounded-full border-2 border-natgas-verde px-8 py-3 hover:bg-natgas-verde hover:text-white"
             >
               Cancelar
