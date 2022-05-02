@@ -31,7 +31,7 @@ const Profile = (props: any): JSX.Element => {
       </div>
       <div className="mt-4 text-center">
         <Link
-          to={`/app/profile/${auth.user.number}/update`}
+          to={`/app/profile/me`}
           className="rounded-full bg-natgas-sec-one px-8 py-3 text-white hover:bg-natgas-sec-two"
         >
           Editar perfil
@@ -44,8 +44,9 @@ const Profile = (props: any): JSX.Element => {
 const ProfileData = ({ auth }: any): JSX.Element => {
   const data: iEmployment = suspend(
     async () => {
-      const res: any = await axios.get(`/user/email/${auth.user.email}`);
-      return await res.data.data.document[0];
+      const res: any = await axios.get(`/user/me`);
+      console.log(res);
+      return await res.data.data.user;
     },
     ["profileDataFetch"],
     {
@@ -100,7 +101,7 @@ const ProfileData = ({ auth }: any): JSX.Element => {
       <div className="flex flex-col py-10 text-gray-600 dark:text-gray-200 md:flex-row">
         <div className="w-full md:w-1/3">
           <h4 className="font-gilroy-extrabold">Inicio de contrato</h4>
-          <span>{new Date(data.contractdate).toLocaleDateString()}</span>
+          <span>{new Date(data.contrato).toLocaleDateString()}</span>
         </div>
       </div>
     </div>

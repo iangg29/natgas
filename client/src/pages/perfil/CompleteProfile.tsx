@@ -20,7 +20,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
     email: "",
     idDepartamento: 1,
     position: "Especialista",
-    date: new Date(),
+    date: new Date().toISOString().slice(0, -14),
   });
   const navigate = useNavigate();
 
@@ -54,12 +54,9 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
             });
             navigate("/app/employees");
           }
-          const birthdate = user.birthdate
-            ? new Date(user.birthdate.split("T")[0])
-            : new Date();
-          const contractdate = user.contractdate
-            ? new Date(user.contractdate.split("T")[0])
-            : new Date();
+          const birthdate = user.birthdate ? user.birthdate.slice(0, -14) : "";
+          const contractdate = user.contractdate ? user.contractdate.slice(0, -14) : "";
+          
           setEmployee({ ...user, contractdate, birthdate });
           setPertenece({ ...pertenece, email: user.email });
         })
@@ -82,6 +79,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
           birthdate: employee.birthdate,
           ngblocks: employee.ngBlocks,
           vacations: employee.vacations,
+          cellphone: employee.cellphone,
           contractdate: employee.contractdate,
           rfc: employee.rfc,
           verified: 1,
@@ -102,7 +100,13 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
           });
         })
         .finally(() => {
-          navigate("/app/employees");
+          MySwal.fire({
+            title: "¡Usuario verificado!",
+            icon: "success",
+            text: "El usuario ha sido verificado con éxito",
+            confirmButtonColor: "#002b49",
+          });
+          navigate("/app/pending/profiles");
         });
     })();
   };
@@ -155,23 +159,31 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
               placeholder="Dirección"
             />
           </div>
+          <div className="w-full">
+            <InputLong
+              label="Cellphone"
+              getVal={employee.cellphone}
+              setVal={(val: any) => setEmployee({ ...employee, cellphone: val })}
+              placeholder="Teléfono"
+            />
+          </div>
         </div>
         <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
           <div className="w-full md:w-1/2">
             <DateInputLong
               label="Fecha de nacimiento"
-              getVal={employee.birthdate?.toISOString().split("T")[0]}
+              getVal={employee.birthdate}
               setVal={(val: any) =>
-                setEmployee({ ...employee, birthdate: new Date(val) })
+                setEmployee({ ...employee, birthdate: val})
               }
             />
           </div>
           <div className="w-full md:w-1/2">
             <DateInputLong
               label="Fecha de inicio de contrato"
-              getVal={employee.contractdate?.toISOString().split("T")[0]}
+              getVal={employee.contractdate}
               setVal={(val: any) =>
-                setEmployee({ ...employee, contractdate: new Date(val) })
+                setEmployee({ ...employee, contractdate: val})
               }
             />
           </div>
@@ -224,9 +236,9 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
           <div className="w-full ">
             <DateInputLong
               label="Fecha de inicio de trabajo en el departamento"
-              getVal={pertenece.date?.toISOString().split("T")[0]}
+              getVal={pertenece.date}
               setVal={(val: any) =>
-                setPertenece({ ...employee, date: new Date(val) })
+                setPertenece({ ...employee, date: val})
               }
             />
           </div>
