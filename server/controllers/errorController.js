@@ -13,7 +13,7 @@ const sendErrorDev = (err, req, res) => {
 const sendErrorProduction = (err, req, res) => {
     // Operational
     if (err.isOperational) {
-        res.status(err.statusCode).json({
+        return res.status(err.statusCode).json({
             status: err.status,
             message: err.message,
         });
@@ -35,7 +35,13 @@ const handleJWTError = (err) =>
     new AppError('Token invalida. Inicie sesion de nuevo.', 401);
 
 const handleJWTExpiredError = (err) =>
-    new AppError('Tu sesin ha expirado. Inicia sesion de nuevo.', 401);
+    new AppError('Tu sesion ha expirado. Inicia sesion de nuevo.', 401);
+
+const handleBadField = (err) =>
+    new AppError(
+        `Parametro de busqueda invalido ${err.sqlMessage.split(' ')[2]}.`,
+        404
+    );
 
 /**
  * catch all errors and send a personalized reponse depending on the error name
@@ -45,18 +51,19 @@ const handleJWTExpiredError = (err) =>
  * @param {function} next - The next function.
  */
 module.exports = (err, req, res, next) => {
-    console.log(err);
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 
     if (process.env.NODE_ENV === 'development') {
-        sendErrorDev(err, req, res);
+        return sendErrorDev(err, req, res);
     } else if (process.env.NODE_ENV === 'production') {
         // con esto identificaremos los errores de validación
         let error = Object.create(err);
         if (err.name === 'JsonWebTokenError') error = handleJWTError(err);
         if (err.name === 'TokenExpiredError')
             error = handleJWTExpiredError(err);
-        sendErrorProduction(error, req, res);
+        if (err.code === 'ER_BAD_FIELD_ERROR') error = handleBadField(err);
+        return sendErrorProduction(error, req, res);
     }
+    next(err);
 };

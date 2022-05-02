@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const compression = require('compression');
 const xss = require('xss-clean');
-const csrf = require('csurf');
 
 // ROUTERS
 const bannerRouter = require('./routes/banner.routes');
@@ -44,7 +43,6 @@ app.enable('trust proxy');
 app.use(cors());
 app.options('*', cors());
 app.use(xss());
-app.use(csrf());
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
