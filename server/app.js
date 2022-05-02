@@ -73,7 +73,7 @@ const limiter = rateLimit({
     handler: function (req, res, next) {
         return next(
             new AppError(
-                'You sent too many requests. Please wait a while then try again',
+                'Haz enviado muchas peticiones al servidor, espera un momento e intenta de nuevo.',
                 429
             )
         );
@@ -116,7 +116,7 @@ app.use('/api/pertenece/', belongRouter);
 // el asterisco dice que en cualquiera salte
 app.all('*', (req, res, next) => {
     const error = new AppError(
-        `Can´t find ${req.originalUrl} on this server`,
+        `No se encontro ${req.originalUrl} en este servidor.`,
         404
     );
     next(error);

@@ -32,10 +32,10 @@ const sendErrorProduction = (err, req, res) => {
 
 // este es para tokens modificadas
 const handleJWTError = (err) =>
-    new AppError('Invalid token. Please login again.', 401);
+    new AppError('Token invalida. Inicie sesion de nuevo.', 401);
 
 const handleJWTExpiredError = (err) =>
-    new AppError('Your session has expired. Please login again.', 401);
+    new AppError('Tu sesin ha expirado. Inicia sesion de nuevo.', 401);
 
 /**
  * catch all errors and send a personalized reponse depending on the error name

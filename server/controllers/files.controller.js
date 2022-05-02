@@ -11,8 +11,11 @@ const createUpload = () => {
             cb(null, true);
         } else {
             cb(
-                new AppError('Not an image, please upload only images.', 404),
-                false,
+                new AppError(
+                    'El archivo no es una imagen. Intenta de nuevo.',
+                    404
+                ),
+                false
             );
         }
     };
