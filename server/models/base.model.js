@@ -64,6 +64,14 @@ class Base {
                 [field]: id,
             });
     }
+    /**
+     * Update all documents document.
+     *  @param {object} body - The values to use to update the document.
+     * @return {obj} - A knex queryobj that will get the new value.
+     */
+    static async updateAll(body) {
+        return await db(this.table).update(body);
+    }
 
     /**
      * Delete one document.

@@ -3,7 +3,7 @@ const Base = require('./base.model');
 const bcrypt = require('bcryptjs');
 const AppError = require('../utils/appError');
 
-module.exports = class extends Base {
+module.exports = class User extends Base {
     static table = 'perfil';
 
     constructor({ name, lastname, email, password, passwordConfirm }) {

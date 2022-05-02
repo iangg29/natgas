@@ -13,13 +13,23 @@ module.exports = class extends Base {
     }
 
     async save() {
-        const idRangoVacaciones = await db.insert({
-            maximum: this.maximum,
-            minimum: this.minimum,
-            days: this.days,
-        }).into(this.tableName);
+        const idRangoVacaciones = await db
+            .insert({
+                maximum: this.maximum,
+                minimum: this.minimum,
+                days: this.days,
+            })
+            .into(this.tableName);
         return db.select('*').from(this.tableName).where({
             idRangoVacaciones,
         });
+    }
+
+    static async calcVacDays(years) {
+        return await db
+            .select('days')
+            .from(this.table)
+            .where('minimum', '<=', years)
+            .andWhere('maximum', '>=', years);
     }
 };

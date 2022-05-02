@@ -18,8 +18,7 @@ module.exports = class Blog extends Base {
     }
 
     async save() {
-        const tableName = this.tableName;
-        const previous = await db(tableName).where({
+        const previous = await db(this.tableName).where({
             slug: this.slug,
         });
         if (previous.length > 0)
@@ -49,11 +48,7 @@ module.exports = class Blog extends Base {
         cron.schedule(
             cronExpr,
             async function () {
-                await db(tableName)
-                    .where({
-                        idBlogPost,
-                    })
-                    .del();
+                await Blog.deleteOne('idBlogPost', idBlogPost);
 
                 console.log('Destroyed Blog: ', idBlogPost);
             },
