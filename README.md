@@ -2,7 +2,7 @@
 
 ##### TC2005B
 
-[![NatGas Application Deployment](https://github.com/iangg29/natgas/actions/workflows/pipeline.yml/badge.svg)](https://github.com/iangg29/natgas/actions/workflows/pipeline.yml)
+[![Application Deployment](https://github.com/iangg29/natgas/actions/workflows/pipeline.yml/badge.svg)](https://github.com/iangg29/natgas/actions/workflows/pipeline.yml)
 
 Integrantes
 
