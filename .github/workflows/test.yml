@@ -1,0 +1,14 @@
+name: Test action
+
+on:
+  push:
+    branches:
+      - develop
+      - pipeline
+
+jobs:
+  test_job:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Echo message
+        run: echo "Github action running... 😮‍💨"
