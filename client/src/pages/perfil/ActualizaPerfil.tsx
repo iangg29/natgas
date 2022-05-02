@@ -106,7 +106,7 @@ const ActualizaPerfil = (): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input
                 type="date"
-                defaultValue={new Date(data.birthdate).toLocaleDateString()}
+                defaultValue={new Date(data.birthdate).toISOString().split("T")[0]}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
                 className="profile-input dark:text-black"
