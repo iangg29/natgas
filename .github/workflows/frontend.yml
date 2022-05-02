@@ -73,15 +73,12 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           export_default_credentials: true
 
-      - name: DEBUG
-        run: ls
-
       - name: Build & Push
         run: |-
           gcloud builds submit \
             --quiet \
             --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
-            --file "../Dockerfile"
+            --file "./client/.docker/Dockerfile"
         working-directory: .docker
 
       # Deploy image to Cloud Run
