@@ -1,4 +1,4 @@
-import React, { useId, useState, useEffect } from "react";
+import React, { useEffect, useId, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import Background from "../Background/Background";
 import { useNavigate } from "react-router-dom";
@@ -65,41 +65,28 @@ const CardReporte = ({
     },
   };
 
-  const getReports = async () => {
-    await axios
-      .get(`report/getRowsFromReport/${idReporte}`)
-      .then((res: AxiosResponse) => {
-        setRows(res.data.data.documents);
-        setLabels(
-          res.data.data.documents
-            .map((row: any) => new Date(row.date).toLocaleDateString())
-            .reverse(),
-        );
-      })
-      .catch((error) => {
-        MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.response.message,
-          confirmButtonColor: "#002b49",
-        });
-      });
-  };
-
   useEffect(() => {
     (async () => {
-      try {
-        await getReports();
-      } catch (error: any) {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.response.message,
-          confirmButtonColor: "#002b49",
+      await axios
+        .get(`report/getRowsFromReport/${idReporte}`)
+        .then((res: AxiosResponse) => {
+          setRows(res.data.data.documents);
+          setLabels(
+            res.data.data.documents
+              .map((row: any) => new Date(row.date).toLocaleDateString())
+              .reverse(),
+          );
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.response.message,
+            confirmButtonColor: "#002b49",
+          });
         });
-      }
     })();
-  }, [idReporte, getReports]);
+  }, [idReporte]);
 
   const handleSubmit = async () => {
     try {
@@ -108,7 +95,24 @@ const CardReporte = ({
         date: getDate,
         idReporte,
       });
-      await getReports();
+      await axios
+        .get(`report/getRowsFromReport/${idReporte}`)
+        .then((res: AxiosResponse) => {
+          setRows(res.data.data.documents);
+          setLabels(
+            res.data.data.documents
+              .map((row: any) => new Date(row.date).toLocaleDateString())
+              .reverse(),
+          );
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.response.message,
+            confirmButtonColor: "#002b49",
+          });
+        });
       setDate(new Date());
       setValue(0);
       setVisible(true);

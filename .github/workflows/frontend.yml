@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: client
-        run: npm i
+        run: npm ci
 
       - name: Build Development
         working-directory: client
