@@ -18,6 +18,8 @@ jobs:
       uses: actions/setup-node@v3.1.1
       with:
         node-version: '14'
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
     - name: Install front dependencies
       working-directory: client
       run: npm ci
@@ -27,6 +29,6 @@ jobs:
     - name: Test
       uses: cypress-io/github-action@v2.9.7
       with:
-        command: cd client && npm run test
-        start: cd client && npm run start, cd server && npm run start
+        command: 'cd client && npm run test'
+        start: 'cd client && npm run start, cd server && npm run start'
         wait-on: 'http://localhost:3000, http://localhost:5959'
