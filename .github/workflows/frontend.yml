@@ -21,8 +21,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2.4.2
         with:
-          ref: develop
-
+          fetch-depth: 0
+        
       - name: Setup Node.js (NPM)
         uses: actions/setup-node@v3.1.1
         with:
@@ -30,16 +30,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
 
-      - name: Use cached node_modules
-        uses: actions/cache@master
-        with:
-          path: node_modules
-          key: nodeModules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            nodeModules-
       - name: Install dependencies
         working-directory: client
-        run: npm ci
+        run: npm i
 
       - name: Build Development
         working-directory: client
@@ -59,6 +52,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2.4.2
+        with:
+          fetch-depth: 0
 
       - name: Download Artifact
         uses: actions/download-artifact@main
