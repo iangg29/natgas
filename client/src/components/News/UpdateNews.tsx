@@ -130,6 +130,7 @@ const UpdateNews = ({
                     )}
                     <input
                       type="date"
+                      defaultValue={new Date(news.date).toISOString().split('T')[0]}
                       {...register("date", {
                         required: true,
                       })}
