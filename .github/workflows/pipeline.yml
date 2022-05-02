@@ -18,7 +18,18 @@ jobs:
       uses: actions/setup-node@v3.1.1
       with:
         node-version: '14'
-    - name: Install dependencies
+    - name: Install front dependencies
       working-directory: client
       run: npm ci
-
+    - name: Install back dependencies
+      working-directory: server
+      run: npm ci
+    - name: Build
+      working-directory: client
+      run: npm run build
+    - name: Test
+      uses: cypress-io/github-action@v2.9.7
+      with:
+        command: cd client && npm run test
+        start: cd client && npm run start, cd server && npm run start
+        wait-on: 'http://localhost:3000, http://localhost:5959'
