@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { iNews } from "../../shared/interfaces/app.interface";
 import { TrashIcon } from "@heroicons/react/solid";
 import UpdateNews from "../News/UpdateNews";
@@ -6,7 +6,7 @@ import UpdateNews from "../News/UpdateNews";
 const CardCarousel = ({
   news,
   deleteCard,
-  updateCard
+  updateCard,
 }: {
   news: iNews;
   deleteCard: (id: number) => void;
@@ -23,13 +23,12 @@ const CardCarousel = ({
         </button>
       </div>
       <div className="absolute top-2 right-12">
-        <UpdateNews
-          id={news.idNoticia}
-          news={news}
-          update={updateCard}
-        />
+        <UpdateNews id={news.idNoticia} news={news} update={updateCard} />
       </div>
-      <img src={`${process.env.REACT_APP_API_URL}/news/${news.image}`} alt={news.name} />
+      <img
+        src={`${process.env.REACT_APP_API_URL}/news/${news.image}`}
+        alt={news.name}
+      />
       <p className="legend bg-natgas-azul">{news.name}</p>
     </div>
   );

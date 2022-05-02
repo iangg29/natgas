@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import { iDepartment } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
@@ -8,7 +8,6 @@ import Title from "../../components/Title/Title";
 import InputLong from "../../components/Inputs/InputLong";
 import DateInputLong from "../../components/Inputs/DateInputLong";
 import ButtonLight from "../../components/Buttons/buttonLight";
-import { Link } from "react-router-dom";
 
 const CompleteProfile = ({ auth }: any): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
@@ -27,8 +26,8 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
   //const [employees, setEmployees] = useState<IEmployment[]>([]);
 
   useEffect(() => {
-    (() => {
-      axios
+    (async () => {
+      await axios
         .get("/department/")
         .then((res: AxiosResponse) => {
           setDepartments(res.data.data.documents);
@@ -41,7 +40,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
             confirmButtonColor: "#002b49",
           });
         });
-      axios
+      await axios
         .get(`/user/email/${email}`)
         .then((res: AxiosResponse) => {
           const user = res.data.data.document[0];
@@ -72,7 +71,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
           });
         });
     })();
-  }, [auth]);
+  }, [auth, email, navigate, pertenece]);
 
   const onSubmit = (): void => {
     (async () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
-import axios, {AxiosResponse} from "axios";
-import { iBelong, iEmployee } from "../../shared/interfaces/app.interface";
+import axios, { AxiosResponse } from "axios";
+import { iEmployee } from "../../shared/interfaces/app.interface";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { connect } from "react-redux";
@@ -39,14 +39,6 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
     verified: false,
   });
 
-  const [belong, setBelong] = useState<iBelong>({
-    idPertenece: 0,
-    email: "",
-    idDepartamento: 0,
-    position: "",
-    updated_at: "",
-  });
-
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
     (async () => {
       await Promise.all([
@@ -78,15 +70,19 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      axios.get(`/user/me`).then((res: AxiosResponse) => {
-        setProfile(res.data.data.documents)
-      }).catch(error => {
-        MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.message,
-          confirmButtonColor: "#002b49",
-        });});
+      axios
+        .get(`/user/me`)
+        .then((res: AxiosResponse) => {
+          setProfile(res.data.data.documents);
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.message,
+            confirmButtonColor: "#002b49",
+          });
+        });
     })();
   }, [auth.user.email]);
 
@@ -100,7 +96,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">RFC</h4>
               <input
                 type="text"
-                defaultValue={auth.user.rfc}
+                defaultValue={profile.rfc}
                 {...register("rfc")}
                 placeholder="RFC"
                 className="profile-input"
@@ -110,7 +106,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Teléfono</h4>
               <input
                 type="number"
-                defaultValue={auth.user.cellphone}
+                defaultValue={profile.cellphone}
                 {...register("cellphone")}
                 placeholder="Teléfono"
                 className="profile-input"
@@ -118,7 +114,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Correo electrónico</h4>
-              <span>{auth.user.email}</span>
+              <span>{profile.email}</span>
             </div>
           </div>
           <hr />
@@ -127,7 +123,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Dirección</h4>
               <input
                 type="text"
-                defaultValue={auth.user.address}
+                defaultValue={profile.address}
                 {...register("address")}
                 placeholder="Dirección"
                 className="profile-input"
@@ -137,7 +133,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input
                 type="date"
-                defaultValue={new Date(auth.user.birthdate)
+                defaultValue={new Date(profile.birthdate)
                   .toISOString()
                   .slice(0, -14)}
                 {...register("birthdate")}
