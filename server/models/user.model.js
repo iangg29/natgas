@@ -19,12 +19,12 @@ module.exports = class User extends Base {
     async save() {
         if (this.password !== this.passwordConfirm)
             throw new AppError(
-                'Password confirm and password do not match',
+                'Ambas contraseñas deben coincidir, intenta de nuevo.',
                 400
             );
         if (this.password.split('').length < 8)
             throw new AppError(
-                'Password must be at least 8 characters long',
+                'Las contraseñas debe de contener al menos 8 caracteres.',
                 400
             );
         const encrypted = await bcrypt.hash(this.password, 12);

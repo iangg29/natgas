@@ -1,5 +1,6 @@
 const db = require('../db/database');
 const APIFeatures = require(`../utils/apiFeatures`);
+const AppError = require('../utils/appError');
 
 /** Base class with all static attributes that will be inherited by the data models */
 class Base {
@@ -98,7 +99,7 @@ class Base {
      *  @param {object} queryString - The query object to filter by.
      * @return {promise} - A promise that the requested values will be returned.
      */
-    static async getAll(queryString) {
+    static getAll(queryString) {
         const features = new APIFeatures(this.table, queryString)
             .filter()
             .search()
@@ -107,7 +108,17 @@ class Base {
             .paginate();
 
         // la query que hemos modificado ahora vive dentro de features
-        return await features.request();
+        return features.request().catch((err) => {
+            if (err.code === 'ER_BAD_FIELD_ERROR') {
+                throw new AppError(
+                    `Parametro de busqueda invalido ${
+                        err.sqlMessage.split(' ')[2]
+                    }.`,
+                    400
+                );
+            }
+            throw new AppError(err.message, 400);
+        });
     }
 }
 
