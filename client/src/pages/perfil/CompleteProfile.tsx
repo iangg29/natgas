@@ -68,7 +68,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
           });
         });
     })();
-  }, [auth, email, navigate, pertenece]);
+  }, [auth, email, navigate]);
 
   const onSubmit = (): void => {
     (async () => {

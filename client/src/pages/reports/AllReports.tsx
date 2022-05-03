@@ -6,6 +6,7 @@ import { FaPlusCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MySwal } from "../../utils/AlertHandler";
 import { SweetAlertResult } from "sweetalert2";
+import AbacContainer from "../../containers/abacContainer";
 
 const Reports = (): JSX.Element => {
   const [getReports, setReports] = useState<any[]>([]);
@@ -67,15 +68,17 @@ const Reports = (): JSX.Element => {
   return (
     <Page title="Reportes" headTitle="Reportes" padding={false}>
       <div className="mb-8 grid w-full justify-items-center pt-4">
-        <Link
-          to="/app/reports/new"
-          className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro dark:text-gray-50"
-        >
-          <div className="inline-flex">
-            <p className="mt-2 ml-4">Agregar Indicador</p>
-            <FaPlusCircle className="ml-9 mt-1.5 text-3xl text-natgas-verde" />
-          </div>
-        </Link>
+        <AbacContainer required_role="HR">
+          <Link
+            to="/app/reports/new"
+            className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro dark:text-gray-50"
+          >
+            <div className="inline-flex">
+              <p className="mt-2 ml-4">Agregar Indicador</p>
+              <FaPlusCircle className="ml-9 mt-1.5 text-3xl text-natgas-verde" />
+            </div>
+          </Link>
+          </AbacContainer>
       </div>
       <div className="flex-col">
         {getReports?.map((rpt: any, idx: number) => (
