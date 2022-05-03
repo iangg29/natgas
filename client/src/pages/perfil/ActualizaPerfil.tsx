@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 
 const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
+  
 
   const [employee, setEmployee] = useState<any>({});
 
@@ -105,7 +106,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
           </div>
           <div className="w-full">
             <InputLong
-              label="Cellphone"
+              label="Teléfono"
               getVal={employee.cellphone}
               setVal={(val: any) => setEmployee({ ...employee, cellphone: val })}
               placeholder="Teléfono"

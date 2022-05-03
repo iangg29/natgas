@@ -7,6 +7,7 @@ import Header from "../components/Header/Header";
 import Error404 from "../pages/404";
 import { connect } from "react-redux";
 import {MySwal} from "../utils/AlertHandler";
+import axios from "axios";
 
 const Layout = (props: any): JSX.Element => {
   const { auth } = props;
@@ -34,7 +35,7 @@ const Layout = (props: any): JSX.Element => {
         text: "Su cuenta aun no ha sido verificada, por favor ingrese los siguientes datos y espere a que Recursos Humanos verifique su cuenta.",
         confirmButtonColor: "#002b49",
       })
-      navigate(`/app/profile/me`);
+     
     }
   }, [auth, navigate]);
 

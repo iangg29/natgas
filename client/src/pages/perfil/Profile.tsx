@@ -47,6 +47,7 @@ const ProfileData = ({ auth }: any): JSX.Element => {
     async () => {
       const res: any = await axios.get(`/user/me`);
       return await res.data.data.user;
+
     },
     ["profileDataFetch"],
     {
