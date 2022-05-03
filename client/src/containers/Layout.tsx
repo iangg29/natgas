@@ -34,7 +34,7 @@ const Layout = (props: any): JSX.Element => {
         text: "Su cuenta aun no ha sido verificada, por favor ingrese los siguientes datos y espere a que Recursos Humanos verifique su cuenta.",
         confirmButtonColor: "#002b49",
       })
-      navigate(`/app/profile/me`)
+      navigate(`/app/profile/me`);
     }
   }, [auth, navigate]);
 
