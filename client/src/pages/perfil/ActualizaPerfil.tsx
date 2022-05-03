@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
-import { iDepartment } from "../../shared/interfaces/app.interface";
 import Page from "../../containers/Page";
 import { MySwal } from "../../utils/AlertHandler";
-import Title from "../../components/Title/Title";
 import InputLong from "../../components/Inputs/InputLong";
 import DateInputLong from "../../components/Inputs/DateInputLong";
 import ButtonLight from "../../components/Buttons/buttonLight";
 import { Link } from "react-router-dom";
-import AbacContainer from "../../containers/abacContainer";
+
 
 const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.

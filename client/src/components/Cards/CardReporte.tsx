@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import Background from "../Background/Background";
 import { useNavigate } from "react-router-dom";
@@ -65,41 +65,28 @@ const CardReporte = ({
     },
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
-      try {
-        await getReports();
-      } catch (error: any) {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.response.message,
-          confirmButtonColor: "#002b49",
+      await axios
+        .get(`report/getRowsFromReport/${idReporte}`)
+        .then((res: AxiosResponse) => {
+          setRows(res.data.data.documents);
+          setLabels(
+            res.data.data.documents
+              .map((row: any) => new Date(row.date).toLocaleDateString())
+              .reverse(),
+          );
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.response.message,
+            confirmButtonColor: "#002b49",
+          });
         });
-      }
     })();
   }, [idReporte]);
-
-  const getReports = async () => {
-    await axios
-      .get(`report/getRowsFromReport/${idReporte}`)
-      .then((res: AxiosResponse) => {
-        setRows(res.data.data.documents);
-        setLabels(
-          res.data.data.documents
-            .map((row: any) => new Date(row.date).toLocaleDateString())
-            .reverse(),
-        );
-      })
-      .catch((error) => {
-        MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.response.message,
-          confirmButtonColor: "#002b49",
-        });
-      });
-  };
 
   const handleSubmit = async () => {
     try {
@@ -108,7 +95,24 @@ const CardReporte = ({
         date: getDate,
         idReporte,
       });
-      await getReports();
+      await axios
+        .get(`report/getRowsFromReport/${idReporte}`)
+        .then((res: AxiosResponse) => {
+          setRows(res.data.data.documents);
+          setLabels(
+            res.data.data.documents
+              .map((row: any) => new Date(row.date).toLocaleDateString())
+              .reverse(),
+          );
+        })
+        .catch((error) => {
+          MySwal.fire({
+            title: "¡Error!",
+            icon: "error",
+            text: error.response.message,
+            confirmButtonColor: "#002b49",
+          });
+        });
       setDate(new Date());
       setValue(0);
       setVisible(true);
@@ -138,10 +142,7 @@ const CardReporte = ({
                 {
                   label: name,
                   data: getRows.map((row) => row.value).reverse(),
-                  backgroundColor: [
-                    "#43B02A",
-                    "#002B49",
-                  ]
+                  backgroundColor: ["#43B02A", "#002B49"],
                 },
               ],
             }}
@@ -175,7 +176,7 @@ const CardReporte = ({
         <></>
       ) : (
         <div className="flex w-full flex-grow flex-col items-center justify-around lg:flex-row">
-          <div className="my-5 w-full lg:mx-5 -mt-3">
+          <div className="my-5 -mt-3 w-full lg:mx-5">
             <InputLong
               label="Valor"
               placeholder="number"
@@ -183,7 +184,7 @@ const CardReporte = ({
               setVal={setValue}
             />
           </div>
-          <div className="my-5 w-full lg:mx-5 -mt-3">
+          <div className="my-5 -mt-3 w-full lg:mx-5">
             <DateInputLong
               label="Fecha"
               getVal={new Date(getDate).toISOString().split("T")[0]}
@@ -194,7 +195,12 @@ const CardReporte = ({
             <PrimaryButton label="Agregar" action={handleSubmit} />
           </div>
           <div>
-            <button className="general-btn border-red-600 bg-red-600 ml-2 py-3 px-16" onClick={() => setVisible(!getVisible)} >Cancelar</button>
+            <button
+              className="general-btn ml-2 border-red-600 bg-red-600 py-3 px-16"
+              onClick={() => setVisible(!getVisible)}
+            >
+              Cancelar
+            </button>
           </div>
         </div>
       )}

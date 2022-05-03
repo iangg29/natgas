@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Footer from "../components/Footer";
-import VerifiedContainer from "./verifiedContainer";
+
 type Props = {
   children: JSX.Element | JSX.Element[];
 };
@@ -20,7 +20,6 @@ const Main = ({ children }: Props): JSX.Element => {
         <Footer />
       </main>
       </VerifiedContainer>
-
   );
 };
 
