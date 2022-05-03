@@ -32,9 +32,9 @@ const ButtonBar = (): JSX.Element => {
         <div className="w-full px-0 md:px-10 lg:w-1/2">
           <div className="flex flex-row justify-around rounded-lg border-2 border-natgas-gris-cool py-4">
             <div className="grid items-center rounded-full bg-red-700">
-            <span className="px-1 py-0 text-xs font-bold text-white md:py-1 md:px-2 md:text-base">
-              {count}
-            </span>
+              <span className="px-1 py-0 text-xs font-bold text-white md:py-1 md:px-2 md:text-base">
+                {count}
+              </span>
             </div>
             <div className="grid items-center font-gilroy-light">
               <p className="text-base text-gray-900 dark:text-gray-100 md:text-xl">
@@ -42,8 +42,8 @@ const ButtonBar = (): JSX.Element => {
               </p>
             </div>
             <Link
-                to="/app/requests/pending"
-                className="rounded-full border-2 border-red-700 px-1 py-0 text-xs text-red-700 hover:bg-red-700 hover:text-white md:py-1 md:px-8 md:text-base"
+              to="/app/requests/pending"
+              className="rounded-full border-2 border-red-700 px-1 py-0 text-xs text-red-700 hover:bg-red-700 hover:text-white md:py-1 md:px-8 md:text-base"
             >
               Ver
             </Link>
