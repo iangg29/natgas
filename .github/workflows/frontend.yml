@@ -2,7 +2,7 @@ name: '[GCP] Client Deployment'
 
 on:
   push:
-    branches: [develop, master, pipeline]
+    branches: [develop, master]
   pull_request:
     branches: [develop, master]
     types: [opened, synchronize]
@@ -15,6 +15,7 @@ env:
 jobs:
   build:
     name: Build frontend application
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-18.04
 
     steps:
@@ -47,6 +48,7 @@ jobs:
   deploy-gcr:
     name: Deploy to Google Cloud Platform
     needs: build
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-18.04
 
     steps:
