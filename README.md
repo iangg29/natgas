@@ -2,7 +2,7 @@
 
 ##### TC2005B
 
-[![Application Deployment](https://github.com/iangg29/natgas/actions/workflows/pipeline.yml/badge.svg)](https://github.com/iangg29/natgas/actions/workflows/pipeline.yml)
+[![[GCP] Client Deployment](https://github.com/iangg29/natgas/actions/workflows/frontend.yml/badge.svg)](https://github.com/iangg29/natgas/actions/workflows/frontend.yml)
 
 Integrantes
 
