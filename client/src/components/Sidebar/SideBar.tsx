@@ -1,8 +1,13 @@
-import { LogoutIcon, MenuIcon, ChartPieIcon, NewspaperIcon, UserIcon } from "@heroicons/react/solid";
+import {
+  ChartPieIcon,
+  LogoutIcon,
+  MenuIcon,
+  NewspaperIcon,
+  UserIcon,
+} from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
-import { FaBars } from "react-icons/fa";
 import { LogoutAuthAction } from "../../store/actions/auth.action";
 import { connect } from "react-redux";
 import Toggler from "../DarkMode/Toggler";
@@ -13,7 +18,7 @@ const SideBar = (props: any): JSX.Element => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex-gray focus:outline-none text-white hover:text-natgas-azul-claro">
+        <Menu.Button className="inline-flex-gray text-white hover:text-natgas-azul-claro focus:outline-none">
           <MenuIcon className="h-8 w-8" />
         </Menu.Button>
       </div>
@@ -64,14 +69,18 @@ const SideBar = (props: any): JSX.Element => {
                         ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
                         : "text-gray-900 dark:text-gray-100"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >{active ? (
-                    <ChartPieIcon
-                      className="mr-2 h-5 w-5 text-natgas-azul-claro dark:text-natgas-azul"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <ChartPieIcon className="mr-2 h-5 w-5" aria-hidden="true" />
-                  )}
+                  >
+                    {active ? (
+                      <ChartPieIcon
+                        className="mr-2 h-5 w-5 text-natgas-azul-claro dark:text-natgas-azul"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <ChartPieIcon
+                        className="mr-2 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    )}
                     Reporte mensual
                   </button>
                 )}
@@ -88,14 +97,18 @@ const SideBar = (props: any): JSX.Element => {
                         ? "bg-natgas-azul font-semibold text-white dark:bg-natgas-azul-claro"
                         : "text-gray-900 dark:text-gray-100"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  >{active ? (
-                    <NewspaperIcon
-                      className="mr-2 h-5 w-5 text-natgas-azul-claro dark:text-natgas-azul"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <NewspaperIcon className="mr-2 h-5 w-5" aria-hidden="true" />
-                  )}
+                  >
+                    {active ? (
+                      <NewspaperIcon
+                        className="mr-2 h-5 w-5 text-natgas-azul-claro dark:text-natgas-azul"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <NewspaperIcon
+                        className="mr-2 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    )}
                     Blog
                   </button>
                 )}
