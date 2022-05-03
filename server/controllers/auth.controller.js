@@ -41,7 +41,7 @@ const createSendToken = (user, statusCode, req, res) => {
                 Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 60 * 1000
             ),
             httpOnly: true,
-            secure: req.secure || req.headers('x-forwarded-proto') === 'https',
+            secure: req.secure,
         };
     }
 
@@ -80,16 +80,24 @@ exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return next(new AppError('Please provide email and password', 400));
+        return next(
+            new AppError('Por favor provee un correo y contraseña.', 400)
+        );
     }
 
     const user = (await User.getOne('email', email))[0];
 
-    if (!user) return next(new AppError('Incorrect email', 401));
+    if (!user)
+        return next(
+            new AppError(
+                'No se encontro una cuenta registrada con esta direccion de correo electronico.',
+                401
+            )
+        );
 
     const isCorrect = await User.correctPassword(password, user.password);
     if (!isCorrect) {
-        return next(new AppError('Incorrect password', 401));
+        return next(new AppError('Contraseña incorrecta.', 401));
     }
 
     if (user.verified) user.roles = await abacController.calcRoles(user.email);
@@ -110,7 +118,6 @@ exports.logout = (req, res, next) => {
 exports.protect = catchAsync(async (req, res, next) => {
     let token;
     if (req.cookies.jwt) {
-        console.log('COOKIES', req.cookies);
         token = req.cookies.jwt;
     } else if (
         req.headers.authorization &&
@@ -121,7 +128,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     if (!token) {
         return next(
             new AppError(
-                'You are not logged in. Please log in to get access',
+                'No haz iniciado sesion, por favor inicia sesion antes de continuar.',
                 401
             )
         );
@@ -130,7 +137,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
     const user = (await User.getOne('email', decoded.email))[0];
     if (!user) {
-        return next(new AppError('The user does not longer exists', 401));
+        return next(new AppError('Este usuario ya no existe', 401));
     }
     req.user = user;
     next();

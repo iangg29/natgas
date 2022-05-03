@@ -80,10 +80,10 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
       .then(() => {
         setVacations(getVacations.filter((vac) => vac.id !== id));
         MySwal.fire({
-          title: "¡Aprobada!",
+          title: "¡Solicitud rechazada!",
           icon: "success",
           text: "La solicitud de Vacaciones ha sido rechazada con éxito.",
-          confirmButtonColor: "#002b49",
+          confirmButtonColor: "#002b49",  
         });
       })
       .catch((error) => {

@@ -1,6 +1,6 @@
 const base = require('./base.controller');
 const User = require('../models/user.model');
-const UserEmployment = require('../models/views/useremployment.view.model');
+const UserEmployment = require('../models/views/mydetails.view.model');
 const UserBelong = require('../models/pertenece.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
