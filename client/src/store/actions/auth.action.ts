@@ -25,7 +25,21 @@ const LoginAuthAction = (
               type: AuthActionType.LOGIN_SUCCESS,
               payload: data,
             });
+            // axios.get(`/user/me`).then((res: AxiosResponse) => {
+            //   const user = res.data.data.user;
+            //   if(user.verified === 0){
+            //     navigate("/app/profile/me");
+            //   }
+
+            //   else{
+            //     navigate("/app/dashboard");
+            //   }
+             
+              
+            // })
             navigate("/app/dashboard");
+            
+            
           } else {
             dispatch({
               type: AuthActionType.LOGIN_FAIL,

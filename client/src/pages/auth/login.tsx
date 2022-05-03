@@ -28,7 +28,8 @@ const Login = (props: any): JSX.Element => {
   };
 
   useEffect(() => {
-    if (auth.isLoggedIn) navigate("/app/dashboard");
+    if (auth.isLoggedIn && auth.user.verified === 1) navigate("/app/dashboard");
+    // if (auth.isLoggedIn && auth.user.verified === 0) navigate("/app/profile/me")
   }, [auth, navigate]);
 
   return (

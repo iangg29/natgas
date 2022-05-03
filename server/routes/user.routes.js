@@ -5,8 +5,8 @@ const User = require('../models/user.model');
 const abacController = require('../controllers/abac.controller');
 const router = express.Router();
 
-router.route('/employment').get(userController.getAllUserEmploymentDetails);
 router.route('/me').get(userController.getMe).patch(userController.updateMe);
+router.route('/employment').get(userController.getAllUserEmploymentDetails);
 router
     .route('/employment/:id')
     .get(userController.getOneUsersEmploymentDetails);

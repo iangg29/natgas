@@ -1,141 +1,133 @@
-import Page from "../../containers/Page";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
-import { iEmployee } from "../../shared/interfaces/app.interface";
-import { Link, useNavigate } from "react-router-dom";
-import { SubmitHandler, useForm } from "react-hook-form";
+import Page from "../../containers/Page";
 import { MySwal } from "../../utils/AlertHandler";
-import { suspend } from "suspend-react";
-import { iEmployment } from "../../shared/interfaces/app.interface";
+import InputLong from "../../components/Inputs/InputLong";
+import DateInputLong from "../../components/Inputs/DateInputLong";
+import ButtonLight from "../../components/Buttons/buttonLight";
+import { Link } from "react-router-dom";
 
-type Inputs = {
-  address: string;
-  birthdate: string;
-  cellphone: number;
-  contractdate: string;
-  rfc: string;
-  position: string;
-  idDepartamento: number;
-};
 
-const ActualizaPerfil = (): JSX.Element => {
-  const { register, handleSubmit } = useForm<Inputs>();
+const ActualizaPerfil = ({ auth }: any): JSX.Element => {
+  // TODO: HR Fills sensitive data and locks own user profile modification.
+
+  const [employee, setEmployee] = useState<any>({});
+
   const navigate = useNavigate();
 
-  const data: iEmployment = suspend(
-    async () => {
-      const res: any = await axios.get(`/user/me`);
-      return await res.data.data.user;
-    },
-    ["profileDataFetch"],
-    {
-      lifespan: 60000,
-    },
-  );
+  //const [employees, setEmployees] = useState<IEmployment[]>([]);
 
-  const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
-    (async () => {
-      await Promise.all([
-        axios
-        .patch(`/user/me`, {
-          address: data.address,
-          birthdate: data.birthdate,
-          cellphone: data.cellphone,
-          contractdate: data.contractdate,
-          rfc: data.rfc,
+  useEffect(() => {
+    (() => {
+      axios
+        .get(`/user/me`)
+        .then((res: AxiosResponse) => {
+          const user = res.data.data.user;
+          const birthdate = user.birthdate ? user.birthdate.slice(0, -14) : "";
+
+          setEmployee({ ...user, birthdate });
         })
-        .then(() =>{
-        }).catch((error) => {
+        .catch((error) => {
           MySwal.fire({
             title: "¡Error!",
             icon: "error",
             text: error.message,
             confirmButtonColor: "#002b49",
           });
-        })
-        .finally(() => {
-          navigate("/app/profile");
-        }),
-      ])
+        });
     })();
+  }, [auth]);
+
+  const onSubmit = async (): Promise<any> => {
+    
+    await axios
+      .patch(`/user/me`, {
+        address: employee.address,
+        birthdate: employee.birthdate,
+        cellphone: employee.cellphone,
+        rfc: employee.rfc,
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .finally(() => {
+        MySwal.fire({
+          title: "¡Perfil actualizado!",
+          icon: "success",
+          text: "Perfil actualizado con éxito",
+          confirmButtonColor: "#002b49",
+        });
+
+        if(employee.verified) window.location.href = "/app/profile";
+        
+      });
   };
-
-
   return (
-    <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="font-gilroy-light">
-          <hr />
-          <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
-            <div className="w-full md:w-1/3">
-              <h4 className="font-gilroy-extrabold">RFC</h4>
-              <input
-                type="text"
-                defaultValue={data.rfc}
-                {...register("rfc")}
-                placeholder="RFC"
-                className="profile-input dark:text-black"
-              />
-            </div>
-            <div className="w-full md:w-1/3">
-              <h4 className="font-gilroy-extrabold">Teléfono</h4>
-              <input
-                type="number"
-                defaultValue={data.cellphone}
-                {...register("cellphone")}
-                placeholder="Teléfono"
-                className="profile-input dark:text-black"
-              />
-            </div>
-            <div className="w-full md:w-1/3">
-              <h4 className="font-gilroy-extrabold">Correo electrónico</h4>
-              <span>{data.email}</span>
-            </div>
-          </div>
-          <hr />
-          <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
-            <div className="w-full md:w-1/2">
-              <h4 className="font-gilroy-extrabold">Dirección</h4>
-              <input
-                type="text"
-                defaultValue={data.address}
-                {...register("address")}
-                placeholder="Dirección"
-                className="profile-input dark:text-black"
-              />
-            </div>
-            <div className="w-full md:w-1/2">
-              <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
-              <input
-                type="date"
-                defaultValue={new Date(data.birthdate).toISOString().split("T")[0]}
-                {...register("birthdate")}
-                placeholder="Fecha de nacimiento"
-                className="profile-input dark:text-black"
-              />
-            </div>
-          </div>
-          <hr />
-
-          <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
-            <div className="w-full md:w-1/2">
-              <button
-                type="submit"
-                className="rounded-full border-2 border-natgas-azul-claro px-8 py-3 hover:bg-natgas-azul-claro hover:text-white"
-              >
-                Confirmar cambios
-              </button>
-            </div>
-            <div className="w-full md:w-1/2">
-              <Link
-                to="/app/profile"
-                className="rounded-full border-2 border-natgas-verde px-8 py-3 hover:bg-natgas-verde hover:text-white"
-              >
-                Cancelar
-              </Link>
-            </div>
+    <Page title={`Datos Personales`} headTitle="Editar perfil" padding={true}>
+      <div className="font-gilroy-light">
+        <hr />
+        <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+          <div className="w-full md:w-1/3">
+            <InputLong
+              label="RFC"
+              getVal={employee.rfc}
+              setVal={(val: any) => setEmployee({ ...employee, rfc: val })}
+              placeholder="RFC"
+            />
           </div>
         </div>
-      </form>
+        <div className="flex flex-col space-y-6 py-1 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+          <div className="w-full">
+            <InputLong
+              label="Dirección"
+              getVal={employee.address}
+              setVal={(val: any) => setEmployee({ ...employee, address: val })}
+              placeholder="Dirección"
+            />
+          </div>
+          <div className="w-full">
+            <InputLong
+              label="Teléfono"
+              getVal={employee.cellphone}
+              setVal={(val: any) =>
+                setEmployee({ ...employee, cellphone: val })
+              }
+              placeholder="Teléfono"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
+          <div className="w-full md:w-1/2">
+            <DateInputLong
+              label="Fecha de nacimiento"
+              getVal={employee.birthdate}
+              setVal={(val: any) =>
+                setEmployee({ ...employee, birthdate: val })
+              }
+            />
+          </div>
+        </div>
+        <hr />
+        <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
+          <div className="w-full md:w-1/2">
+            <ButtonLight action={onSubmit} label="Confirmar" />
+          </div>
+          <div className="w-full py-3 md:w-1/2">
+            <Link
+              to="/app/profile"
+              className="rounded-full border-2 border-natgas-verde px-8 py-3 hover:bg-natgas-verde hover:text-white"
+            >
+              Cancelar
+            </Link>
+          </div>
+        </div>
+      </div>
     </Page>
   );
 };

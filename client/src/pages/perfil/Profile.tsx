@@ -11,6 +11,7 @@ import RequestNGB from "../../components/NatgasBlocks/RequestNGB";
 import RequestVacations from "../../components/Vacaciones/RequestVacations";
 
 const Profile = (props: any): JSX.Element => {
+ 
   const { auth } = props;
 
   return (
@@ -45,8 +46,8 @@ const ProfileData = ({ auth }: any): JSX.Element => {
   const data: iEmployment = suspend(
     async () => {
       const res: any = await axios.get(`/user/me`);
-      console.log(res);
       return await res.data.data.user;
+
     },
     ["profileDataFetch"],
     {

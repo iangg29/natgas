@@ -1,7 +1,6 @@
 const base = require('./base.controller');
 const User = require('../models/user.model');
 const UserEmployment = require('../models/views/mydetails.view.model');
-const UserBelong = require('../models/pertenece.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -34,7 +33,10 @@ exports.getAllUserEmploymentDetails = catchAsync(async (req, res, next) => {
 exports.getOneUsersEmploymentDetails = base.getOne(UserEmployment, 'email');
 
 exports.getMe = catchAsync(async (req, res, next) => {
-    const myDetails = (await UserEmployment.getOne('email', req.user.email))[0];
+    let myDetails;
+    if (req.user.verified) {
+        myDetails = (await UserEmployment.getOne('email', req.user.email))[0];
+    } else myDetails = (await User.getOne('email', req.user.email))[0];
 
     res.status(200).json({
         message: 'User details retrieved successfully',

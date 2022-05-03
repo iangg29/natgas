@@ -14,10 +14,12 @@ const Main = ({ children }: Props): JSX.Element => {
   });
 
   return (
-    <main className="h-full overflow-y-auto">
-      <div className="mx-auto">{children}</div>
-      <Footer />
-    </main>
+    <VerifiedContainer>
+      <main className="h-full overflow-y-auto">
+        <div className="mx-auto">{children}</div>
+        <Footer />
+      </main>
+      </VerifiedContainer>
   );
 };
 
