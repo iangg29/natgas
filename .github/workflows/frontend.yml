@@ -1,4 +1,4 @@
-name: '[GCP] Natgas Client Deployment'
+name: '[GCP] Client Deployment'
 
 on:
   push:
@@ -59,15 +59,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
           name: build
-          path: client/.docker/build
-
-      - name: Debug client/.docker
-        working-directory: client/.docker
-        run: ls
-
-      - name: Debug client/.docker/build
-        working-directory: client/.docker/build
-        run: ls
+          path: client/build
 
       - name: Authenticate to Google Cloud
         id: auth
