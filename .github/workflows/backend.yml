@@ -14,7 +14,7 @@ env:
 
 jobs:
   deploy-gcr:
-    name: Deploy to GCR
+    name: Deploy to Google Cloud Platform
     runs-on: ubuntu-18.04
 
     steps:
@@ -41,8 +41,7 @@ jobs:
           gcloud config set run/region $RUN_REGION
         working-directory: server
 
-      # Deploy image to Cloud Run
-      - name: Deploy GCR
+      - name: Image deploy
         run: |-
           gcloud run deploy "$SERVICE_NAME" \
             --quiet \
