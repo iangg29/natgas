@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: AppError</title>
+    <title>JSDoc: Class: VacationsRange</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: AppError</h1>
+    <h1 class="page-title">Class: VacationsRange</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>AppError<span class="signature">(message, statusCode)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>VacationsRange<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Class representing operational app error</div>
+            <div class="class-description">Class for the Rangovacaciones resource</div>
         
     
 </header>
@@ -45,95 +45,19 @@
     
 
     
-    <h4 class="name" id="AppError"><span class="type-signature"></span>new AppError<span class="signature">(message, statusCode)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="VacationsRange"><span class="type-signature"></span>new VacationsRange<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
 
 
 
-<div class="description">
-    Create an operational AppError.
-</div>
 
 
 
 
 
 
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The error message.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>statusCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The y value.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 
@@ -169,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_appError.js.html">utils/appError.js</a>, <a href="utils_appError.js.html#line2">line 2</a>
+        <a href="models_rangovacaciones.model.js.html">models/rangovacaciones.model.js</a>, <a href="models_rangovacaciones.model.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -216,6 +140,250 @@
 
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".calcVacDays"><span class="type-signature">(async, static) </span>calcVacDays<span class="signature">(years)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It returns the number of vacation days for a given number of years of service.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>years</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_rangovacaciones.model.js.html">models/rangovacaciones.model.js</a>, <a href="models_rangovacaciones.model.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An array of objects.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="save"><span class="type-signature">(async) </span>save<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It inserts a new row into the table, and then returns the row that was just inserted.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_rangovacaciones.model.js.html">models/rangovacaciones.model.js</a>, <a href="models_rangovacaciones.model.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The idRangoVacaciones is being returned.
+</div>
+
+
+
+    
+
+
+
+
+
+        
     
 
     

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/rangovacaciones.model.js</title>
+    <title>JSDoc: Class: Report</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,63 +17,239 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/rangovacaciones.model.js</h1>
+    <h1 class="page-title">Class: Report</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const db = require('../db/database');
-const Base = require('./base.model');
+        <h2><span class="attribs"><span class="type-signature"></span></span>Report<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">Class for the Report resource</div>
+        
+    
+</header>
 
-/** Class for the Rangovacaciones resource */
-class VacationsRange extends Base {
-    static table = 'rangovacaciones';
+<article>
+    <div class="container-overview">
+    
+        
 
-    constructor({ maximum, minimum, days }) {
-        super();
-        this.maximum = maximum;
-        this.minimum = minimum;
-        this.days = days;
-        this.tableName = 'rangovacaciones';
-    }
+    
+    <h2>Constructor</h2>
+    
 
-    /**
-     * It inserts a new row into the table, and then returns the row that was just inserted.
-     * @returns The idRangoVacaciones is being returned.
-     */
-    async save() {
-        const idRangoVacaciones = await db
-            .insert({
-                maximum: this.maximum,
-                minimum: this.minimum,
-                days: this.days,
-            })
-            .into(this.tableName);
-        return db.select('*').from(this.tableName).where({
-            idRangoVacaciones,
-        });
-    }
+    
+    <h4 class="name" id="Report"><span class="type-signature"></span>new Report<span class="signature">()</span><span class="type-signature"></span></h4>
+    
 
-    /**
-     * It returns the number of vacation days for a given number of years of service.
-     * @param years - number
-     * @returns An array of objects.
-     */
-    static async calcVacDays(years) {
-        return await db
-            .select('days')
-            .from(this.table)
-            .where('minimum', '&lt;=', years)
-            .andWhere('maximum', '>=', years);
-    }
-}
-</code></pre>
-        </article>
-    </section>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_report.model.js.html">models/report.model.js</a>, <a href="models_report.model.js.html#line5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="save"><span class="type-signature">(async) </span>save<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It inserts a new row into the table, and then returns the row that was just inserted.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_report.model.js.html">models/report.model.js</a>, <a href="models_report.model.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The report id.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

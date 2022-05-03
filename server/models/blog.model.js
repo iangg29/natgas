@@ -3,7 +3,8 @@ const Base = require('./base.model');
 const cron = require('node-cron');
 const AppError = require('../utils/appError');
 
-module.exports = class Blog extends Base {
+/** Class for the Blogs resource */
+class Blog extends Base {
     static table = 'blogpost';
 
     constructor({ date, title, content, image }) {
@@ -63,4 +64,6 @@ module.exports = class Blog extends Base {
             idBlogPost,
         });
     }
-};
+}
+
+module.expprts = Blog;

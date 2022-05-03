@@ -3,6 +3,7 @@ const Base = require('./base.model');
 const User = require('./user.model');
 const AppError = require('../utils/appError');
 
+/** Class for the NatgasBlocks resource */
 class NatgasBlock extends Base {
     static table = 'natgasblock';
     static tableReference = db(this.table);

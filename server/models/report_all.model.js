@@ -1,7 +1,8 @@
 const db = require('../db/database');
 const Base = require('./base.model');
 
-module.exports = class extends Base {
+/** Class for the Reports resource */
+class Reports extends Base {
     static table = 'report';
 
     constructor({ name, row }) {
@@ -27,4 +28,6 @@ module.exports = class extends Base {
             idReporte,
         });
     }
-};
+}
+
+module.exports = Reports;

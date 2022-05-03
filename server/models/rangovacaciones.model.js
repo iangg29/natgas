@@ -1,7 +1,8 @@
 const db = require('../db/database');
 const Base = require('./base.model');
 
-module.exports = class extends Base {
+/** Class for the Rangovacaciones resource */
+class VacationsRange extends Base {
     static table = 'rangovacaciones';
 
     constructor({ maximum, minimum, days }) {
@@ -41,4 +42,4 @@ module.exports = class extends Base {
             .where('minimum', '<=', years)
             .andWhere('maximum', '>=', years);
     }
-};
+}

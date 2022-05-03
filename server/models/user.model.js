@@ -3,7 +3,7 @@ const Base = require('./base.model');
 const bcrypt = require('bcryptjs');
 const AppError = require('../utils/appError');
 
-module.exports = class User extends Base {
+class User extends Base {
     static table = 'perfil';
 
     constructor({ name, lastname, email, password, passwordConfirm }) {
@@ -73,4 +73,6 @@ module.exports = class User extends Base {
     static async correctPassword(candidatePassword, userPassword) {
         return await bcrypt.compare(candidatePassword, userPassword);
     }
-};
+}
+
+module.exports = User;

@@ -4,7 +4,7 @@ const User = require('./user.model');
 const Asueto = require('./asueto.model');
 const AppError = require('../utils/appError');
 
-module.exports = class Vacation extends Base {
+class Vacation extends Base {
     static table = 'vacaciones';
     static vacations = 0;
 
@@ -117,4 +117,6 @@ module.exports = class Vacation extends Base {
         }
         return vacations;
     }
-};
+}
+
+module.exports = Vacation;
