@@ -3,6 +3,7 @@ const Base = require('./base.model');
 const bcrypt = require('bcryptjs');
 const AppError = require('../utils/appError');
 
+/** Class for the User resource */
 class User extends Base {
     static table = 'perfil';
 
