@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils/protection.js</title>
+    <title>JSDoc: Source: controllers/files.controller.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils/protection.js</h1>
+    <h1 class="page-title">Source: controllers/files.controller.js</h1>
 
     
 
@@ -26,40 +26,63 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const db = require('../db/database');
+            <pre class="prettyprint source linenums"><code>const multer = require('multer');
+const sharp = require('sharp');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 /**
- * Remove fields from query string or makes them inaccessible.
- * @param {string} Model - The Model of the table to restrict.
- * @param {array} fields - The fields to be excluded.
- * @return {function} A function that restricts the fields that will be returned from the db.
+ * This function creates a multer object that will be used to upload images to the server.
+ * @returns an object with two properties: storage and filter.
  */
-exports.makeFieldsPrivate = (Model, ...fields) => {
-    return async (req, res, next) => {
-        if (req.query.fields) {
-            let queryFields = req.query.fields.split(',');
-            queryFields = queryFields.filter((qf) => !fields.includes(qf));
-            req.query.fields = queryFields.join(',');
+const createUpload = () => {
+    const multerStorage = multer.memoryStorage();
+
+    const multerFilter = (req, file, cb) => {
+        if (file.mimetype.startsWith('image')) {
+            cb(null, true);
         } else {
-            const columnInfo = await db(Model.table).columnInfo();
-            fields.forEach((field) => delete columnInfo[field]);
-            req.query.fields = Object.keys(columnInfo).join(',');
+            cb(
+                new AppError(
+                    'El archivo no es una imagen. Intenta de nuevo.',
+                    404
+                ),
+                false
+            );
         }
-        next();
     };
+    return multer({ storage: multerStorage, filter: multerFilter });
 };
 
-/**
- * Remove data from the body of a request to prevent user from updating certain fields.
- * @param {array} fields - The fields to be excluded.
- * @return {function} A function that restricts the information contained in the body of a function.
- */
-exports.protectBody = (...fields) => {
-    return (req, res, next) => {
-        fields.forEach((field) => req.body[field] &amp;&amp; delete req.body[field]);
-        next();
-    };
-};
+exports.formatBlogImage = catchAsync(async (req, res, next) => {
+    if (!req.file) return next();
+
+    // FORMAT file
+    req.body.image = `blog-${Date.now()}.jpeg`;
+    await sharp(req.file.buffer)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`public/blog/${req.body.image}`);
+
+    next();
+});
+
+exports.formatNewsImage = catchAsync(async (req, res, next) => {
+    if (!req.file) return next();
+
+    // FORMAT file
+    req.body.image = `news-${Date.now()}.jpeg`;
+    await sharp(req.file.buffer)
+        .resize(500, 500)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`public/news/${req.body.image}`);
+
+    next();
+});
+
+exports.uploadBlogPhoto = createUpload().single('blog_photo');
+exports.uploadBannerPhoto = createUpload().single('news_photo');
 </code></pre>
         </article>
     </section>

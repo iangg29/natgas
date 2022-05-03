@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils/protection.js</title>
+    <title>JSDoc: Source: models/natgasblock.model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils/protection.js</h1>
+    <h1 class="page-title">Source: models/natgasblock.model.js</h1>
 
     
 
@@ -27,39 +27,63 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const db = require('../db/database');
+const Base = require('./base.model');
+const User = require('./user.model');
+const AppError = require('../utils/appError');
 
-/**
- * Remove fields from query string or makes them inaccessible.
- * @param {string} Model - The Model of the table to restrict.
- * @param {array} fields - The fields to be excluded.
- * @return {function} A function that restricts the fields that will be returned from the db.
- */
-exports.makeFieldsPrivate = (Model, ...fields) => {
-    return async (req, res, next) => {
-        if (req.query.fields) {
-            let queryFields = req.query.fields.split(',');
-            queryFields = queryFields.filter((qf) => !fields.includes(qf));
-            req.query.fields = queryFields.join(',');
-        } else {
-            const columnInfo = await db(Model.table).columnInfo();
-            fields.forEach((field) => delete columnInfo[field]);
-            req.query.fields = Object.keys(columnInfo).join(',');
-        }
-        next();
-    };
-};
+class NatgasBlock extends Base {
+    static table = 'natgasblock';
+    static tableReference = db(this.table);
 
-/**
- * Remove data from the body of a request to prevent user from updating certain fields.
- * @param {array} fields - The fields to be excluded.
- * @return {function} A function that restricts the information contained in the body of a function.
- */
-exports.protectBody = (...fields) => {
-    return (req, res, next) => {
-        fields.forEach((field) => req.body[field] &amp;&amp; delete req.body[field]);
-        next();
-    };
-};
+    constructor({ date, period, email }) {
+        super();
+        this.date = date;
+        this.period = period;
+        this.email = email;
+
+        this.tableName = 'natgasblock';
+    }
+
+    /**
+     * It checks if the user has used all his NGBs, if he has used a NGB in the last month, and if not,
+     * it creates a new NGB
+     * @returns The new NatgasBlock created.
+     */
+    async save() {
+        const user = (await User.getOne('email', this.email))[0];
+
+        // CHECK IF USER HAS USED ALL NGB
+        if (user.ngBlocks &lt; 1)
+            throw new AppError('Ya no le quedan mas NGB al usuario.', 400);
+
+        // CHECK IF USER HAS USED A NGB IN THE LAST MONTH
+        const thisMonth = await NatgasBlock.getOne(
+            'email',
+            this.email
+        ).whereRaw('MONTH(date) = ?', [new Date(this.date).getMonth() + 1]);
+
+        if (thisMonth.length > 0)
+            throw new AppError(
+                'Ya no le quedan mas NGB en este mes al usuario.',
+                400
+            );
+
+        // CREATE NGB
+        const idNatgasblock = await db
+            .insert({
+                date: this.date,
+                period: this.period,
+                email: this.email,
+            })
+            .into(this.tableName);
+
+        return db.select('*').from(this.tableName).where({
+            idNatgasblock,
+        });
+    }
+}
+
+module.exports = NatgasBlock;
 </code></pre>
         </article>
     </section>
