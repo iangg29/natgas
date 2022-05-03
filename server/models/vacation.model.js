@@ -4,6 +4,7 @@ const User = require('./user.model');
 const Asueto = require('./asueto.model');
 const AppError = require('../utils/appError');
 
+/** Class for the Vacation resource */
 class Vacation extends Base {
     static table = 'vacaciones';
     static vacations = 0;
