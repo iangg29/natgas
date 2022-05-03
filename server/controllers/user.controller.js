@@ -36,6 +36,7 @@ exports.getMe = catchAsync(async (req, res, next) => {
     let myDetails;
     if (req.user.verified) {
         myDetails = (await UserEmployment.getOne('email', req.user.email))[0];
+        myDetails.password = undefined;
     } else myDetails = (await User.getOne('email', req.user.email))[0];
 
     res.status(200).json({
