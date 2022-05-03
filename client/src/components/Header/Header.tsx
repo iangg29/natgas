@@ -35,6 +35,8 @@ const Header = (props: any): JSX.Element => {
           <ul>
             <li>
               {routes.map((route: NavbarLink, idx: number) =>
+                route.path  === "/app/employees" && !auth.user.roles.includes("HR" ) ?
+                <div className="hidden"></div> : 
                 route.path === "/app/profile" ? (
                   <button
                     className="mr-5"

@@ -32,7 +32,7 @@ const MisSolicitudes = (): JSX.Element => {
 
   return (
     <>
-      <Page title="Mis solicitudes" headTitle="Vacaciones" padding={true}>
+      <Page title="Historial de Solicitudes" headTitle="Vacaciones" padding={true}>
         <br />
         <Title title="Vacaciones" />
         <div className="mb-20 mt-10 grid gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
