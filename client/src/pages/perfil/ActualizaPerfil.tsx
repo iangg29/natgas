@@ -1,5 +1,6 @@
 import Page from "../../containers/Page";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { iEmployee } from "../../shared/interfaces/app.interface";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MySwal } from "../../utils/AlertHandler";
@@ -23,7 +24,6 @@ const ActualizaPerfil = (): JSX.Element => {
   const data: iEmployment = suspend(
     async () => {
       const res: any = await axios.get(`/user/me`);
-      console.log(res);
       return await res.data.data.user;
     },
     ["profileDataFetch"],
@@ -58,6 +58,7 @@ const ActualizaPerfil = (): JSX.Element => {
       ])
     })();
   };
+
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
