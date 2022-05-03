@@ -9,6 +9,7 @@ import InputLong from "../../components/Inputs/InputLong";
 import DateInputLong from "../../components/Inputs/DateInputLong";
 import ButtonLight from "../../components/Buttons/buttonLight";
 import { Link } from "react-router-dom";
+import AbacContainer from "../../containers/abacContainer";
 
 const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
@@ -41,7 +42,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   }, [auth]);
 
   const onSubmit = async (): Promise<any> => {
-    console.log("HOLA SI ME ESTOY PIDIENDO");
+    
     await axios
       .patch(`/user/me`, {
         address: employee.address,
@@ -65,7 +66,8 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
           confirmButtonColor: "#002b49",
         });
 
-        navigate("/app/profile");
+        if(employee.verified) window.location.href = "/app/profile";
+        
       });
   };
   return (
