@@ -23,11 +23,19 @@ const Profile = (props: any): JSX.Element => {
       <Stats user={auth.user} />
       <hr />
       <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/3">
           <RequestNGB user={auth.user} />
         </div>
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/3">
           <RequestVacations user={auth.user} />
+        </div>
+        <div className="w-full md:w-1/3">
+        <Link
+          to={`/app/requests/`}
+          className="rounded-full border-2 inline-block border-natgas-azul px-8 py-3 hover:bg-natgas-azul hover:text-white"
+        >
+          Solicitudes Realizadas
+        </Link>
         </div>
       </div>
       <div className="mt-4 text-center">

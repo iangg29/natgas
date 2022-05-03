@@ -54,10 +54,14 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
             navigate("/app/employees");
           }
           const birthdate = user.birthdate ? user.birthdate.slice(0, -14) : "";
-          const contractdate = user.contractdate ? user.contractdate.slice(0, -14) : "";
-          
+          const contractdate = user.contractdate
+            ? user.contractdate.slice(0, -14)
+            : "";
+
           setEmployee({ ...user, contractdate, birthdate });
-          setPertenece({ ...pertenece, email: user.email });
+          setPertenece((pertenece: any) => {
+            return { ...pertenece, email: user.email };
+          });
         })
         .catch((error) => {
           MySwal.fire({
@@ -162,7 +166,9 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
             <InputLong
               label="Cellphone"
               getVal={employee.cellphone}
-              setVal={(val: any) => setEmployee({ ...employee, cellphone: val })}
+              setVal={(val: any) =>
+                setEmployee({ ...employee, cellphone: val })
+              }
               placeholder="Teléfono"
             />
           </div>
@@ -173,7 +179,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
               label="Fecha de nacimiento"
               getVal={employee.birthdate}
               setVal={(val: any) =>
-                setEmployee({ ...employee, birthdate: val})
+                setEmployee({ ...employee, birthdate: val })
               }
             />
           </div>
@@ -182,7 +188,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
               label="Fecha de inicio de contrato"
               getVal={employee.contractdate}
               setVal={(val: any) =>
-                setEmployee({ ...employee, contractdate: val})
+                setEmployee({ ...employee, contractdate: val })
               }
             />
           </div>
@@ -236,17 +242,13 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
             <DateInputLong
               label="Fecha de inicio de trabajo en el departamento"
               getVal={pertenece.date}
-              setVal={(val: any) =>
-                setPertenece({ ...employee, date: val})
-              }
+              setVal={(val: any) => setPertenece({ ...employee, date: val })}
             />
           </div>
         </div>
         <div className="flex flex-col space-y-14 py-14 text-center md:flex-row md:space-y-0">
           <div className="w-full md:w-1/2">
-          <Link
-              to="/app/pending/profiles/"
-            >
+            <Link to="/app/pending/profiles/">
               <ButtonLight action={onSubmit} label="Completar Perfil" />
             </Link>
           </div>
