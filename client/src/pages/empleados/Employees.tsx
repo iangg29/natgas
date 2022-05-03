@@ -16,6 +16,7 @@ import {
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import Pagination from "../../components/Inputs/Pagination";
 import { MySwal } from "../../utils/AlertHandler";
+import AbacContainer from "../../containers/abacContainer";
 
 const Employees = (): JSX.Element => {
   const [employees, setEmployees] = useState<iEmployment[]>([]);
@@ -85,6 +86,7 @@ const Employees = (): JSX.Element => {
   }, [page, nameSearch, numberSearch, selectedDepartment]);
 
   return (
+    <AbacContainer required_role="HR">
     <Page title="Empleados" headTitle="Empleados" padding={true}>
       <h2 className="text-lg font-semibold">Buscar empleados</h2>
       <div
@@ -215,6 +217,7 @@ const Employees = (): JSX.Element => {
         limit={limit}
       />
     </Page>
+    </AbacContainer>
   );
 };
 

@@ -17,6 +17,7 @@ import DateInputLong from "../Inputs/DateInputLong";
 import InputLong from "../Inputs/InputLong";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { MySwal } from "../../utils/AlertHandler";
+import AbacContainer from "../../containers/abacContainer";
 
 type Props = {
   report: {
@@ -149,28 +150,30 @@ const CardReporte = ({
           />
         </div>
       </div>
-      <div className="my-10 flex w-full flex-col items-center justify-center lg:flex-row">
-        {" "}
-        <div className="m-4">
-          <PrimaryButton
-            label="Agregar reporte"
-            action={() => setVisible(!getVisible)}
-          />
+      <AbacContainer required_role="HR">
+        <div className="my-10 flex w-full flex-col items-center justify-center lg:flex-row">
+          {" "}
+          <div className="m-4">
+            <PrimaryButton
+              label="Agregar reporte"
+              action={() => setVisible(!getVisible)}
+            />
+          </div>
+          <div className="m-4">
+            <PrimaryButton
+              label="Editar reporte"
+              action={() => navigate(`/app/reports/edit/${idReporte}`)}
+            />
+          </div>
+          <div className="m-4">
+            <PrimaryButton
+              label="Eliminar reporte"
+              action={() => deleteFunc(idReporte)}
+              bg="bg-red-600"
+            />
+          </div>
         </div>
-        <div className="m-4">
-          <PrimaryButton
-            label="Editar reporte"
-            action={() => navigate(`/app/reports/edit/${idReporte}`)}
-          />
-        </div>
-        <div className="m-4">
-          <PrimaryButton
-            label="Eliminar reporte"
-            action={() => deleteFunc(idReporte)}
-            bg="bg-red-600"
-          />
-        </div>
-      </div>
+      </AbacContainer>
 
       {getVisible ? (
         <></>
