@@ -76,6 +76,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
     return createSendToken(newUser, 201, req, res);
 });
 
+/* A function that logs the user. */
 exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -105,6 +106,7 @@ exports.login = catchAsync(async (req, res, next) => {
     createSendToken(user, 201, req, res);
 });
 
+/* Setting the cookie to loggedout and then sending a response with a status of success. */
 exports.logout = (req, res, next) => {
     res.cookie('jwt', 'loggedout', {
         expires: new Date(Date.now() + 10 * 1000),

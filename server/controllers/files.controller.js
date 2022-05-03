@@ -3,6 +3,10 @@ const sharp = require('sharp');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
+/**
+ * This function creates a multer object that will be used to upload images to the server.
+ * @returns an object with two properties: storage and filter.
+ */
 const createUpload = () => {
     const multerStorage = multer.memoryStorage();
 
