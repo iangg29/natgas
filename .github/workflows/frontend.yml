@@ -77,7 +77,7 @@ jobs:
           gcloud builds submit \
             --quiet \
             --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
-        working-directory: client/.docker
+        working-directory: client
 
       # Deploy image to Cloud Run
       - name: Deploy GCR
