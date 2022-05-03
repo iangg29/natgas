@@ -29,7 +29,7 @@ const SideBar = (props: any): JSX.Element => {
       >
         <Menu.Items className="absolute right-0 mt-2 w-80 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:divide-gray-800 dark:bg-gray-900">
           <div className="px-1 py-1 ">
-            <Link to="/app/profile">
+          <a onClick={() => {window.location.href="/app/profile"}}>
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -51,7 +51,7 @@ const SideBar = (props: any): JSX.Element => {
                   </button>
                 )}
               </Menu.Item>
-            </Link>
+            </a>
           </div>
           <Toggler />
           <div className="px-1 py-1 ">
