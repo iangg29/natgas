@@ -1,88 +1,184 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
+-- -------------------------------------------------------------
+-- TablePlus 4.6.2(410)
 --
--- Servidor: localhost:8889
--- Tiempo de generación: 01-05-2022 a las 19:09:33
--- Versión del servidor: 5.7.34
--- Versión de PHP: 7.4.21
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+-- https://tableplus.com/
+--
+-- Database: natgas
+-- Generation Time: 2022-05-01 14:11:56.5540
+-- -------------------------------------------------------------
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Base de datos: `Natgas`
---
 
--- --------------------------------------------------------
+CREATE TABLE "asueto" (
+  "idAsueto" int NOT NULL AUTO_INCREMENT,
+  "date" date NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idAsueto")
+);
 
---
--- Estructura de tabla para la tabla `asueto`
---
+CREATE TABLE "blogpost" (
+  "idBlogPost" int NOT NULL AUTO_INCREMENT,
+  "date" date NOT NULL,
+  "title" varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "content" varchar(2000) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "slug" varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "image" varchar(400) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idBlogPost")
+);
 
-CREATE TABLE `asueto` (
-  `idAsueto` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE "departamento" (
+  "idDepartamento" int NOT NULL AUTO_INCREMENT,
+  "name" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idDepartamento")
+);
 
---
--- Volcado de datos para la tabla `asueto`
---
 
-INSERT INTO `asueto` (`idAsueto`, `date`, `created_at`) VALUES
-(35, '2022-03-22', '2022-04-22 02:32:39'),
-(36, '2022-04-15', '2022-04-27 00:18:24');
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `blogpost`
---
 
-CREATE TABLE `blogpost` (
-  `idBlogPost` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `title` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
-  `content` varchar(2000) COLLATE utf8_spanish_ci NOT NULL,
-  `slug` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
-  `image` varchar(400) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `blogpost`
---
+
+
+
+CREATE TABLE "natgasblock" (
+  "idNatgasblock" int NOT NULL AUTO_INCREMENT,
+  "date" date NOT NULL,
+  "status" tinyint(1) NOT NULL,
+  "period" tinyint(1) NOT NULL,
+  "email" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idNatgasblock"),
+  KEY "email" ("email"),
+  CONSTRAINT "natgasblock_ibfk_1" FOREIGN KEY ("email") REFERENCES "perfil" ("email")
+);
+
+CREATE TABLE "noticia" (
+  "idNoticia" int NOT NULL AUTO_INCREMENT,
+  "name" varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "date" date NOT NULL,
+  "image" varchar(400) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idNoticia")
+);
+
+CREATE TABLE "perfil" (
+  "email" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "password" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "name" varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  "lastname" varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  "vacations" int DEFAULT '0',
+  "ngBlocks" int NOT NULL,
+  "number" int NOT NULL AUTO_INCREMENT,
+  "verified" tinyint(1) NOT NULL,
+  "rfc" varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "birthdate" date NOT NULL,
+  "cellphone" bigint NOT NULL,
+  "address" varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "gender" varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "contractdate" date NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("email"),
+  UNIQUE KEY "email" ("email"),
+  KEY "number" ("number")
+);
+
+CREATE TABLE "pertenece" (
+  "idPertenece" int NOT NULL AUTO_INCREMENT,
+  "email" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "idDepartamento" int NOT NULL,
+  "position" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "date" date NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idPertenece"),
+  KEY "email" ("email"),
+  KEY "idDepartamento" ("idDepartamento"),
+  CONSTRAINT "pertenece_ibfk_1" FOREIGN KEY ("email") REFERENCES "perfil" ("email"),
+  CONSTRAINT "pertenece_ibfk_2" FOREIGN KEY ("idDepartamento") REFERENCES "departamento" ("idDepartamento")
+);
+
+CREATE TABLE "rangovacaciones" (
+  "idRangoVacaciones" int NOT NULL AUTO_INCREMENT,
+  "maximum" int NOT NULL,
+  "minimum" int NOT NULL,
+  "days" int NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idRangoVacaciones")
+);
+
+CREATE TABLE "registro" (
+  "idRegistro" int NOT NULL AUTO_INCREMENT,
+  "value" float NOT NULL,
+  "date" date NOT NULL,
+  "idReporte" int NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idRegistro"),
+  KEY "idReporte" ("idReporte"),
+  CONSTRAINT "registro_ibfk_1" FOREIGN KEY ("idReporte") REFERENCES "reporte" ("idReporte")
+);
+
+CREATE TABLE "reporte" (
+  "idReporte" int NOT NULL AUTO_INCREMENT,
+  "name" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idReporte")
+);
+
+CREATE TABLE "vacaciones" (
+  "idVacaciones" int NOT NULL AUTO_INCREMENT,
+  "verifiedleader" tinyint(1) NOT NULL DEFAULT '0',
+  "startdate" date NOT NULL,
+  "enddate" date NOT NULL,
+  "status" tinyint(1) NOT NULL DEFAULT '0',
+  "substitute" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "email" varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updated_at" datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY ("idVacaciones"),
+  KEY "email" ("email"),
+  CONSTRAINT "vacaciones_ibfk_1" FOREIGN KEY ("email") REFERENCES "perfil" ("email")
+);
 
 INSERT INTO `blogpost` (`idBlogPost`, `date`, `title`, `content`, `slug`, `image`, `created_at`, `updated_at`) VALUES
-(1, '2020-05-21', 'Recortes', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/recortes-natgas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(2, '2021-05-21', 'Nuevas oportunidades', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/nuevas-oportunidades', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(3, '2022-05-21', 'Mejoras', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/mejoras-natgas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(4, '2023-05-21', 'Salud mental', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/salud-mental', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(5, '2024-05-21', 'Dia del empleado', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/dia-empleado', 'blog-1649053461699.jpeg', '2022-03-27 16:49:40', '2022-04-04 01:24:21'),
-(6, '2025-05-21', 'Comunciate', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/comunicate-natgas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(7, '2026-05-21', 'Marcas historicas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/marcas-historicas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(8, '2027-05-21', 'Precio del gas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/precio-gas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(9, '2028-05-21', 'Paginas relacionadas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/paginas-relacionadas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(10, '2029-05-21', 'Tomate un break', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/tomate-un-break', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(11, '2030-05-21', 'Feliz dia laboral', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/dia-laboral', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(12, '2031-05-21', 'Trabajando en vacaciones', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/trabajando-vacaciones', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(13, '2001-06-21', 'Dias festivos del mes', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/dias-festivos-junio-21', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(14, '2002-06-21', 'Promociones de Junio', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/promociones-junio-21', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(15, '2003-06-21', 'Come saludable', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/come-saludable', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(16, '2004-06-21', 'Ejercitate con esta rutina', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/ejercitate-rutina', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(17, '2005-06-21', 'Un dia a la vez', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/un-dia-a-la-vez', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(18, '2006-06-21', 'Tecnologia y ciencia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/tecnologia-y-ciencia', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(19, '2007-06-21', 'Ofetas de Junio', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/ofertas-de-junio', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(20, '2008-06-21', 'Como mejorar mi productividad', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', '/como-mejorar-mi-productividad', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(1, '2020-05-21', 'Recortes', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'recortes-natgas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:05'),
+(2, '2021-05-21', 'Nuevas oportunidades', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'nuevas-oportunidades', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:05'),
+(3, '2022-05-21', 'Mejoras', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'mejoras-natgas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:05'),
+(4, '2023-05-21', 'Salud mental', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'salud-mental', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:05'),
+(5, '2024-05-21', 'Dia del empleado', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'dia-empleado', 'blog-1649053461699.jpeg', '2022-03-27 16:49:40', '2022-04-18 15:51:05'),
+(6, '2025-05-21', 'Comunciate', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'comunicate-natgas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:05'),
+(7, '2026-05-21', 'Marcas historicas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'marcas-historicas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(8, '2027-05-21', 'Precio del gas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'precio-gas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(9, '2028-05-21', 'Paginas relacionadas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'paginas-relacionadas', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(10, '2029-05-21', 'Tomate un break', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'tomate-un-break', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(11, '2030-05-21', 'Feliz dia laboral', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'dia-laboral', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(12, '2031-05-21', 'Trabajando en vacaciones', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'trabajando-vacaciones', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(13, '2001-06-21', 'Dias festivos del mes', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'dias-festivos-junio-21', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(14, '2022-04-23', 'Promociones de Junio', 'LOREM ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'promociones-junio-21', 'blog-1650732916728.jpeg', '2022-03-27 16:49:40', '2022-04-23 21:23:39'),
+(15, '2003-06-21', 'Come saludable', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'come-saludable', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(16, '2004-06-21', 'Ejercitate con esta rutina', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'ejercitate-rutina', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:04'),
+(17, '2005-06-21', 'Un dia a la vez', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'un-dia-a-la-vez', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:03'),
+(18, '2006-06-21', 'Tecnologia y ciencia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'tecnologia-y-ciencia', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:03'),
+(19, '2007-06-21', 'Ofetas de Junio', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'ofertas-de-junio', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:03'),
+(20, '2008-06-21', 'Como mejorar mi productividad', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'como-mejorar-mi-productividad', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-03-27 16:49:40', '2022-04-18 15:51:03'),
 (21, '2020-05-21', 'Hola Mundo', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'hola-mundo', 'https://storage.googleapis.com/natgas/eds/eds-gto-mexico-japon_large.jpg', '2022-04-03 19:23:40', '2022-04-03 14:23:40'),
 (22, '2022-04-03', 'Nuevo Blog De Prueba', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'nuevo-blog-de-prueba', '', '2022-04-04 04:11:22', '2022-04-03 23:11:22'),
 (23, '2022-04-03', 'Nuevo Blog De Prueba', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'nuevo-blog-de-prueba', '', '2022-04-04 04:12:17', '2022-04-03 23:12:17'),
@@ -126,143 +222,23 @@ INSERT INTO `blogpost` (`idBlogPost`, `date`, `title`, `content`, `slug`, `image
 (62, '2022-04-03', 'Nuevo Blog De Prueba', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'nuevo-blog-de-prueba', 'blog-1649343922548.jpeg', '2022-04-07 15:05:22', '2022-04-07 10:05:22'),
 (63, '2022-04-03', 'Nuevo Blog De Prueba', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, sapien non bibendum fermentum, diam orci pulvinar nisl, nec commodo libero purus et purus. Suspendisse dictum in ligula a lacinia. Donec euismod ligula felis, vel mattis lacus consectetur eget. Sed malesuada turpis id dui pretium pretium. Aliquam posuere quam at ornare fringilla. Praesent vehicula gravida erat, mattis cursus est tincidunt in. Maecenas massa purus, efficitur quis nunc vel, venenatis imperdiet ex.', 'nuevo-blog-de-prueba', 'blog-1649344052958.jpeg', '2022-04-07 15:07:33', '2022-04-07 10:07:33');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `departamento`
---
-
-CREATE TABLE `departamento` (
-  `idDepartamento` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `departamento`
---
-
 INSERT INTO `departamento` (`idDepartamento`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Marketing', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (2, 'Operaciones', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (3, 'Comercial', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(4, 'Talento y comunicacion', '2022-03-27 16:49:40', '2022-04-26 19:14:15'),
+(4, 'Infraestructura', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (5, 'Bi', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (6, 'Optimización y eficiencia', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (7, 'Natdef', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (8, 'Proyectos estratégicos', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (9, 'Asuntos regulatorior', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (10, 'Impúlsate', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(11, 'Dirección tecnica.', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(12, 'Talento y comunicacion', '2022-04-27 00:13:57', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura Stand-in para la vista `detallesdevacaciones`
--- (Véase abajo para la vista actual)
---
-CREATE TABLE `detallesdevacaciones` (
-`email` varchar(100)
-,`name` varchar(40)
-,`lastname` varchar(40)
-,`departamento` varchar(100)
-,`position` varchar(100)
-,`substitute` varchar(100)
-,`startdate` date
-,`enddate` date
-,`idVacaciones` int(11)
-,`verifiedleader` tinyint(1)
-,`status` tinyint(1)
-,`id` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Estructura Stand-in para la vista `detallesempleado`
--- (Véase abajo para la vista actual)
---
-CREATE TABLE `detallesempleado` (
-`email` varchar(100)
-,`name` varchar(40)
-,`lastname` varchar(40)
-,`vacations` int(11)
-,`ngBlocks` int(11)
-,`position` varchar(100)
-,`departamento` varchar(100)
-,`contrato` date
-,`verified` tinyint(1)
-,`number` int(11)
-,`rfc` varchar(20)
-,`birthdate` date
-,`cellphone` bigint(20)
-,`address` varchar(200)
-,`gender` varchar(20)
-);
-
--- --------------------------------------------------------
-
---
--- Estructura Stand-in para la vista `detallesempleo`
--- (Véase abajo para la vista actual)
---
-CREATE TABLE `detallesempleo` (
-`email` varchar(100)
-,`name` varchar(40)
-,`lastname` varchar(40)
-,`vacations` int(11)
-,`ngBlocks` int(11)
-,`position` varchar(100)
-,`departamento` varchar(100)
-,`contrato` date
-,`verified` tinyint(1)
-,`number` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Estructura Stand-in para la vista `detallesnatgasblock`
--- (Véase abajo para la vista actual)
---
-CREATE TABLE `detallesnatgasblock` (
-`email` varchar(100)
-,`name` varchar(40)
-,`lastname` varchar(40)
-,`departamento` varchar(100)
-,`position` varchar(100)
-,`date` date
-,`status` tinyint(1)
-,`period` tinyint(1)
-,`id` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `natgasblock`
---
-
-CREATE TABLE `natgasblock` (
-  `idNatgasblock` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `period` tinyint(1) NOT NULL,
-  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `natgasblock`
---
+(11, 'Dirección tecnica.', '2022-03-27 16:49:40', '2022-03-27 10:49:40');
 
 INSERT INTO `natgasblock` (`idNatgasblock`, `date`, `status`, `period`, `email`, `created_at`, `updated_at`) VALUES
 (1, '2011-03-21', 1, 1, 'earocas@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (2, '2012-03-21', 0, 0, 'qviso@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(3, '2013-03-21', 1, 0, 'jayala@natgas.com', '2022-03-27 16:49:40', '2022-05-01 12:37:27'),
+(3, '2013-03-21', 0, 0, 'jayala@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (4, '2014-03-21', 1, 0, 'jbaez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (5, '2015-03-21', 0, 0, 'mbastardes@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (6, '2016-03-21', 1, 0, 'janguera@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -282,7 +258,7 @@ INSERT INTO `natgasblock` (`idNatgasblock`, `date`, `status`, `period`, `email`,
 (20, '2030-03-21', 1, 1, 'abadia@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (21, '2031-03-21', 1, 1, 'rmorales@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (22, '2001-04-21', 1, 1, 'djblanco@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(23, '2002-04-21', 0, 1, 'aalvarez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(23, '2002-04-21', 1, 1, 'aalvarez@natgas.com', '2022-03-27 16:49:40', '2022-04-19 15:30:40'),
 (24, '2003-04-21', 0, 1, 'ggarcia@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (25, '2004-04-21', 0, 0, 'ilibori@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (26, '2005-04-21', 0, 0, 'dbidault@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -312,79 +288,16 @@ INSERT INTO `natgasblock` (`idNatgasblock`, `date`, `status`, `period`, `email`,
 (50, '2029-04-21', 1, 0, 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (52, '2022-03-18', 0, 1, 'jbelmonte@natgas.com', '2022-03-29 01:41:05', '2022-03-28 19:41:05');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `noticia`
---
-
-CREATE TABLE `noticia` (
-  `idNoticia` int(11) NOT NULL,
-  `name` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-  `date` date NOT NULL,
-  `image` varchar(400) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `noticia`
---
-
 INSERT INTO `noticia` (`idNoticia`, `name`, `date`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'U.S. natgas futures up 2% on lower output, record LNG exports\n', '2001-02-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(2, 'U.S. LNG exporters emerge as big winners of Europe natgas crisis\n', '2019-03-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(3, 'U.S. natgas futures rise 3% to one-week high on colder forecasts', '2030-03-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(4, 'Construirá Natgas Querétaro tres estaciones de GNV', '2005-04-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(5, 'U.S. natgas output, demand to rise in 2022 -EIA', '2010-04-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(6, 'Two Roadblocks Prevent U.S. from Shipping More NatGas to Europe', '2015-05-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(7, 'Bulgargaz proposes 3.5% hike in natgas price for March', '2024-06-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(8, 'Natgas instalará 32 estaciones de servicio en el Bajío y Occidente', '2013-07-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(9, 'Ofrecen alternativa de gas natural para automóviles', '2028-08-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(10, '¿Te conviene convertir tu auto de gasolina a gas natural?', '2001-09-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(11, 'Se reactiva servicio de gas natural en Guadalajara', '2017-10-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(12, 'ESPECIAL La conversión, opción más barata que un auto de agencia: Natgas', '2030-11-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(13, 'Taxis tapatíos operarán con gas natural', '2004-12-21', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(14, 'Natgas operará estaciones de gas natural en Guadalajara', '2003-01-22', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(15, 'Entregan Distintivo De Empresa Socialmente Responsable A 51 Compañías De Querétaro', '2002-02-22', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(16, 'NatGas inicia ambicioso plan de expansión', '2009-03-22', 'https://media.gq.com.mx/photos/5d3092df662f7c0008e7f474/16:9/w_2560%2Cc_limit/coco.jpg', '2022-03-27 16:49:40', '2022-03-27 10:49:40');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `perfil`
---
-
-CREATE TABLE `perfil` (
-  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `password` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `name` varchar(40) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `lastname` varchar(40) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `vacations` int(11) NOT NULL DEFAULT '0',
-  `ngBlocks` int(11) NOT NULL DEFAULT '0',
-  `number` int(11) NOT NULL,
-  `verified` tinyint(1) NOT NULL DEFAULT '0',
-  `rfc` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `birthdate` date DEFAULT NULL,
-  `cellphone` bigint(20) DEFAULT NULL,
-  `address` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `gender` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `contractdate` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `perfil`
---
+(27, 'Domm', '2022-04-30', 'news-1650995534624.jpeg', '2022-04-26 17:51:20', '2022-04-26 17:52:14');
 
 INSERT INTO `perfil` (`email`, `password`, `name`, `lastname`, `vacations`, `ngBlocks`, `number`, `verified`, `rfc`, `birthdate`, `cellphone`, `address`, `gender`, `contractdate`, `created_at`, `updated_at`) VALUES
 ('aaloy@natgas.com', '$2a$12$iCwErsXFtcx8irNHkY8B2u8t2vsz14ufkbfiRgk6qfQ6i3yPGjr2G', 'Alejandro', 'Aloy Compte', 8, 5, 41, 1, 'AOCA0002039N0', '2000-02-03', 4429257845, 'MARAVILLAS 1516, RESIDENCIAL EL REFUGIO , QUERETARO , QRO , C.P.76146', 'Masculino', '2016-04-26', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
-('aalvarez@natgas.com', '$2a$12$NrdNvk4l/fZOXGPk56xgzeg2dB4OBWUuw9TeyC2AxTKPvj/0M3OkG', 'Aran', 'Álvarez Fernández', 6, 1, 24, 1, 'AAFA890819Q4A', '1989-08-19', 4426534125, 'JUAN ESCUTIA 44, NIÑOS HEROES , QUERETARO , QRO , C.P.76010', 'Masculino', '2011-12-21', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
+('aalvarez@natgas.com', '$2a$12$NrdNvk4l/fZOXGPk56xgzeg2dB4OBWUuw9TeyC2AxTKPvj/0M3OkG', 'Aran', 'Álvarez Fernández', 6, 0, 24, 1, 'AAFA890819Q4A', '1989-08-19', 4426534125, 'JUAN ESCUTIA 44, NIÑOS HEROES , QUERETARO , QRO , C.P.76010', 'Masculino', '2011-12-21', '2022-03-27 16:49:40', '2022-04-19 15:30:40'),
 ('aarnalot@natgas.com', '$2a$12$Hl3hD8gBAgijs1qA6LsVguarBc.eGa12vsG1EBiBOmxWEnhwSQr9e', 'Albert', 'Arnalot Puig', 6, 5, 33, 1, 'AAPA000126812', '2000-01-26', 4429756506, 'ANILLO VIAL JUNÍPERO SERRA KM. 1.5, ARBOLEDAS , QUERETARO , QRO , C.P.76140', 'Masculino', '2022-02-15', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('abadia@natgas.com', '$2a$12$dEz5w/QBReLJafDD23pMyOAAARI/KymPQWpm//uqsEb8C7BtThH4u', 'Andreu', 'Badia Torné', 6, 1, 21, 1, 'BATA890816GQ7', '1989-08-16', 4421454394, 'MARAVILLAS 1516, RESIDENCIAL EL REFUGIO , QUERETARO , QRO , C.P.76146', 'Masculino', '2022-02-15', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('aberengueras@natgas.com', '$2a$12$Rm77hkEXQ8Xpp0bgmg.4DOiTuPLh.7ATuWwc2R.X3nC8bMF0EWFQG', 'Adria', 'Berengueras', 7, 4, 12, 1, 'BECA0007249V2', '2000-07-24', 4421222126, 'CONSTITUYENTES 77, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2022-04-14', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
-('bgalobart@natgas.com', '$2a$12$s9foFgEO97gO4S3gHYPUNu.heiHRgExBcSfwCIwOFsB.Dt4fgeepe', 'Berta', 'Galobart', 6, 4, 35, 1, 'GAGB0005054L8', '2000-05-05', 4421551713, 'ANILLO VIAL JUNIPERO SERRA 1500, ARBOLEDAS , QUERETARO , QRO , C.P.76140', 'Femenino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
+('bgalobart@natgas.com', '$2a$12$s9foFgEO97gO4S3gHYPUNu.heiHRgExBcSfwCIwOFsB.Dt4fgeepe', 'Berta', 'Galobart', 108, 4, 35, 1, 'GAGB0005054L8', '2000-05-05', 4421551713, 'ANILLO VIAL JUNIPERO SERRA 1500, ARBOLEDAS , QUERETARO , QRO , C.P.76140', 'Femenino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-19 15:30:32'),
 ('blopez@natgas.com', '$2a$12$7KUPJCs/o49sAPPwgothH.rHVHyRFFG6CSYvIIJU7h4QZ1gG7cYGW', 'Berta', 'López', 6, 3, 36, 1, 'LEGB0001296Y2', '2000-01-29', 4424901312, 'PASEO CONSTITUYENTES 1265, EL JACAL , QUERETARO , QRO , C.P.76180', 'Femenino', '2011-12-21', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('carlos@smartcode.com', '$2a$12$fi1V9YpSi8sGl4dV20ulb.8uWTQ8EyAUF839wYjSIqQ3syKxG/p06', NULL, 'Moreno', 0, 0, 51, 0, '', '0000-00-00', 0, '', '', '0000-00-00', '2022-04-11 16:24:22', '2022-04-12 01:12:57'),
 ('cesar@smartcode.com', '$2a$12$afVbrk6DmZaMuyZESPTFkePpYJ4alAUJBZbi/Hw5S/Z9MOsId1XYi', NULL, 'Moreno', 0, 0, 58, 0, '', '0000-00-00', 0, '', '', '0000-00-00', '2022-04-12 05:02:05', '2022-04-12 01:12:57'),
@@ -393,7 +306,7 @@ INSERT INTO `perfil` (`email`, `password`, `name`, `lastname`, `vacations`, `ngB
 ('cesarj@smartcode.com', '$2a$12$SbfuuTQ3LpYWzkBWBlT4eenMEVdv1/9gYP1xHSS7yGqfbF2jtPy46', 'Cesar', 'Jimenez', 0, 0, 70, 0, '', '0000-00-00', 0, '', '', '0000-00-00', '2022-04-12 05:15:48', '2022-04-12 01:12:57'),
 ('cesarjim@smartcode.com', '$2a$12$IDwvfA/U4hgVz4by8icIvOozrGA/x28t4I5XerAzEkpMh1lLX9JDG', 'Cesar', 'Jimenez', 0, 0, 68, 0, '', '0000-00-00', 0, '', '', '0000-00-00', '2022-04-12 05:15:03', '2022-04-12 01:12:57'),
 ('cesarjimenez@smartcode.com', '$2a$12$juGOvnZEQhF2BNJfaS4JGOnYMoXiFjC3c8OEPlPejkFW.I7ewWiuC', 'Cesar', 'Jimenez', 0, 0, 67, 0, '', '0000-00-00', 0, '', '', '0000-00-00', '2022-04-12 05:14:36', '2022-04-12 01:12:57'),
-('dbidault@natgas.com', '$2a$12$dSnDc46nvOf18twWR1OFxuqSgUzDuL2jIev67A6wCbxhf1O81EwXS', 'David', 'Bidault', 6, 1, 27, 1, 'BIPD9304123E3', '1993-04-13', 4428241672, 'ANGELA PERALTA 7, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-05-01 10:37:29'),
+('dbidault@natgas.com', '$2a$12$dSnDc46nvOf18twWR1OFxuqSgUzDuL2jIev67A6wCbxhf1O81EwXS', 'David', 'Bidault', 6, 1, 27, 1, 'BIPD9304123E3', '1993-04-12', 4428241672, 'ANGELA PERALTA 7, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('djblanco@natgas.com', '$2a$12$QltgyEHf5AmXhij08wh90ewFgnKpR9tUVodyMjhFe9HkMN9giYehu', 'David', 'Blanco', 6, 1, 23, 1, 'BAFD9003117H5', '1990-03-11', 4425797242, 'AVE DE LA LUZ 220, SATELITE , QUERETARO , QRO , C.P.76110', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('dzafra@natgas.com', '$2a$12$QDTK5opHcvc7esC4C2J/rupwiLYfC8Tls/SG/FLTodsFVHxtIJ/qC', 'Dounya', 'Zafra', 6, 5, 19, 1, 'ZAFD950630K74', '1995-06-30', 4427251707, 'BLVD BERNARDO QUINTANA 506, ARBOLEDAS , QUERETARO , QRO , C.P.76140', 'Femenino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('earnau@natgas.com', '$2a$12$ELJlPbmgVX8p7MsMWl5qg.jPzTjC9qOPg6fDorQ/m7AE.HT1QgF8C', 'Eliot', 'Arnau', 6, 5, 14, 1, 'AAME9104129W7', '1991-04-12', 4428495652, 'CARRETERA QROSLP 10672, EL SALITRE , QUERETARO , QRO , C.P.76127', 'Masculino', '2015-06-10', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
@@ -410,10 +323,10 @@ INSERT INTO `perfil` (`email`, `password`, `name`, `lastname`, `vacations`, `ngB
 ('jaleu@natgas.com', '$2a$12$dXfzJr8ZQ1xJE1aQSrSNqeR.DQQSrb4/bY7e2hcJaSx9rEdyl4HzG', 'Julio', 'Aleu', 6, 1, 20, 1, 'AEIJ890705D12', '1989-07-15', 4428558047, '5 DE FEBRERO 1303 8, FELIPE CARRILLO PUERTO , QUERETARO , QRO , C.P.76138', 'Masculino', '2011-12-21', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('jandreu@natgas.com', '$2a$12$gSpbiWt3ZZuxLyHk2mdOIeTF8tym1HR8KX5H3aXF3FP.Tz7CvSGN6', 'Julio', 'Andreu', 6, 5, 10, 0, 'AECJ921026ND5', '1992-10-26', 4420881626, 'JURIQUILLA 54, JURIQUILLA , QUERETARO , QRO , C.P.76226', 'Masculino', '2017-08-15', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('janguera@natgas.com', '$2a$12$FOAya612yAP8icv0IzqfXuCWMh/d9AOdkKmq/Mb4G6GSe.Pn8IQvG', 'Juan', 'Anguera', 10, 5, 6, 0, 'AUVJ800927LDA', '1980-09-27', 4424473173, 'CLLE INDEPENDENCIA 16, PINAL DE AMOLES , PINAL DE AMOLES , QRO , C.P.76300', 'Masculino', '2018-02-14', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
-('jayala@natgas.com', '$2a$12$YK.xzzZXSPoykK5mCE4lrujHEVqtmB.q3ukZ6oOVnHajYM4qYSSCC', 'Joan', 'Ayala', 8, 4, 3, 0, 'AAFJ911007P66', '1991-12-07', 4423353115, 'AVE DE LA LUZ 220, SATELITE , QUERETARO , QRO , C.P.76110', 'Masculino', '2019-10-31', '2022-03-27 16:49:40', '2022-05-01 12:37:27'),
+('jayala@natgas.com', '$2a$12$YK.xzzZXSPoykK5mCE4lrujHEVqtmB.q3ukZ6oOVnHajYM4qYSSCC', 'Joan', 'Ayala', 8, 5, 3, 0, 'AAFJ911007P66', '1991-12-07', 4423353115, 'AVE DE LA LUZ 220, SATELITE , QUERETARO , QRO , C.P.76110', 'Masculino', '2019-10-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('jayalas@natgas.com', '$2a$12$vsOcG3xe6P4kOb4CP7jfbutaAqErNQZ0mdfFK5WWdTh1j4gBbdeQS', 'Jesus', 'Ayalas', 6, 5, 30, 1, 'AATJ930415AW3', '1993-04-15', 4427899927, 'JURIQUILLA 54, JURIQUILLA , QUERETARO , QRO , C.P.76226', 'Masculino', '2016-03-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('jbaez@natgas.com', '$2a$12$wMVxd8q5qwkqy7hgN7W4IeZ0I1Ocoe7QoouH9HdNuACJ7cGx3diNW', 'Joan', 'Baez', 6, 4, 4, 1, 'BATJ911007MZ0', '2000-01-26', 4427286925, 'JUAN ESCUTIA 44, NIÑOS HEROES , QUERETARO , QRO , C.P.76010', 'Masculino', '2022-08-21', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
-('jbelmonte@natgas.com', '$2a$12$Xw4GXMxnvYi3u0TZUtinkupf3Ixap/b9q93PHRDeANBr5l7UaKrCm', 'Jordi', 'Belmonte', 48, 5, 46, 1, 'BESJ000208DMA', '2000-02-08', 4428539127, 'CLLE INDEPENDENCIA 16, PINAL DE AMOLES , PINAL DE AMOLES , QRO , C.P.76300', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-21 21:47:26'),
+('jbelmonte@natgas.com', '$2a$12$Xw4GXMxnvYi3u0TZUtinkupf3Ixap/b9q93PHRDeANBr5l7UaKrCm', 'Jordi', 'Belmonte', 22, 5, 46, 0, 'BESJ000208DMA', '2000-02-08', 4428539127, 'CLLE INDEPENDENCIA 16, PINAL DE AMOLES , PINAL DE AMOLES , QRO , C.P.76300', 'Masculino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-14 11:26:41'),
 ('jbiosca@natgas.com', '$2a$12$6b4TJHxgjBgEg/pJA/lSxOvmuTsxXQNvoNpmPqzuXSKK0xwIhRZam', 'Jordi', 'Biosca', 9, 2, 18, 1, 'BICL0204153Y2', '1993-05-16', 4420117634, 'CALLE HIDALGO 206, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2016-03-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('jijijija@smartcode.com', '$2a$12$NOUXOSUi9VMkBzu0u48.sOET8PpBS0QT1wv7niFLeaS3EDJGRUrzC', 'Cesar', 'Jimenez', 0, 0, 72, 0, '', '0000-00-00', 0, '', '', '0000-00-00', '2022-04-12 05:44:59', '2022-04-12 01:12:57'),
 ('jmarti@natgas.com', '$2a$12$6TtfpinBBfsXQ/bkDZv.suINNhY3QPdTCtUb3pbUsYlC1kiel9Uhy', 'Joan', 'Marti', 8, 5, 42, 1, 'AEVJ000204VD0', '2000-02-04', 4425016169, 'CLLE ABETO OTE 66, LOS OLVERA , QUERETARO , QRO , C.P.76904', 'Masculino', '2016-03-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
@@ -433,10 +346,6 @@ INSERT INTO `perfil` (`email`, `password`, `name`, `lastname`, `vacations`, `ngB
 ('mpascual@natgas.com', '$2a$12$1EGN3UcBpNaK8jtFcoJzP.p23w/ia6ej/7UN.MpbMuyoIFlRt9PM2', 'Mario', 'Pascual', 6, 5, 29, 1, 'PAFM921002568', '1992-10-02', 4424564684, 'PIE DE LA CUESTA 703, SAN PABLO I , QUERETARO , QRO , C.P.76125', 'Masculino', '2022-02-15', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('msanchez@natgas.com', '$2a$12$4c5TKbLuGPqqM3LteLZmQ.OQYRZSTAVht5QnuLS5chq7oIb.fWU6y', 'Mirella', 'Sanchez', 6, 4, 37, 1, 'SEGM000130CYA', '2000-01-30', 4429894858, 'IGNACIO ZARAGOZA 6, LAS PLAZAS , QUERETARO , QRO , C.P.76180', 'Femenino', '2022-02-15', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('oaloy@natgas.com', '$2a$12$tGX6hRqesw6n79f7D3TmC.QYwR.ZTmDryoOQyjRUnKoFxeRDIwAJi', 'Oliver', 'Aloy', 8, 5, 44, 1, 'AOCO000206Q14', '2000-02-06', 4429581621, 'JUAN ESCUTIA 44, NIÑOS HEROES , QUERETARO , QRO , C.P.76010', 'Masculino', '2022-02-15', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
-('prueba@natgas.com', '$2a$12$kb2URdpThe6ZG./xEX.PHOXpeVx0oz78Z3kzGaX/RJk.FhR.gNPNu', 'Ejemplo', 'Prueba', 0, 0, 79, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-29 00:22:55', '2022-04-28 19:22:55'),
-('prueba@outlook.com', '$2a$12$AWxv0j9E8.kQ3bBIbo7tNukAFMDj2GDc2lRlbwbvaqdNpnfxIahk6', 'Armando', 'Gutiérrez Rojo', 0, 0, 77, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2022-04-29 00:11:06', '2022-04-28 19:11:06'),
-('prueba123@outlook.com', '$2a$12$eaY224BoLQlFUKJe11bTX.PHaBK6e8BdQ/PpdmeVeW8VJlqdZ6a0.', 'Armando', 'Gutiérrez Rojo', 0, 0, 80, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2022-05-01 16:04:10', '2022-05-01 11:04:10'),
-('pruebatest@outlook.com', '$2a$12$om9OYvEJG6BY0e4O4ti1xuRAOMFDlLtDqYDWQUX/aStbX7CvllkSe', 'Armando', 'Gutiérrez Rojo', 0, 0, 81, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2022-05-01 16:39:47', '2022-05-01 11:39:47'),
 ('qviso@natgas.com', '$2a$12$ev9oAQm/KWy4yPdlJy9.OOBG7y8/5ogWRz0JFVsZWc0.GYr.3ovqu', 'Queralt', 'Viso', 7, 3, 2, 1, 'VIGQ890704UG3', '1989-07-04', 4426047960, 'CLLE ABETO OTE 66, LOS OLVERA , QUERETARO , QRO , C.P.76904', 'Masculino', '2010-09-05', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('ravila@natgas.com', '$2a$12$hSATCfxH2vvWjLI/YhSRR.F01Zy6bYKqbmDzQ79eGbKDC1T7J741m', 'Raquel', 'Avila', 8, 5, 50, 0, 'AIMR000216MF7', '2000-02-16', 4422154324, 'JURIQUILLA 54, JURIQUILLA , QUERETARO , QRO , C.P.76226', 'Femenino', '2015-10-29', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('rmorales@natgas.com', '$2a$12$51WYFAoBCJ6y2eFaQFY8KO5cfBmXQfNmK0D/L/JXWZKlombyy8Qyu', 'Ramon', 'Morales', 6, 1, 22, 1, 'MOGR901017PU6', '1990-10-17', 4429173527, 'CLLE ABETO OTE 66, LOS OLVERA , QUERETARO , QRO , C.P.76904', 'Masculino', '2016-03-31', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
@@ -448,30 +357,10 @@ INSERT INTO `perfil` (`email`, `password`, `name`, `lastname`, `vacations`, `ngB
 ('tmas@natgas.com', '$2a$12$yR5afva9ijEDGI2/KAfjhOv3cpXj9EwmDq/tLSzoDCdpsgmgtXNPO', 'Toni', 'Mas', 8, 5, 40, 1, 'MAFT0011032J6', '2000-11-03', 4427980103, '5 DE FEBRERO 1303 8, FELIPE CARRILLO PUERTO , QUERETARO , QRO , C.P.76138', 'Masculino', '2016-04-26', '2022-03-27 16:49:40', '2022-04-12 01:12:57'),
 ('xbenitez@natgas.com', '$2a$12$TBa87lxoyL0DC8gQ.C3OPOI9GUHnwRtpo/jTQ41XRXXcnBFKGmala', 'Xavier', 'Benitez', 6, 5, 28, 1, 'BEJX930413DV2', '1993-04-13', 4422574837, 'CALLE HIDALGO 206, CENTRO , QUERETARO , QRO , C.P.76000', 'Masculino', '2011-12-21', '2022-03-27 16:49:40', '2022-04-12 01:12:57');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `pertenece`
---
-
-CREATE TABLE `pertenece` (
-  `idPertenece` int(11) NOT NULL,
-  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `idDepartamento` int(11) NOT NULL,
-  `position` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `date` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `pertenece`
---
-
 INSERT INTO `pertenece` (`idPertenece`, `email`, `idDepartamento`, `position`, `date`, `created_at`, `updated_at`) VALUES
 (1, 'earocas@natgas.com', 1, 'Analista', '2004-01-19', '2004-01-21 06:00:00', NULL),
 (2, 'qviso@natgas.com', 2, 'Especialista', '2005-01-19', '2005-01-21 06:00:00', NULL),
-(3, 'jayala@natgas.com', 1, '', '2006-01-19', '2006-01-21 06:00:00', '2022-04-29 19:37:24'),
+(3, 'jayala@natgas.com', 3, 'Coordinacion', '2006-01-19', '2006-01-21 06:00:00', NULL),
 (4, 'jbaez@natgas.com', 4, 'Gerencia', '2007-01-19', '2007-01-21 06:00:00', NULL),
 (5, 'mbastardes@natgas.com', 5, 'Direccion', '2008-01-19', '2008-01-21 06:00:00', NULL),
 (6, 'janguera@natgas.com', 6, 'Analista', '2009-01-19', '2009-01-21 06:00:00', '2008-04-22 12:10:00'),
@@ -518,30 +407,10 @@ INSERT INTO `pertenece` (`idPertenece`, `email`, `idDepartamento`, `position`, `
 (47, 'jaguilar@natgas.com', 3, 'Especialista', '2006-06-19', '2006-06-21 05:00:00', NULL),
 (48, 'mjbarriga@natgas.com', 4, 'Coordinacion', '2007-06-19', '2007-06-21 05:00:00', NULL),
 (49, 'ravila@natgas.com', 5, 'Gerencia', '2008-06-19', '2008-06-21 05:00:00', NULL),
-(50, 'jbiosca@natgas.com', 6, 'Direccion', '2009-06-19', '2009-06-21 05:00:00', NULL),
-(51, 'earocas@natgas.com', 3, 'Analista', '2020-05-19', '2004-01-21 06:00:00', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `rangovacaciones`
---
-
-CREATE TABLE `rangovacaciones` (
-  `idRangoVacaciones` int(11) NOT NULL,
-  `maximum` int(11) NOT NULL,
-  `minimum` int(11) NOT NULL,
-  `days` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `rangovacaciones`
---
+(50, 'jbiosca@natgas.com', 6, 'Direccion', '2009-06-19', '2009-06-21 05:00:00', NULL);
 
 INSERT INTO `rangovacaciones` (`idRangoVacaciones`, `maximum`, `minimum`, `days`, `created_at`, `updated_at`) VALUES
-(1, 2, 0, 12, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
+(1, 2, 0, 13, '2022-03-27 16:49:40', '2022-04-23 21:19:45'),
 (2, 3, 1, 4, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (3, 4, 2, 11, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (4, 5, 3, 14, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -558,28 +427,7 @@ INSERT INTO `rangovacaciones` (`idRangoVacaciones`, `maximum`, `minimum`, `days`
 (15, 16, 14, 8, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (16, 17, 15, 10, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (17, 18, 16, 13, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(18, 19, 17, 8, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(19, 20, 18, 9, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(20, 21, 19, 4, '2022-03-27 16:49:40', '2022-03-27 10:49:40');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `registro`
---
-
-CREATE TABLE `registro` (
-  `idRegistro` int(11) NOT NULL,
-  `value` float NOT NULL,
-  `date` date NOT NULL,
-  `idReporte` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `registro`
---
+(18, 19, 17, 8, '2022-03-27 16:49:40', '2022-03-27 10:49:40');
 
 INSERT INTO `registro` (`idRegistro`, `value`, `date`, `idReporte`, `created_at`, `updated_at`) VALUES
 (1, 80, '2020-01-21', 1, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -593,51 +441,13 @@ INSERT INTO `registro` (`idRegistro`, `value`, `date`, `idReporte`, `created_at`
 (9, 66, '2021-07-01', 3, '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (10, 120, '2020-01-02', 4, '2022-03-27 16:49:40', '2022-03-27 10:49:40');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `reporte`
---
-
-CREATE TABLE `reporte` (
-  `idReporte` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `reporte`
---
-
 INSERT INTO `reporte` (`idReporte`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'NPS', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (2, 'PorcentajeMujeres', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (3, 'PorcentajeHombres', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (4, 'ReducciónCO2', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(5, 'Ventas', '2022-04-08 17:33:32', '2022-04-08 12:33:32');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `vacaciones`
---
-
-CREATE TABLE `vacaciones` (
-  `idVacaciones` int(11) NOT NULL,
-  `verifiedleader` tinyint(1) NOT NULL DEFAULT '0',
-  `startdate` date NOT NULL,
-  `enddate` date NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `substitute` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `vacaciones`
---
+(5, 'Ventas', '2022-04-08 17:33:32', '2022-04-08 12:33:32'),
+(6, 'Prueba', '2022-04-18 17:32:00', '2022-04-18 17:32:00');
 
 INSERT INTO `vacaciones` (`idVacaciones`, `verifiedleader`, `startdate`, `enddate`, `status`, `substitute`, `email`, `created_at`, `updated_at`) VALUES
 (1, 1, '2004-01-21', '2004-01-21', 1, 'ESTEFANIA AROCAS PASADAS', 'earocas@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -673,7 +483,7 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedleader`, `startdate`, `enddat
 (31, 0, '2021-05-21', '2025-05-21', 0, 'GEMMA LISTAN FIGUERAS', 'srasero@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (32, 0, '2022-05-21', '2025-05-21', 0, 'SILVIA RASERO GAVILAN', 'aarnalot@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (33, 0, '2023-05-21', '2024-05-21', 0, 'ALBERT ARNALOT PUIG', 'mmoliner@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(34, 1, '2024-05-21', '2025-05-21', 0, 'MARIA MOLINER GARRIDO', 'bgalobart@natgas.com', '2022-03-27 16:49:40', '2022-04-01 00:27:45'),
+(34, 1, '2024-05-21', '2025-05-21', 1, 'MARIA MOLINER GARRIDO', 'bgalobart@natgas.com', '2022-03-27 16:49:40', '2022-04-19 15:30:32'),
 (35, 0, '2025-05-21', '2026-05-21', 0, 'BERTA GALOBART GARCIA', 'blopez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (36, 0, '2026-05-21', '2026-05-21', 0, 'BERTA LÓPEZ GARRIGASSAIT', 'msanchez@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (37, 0, '2027-05-21', '2028-05-21', 0, 'MIREIA SÁNCHEZ GÓMEZ', 'galavedra@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
@@ -684,227 +494,48 @@ INSERT INTO `vacaciones` (`idVacaciones`, `verifiedleader`, `startdate`, `enddat
 (42, 1, '2001-06-21', '2002-06-21', 1, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (43, 1, '2002-06-21', '2003-06-21', 1, 'INGRID BIDAULT PÉREZ', 'oaloy@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (44, 1, '2003-06-21', '2004-06-21', 1, 'OLIVER ALOY CODINACHS', 'saltmiras@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
-(45, 1, '2004-06-21', '2007-06-21', 1, 'SANDRA ALTIMIRAS ARMENTEROS', 'jbelmonte@natgas.com', '2022-03-27 16:49:40', '2022-05-01 12:17:53'),
+(45, 1, '2004-06-21', '2007-06-21', 0, 'SANDRA ALTIMIRAS ARMENTEROS', 'jbelmonte@natgas.com', '2022-03-27 16:49:40', '2022-04-01 00:32:53'),
 (46, 1, '2005-06-21', '2008-06-21', 1, 'JORDI BELMONTE SÁNCHEZ', 'mbajona@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (47, 1, '2006-06-21', '2008-06-21', 1, 'MARC BAJONA GARCIA', 'jaguilar@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (48, 1, '2007-06-21', '2007-06-21', 1, 'JORDINA AGUILAR RODRIGUEZ', 'mjbarriga@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (49, 1, '2008-06-21', '2009-06-21', 1, 'MARIA JOSÉ BARRIGA SOTO', 'ravila@natgas.com', '2022-03-27 16:49:40', '2022-03-27 10:49:40'),
 (50, 1, '2009-06-21', '2010-06-21', 1, 'RAQUEL AVILA MASJUAN', 'jbiosca@natgas.com', '2022-03-27 16:49:40', '2022-04-14 10:35:16'),
-(251, 1, '2022-03-21', '2022-03-23', 0, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-22 01:48:59', '2022-05-01 12:25:49');
+(51, 0, '2001-06-21', '2002-06-21', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:08:19', '2022-03-28 00:08:19'),
+(52, 0, '2001-06-21', '2001-06-21', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:11:55', '2022-03-28 00:11:55'),
+(53, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:12:56', '2022-03-28 00:12:56'),
+(54, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:13:21', '2022-03-28 00:13:21'),
+(55, 0, '2001-06-21', '2001-06-30', 0, 'JOAN MARTÍ ASENSIO VEGA', 'ibidault@natgas.com', '2022-03-28 06:13:48', '2022-03-28 00:13:48'),
+(56, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:48', '2022-04-14 11:00:43'),
+(57, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:18:58', '2022-04-14 10:57:38'),
+(58, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-04-14 10:57:19'),
+(59, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-04-14 10:51:48'),
+(60, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:19:00', '2022-04-14 10:50:29'),
+(61, 1, '2022-03-27', '2022-03-28', 1, 'Armandu Gutierrez', 'jbelmonte@natgas.com', '2022-03-29 01:20:28', '2022-04-14 10:47:48'),
+(62, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 15:39:56', '2022-04-14 10:47:23'),
+(63, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 15:43:58', '2022-04-14 10:46:31'),
+(64, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:01:09', '2022-04-14 11:01:15'),
+(65, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:05:09', '2022-04-14 11:05:16'),
+(66, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:13:11', '2022-04-14 11:13:17'),
+(67, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:15:01', '2022-04-14 11:15:06'),
+(68, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:20:06', '2022-04-14 11:20:10'),
+(69, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:22:53', '2022-04-14 11:23:06'),
+(70, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:23:35', '2022-04-14 11:23:41'),
+(71, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:24:39', '2022-04-14 11:24:48'),
+(72, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:25:30', '2022-04-14 11:25:35'),
+(73, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:25:50', '2022-04-14 11:25:55'),
+(74, 1, '2022-03-20', '2022-03-23', 1, 'JOAN MARTÍ ASENSIO VEGA', 'jbelmonte@natgas.com', '2022-04-14 16:26:20', '2022-04-14 11:26:41'),
+(75, 0, '2022-04-27', '2022-04-26', 0, 'Juan Pérez', 'jbelmonte@natgas.com', '2022-04-19 15:39:42', '2022-04-19 15:39:42');
 
--- --------------------------------------------------------
+CREATE VIEW "detallesdevacaciones" AS select "perfil"."email" AS "email","perfil"."name" AS "name","perfil"."lastname" AS "lastname","departamento"."name" AS "departamento","pertenece"."position" AS "position","vacaciones"."substitute" AS "substitute","vacaciones"."startdate" AS "startdate","vacaciones"."enddate" AS "enddate","vacaciones"."idVacaciones" AS "idVacaciones","vacaciones"."verifiedleader" AS "verifiedleader","vacaciones"."status" AS "status","vacaciones"."idVacaciones" AS "id" from ((("vacaciones" join "perfil") join "pertenece") join "departamento") where (("vacaciones"."email" = "perfil"."email") and ("perfil"."email" = "pertenece"."email") and ("pertenece"."idDepartamento" = "departamento"."idDepartamento"));
+CREATE VIEW "detallesempleado" AS select "perfil"."email" AS "email","perfil"."name" AS "name","perfil"."lastname" AS "lastname","perfil"."vacations" AS "vacations","perfil"."ngBlocks" AS "ngBlocks","pertenece"."position" AS "position","departamento"."name" AS "departamento","pertenece"."date" AS "contrato","perfil"."verified" AS "verified","perfil"."number" AS "number","perfil"."rfc" AS "rfc","perfil"."birthdate" AS "birthdate","perfil"."cellphone" AS "cellphone","perfil"."address" AS "address","perfil"."gender" AS "gender" from (("perfil" join "pertenece") join "departamento") where (("perfil"."email" = "pertenece"."email") and ("pertenece"."idDepartamento" = "departamento"."idDepartamento"));
+CREATE VIEW "detallesempleo" AS select "perfil"."email" AS "email","perfil"."name" AS "name","perfil"."lastname" AS "lastname","perfil"."rfc" AS "rfc","perfil"."cellphone" AS "cellphone","perfil"."vacations" AS "vacations","perfil"."birthdate" AS "birthdate","perfil"."ngBlocks" AS "ngBlocks","pertenece"."position" AS "position","departamento"."name" AS "departamento","pertenece"."date" AS "contrato","perfil"."verified" AS "verified","perfil"."number" AS "number" from (("perfil" join "pertenece") join "departamento") where (("perfil"."email" = "pertenece"."email") and ("pertenece"."idDepartamento" = "departamento"."idDepartamento"));
+CREATE VIEW "detallesnatgasblock" AS select "perfil"."email" AS "email","perfil"."name" AS "name","perfil"."lastname" AS "lastname","departamento"."name" AS "departamento","pertenece"."position" AS "position","natgasblock"."date" AS "date","natgasblock"."status" AS "status","natgasblock"."period" AS "period","natgasblock"."idNatgasblock" AS "id" from ((("natgasblock" join "perfil") join "pertenece") join "departamento") where (("natgasblock"."email" = "perfil"."email") and ("perfil"."email" = "pertenece"."email") and ("pertenece"."idDepartamento" = "departamento"."idDepartamento"));
 
---
--- Estructura para la vista `detallesdevacaciones`
---
-DROP TABLE IF EXISTS `detallesdevacaciones`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesdevacaciones`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `vacaciones`.`substitute` AS `substitute`, `vacaciones`.`startdate` AS `startdate`, `vacaciones`.`enddate` AS `enddate`, `vacaciones`.`idVacaciones` AS `idVacaciones`, `vacaciones`.`verifiedleader` AS `verifiedleader`, `vacaciones`.`status` AS `status`, `vacaciones`.`idVacaciones` AS `id` FROM (((`vacaciones` join `perfil`) join `pertenece`) join `departamento`) WHERE ((`vacaciones`.`email` = `perfil`.`email`) AND (`perfil`.`email` = `pertenece`.`email`) AND (`pertenece`.`idDepartamento` = `departamento`.`idDepartamento`)) ;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `detallesempleado`
---
-DROP TABLE IF EXISTS `detallesempleado`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesempleado`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `perfil`.`vacations` AS `vacations`, `perfil`.`ngBlocks` AS `ngBlocks`, `pertenece`.`position` AS `position`, `departamento`.`name` AS `departamento`, `pertenece`.`date` AS `contrato`, `perfil`.`verified` AS `verified`, `perfil`.`number` AS `number`, `perfil`.`rfc` AS `rfc`, `perfil`.`birthdate` AS `birthdate`, `perfil`.`cellphone` AS `cellphone`, `perfil`.`address` AS `address`, `perfil`.`gender` AS `gender` FROM ((`perfil` join `pertenece`) join `departamento`) WHERE ((`perfil`.`email` = `pertenece`.`email`) AND (`pertenece`.`idDepartamento` = `departamento`.`idDepartamento`)) ;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `detallesempleo`
---
-DROP TABLE IF EXISTS `detallesempleo`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesempleo`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `perfil`.`vacations` AS `vacations`, `perfil`.`ngBlocks` AS `ngBlocks`, `pertenece`.`position` AS `position`, `departamento`.`name` AS `departamento`, `pertenece`.`date` AS `contrato`, `perfil`.`verified` AS `verified`, `perfil`.`number` AS `number` FROM ((`perfil` join `pertenece`) join `departamento`) WHERE ((`perfil`.`email` = `pertenece`.`email`) AND (`pertenece`.`idDepartamento` = `departamento`.`idDepartamento`)) ;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `detallesnatgasblock`
---
-DROP TABLE IF EXISTS `detallesnatgasblock`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detallesnatgasblock`  AS SELECT `perfil`.`email` AS `email`, `perfil`.`name` AS `name`, `perfil`.`lastname` AS `lastname`, `departamento`.`name` AS `departamento`, `pertenece`.`position` AS `position`, `natgasblock`.`date` AS `date`, `natgasblock`.`status` AS `status`, `natgasblock`.`period` AS `period`, `natgasblock`.`idNatgasblock` AS `id` FROM (((`natgasblock` join `perfil`) join `pertenece`) join `departamento`) WHERE ((`natgasblock`.`email` = `perfil`.`email`) AND (`perfil`.`email` = `pertenece`.`email`) AND (`pertenece`.`idDepartamento` = `departamento`.`idDepartamento`)) ;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `asueto`
---
-ALTER TABLE `asueto`
-  ADD PRIMARY KEY (`idAsueto`);
-
---
--- Indices de la tabla `blogpost`
---
-ALTER TABLE `blogpost`
-  ADD PRIMARY KEY (`idBlogPost`);
-
---
--- Indices de la tabla `departamento`
---
-ALTER TABLE `departamento`
-  ADD PRIMARY KEY (`idDepartamento`);
-
---
--- Indices de la tabla `natgasblock`
---
-ALTER TABLE `natgasblock`
-  ADD PRIMARY KEY (`idNatgasblock`),
-  ADD KEY `email` (`email`);
-
---
--- Indices de la tabla `noticia`
---
-ALTER TABLE `noticia`
-  ADD PRIMARY KEY (`idNoticia`);
-
---
--- Indices de la tabla `perfil`
---
-ALTER TABLE `perfil`
-  ADD PRIMARY KEY (`email`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `number` (`number`);
-
---
--- Indices de la tabla `pertenece`
---
-ALTER TABLE `pertenece`
-  ADD PRIMARY KEY (`idPertenece`),
-  ADD KEY `email` (`email`),
-  ADD KEY `idDepartamento` (`idDepartamento`);
-
---
--- Indices de la tabla `rangovacaciones`
---
-ALTER TABLE `rangovacaciones`
-  ADD PRIMARY KEY (`idRangoVacaciones`);
-
---
--- Indices de la tabla `registro`
---
-ALTER TABLE `registro`
-  ADD PRIMARY KEY (`idRegistro`),
-  ADD KEY `idReporte` (`idReporte`);
-
---
--- Indices de la tabla `reporte`
---
-ALTER TABLE `reporte`
-  ADD PRIMARY KEY (`idReporte`);
-
---
--- Indices de la tabla `vacaciones`
---
-ALTER TABLE `vacaciones`
-  ADD PRIMARY KEY (`idVacaciones`),
-  ADD KEY `email` (`email`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `asueto`
---
-ALTER TABLE `asueto`
-  MODIFY `idAsueto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- AUTO_INCREMENT de la tabla `blogpost`
---
-ALTER TABLE `blogpost`
-  MODIFY `idBlogPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
-
---
--- AUTO_INCREMENT de la tabla `departamento`
---
-ALTER TABLE `departamento`
-  MODIFY `idDepartamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `natgasblock`
---
-ALTER TABLE `natgasblock`
-  MODIFY `idNatgasblock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
-
---
--- AUTO_INCREMENT de la tabla `noticia`
---
-ALTER TABLE `noticia`
-  MODIFY `idNoticia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `perfil`
---
-ALTER TABLE `perfil`
-  MODIFY `number` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
-
---
--- AUTO_INCREMENT de la tabla `pertenece`
---
-ALTER TABLE `pertenece`
-  MODIFY `idPertenece` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
-
---
--- AUTO_INCREMENT de la tabla `rangovacaciones`
---
-ALTER TABLE `rangovacaciones`
-  MODIFY `idRangoVacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT de la tabla `registro`
---
-ALTER TABLE `registro`
-  MODIFY `idRegistro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `reporte`
---
-ALTER TABLE `reporte`
-  MODIFY `idReporte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `vacaciones`
---
-ALTER TABLE `vacaciones`
-  MODIFY `idVacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=273;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `natgasblock`
---
-ALTER TABLE `natgasblock`
-  ADD CONSTRAINT `natgasblock_ibfk_1` FOREIGN KEY (`email`) REFERENCES `perfil` (`email`);
-
---
--- Filtros para la tabla `pertenece`
---
-ALTER TABLE `pertenece`
-  ADD CONSTRAINT `pertenece_ibfk_1` FOREIGN KEY (`email`) REFERENCES `perfil` (`email`),
-  ADD CONSTRAINT `pertenece_ibfk_2` FOREIGN KEY (`idDepartamento`) REFERENCES `departamento` (`idDepartamento`);
-
---
--- Filtros para la tabla `registro`
---
-ALTER TABLE `registro`
-  ADD CONSTRAINT `registro_ibfk_1` FOREIGN KEY (`idReporte`) REFERENCES `reporte` (`idReporte`);
-
---
--- Filtros para la tabla `vacaciones`
---
-ALTER TABLE `vacaciones`
-  ADD CONSTRAINT `vacaciones_ibfk_1` FOREIGN KEY (`email`) REFERENCES `perfil` (`email`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

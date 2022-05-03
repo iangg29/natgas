@@ -11,18 +11,11 @@ const ButtonBar = (): JSX.Element => {
     (async () => {
       try {
         const [vacations, ngblocks] = await Promise.all([
-          axios.get("/vacation?verifiedleader=0"),
-          axios.get("/natgasblock?status=0"),
+          axios.get("/vacation/mypendingvacationrequests/"),
+          axios.get("/natgasblock/mypendingngbrequests/"),
         ]);
         setCount(vacations.data.results + ngblocks.data.results);
-      } catch (error: any) {
-        await MySwal.fire({
-          title: "¡Error!",
-          icon: "error",
-          text: error.message,
-          confirmButtonColor: "#002b49",
-        });
-      }
+      } catch (error: any) {}
     })();
   }, []);
 
@@ -52,23 +45,39 @@ const ButtonBar = (): JSX.Element => {
       </AbacContainer>
       <AbacContainer required_role={"HR"}>
         <div className="mt-6 w-full lg:mt-0 lg:w-1/2">
-          <div className="flex flex-col space-y-10 py-4 text-center md:flex-row md:space-y-0">
-            <div className="w-full md:w-1/3">
+          <div className="flex flex-col content-between justify-center space-y-10 py-4 text-center md:flex-row md:space-y-0">
+            <div className="flex w-full flex-col content-center justify-center md:w-1/3">
               <Link to="/app/vacations/search">
                 <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
                   Vacaciones
                 </button>
               </Link>
             </div>
-            <div className="w-full md:w-1/3">
-              <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
-                Registros
-              </button>
+            <div className="flex w-full flex-col content-center justify-center md:w-1/3">
+              <Link to="/app/pending/profiles">
+                <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
+                  Registros pendientes
+                </button>
+              </Link>
             </div>
-            <div className="w-full md:w-1/3">
+            <div className="flex w-full flex-col content-center justify-center md:w-1/3">
               <Link to="/app/employees">
-                <button className="general-btn border-natgas-azul-claro bg-natgas-azul-claro text-white hover:bg-transparent hover:text-natgas-azul dark:hover:text-natgas-azul-claro">
+                <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
                   Empleados
+                </button>
+              </Link>
+            </div>
+            <div className="flex w-full flex-col content-center justify-center md:w-1/3">
+              <Link to="/app/vacations/ranges">
+                <button className="general-btn border-natgas-azul text-natgas-azul hover:bg-natgas-azul hover:text-white dark:border-natgas-verde dark:text-natgas-verde dark:hover:bg-natgas-verde dark:hover:text-gray-50">
+                  Intervalos vacaciones
+                </button>
+              </Link>
+            </div>
+            <div className="flex w-full flex-col content-center justify-center md:w-1/3">
+              <Link to="/app/asuetos">
+                <button className="general-btn border-natgas-azul-claro text-natgas-azul-claro hover:bg-natgas-azul-claro hover:text-white">
+                  Asuetos
                 </button>
               </Link>
             </div>

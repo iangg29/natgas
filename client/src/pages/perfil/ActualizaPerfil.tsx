@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
 import Page from "../../containers/Page";
 import axios, { AxiosResponse } from "axios";
 import { iEmployee } from "../../shared/interfaces/app.interface";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { connect } from "react-redux";
 import { MySwal } from "../../utils/AlertHandler";
+import { suspend } from "suspend-react";
+import { iEmployment } from "../../shared/interfaces/app.interface";
 
 type Inputs = {
   address: string;
@@ -17,44 +17,34 @@ type Inputs = {
   idDepartamento: number;
 };
 
-const ActualizaPerfil = ({ auth }: any): JSX.Element => {
+const ActualizaPerfil = (): JSX.Element => {
   const { register, handleSubmit } = useForm<Inputs>();
   const navigate = useNavigate();
 
-  const [profile, setProfile] = useState<iEmployee>({
-    address: "",
-    birthdate: "",
-    cellphone: 0,
-    contractdate: "",
-    created_at: "",
-    email: "",
-    gender: "",
-    lastname: "",
-    name: "",
-    ngBlocks: 0,
-    number: 0,
-    rfc: "",
-    updated_at: "",
-    vacations: 0,
-    verified: false,
-  });
+  const data: iEmployment = suspend(
+    async () => {
+      const res: any = await axios.get(`/user/me`);
+      return await res.data.data.user;
+    },
+    ["profileDataFetch"],
+    {
+      lifespan: 60000,
+    },
+  );
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs): void => {
     (async () => {
       await Promise.all([
-        axios.patch(`/user/me`, {
+        axios
+        .patch(`/user/me`, {
           address: data.address,
           birthdate: data.birthdate,
           cellphone: data.cellphone,
           contractdate: data.contractdate,
           rfc: data.rfc,
-        }),
-        axios.patch(`/pertenece/email/${auth.user.email}`, {
-          idDepartamento: data.idDepartamento,
-          position: data.position,
-        }),
-      ])
-        .catch((error) => {
+        })
+        .then(() =>{
+        }).catch((error) => {
           MySwal.fire({
             title: "¡Error!",
             icon: "error",
@@ -64,27 +54,11 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
         })
         .finally(() => {
           navigate("/app/profile");
-        });
+        }),
+      ])
     })();
   };
 
-  useEffect(() => {
-    (async () => {
-      axios
-        .get(`/user/me`)
-        .then((res: AxiosResponse) => {
-          setProfile(res.data.data.documents);
-        })
-        .catch((error) => {
-          MySwal.fire({
-            title: "¡Error!",
-            icon: "error",
-            text: error.message,
-            confirmButtonColor: "#002b49",
-          });
-        });
-    })();
-  }, [auth.user.email]);
 
   return (
     <Page title="Mi perfil" headTitle="Mi perfil" padding={true}>
@@ -96,25 +70,25 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">RFC</h4>
               <input
                 type="text"
-                defaultValue={profile.rfc}
+                defaultValue={data.rfc}
                 {...register("rfc")}
                 placeholder="RFC"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Teléfono</h4>
               <input
                 type="number"
-                defaultValue={profile.cellphone}
+                defaultValue={data.cellphone}
                 {...register("cellphone")}
                 placeholder="Teléfono"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
             <div className="w-full md:w-1/3">
               <h4 className="font-gilroy-extrabold">Correo electrónico</h4>
-              <span>{profile.email}</span>
+              <span>{data.email}</span>
             </div>
           </div>
           <hr />
@@ -123,22 +97,20 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               <h4 className="font-gilroy-extrabold">Dirección</h4>
               <input
                 type="text"
-                defaultValue={profile.address}
+                defaultValue={data.address}
                 {...register("address")}
                 placeholder="Dirección"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
             <div className="w-full md:w-1/2">
               <h4 className="font-gilroy-extrabold">Fecha de nacimiento</h4>
               <input
                 type="date"
-                defaultValue={new Date(profile.birthdate)
-                  .toISOString()
-                  .slice(0, -14)}
+                defaultValue={new Date(data.birthdate).toISOString().split("T")[0]}
                 {...register("birthdate")}
                 placeholder="Fecha de nacimiento"
-                className="profile-input"
+                className="profile-input dark:text-black"
               />
             </div>
           </div>
@@ -168,10 +140,4 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    auth: state.authState,
-  };
-};
-
-export default connect(mapStateToProps, null)(ActualizaPerfil);
+export default ActualizaPerfil;

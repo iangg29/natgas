@@ -40,7 +40,10 @@ exports.updateOne = (Model, field) =>
         const doc = await Model.updateOne(field, req.params.id, req.body);
 
         if (!doc[0]) {
-            const error = new AppError('No document found with that ID', 404);
+            const error = new AppError(
+                'No se encontro ningun documento con esa ID',
+                404
+            );
             return next(error);
         }
 
