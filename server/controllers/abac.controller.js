@@ -39,8 +39,8 @@ exports.getRole = catchAsync(async (req, res, next) => {
         req.roles = ['notVerified'];
     } else {
         req.roles = await calcRoles(req.user.email);
-        next();
     }
+    next();
 });
 
 /**

@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 
 const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
-  
 
   const [employee, setEmployee] = useState<any>({});
 
@@ -27,10 +26,8 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
         .then((res: AxiosResponse) => {
           const user = res.data.data.user;
           const birthdate = user.birthdate ? user.birthdate.slice(0, -14) : "";
-         
-          
-          setEmployee({ ...user,  birthdate });
-          
+
+          setEmployee({ ...user, birthdate });
         })
         .catch((error) => {
           MySwal.fire({
@@ -43,49 +40,39 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
     })();
   }, [auth]);
 
-  const onSubmit = (): void => {
-    (async () => {
-      await Promise.all([
-        axios.patch(`/user/me`, {
-        
-          address: employee.address,
-          birthdate: employee.birthdate,
-          cellphone: employee.cellphone,
-          rfc: employee.rfc,
-        }),
-        
-      ])
-        .catch((error) => {
-          MySwal.fire({
-            title: "¡Error!",
-            icon: "error",
-            text: error.message,
-            confirmButtonColor: "#002b49",
-          });
-        })
-        .finally(() => {
-          MySwal.fire({
-            title: "¡Perfil actualizado!",
-            icon: "success",
-            text: "Perfil actualizado con éxito",
-            confirmButtonColor: "#002b49",
-          });
+  const onSubmit = async (): Promise<any> => {
+    console.log("HOLA SI ME ESTOY PIDIENDO");
+    await axios
+      .patch(`/user/me`, {
+        address: employee.address,
+        birthdate: employee.birthdate,
+        cellphone: employee.cellphone,
+        rfc: employee.rfc,
+      })
+      .catch((error) => {
+        MySwal.fire({
+          title: "¡Error!",
+          icon: "error",
+          text: error.message,
+          confirmButtonColor: "#002b49",
+        });
+      })
+      .finally(() => {
+        MySwal.fire({
+          title: "¡Perfil actualizado!",
+          icon: "success",
+          text: "Perfil actualizado con éxito",
+          confirmButtonColor: "#002b49",
+        });
 
-          navigate('/app/profile')
-        })
-    })();
+        navigate("/app/profile");
+      });
   };
-
   return (
-    <Page
-      title={`Datos Personales`}
-      headTitle="Editar perfil"
-      padding={true}
-    >
+    <Page title={`Datos Personales`} headTitle="Editar perfil" padding={true}>
       <div className="font-gilroy-light">
         <hr />
         <div className="flex flex-col space-y-6 py-10 text-gray-600 dark:text-gray-200 md:flex-row md:space-y-0">
-        
           <div className="w-full md:w-1/3">
             <InputLong
               label="RFC"
@@ -108,7 +95,9 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
             <InputLong
               label="Teléfono"
               getVal={employee.cellphone}
-              setVal={(val: any) => setEmployee({ ...employee, cellphone: val })}
+              setVal={(val: any) =>
+                setEmployee({ ...employee, cellphone: val })
+              }
               placeholder="Teléfono"
             />
           </div>
@@ -119,7 +108,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
               label="Fecha de nacimiento"
               getVal={employee.birthdate}
               setVal={(val: any) =>
-                setEmployee({ ...employee, birthdate: val})
+                setEmployee({ ...employee, birthdate: val })
               }
             />
           </div>
