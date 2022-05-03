@@ -17,6 +17,10 @@ module.exports = class Blog extends Base {
         this.slug = this.title.toLowerCase().split(' ').join('-');
     }
 
+    /**
+     * It creates a blog post and sets a cron job to delete it in two months.
+     * @returns The blog that was just created.
+     */
     async save() {
         const previous = await db(this.tableName).where({
             slug: this.slug,

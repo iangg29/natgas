@@ -10,6 +10,10 @@ module.exports = class extends Base {
         this.tableName = 'asueto';
     }
 
+    /**
+     * It inserts a new row into the table with the date and returns the row with the idAsueto.
+     * @returns The idAsueto is being returned.
+     */
     async save() {
         const idAsueto = await db
             .insert({

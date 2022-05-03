@@ -14,6 +14,10 @@ module.exports = class extends Base {
 
         this.tableName = 'registro';
     }
+    /**
+     * Inserts a new row into the table with the given values, and returns the newly inserted row.
+     * @returns The id of the inserted row.
+     */
     async save() {
         const Register = await db
             .insert({

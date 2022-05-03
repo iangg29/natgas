@@ -16,6 +16,11 @@ module.exports = class User extends Base {
         this.tableName = 'perfil';
     }
 
+    /**
+     * It takes the password and passwordConfirm and checks if they match, if they do, it encrypts the
+     * password and inserts it into the database.
+     * @returns The user that was just created.
+     */
     async save() {
         if (this.password !== this.passwordConfirm)
             throw new AppError(
@@ -41,6 +46,30 @@ module.exports = class User extends Base {
         });
     }
 
+    /**
+     * "This function takes a candidate password and a user password, and returns a promise that
+     * resolves to true if the candidate password is the same as the user password, and false
+     * otherwise."
+     *
+     * The function is asynchronous because it uses the bcrypt.compare() function, which is
+     * asynchronous.
+     *
+     * The function is declared as static because it is a method of the User class, and it is called on
+     * the User class, not on an instance of the User class.
+     *
+     * The function is declared as async because it uses the await keyword.
+     *
+     * The function returns a promise that resolves to true if the candidate password is the same as
+     * the user password, and false otherwise.
+     *
+     * The function uses the bcrypt.compare() function to compare the candidate password with the user
+     * password.
+     *
+     * The bcrypt.compare() function takes two arguments: the candidate password and the user password.
+     * @param candidatePassword - The password that the user is trying to log in with.
+     * @param userPassword - The password that is stored in the database
+     * @returns The result of the comparison.
+     */
     static async correctPassword(candidatePassword, userPassword) {
         return await bcrypt.compare(candidatePassword, userPassword);
     }

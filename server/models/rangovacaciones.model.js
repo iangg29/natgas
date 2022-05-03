@@ -12,6 +12,10 @@ module.exports = class extends Base {
         this.tableName = 'rangovacaciones';
     }
 
+    /**
+     * It inserts a new row into the table, and then returns the row that was just inserted.
+     * @returns The idRangoVacaciones is being returned.
+     */
     async save() {
         const idRangoVacaciones = await db
             .insert({
@@ -25,6 +29,11 @@ module.exports = class extends Base {
         });
     }
 
+    /**
+     * It returns the number of vacation days for a given number of years of service.
+     * @param years - number
+     * @returns An array of objects.
+     */
     static async calcVacDays(years) {
         return await db
             .select('days')

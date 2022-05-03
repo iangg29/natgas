@@ -12,6 +12,10 @@ module.exports = class extends Base {
         this.tableName = 'departamento';
     }
 
+    /**
+     * It inserts a new department into the database and then returns the newly created department.
+     * @returns The department object.
+     */
     async save() {
         const department = await db
             .insert({

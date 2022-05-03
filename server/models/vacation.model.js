@@ -8,7 +8,7 @@ module.exports = class Vacation extends Base {
     static table = 'vacaciones';
     static vacations = 0;
 
-    constructor({ startdate, enddate, substitute, email}) {
+    constructor({ startdate, enddate, substitute, email }) {
         super();
         this.startdate = startdate;
         this.enddate = enddate;
@@ -17,7 +17,12 @@ module.exports = class Vacation extends Base {
         this.tableName = 'vacaciones';
     }
 
-
+    /**
+     * It checks if the user has enough vacation days, if the dates are correct, if the user has enough
+     * vacation days, and then it creates the vacation request.
+     * </code>
+     * @returns The return is the result of the query.
+     */
     async save() {
         // CHECK IF USER HAS USED ALL VACATION DAYS
         const user = (await User.getOne('email', this.email))[0];
@@ -35,10 +40,21 @@ module.exports = class Vacation extends Base {
             );
 
         const asuetos = await db
-            .select('*').from('asueto').where('date', '>=' , this.startdate).andWhere('date', '<=' , this.enddate);
+            .select('*')
+            .from('asueto')
+            .where('date', '>=', this.startdate)
+            .andWhere('date', '<=', this.enddate);
         const diasasuetos = asuetos.length;
-        const weekends = Vacation.findWeekends(new Date(this.startdate), new Date(this.enddate));
-        Vacation.vacations = Vacation.calcVacationDays(new Date(this.startdate), new Date(this.enddate), diasasuetos, weekends);
+        const weekends = Vacation.findWeekends(
+            new Date(this.startdate),
+            new Date(this.enddate)
+        );
+        Vacation.vacations = Vacation.calcVacationDays(
+            new Date(this.startdate),
+            new Date(this.enddate),
+            diasasuetos,
+            weekends
+        );
 
         // CHECK IF NUMBER OF DAYS REQUESTED ARE OVER THE AVAILABLE DAYS FOR EMPLOYEE
 
@@ -62,29 +78,43 @@ module.exports = class Vacation extends Base {
         });
     }
 
-
+    /**
+     * It takes two dates, and returns the number of weekends between them.
+     * @param start - The start date of the range
+     * @param end - The end date of the range.
+     * @returns The number of weekends between the two dates.
+     */
     static findWeekends(start, end) {
         let count = 0;
 
-        while(end.getTime() >= start.getTime()){
+        while (end.getTime() >= start.getTime()) {
             start.setDate(start.getDate() + 1);
-            if(start.getDay() === 0 || start.getDay() === 6){
-                count++
+            if (start.getDay() === 0 || start.getDay() === 6) {
+                count++;
             }
         }
         return count;
-
     }
-    static calcVacationDays(start, end, diasasuetos, weekends){
+    /**
+     * It calculates the number of vacation days between two dates, minus the number of holidays and
+     * weekends.
+     * @param start - Date object
+     * @param end - the end date of the vacation
+     * @param diasasuetos - number of days that are not working days (holidays)
+     * @param weekends - number of weekends between start and end dates
+     * @returns The number of vacation days.
+     */
+    static calcVacationDays(start, end, diasasuetos, weekends) {
         let vacations = 0;
-        if(end.getTime() - start.getTime() === 0){
+        if (end.getTime() - start.getTime() === 0) {
             vacations = 1 - diasasuetos - weekends;
-
-        }
-        else{
-            vacations = ((end.getTime() - start.getTime()) / (1000 * 3600 * 24) + 1) - diasasuetos - weekends;
+        } else {
+            vacations =
+                (end.getTime() - start.getTime()) / (1000 * 3600 * 24) +
+                1 -
+                diasasuetos -
+                weekends;
         }
         return vacations;
     }
-
 };
