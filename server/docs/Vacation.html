@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: User</title>
+    <title>JSDoc: Class: Vacation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: User</h1>
+    <h1 class="page-title">Class: Vacation</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>User<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Vacation<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">Class for the User resource</div>
+            <div class="class-description">Class for the Vacation resource</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="User"><span class="type-signature"></span>new User<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Vacation"><span class="type-signature"></span>new Vacation<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_user.model.js.html">models/user.model.js</a>, <a href="models_user.model.js.html#line7">line 7</a>
+        <a href="models_vacation.model.js.html">models/vacation.model.js</a>, <a href="models_vacation.model.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -149,7 +149,7 @@
     
 
     
-    <h4 class="name" id=".correctPassword"><span class="type-signature">(async, static) </span>correctPassword<span class="signature">(candidatePassword, userPassword)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".calcVacationDays"><span class="type-signature">(static) </span>calcVacationDays<span class="signature">(start, end, diasasuetos, weekends)</span><span class="type-signature"></span></h4>
     
 
     
@@ -157,7 +157,7 @@
 
 
 <div class="description">
-    "This function takes a candidate password and a user password, and returns a promise thatresolves to true if the candidate password is the same as the user password, and falseotherwise."The function is asynchronous because it uses the bcrypt.compare() function, which isasynchronous.The function is declared as static because it is a method of the User class, and it is called onthe User class, not on an instance of the User class.The function is declared as async because it uses the await keyword.The function returns a promise that resolves to true if the candidate password is the same asthe user password, and false otherwise.The function uses the bcrypt.compare() function to compare the candidate password with the userpassword.The bcrypt.compare() function takes two arguments: the candidate password and the user password.
+    It calculates the number of vacation days between two dates, minus the number of holidays andweekends.
 </div>
 
 
@@ -193,7 +193,7 @@
 
         <tr>
             
-                <td class="name"><code>candidatePassword</code></td>
+                <td class="name"><code>start</code></td>
             
 
             <td class="type">
@@ -204,14 +204,14 @@
 
             
 
-            <td class="description last">The password that the user is trying to log in with.</td>
+            <td class="description last">Date object</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>userPassword</code></td>
+                <td class="name"><code>end</code></td>
             
 
             <td class="type">
@@ -222,7 +222,43 @@
 
             
 
-            <td class="description last">The password that is stored in the database</td>
+            <td class="description last">the end date of the vacation</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>diasasuetos</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of days that are not working days (holidays)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>weekends</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">number of weekends between start and end dates</td>
         </tr>
 
     
@@ -263,7 +299,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_user.model.js.html">models/user.model.js</a>, <a href="models_user.model.js.html#line74">line 74</a>
+        <a href="models_vacation.model.js.html">models/vacation.model.js</a>, <a href="models_vacation.model.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -292,7 +328,167 @@
 
         
 <div class="param-desc">
-    The result of the comparison.
+    The number of vacation days.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".findWeekends"><span class="type-signature">(static) </span>findWeekends<span class="signature">(start, end)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It takes two dates, and returns the number of weekends between them.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The start date of the range</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The end date of the range.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_vacation.model.js.html">models/vacation.model.js</a>, <a href="models_vacation.model.js.html#line88">line 88</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The number of weekends between the two dates.
 </div>
 
 
@@ -317,7 +513,7 @@
 
 
 <div class="description">
-    It takes the password and passwordConfirm and checks if they match, if they do, it encrypts thepassword and inserts it into the database.
+    It checks if the user has enough vacation days, if the dates are correct, if the user has enoughvacation days, and then it creates the vacation request.</code>
 </div>
 
 
@@ -361,7 +557,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_user.model.js.html">models/user.model.js</a>, <a href="models_user.model.js.html#line25">line 25</a>
+        <a href="models_vacation.model.js.html">models/vacation.model.js</a>, <a href="models_vacation.model.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -390,7 +586,7 @@
 
         
 <div class="param-desc">
-    The user that was just created.
+    The return is the result of the query.
 </div>
 
 
