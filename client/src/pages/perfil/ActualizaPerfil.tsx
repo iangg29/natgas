@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import Page from "../../containers/Page";
 import { MySwal } from "../../utils/AlertHandler";
@@ -8,13 +7,10 @@ import DateInputLong from "../../components/Inputs/DateInputLong";
 import ButtonLight from "../../components/Buttons/buttonLight";
 import { Link } from "react-router-dom";
 
-
 const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   // TODO: HR Fills sensitive data and locks own user profile modification.
 
   const [employee, setEmployee] = useState<any>({});
-
-  const navigate = useNavigate();
 
   //const [employees, setEmployees] = useState<IEmployment[]>([]);
 
@@ -40,7 +36,6 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   }, [auth]);
 
   const onSubmit = async (): Promise<any> => {
-    
     await axios
       .patch(`/user/me`, {
         address: employee.address,
@@ -64,8 +59,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
           confirmButtonColor: "#002b49",
         });
 
-        if(employee.verified) window.location.href = "/app/profile";
-        
+        if (employee.verified) window.location.href = "/app/profile";
       });
   };
   return (
