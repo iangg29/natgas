@@ -53,7 +53,7 @@ const ViewBlog = (): JSX.Element => {
           </div>
           <hr className="mt-5 mb-10 border-2 border-natgas-azul" />
           <div className="w-full">
-            <div className="mx-auto w-1/2 bg-yellow-500">
+            <div className="mx-auto w-1/2">
               <img
                 src={blog.image}
                 alt={blog.title}

@@ -7,3 +7,9 @@ exports.getBlogBySlug = base.getOne(Blog, 'slug');
 exports.createBlog = base.createOne(Blog);
 exports.updateBlog = base.updateOne(Blog, 'idBlogPost');
 exports.deleteBlog = base.deleteOne(Blog, 'idBlogPost');
+
+(async () => {
+    await Blog.updateAll({
+        image: 'https://storage.googleapis.com/natgas-media/default.png',
+    });
+})();
