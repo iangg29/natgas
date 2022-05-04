@@ -25,10 +25,7 @@ const CardCarousel = ({
       <div className="absolute top-2 right-12">
         <UpdateNews id={news.idNoticia} news={news} update={updateCard} />
       </div>
-      <img
-        src={`${process.env.REACT_APP_API_URL}/news/${news.image}`}
-        alt={news.name}
-      />
+      <img src={news.image} alt={news.name} />
       <p className="legend bg-natgas-azul">{news.name}</p>
     </div>
   );

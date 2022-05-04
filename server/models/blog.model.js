@@ -27,8 +27,8 @@ module.exports = class Blog extends Base {
         const previous = await db(this.tableName).where({
             slug: this.slug,
         });
-        // if (previous.length > 0)
-        //     throw new AppError('Ya existe un blog con este nombre', 400);
+        if (previous.length > 0)
+            throw new AppError('Ya existe un blog con este nombre', 400);
 
         if (new Date(this.date) < new Date())
             throw new AppError('No se pueden crear blogs en el pasado', 400);

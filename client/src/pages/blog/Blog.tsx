@@ -36,6 +36,20 @@ const Blog = (): JSX.Element => {
         });
     })();
   }, [getPage, getTitle]);
+
+  const deleteBlog = async (id: number) => {
+    try {
+      await axios.delete(`/blog/${id}`);
+      setBlogs(getBlogs.filter((blog: iBlog) => blog.idBlogPost !== id));
+    } catch (error: any) {
+      MySwal.fire({
+        title: "¡Error!",
+        icon: "error",
+        text: error.message,
+        confirmButtonColor: "#002b49",
+      });
+    }
+  };
   return (
     <Page title="Natgas Blog" headTitle="Natgas Blog" padding={true}>
       <hr className="natgas-divisor" />
@@ -47,23 +61,26 @@ const Blog = (): JSX.Element => {
           placeholder="Buscar..."
         />
       </div>
-      <AbacContainer required_role={'HR'}>
-          <div className="mb-8 grid w-full justify-items-center pt-4" ref={topRef}>
-            <Link
-              to="/app/blog/form"
-              className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro dark:text-gray-100"
-            >
-              <div className="inline-flex">
-                <p className="mt-2 ml-4">Agregar Natgas Blog</p>
-                <FaPlusCircle className="ml-4 mt-1.5 text-3xl text-natgas-verde" />
-              </div>
-            </Link>
-          </div>
+      <AbacContainer required_role={"HR"}>
+        <div
+          className="mb-8 grid w-full justify-items-center pt-4"
+          ref={topRef}
+        >
+          <Link
+            to="/app/blog/form"
+            className=" h-[50px] w-[260px] rounded-full border-[5px] border-natgas-azul-claro font-bold text-natgas-azul hover:bg-natgas-azul-claro dark:text-gray-100"
+          >
+            <div className="inline-flex">
+              <p className="mt-2 ml-4">Agregar Natgas Blog</p>
+              <FaPlusCircle className="ml-4 mt-1.5 text-3xl text-natgas-verde" />
+            </div>
+          </Link>
+        </div>
       </AbacContainer>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {getBlogs.length > 0 ? (
           getBlogs.map((blog: iBlog, idx: number) => (
-            <BlogCard blog={blog} key={idx} />
+            <BlogCard blog={blog} key={idx} deleteBlog={deleteBlog} />
           ))
         ) : (
           <p>No existen blogs</p>
