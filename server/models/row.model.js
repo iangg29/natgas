@@ -2,7 +2,7 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 /** Class for the Row resource */
-class Row extends Base {
+module.exports = class Row extends Base {
     static table = 'registro';
 
     constructor({ value, date, created_at, updated_at, idReporte }) {
@@ -34,4 +34,4 @@ class Row extends Base {
             idRegistro: Register,
         });
     }
-}
+};

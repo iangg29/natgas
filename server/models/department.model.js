@@ -3,7 +3,7 @@ const Base = require('./base.model');
 const AppError = require('../utils/appError');
 
 /** Class for the Departments resource */
-class Departments extends Base {
+module.exports = class Departments extends Base {
     static table = 'departamento';
 
     constructor({ name }) {
@@ -28,6 +28,4 @@ class Departments extends Base {
             idDepartamento: department,
         });
     }
-}
-
-module.exports = Departments;
+};

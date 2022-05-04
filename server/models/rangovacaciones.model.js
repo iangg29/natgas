@@ -2,7 +2,7 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 /** Class for the Rangovacaciones resource */
-class VacationsRange extends Base {
+module.exports = class VacationsRange extends Base {
     static table = 'rangovacaciones';
 
     constructor({ maximum, minimum, days }) {
@@ -42,4 +42,4 @@ class VacationsRange extends Base {
             .where('minimum', '<=', years)
             .andWhere('maximum', '>=', years);
     }
-}
+};

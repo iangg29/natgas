@@ -1,7 +1,7 @@
 const db = require('../db/database');
 const Base = require('./base.model');
 
-class News extends Base {
+module.exports = class News extends Base {
     static table = 'noticia';
 
     constructor({ name, date, image }) {
@@ -30,6 +30,4 @@ class News extends Base {
             idNoticia,
         });
     }
-}
-
-module.exports = News;
+};

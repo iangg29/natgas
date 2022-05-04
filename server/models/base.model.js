@@ -99,7 +99,7 @@ class Base {
      *  @param {object} queryString - The query object to filter by.
      * @return {promise} - A promise that the requested values will be returned.
      */
-    static getAll(queryString) {
+    static async getAll(queryString) {
         const features = new APIFeatures(this.table, queryString)
             .filter()
             .search()
@@ -107,18 +107,7 @@ class Base {
             .limitFields()
             .paginate();
 
-        // la query que hemos modificado ahora vive dentro de features
-        return features.request().catch((err) => {
-            if (err.code === 'ER_BAD_FIELD_ERROR') {
-                throw new AppError(
-                    `Parametro de busqueda invalido ${
-                        err.sqlMessage.split(' ')[2]
-                    }.`,
-                    400
-                );
-            }
-            throw new AppError(err.message, 400);
-        });
+        return await features.request();
     }
 }
 

@@ -2,7 +2,7 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 /** Class for the Auetos resource */
-class Asuetos extends Base {
+module.exports = class Asuetos extends Base {
     static table = 'asueto';
 
     constructor({ date }) {
@@ -25,6 +25,4 @@ class Asuetos extends Base {
             idAsueto,
         });
     }
-}
-
-module.exports = Asuetos;
+};

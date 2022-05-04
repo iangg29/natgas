@@ -3,7 +3,7 @@ const Base = require('./base.model');
 const AppError = require('../utils/appError');
 
 /** Class for the Pertenece resource */
-class Pertenece extends Base {
+module.exports = class Pertenece extends Base {
     static table = 'pertenece';
 
     constructor({ email, idDepartamento, position, date }) {
@@ -33,6 +33,4 @@ class Pertenece extends Base {
             idPertenece,
         });
     }
-}
-
-module.exports = Pertenece;
+};

@@ -2,7 +2,7 @@ const db = require('../db/database');
 const Base = require('./base.model');
 
 /** Class for the Auetos resource */
-class Banner extends Base {
+module.exports = class Banner extends Base {
     static table = 'noticia';
 
     constructor({ date, name, image }) {
@@ -31,6 +31,4 @@ class Banner extends Base {
             idNoticia,
         });
     }
-}
-
-module.exports = Banner;
+};

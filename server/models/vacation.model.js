@@ -5,7 +5,7 @@ const Asueto = require('./asueto.model');
 const AppError = require('../utils/appError');
 
 /** Class for the Vacation resource */
-class Vacation extends Base {
+module.exports = class Vacation extends Base {
     static table = 'vacaciones';
     static vacations = 0;
 
@@ -118,6 +118,4 @@ class Vacation extends Base {
         }
         return vacations;
     }
-}
-
-module.exports = Vacation;
+};

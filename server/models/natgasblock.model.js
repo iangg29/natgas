@@ -4,7 +4,7 @@ const User = require('./user.model');
 const AppError = require('../utils/appError');
 
 /** Class for the NatgasBlocks resource */
-class NatgasBlock extends Base {
+module.exports = class NatgasBlock extends Base {
     static table = 'natgasblock';
     static tableReference = db(this.table);
 
@@ -54,6 +54,4 @@ class NatgasBlock extends Base {
             idNatgasblock,
         });
     }
-}
-
-module.exports = NatgasBlock;
+};
