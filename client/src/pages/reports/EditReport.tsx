@@ -68,6 +68,17 @@ const ReportForm = () => {
     })();
   };
 
+  const updateComponent = (id: number, key: any, value: any) => {
+    setRows((rows) =>
+      rows.map((row) => {
+        if (id === row.idRegistro) {
+          return { ...row, [key]: value };
+        }
+        return row;
+      }),
+    );
+  };
+
   const handleDelete = async (id: number) => {
     await axios
       .delete(`row/${id}`)
@@ -141,7 +152,12 @@ const ReportForm = () => {
           </div>
           <div className="my-4 flex w-full flex-col items-center justify-between">
             {getRows?.map((row) => (
-              <CardRow row={row} update={handleUpdate} delete={handleDelete} />
+              <CardRow
+                row={row}
+                update={handleUpdate}
+                onDelete={handleDelete}
+                updateComponent={updateComponent}
+              />
             ))}
           </div>
         </div>
