@@ -57,8 +57,9 @@ const handleBadField = (err) =>
  * @param {function} next - The next function.
  */
 module.exports = (err, req, res, next) => {
-    err.statusCode = err.statusCode || 500;
+    res.locals.error = err;
     err.status = err.status || 'error';
+    err.statusCode = err.statusCode || 500;
 
     if (process.env.NODE_ENV === 'development') {
         return sendErrorDev(err, req, res);
