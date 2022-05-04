@@ -3,7 +3,8 @@ const Base = require('./base.model');
 const User = require('./user.model');
 const AppError = require('../utils/appError');
 
-class NatgasBlock extends Base {
+/** Class for the NatgasBlocks resource */
+module.exports = class NatgasBlock extends Base {
     static table = 'natgasblock';
     static tableReference = db(this.table);
 
@@ -16,6 +17,11 @@ class NatgasBlock extends Base {
         this.tableName = 'natgasblock';
     }
 
+    /**
+     * It checks if the user has used all his NGBs, if he has used a NGB in the last month, and if not,
+     * it creates a new NGB
+     * @returns The new NatgasBlock created.
+     */
     async save() {
         const user = (await User.getOne('email', this.email))[0];
 
@@ -48,6 +54,4 @@ class NatgasBlock extends Base {
             idNatgasblock,
         });
     }
-}
-
-module.exports = NatgasBlock;
+};

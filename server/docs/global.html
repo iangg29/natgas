@@ -204,7 +204,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_auth.controller.js.html">controllers/auth.controller.js</a>, <a href="controllers_auth.controller.js.html#line118">line 118</a>
+        <a href="controllers_auth.controller.js.html">controllers/auth.controller.js</a>, <a href="controllers_auth.controller.js.html#line120">line 120</a>
     </li></ul></dd>
     
 
@@ -225,6 +225,148 @@
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="calcAntiquity"><span class="type-signature"></span>calcAntiquity<span class="signature">(date)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It takes a date in the format of "YYYY-MM-DD" and returns the number of years between that date andthe current date.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The date you want to calculate the antiquity of.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_cron.controller.js.html">controllers/cron.controller.js</a>, <a href="controllers_cron.controller.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The age of the person in years.
+</div>
+
+
+
+    
+
+
+
+
 
         
             
@@ -745,6 +887,104 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createUpload"><span class="type-signature"></span>createUpload<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This function creates a multer object that will be used to upload images to the server.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_files.controller.js.html">controllers/files.controller.js</a>, <a href="controllers_files.controller.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    an object with two properties: storage and filter.
+</div>
+
+
+
+    
 
 
 
@@ -1938,6 +2178,174 @@
     
 
     
+    <h4 class="name" id="sendErrorDev"><span class="type-signature"></span>sendErrorDev<span class="signature">(err, req, res)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It sends the error to the client in a JSON format.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>err</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The error object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The request object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The response object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_errorController.js.html">controllers/errorController.js</a>, <a href="controllers_errorController.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="signToken"><span class="type-signature"></span>signToken<span class="signature">(email)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
@@ -2086,6 +2494,182 @@
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateEmployeeVacations"><span class="type-signature">(async) </span>updateEmployeeVacations<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It updates the vacations of the employees that have their contract anniversary today.</code>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_cron.controller.js.html">controllers/cron.controller.js</a>, <a href="controllers_cron.controller.js.html#line30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateNGB"><span class="type-signature">(async) </span>updateNGB<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    This function will update all users' NGB requests available to 5.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_cron.controller.js.html">controllers/cron.controller.js</a>, <a href="controllers_cron.controller.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2289,13 +2873,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="APIFeatures.html">APIFeatures</a></li><li><a href="AppError.html">AppError</a></li><li><a href="Base.html">Base</a></li></ul><h3>Global</h3><ul><li><a href="global.html#calcRoles">calcRoles</a></li><li><a href="global.html#createOne">createOne</a></li><li><a href="global.html#createSendToken">createSendToken</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#deleteOne">deleteOne</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getOne">getOne</a></li><li><a href="global.html#getRole">getRole</a></li><li><a href="global.html#limitRole">limitRole</a></li><li><a href="global.html#makeFieldsPrivate">makeFieldsPrivate</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#protectBody">protectBody</a></li><li><a href="global.html#signToken">signToken</a></li><li><a href="global.html#updateOne">updateOne</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="APIFeatures.html">APIFeatures</a></li><li><a href="AppError.html">AppError</a></li><li><a href="Asuetos.html">Asuetos</a></li><li><a href="Banner.html">Banner</a></li><li><a href="Base.html">Base</a></li><li><a href="Blog.html">Blog</a></li><li><a href="Departments.html">Departments</a></li><li><a href="NatgasBlock.html">NatgasBlock</a></li><li><a href="Pertenece.html">Pertenece</a></li><li><a href="Report.html">Report</a></li><li><a href="Reports.html">Reports</a></li><li><a href="Row.html">Row</a></li><li><a href="User.html">User</a></li><li><a href="Vacation.html">Vacation</a></li><li><a href="VacationsRange.html">VacationsRange</a></li></ul><h3>Global</h3><ul><li><a href="global.html#calcAntiquity">calcAntiquity</a></li><li><a href="global.html#calcRoles">calcRoles</a></li><li><a href="global.html#createOne">createOne</a></li><li><a href="global.html#createSendToken">createSendToken</a></li><li><a href="global.html#createUpload">createUpload</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#deleteOne">deleteOne</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getOne">getOne</a></li><li><a href="global.html#getRole">getRole</a></li><li><a href="global.html#limitRole">limitRole</a></li><li><a href="global.html#makeFieldsPrivate">makeFieldsPrivate</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#protectBody">protectBody</a></li><li><a href="global.html#sendErrorDev">sendErrorDev</a></li><li><a href="global.html#signToken">signToken</a></li><li><a href="global.html#updateEmployeeVacations">updateEmployeeVacations</a></li><li><a href="global.html#updateNGB">updateNGB</a></li><li><a href="global.html#updateOne">updateOne</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 03 2022 09:37:27 GMT-0500 (hora de verano central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 03 2022 13:13:34 GMT-0500 (hora de verano central)
 </footer>
 
 <script> prettyPrint(); </script>

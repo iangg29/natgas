@@ -2,7 +2,8 @@ const db = require('../db/database');
 const Base = require('./base.model');
 const AppError = require('../utils/appError');
 
-module.exports = class extends Base {
+/** Class for the Departments resource */
+module.exports = class Departments extends Base {
     static table = 'departamento';
 
     constructor({ name }) {
@@ -12,6 +13,10 @@ module.exports = class extends Base {
         this.tableName = 'departamento';
     }
 
+    /**
+     * It inserts a new department into the database and then returns the newly created department.
+     * @returns The department object.
+     */
     async save() {
         const department = await db
             .insert({

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/user.model.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/user.model.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const db = require('../db/database');
+const Base = require('./base.model');
+const bcrypt = require('bcryptjs');
+const AppError = require('../utils/appError');
+
+/** Class for the User resource */
+class User extends Base {
+    static table = 'perfil';
+
+    constructor({ name, lastname, email, password, passwordConfirm }) {
+        super();
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
+        this.tableName = 'perfil';
+    }
+
+    /**
+     * It takes the password and passwordConfirm and checks if they match, if they do, it encrypts the
+     * password and inserts it into the database.
+     * @returns The user that was just created.
+     */
+    async save() {
+        if (this.password !== this.passwordConfirm)
+            throw new AppError(
+                'Ambas contraseñas deben coincidir, intenta de nuevo.',
+                400
+            );
+        if (this.password.split('').length &lt; 8)
+            throw new AppError(
+                'Las contraseñas debe de contener al menos 8 caracteres.',
+                400
+            );
+        const encrypted = await bcrypt.hash(this.password, 12);
+        const number = await db
+            .insert({
+                name: this.name,
+                lastname: this.lastname,
+                email: this.email,
+                password: encrypted,
+            })
+            .into(this.tableName);
+        return db.select('*').from(this.tableName).where({
+            number,
+        });
+    }
+
+    /**
+     * "This function takes a candidate password and a user password, and returns a promise that
+     * resolves to true if the candidate password is the same as the user password, and false
+     * otherwise."
+     *
+     * The function is asynchronous because it uses the bcrypt.compare() function, which is
+     * asynchronous.
+     *
+     * The function is declared as static because it is a method of the User class, and it is called on
+     * the User class, not on an instance of the User class.
+     *
+     * The function is declared as async because it uses the await keyword.
+     *
+     * The function returns a promise that resolves to true if the candidate password is the same as
+     * the user password, and false otherwise.
+     *
+     * The function uses the bcrypt.compare() function to compare the candidate password with the user
+     * password.
+     *
+     * The bcrypt.compare() function takes two arguments: the candidate password and the user password.
+     * @param candidatePassword - The password that the user is trying to log in with.
+     * @param userPassword - The password that is stored in the database
+     * @returns The result of the comparison.
+     */
+    static async correctPassword(candidatePassword, userPassword) {
+        return await bcrypt.compare(candidatePassword, userPassword);
+    }
+}
+
+module.exports = User;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="APIFeatures.html">APIFeatures</a></li><li><a href="AppError.html">AppError</a></li><li><a href="Asuetos.html">Asuetos</a></li><li><a href="Banner.html">Banner</a></li><li><a href="Base.html">Base</a></li><li><a href="Blog.html">Blog</a></li><li><a href="Departments.html">Departments</a></li><li><a href="NatgasBlock.html">NatgasBlock</a></li><li><a href="Pertenece.html">Pertenece</a></li><li><a href="Report.html">Report</a></li><li><a href="Reports.html">Reports</a></li><li><a href="Row.html">Row</a></li><li><a href="User.html">User</a></li><li><a href="Vacation.html">Vacation</a></li><li><a href="VacationsRange.html">VacationsRange</a></li></ul><h3>Global</h3><ul><li><a href="global.html#calcAntiquity">calcAntiquity</a></li><li><a href="global.html#calcRoles">calcRoles</a></li><li><a href="global.html#createOne">createOne</a></li><li><a href="global.html#createSendToken">createSendToken</a></li><li><a href="global.html#createUpload">createUpload</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#deleteOne">deleteOne</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getOne">getOne</a></li><li><a href="global.html#getRole">getRole</a></li><li><a href="global.html#limitRole">limitRole</a></li><li><a href="global.html#makeFieldsPrivate">makeFieldsPrivate</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#protectBody">protectBody</a></li><li><a href="global.html#sendErrorDev">sendErrorDev</a></li><li><a href="global.html#signToken">signToken</a></li><li><a href="global.html#updateEmployeeVacations">updateEmployeeVacations</a></li><li><a href="global.html#updateNGB">updateNGB</a></li><li><a href="global.html#updateOne">updateOne</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 03 2022 13:13:34 GMT-0500 (hora de verano central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

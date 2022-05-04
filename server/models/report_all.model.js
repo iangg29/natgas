@@ -1,22 +1,27 @@
 const db = require('../db/database');
 const Base = require('./base.model');
 
-module.exports = class extends Base {
+/** Class for the Reports resource */
+module.exprts = class Reports extends Base {
     static table = 'report';
 
-    constructor({name, row}){
+    constructor({ name, row }) {
         super();
         this.name = name;
         this.row = row;
-        
+
         this.tableName = 'reporte';
     }
 
+    /**
+     * It inserts a new row into the table, and then returns the row that was just inserted.
+     * @returns The report that was just created.
+     */
     async save() {
-        const report = await db
+        const idReporte = await db
             .insert({
                 nombre: this.nombre,
-                row: this.row
+                row: this.row,
             })
             .into(this.tableName);
         return db.selevt('*').from(this.tableName).where({

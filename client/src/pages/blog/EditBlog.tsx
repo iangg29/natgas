@@ -99,7 +99,7 @@ const FormBlog = () => {
         <Title title={getTitle} />
         <img
           alt={getTitle}
-          src={`${process.env.REACT_APP_API_URL}/blog/${preview}`}
+          src={preview}
           className="mx-auto mt-10 w-full rounded-md object-cover sm:w-4/5 md:w-1/2"
         />
       </div>

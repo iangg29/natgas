@@ -9,20 +9,23 @@ import {
 } from "@heroicons/react/solid";
 import AbacContainer from "../../containers/abacContainer";
 
-const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
+type Props = {
+  blog: iBlog;
+  deleteBlog: Function;
+};
+
+const BlogCard = ({ blog, deleteBlog }: Props): JSX.Element => {
   const { image, title, content, slug, date, idBlogPost: id } = blog;
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg dark:bg-natgas-azul text-center shadow-lg">
+    <div className="relative w-full overflow-hidden rounded-lg text-center shadow-lg dark:bg-natgas-azul">
       <div className="grid h-52 place-items-center">
-        <img
-          src={`${process.env.REACT_APP_API_URL}/blog/${image}`}
-          alt={title}
-          className="max-h-52 w-auto"
-        />
+        <img src={image} alt={title} className="max-h-52 w-auto" />
       </div>
       <div className="px-6 py-4 text-gray-50">
-        <div className="mb-2 font-quicksand-bold text-xl text-natgas-azul dark:text-white">{title}</div>
+        <div className="mb-2 font-quicksand-bold text-xl text-natgas-azul dark:text-white">
+          {title}
+        </div>
         <hr />
         <p className="mt-5 mb-10 truncate text-justify font-quicksand-regular text-base text-natgas-azul dark:text-gray-100">
           {content}
@@ -39,8 +42,11 @@ const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
           </Link>
         </div>
       </div>
-      <AbacContainer required_role={'HR'}>
-        <Menu as="div" className="absolute top-2 right-2 inline-block text-left">
+      <AbacContainer required_role={"HR"}>
+        <Menu
+          as="div"
+          className="absolute top-2 right-2 inline-block text-left"
+        >
           <div>
             <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white opacity-90 hover:bg-opacity-30 hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
               <DotsHorizontalIcon
@@ -69,9 +75,15 @@ const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
                       } group flex w-full items-center rounded-md p-3 text-sm`}
                     >
                       {active ? (
-                        <PencilIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                        <PencilIcon
+                          className="mr-2 h-5 w-5"
+                          aria-hidden="true"
+                        />
                       ) : (
-                        <PencilIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                        <PencilIcon
+                          className="mr-2 h-5 w-5"
+                          aria-hidden="true"
+                        />
                       )}
                       Editar
                     </Link>
@@ -83,11 +95,18 @@ const BlogCard = ({ blog }: { blog: iBlog }): JSX.Element => {
                       className={`${
                         active ? "bg-red-700 text-white" : "text-gray-100"
                       } group flex w-full items-center rounded-md p-3 text-sm`}
+                      onClick={() => deleteBlog(blog.idBlogPost)}
                     >
                       {active ? (
-                        <TrashIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                        <TrashIcon
+                          className="mr-2 h-5 w-5"
+                          aria-hidden="true"
+                        />
                       ) : (
-                        <TrashIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                        <TrashIcon
+                          className="mr-2 h-5 w-5"
+                          aria-hidden="true"
+                        />
                       )}
                       Eliminar
                     </button>

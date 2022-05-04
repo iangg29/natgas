@@ -6,6 +6,7 @@ import { iNews } from "../../shared/interfaces/app.interface";
 import axios, { AxiosResponse } from "axios";
 import CreateNews from "../News/CreateNews";
 import { MySwal } from "../../utils/AlertHandler";
+import AbacContainer from "../../containers/abacContainer";
 
 const DashCarousel = (): JSX.Element => {
   const [news, setNews] = useState<iNews[]>([]);
@@ -67,9 +68,11 @@ const DashCarousel = (): JSX.Element => {
             <CardCarousel updateCard={updateCarousel(item.idNoticia)} news={item} key={idx} deleteCard={deleteCard}/>
           ))}
         </Carousel>
-        <div className="flex justify-end">
-          <CreateNews setNews={setNews} news={news} />
-        </div>
+        <AbacContainer required_role="HR">
+          <div className="flex justify-end">
+            <CreateNews setNews={setNews} news={news} />
+          </div>
+        </AbacContainer>
       </div>
     </div>
   );

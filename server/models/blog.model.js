@@ -3,6 +3,7 @@ const Base = require('./base.model');
 const cron = require('node-cron');
 const AppError = require('../utils/appError');
 
+/** Class for the Blogs resource */
 module.exports = class Blog extends Base {
     static table = 'blogpost';
 
@@ -11,12 +12,17 @@ module.exports = class Blog extends Base {
         this.date = date;
         this.title = title;
         this.content = content;
-        this.image = image || 'default.png';
+        this.image =
+            image || 'https://storage.googleapis.com/natgas-media/default.png';
 
         this.tableName = 'blogpost';
         this.slug = this.title.toLowerCase().split(' ').join('-');
     }
 
+    /**
+     * It creates a blog post and sets a cron job to delete it in two months.
+     * @returns The blog that was just created.
+     */
     async save() {
         const previous = await db(this.tableName).where({
             slug: this.slug,

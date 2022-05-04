@@ -156,7 +156,7 @@ const CardReporte = ({
           <div className="m-4">
             <PrimaryButton
               label="Agregar reporte"
-              action={() => setVisible(!getVisible)}
+              action={() => setVisible((curr) => !curr)}
             />
           </div>
           <div className="m-4">
@@ -199,8 +199,8 @@ const CardReporte = ({
           </div>
           <div>
             <button
-              className="general-btn ml-2 border-red-600 bg-red-600 py-3 px-16"
-              onClick={() => setVisible(!getVisible)}
+              className="general-btn ml-2 border-red-600 bg-red-600 py-3 px-16 text-white"
+              onClick={() => setVisible((curr) => !curr)}
             >
               Cancelar
             </button>

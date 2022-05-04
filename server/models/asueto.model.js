@@ -1,7 +1,8 @@
 const db = require('../db/database');
 const Base = require('./base.model');
 
-module.exports = class extends Base {
+/** Class for the Auetos resource */
+module.exports = class Asuetos extends Base {
     static table = 'asueto';
 
     constructor({ date }) {
@@ -10,6 +11,10 @@ module.exports = class extends Base {
         this.tableName = 'asueto';
     }
 
+    /**
+     * It inserts a new row into the table with the date and returns the row with the idAsueto.
+     * @returns The idAsueto is being returned.
+     */
     async save() {
         const idAsueto = await db
             .insert({

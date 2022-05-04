@@ -3,6 +3,10 @@
 public/blog/blog-[0-9]*.jpeg
 public/banner/news-[0-9]*.jpeg
 
+# config files
+config/keys.json
+config/smart-code-itesm-f323fc5acd78.json
+
 # Logs
 logs
 *.log

@@ -1,5 +1,11 @@
 const AppError = require('../utils/appError');
 
+/**
+ * It sends the error to the client in a JSON format.
+ * @param err - The error object
+ * @param req - The request object
+ * @param res - The response object
+ */
 const sendErrorDev = (err, req, res) => {
     res.status(err.statusCode).json({
         status: err.status,
@@ -51,8 +57,9 @@ const handleBadField = (err) =>
  * @param {function} next - The next function.
  */
 module.exports = (err, req, res, next) => {
-    err.statusCode = err.statusCode || 500;
+    res.locals.error = err;
     err.status = err.status || 'error';
+    err.statusCode = err.statusCode || 500;
 
     if (process.env.NODE_ENV === 'development') {
         return sendErrorDev(err, req, res);

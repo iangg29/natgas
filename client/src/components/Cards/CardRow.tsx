@@ -7,15 +7,15 @@ import { TrashIcon } from "@heroicons/react/solid";
 type Props = {
   row: any;
   update: Function;
-  delete: Function;
+  onDelete: Function;
+  updateComponent: Function;
 };
 const CardSolicitud = ({
   row,
   update,
-  delete: deleteRow,
+  updateComponent,
+  onDelete: deleteRow,
 }: Props): JSX.Element => {
-  const [getValue, setValue] = useState<number>(row.value);
-  const [getDate, setDate] = useState<Date>(new Date(row.date));
   return (
     <div className="flex w-full flex-col items-center justify-center border-b-4 border-natgas-gris-cool lg:flex-row">
       <div
@@ -28,21 +28,23 @@ const CardSolicitud = ({
         <InputLong
           label="Valor"
           placeholder="number"
-          getVal={getValue}
-          setVal={setValue}
+          getVal={row.value}
+          setVal={(val: number) =>
+            updateComponent(row.idRegistro, "value", val)
+          }
         />
       </div>
       <div className="my-5 w-full lg:mx-5">
         <DateInputLong
           label="Fecha"
-          getVal={getDate.toISOString().split("T")[0]}
-          setVal={setDate}
+          getVal={new Date(row.date).toISOString().split("T")[0]}
+          setVal={(val: any) => updateComponent(row.idRegistro, "date", val)}
         />
       </div>
       <div className="lg:w-20vw md:10vw my-5">
         <PrimaryButton
           label="Guardar"
-          action={() => update(row.idRegistro, getValue, getDate)}
+          action={() => update(row.idRegistro, row.value, row.date)}
         />
       </div>
     </div>
