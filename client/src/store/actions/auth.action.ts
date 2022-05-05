@@ -13,7 +13,7 @@ const LoginAuthAction = (
   return async (dispatch: any) => {
     try {
       await axios
-        .post(process.env.REACT_APP_LOGIN_URL, credentials, {
+        .post('/auth/login', credentials, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -25,18 +25,6 @@ const LoginAuthAction = (
               type: AuthActionType.LOGIN_SUCCESS,
               payload: data,
             });
-            // axios.get(`/user/me`).then((res: AxiosResponse) => {
-            //   const user = res.data.data.user;
-            //   if(user.verified === 0){
-            //     navigate("/app/profile/me");
-            //   }
-
-            //   else{
-            //     navigate("/app/dashboard");
-            //   }
-             
-              
-            // })
             navigate("/app/dashboard");
             
             
