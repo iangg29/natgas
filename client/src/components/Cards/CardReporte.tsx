@@ -93,7 +93,7 @@ const CardReporte = ({
     try {
       await axios.post(`row/`, {
         value: getValue,
-        date: getDate.toISOString().split("T")[0],
+        date: getDate,
         idReporte,
       });
       await axios
