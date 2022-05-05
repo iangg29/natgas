@@ -59,7 +59,7 @@ const Employees = (): JSX.Element => {
           });
         });
     })();
-  }, [departments]);
+  }, []);
 
   useEffect(() => {
     (async () => {
