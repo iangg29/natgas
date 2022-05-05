@@ -38,9 +38,6 @@ const Stats = ({ user }: { user: iEmployee }): JSX.Element => {
           Vacaciones disponibles:{" "}
           <span className="number-bold">{user.vacations}</span>
         </div>
-        <div>
-          Vacaciones ganadas: <span className="number-bold">4</span>
-        </div>
       </div>
       <div className="flex flex-col space-y-10">
         <div>
