@@ -1,0 +1,91 @@
+name: '[GCP] Client Deployment'
+
+on:
+  push:
+    branches: [develop, master]
+  pull_request:
+    branches: [develop, master]
+    types: [opened, synchronize]
+
+env:
+  PROJECT_ID: ${{ secrets.GCR_PROJECT }}
+  RUN_REGION: us-central1
+  SERVICE_NAME: natgas-client
+
+jobs:
+  build:
+    name: Build frontend application
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.4.2
+        with:
+          fetch-depth: 0
+        
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3.1.1
+        with:
+          node-version: '14'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: client
+        run: npm ci
+
+      - name: Build Development
+        working-directory: client
+        run: npm run build
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: build
+          path: client/build
+
+  deploy-gcr:
+    name: Deploy to Google Cloud Platform
+    needs: build
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.4.2
+        with:
+          fetch-depth: 0
+
+      - name: Download Artifact
+        uses: actions/download-artifact@main
+        with:
+          name: build
+          path: client/.docker/build
+
+      - name: Set up gcloud Cloud SDK environment
+        uses: google-github-actions/setup-gcloud@v0.6.0
+        with:
+          service_account_email: ${{ secrets.GCP_EMAIL }}
+          service_account_key: ${{ secrets.GCR_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker
+
+      - name: Build & Push
+        run: |
+          gcloud config set project $PROJECT_ID
+          gcloud builds submit --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
+          gcloud config set run/region $RUN_REGION
+        working-directory: client/.docker
+
+      - name: Image deploy
+        run: |-
+          gcloud run deploy "$SERVICE_NAME" \
+            --quiet \
+            --region "$RUN_REGION" \
+            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
+            --platform "managed" \
+            --allow-unauthenticated

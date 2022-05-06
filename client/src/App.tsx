@@ -1,13 +1,25 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import React, { lazy } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+const Layout = lazy(() => import("./containers/Layout"));
+const Landing = lazy(() => import("./pages/Landing"));
+const Login = lazy(() => import("./pages/auth/login"));
+const Signup = lazy (() => import("./pages/auth/signup"));
 
 function App(): JSX.Element {
   return (
-    <Router>
-      <div id="app" className="w-full h-screen">
-        <h1>NatGas</h1>
-        <p>{process.env.REACT_APP_AUTH0_DOMAIN}</p>
-      </div>
-    </Router>
+    <>
+      <Router>
+        <div id="app" className="h-screen w-full">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/app/*" element={<Layout />} />
+          </Routes>
+        </div>
+      </Router>
+    </>
   );
 }
 

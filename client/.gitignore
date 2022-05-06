@@ -5,7 +5,8 @@ logs
 **/*.backup.*
 **/*.back.*
 .env
-
+cypress.env.json
+build/
 node_modules
 bower_components
 

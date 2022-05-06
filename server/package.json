@@ -1,0 +1,42 @@
+{
+    "name": "natgas-server",
+    "version": "1.0.0",
+    "description": "A backend application to handle requests of information to a mysql db",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "start:dev": "nodemon server.js",
+        "start:prod": "NODE_ENV=production nodemon server.js",
+        "doc": "jsdoc -c jsconf.json"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@google-cloud/storage": "^5.19.4",
+        "bcryptjs": "^2.4.3",
+        "compression": "^1.7.4",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "crypto": "^1.0.1",
+        "csurf": "^1.11.0",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "express-rate-limit": "^6.3.0",
+        "helmet": "^5.0.2",
+        "hpp": "^0.2.3",
+        "jsonwebtoken": "^8.5.1",
+        "knex": "^1.0.4",
+        "knex-paginate": "^3.0.0",
+        "morgan": "^1.10.0",
+        "multer": "^1.4.4",
+        "mysql": "^2.18.1",
+        "node-cron": "^3.0.0",
+        "path": "^0.12.7",
+        "sharp": "^0.30.3",
+        "xss-clean": "^0.1.1"
+    },
+    "devDependencies": {
+        "jsdoc": "^3.6.10",
+        "nodemon": "^2.0.15"
+    }
+}

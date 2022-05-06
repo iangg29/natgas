@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/base.model.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/base.model.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const db = require('../db/database');
+const APIFeatures = require(`../utils/apiFeatures`);
+const AppError = require('../utils/appError');
+
+/** Base class with all static attributes that will be inherited by the data models */
+class Base {
+    static table = '';
+    static tableReference = db(this.table);
+
+    constructor() {}
+
+    /**
+     * Save the current instance of the class in its corresponding database.
+     * @return {promise} - A promise that the new row will be created in its corresponding database.
+     */
+    async save() {}
+
+    /**
+     * Get one document from the current model.
+     *  @param {string} field - The name of the field in the database to searchby.
+     *  @param {string} id - The value to look for in the database.
+     * @return {promise} - A promise that one value will be returned.
+     */
+    static getOne(field, id) {
+        return db(this.table)
+            .select('*')
+            .where({
+                [field]: id,
+            });
+    }
+
+    /**
+     * Get one document with its fields limited by a queryString, this is the safe version of getOne.
+     *  @param {string} field - The name of the field in the database to searchby.
+     *  @param {string} id - The value to look for in the database.
+     *  @param {object} queryString - The query object to filter by.
+     * @return {promise} - A promise that one value will be returned.
+     */
+    static async getOneLimit(field, id, queryString) {
+        const features = new APIFeatures(this.table, queryString)
+            .filter()
+            .limitFields();
+        return features.query.where({
+            [field]: id,
+        });
+    }
+
+    /**
+     * Update one document.
+     *  @param {string} field - The name of the field in the database to searchby.
+     *  @param {string} id - The value to look for in the database.
+     *  @param {object} body - The values to use to update the document.
+     * @return {obj} - A knex queryobj that will get the new value.
+     */
+    static async updateOne(field, id, body) {
+        await db(this.table)
+            .update(body)
+            .where({
+                [field]: id,
+            });
+        return db
+            .select('*')
+            .from(this.table)
+            .where({
+                [field]: id,
+            });
+    }
+    /**
+     * Update all documents document.
+     *  @param {object} body - The values to use to update the document.
+     * @return {obj} - A knex queryobj that will get the new value.
+     */
+    static async updateAll(body) {
+        return await db(this.table).update(body);
+    }
+
+    /**
+     * Delete one document.
+     *  @param {string} field - The name of the field in the database to searchby.
+     *  @param {string} id - The value to look for in the database.
+     */
+    static async deleteOne(field, id) {
+        await db(this.table)
+            .where({
+                [field]: id,
+            })
+            .del();
+    }
+
+    /**
+     * Delete all documents from the current model.
+     */
+    static async deleteAll() {
+        await db(this.table).del();
+    }
+
+    /**
+     * Get several documents with the APIFeatures functionality.
+     *  @param {object} queryString - The query object to filter by.
+     * @return {promise} - A promise that the requested values will be returned.
+     */
+    static getAll(queryString) {
+        const features = new APIFeatures(this.table, queryString)
+            .filter()
+            .search()
+            .sort()
+            .limitFields()
+            .paginate();
+
+        // la query que hemos modificado ahora vive dentro de features
+        return features.request().catch((err) => {
+            if (err.code === 'ER_BAD_FIELD_ERROR') {
+                throw new AppError(
+                    `Parametro de busqueda invalido ${
+                        err.sqlMessage.split(' ')[2]
+                    }.`,
+                    400
+                );
+            }
+            throw new AppError(err.message, 400);
+        });
+    }
+}
+
+module.exports = Base;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="APIFeatures.html">APIFeatures</a></li><li><a href="AppError.html">AppError</a></li><li><a href="Asuetos.html">Asuetos</a></li><li><a href="Banner.html">Banner</a></li><li><a href="Base.html">Base</a></li><li><a href="Blog.html">Blog</a></li><li><a href="Departments.html">Departments</a></li><li><a href="NatgasBlock.html">NatgasBlock</a></li><li><a href="Pertenece.html">Pertenece</a></li><li><a href="Report.html">Report</a></li><li><a href="Reports.html">Reports</a></li><li><a href="Row.html">Row</a></li><li><a href="User.html">User</a></li><li><a href="Vacation.html">Vacation</a></li><li><a href="VacationsRange.html">VacationsRange</a></li></ul><h3>Global</h3><ul><li><a href="global.html#calcAntiquity">calcAntiquity</a></li><li><a href="global.html#calcRoles">calcRoles</a></li><li><a href="global.html#createOne">createOne</a></li><li><a href="global.html#createSendToken">createSendToken</a></li><li><a href="global.html#createUpload">createUpload</a></li><li><a href="global.html#deleteAll">deleteAll</a></li><li><a href="global.html#deleteOne">deleteOne</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getOne">getOne</a></li><li><a href="global.html#getRole">getRole</a></li><li><a href="global.html#limitRole">limitRole</a></li><li><a href="global.html#makeFieldsPrivate">makeFieldsPrivate</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#protectBody">protectBody</a></li><li><a href="global.html#sendErrorDev">sendErrorDev</a></li><li><a href="global.html#signToken">signToken</a></li><li><a href="global.html#updateEmployeeVacations">updateEmployeeVacations</a></li><li><a href="global.html#updateNGB">updateNGB</a></li><li><a href="global.html#updateOne">updateOne</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue May 03 2022 13:13:34 GMT-0500 (hora de verano central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

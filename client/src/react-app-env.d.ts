@@ -2,10 +2,12 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      REACT_APP_AUTH0_DOMAIN: string;
-      REACT_APP_AUTH0_CLIENT_ID: string;
+      REACT_APP_API_URI: string;
+      REACT_APP_API_URL: string;
+      REACT_APP_LOGIN_URL: string;
     }
   }
 }
+declare module "./icons";
 
 export {};

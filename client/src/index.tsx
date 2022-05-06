@@ -1,16 +1,26 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
+import "flowbite";
+
 import "./assets/css/styles.css";
 import App from "./App";
-import { Auth0Provider } from "@auth0/auth0-react";
+import Loading from "./utils/Loading";
+import axios from "axios";
+import { Provider } from "react-redux";
+import store from "./store";
+import "flowbite";
+
+// TODO: E2E & Unit testing is still pending. (Cypress).
+// TODO: For Blog posts, an S3 server (File management) is required, GCP provides one. [API]
+// GCP => Google Cloud Platform
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URI;
 
 // @ts-ignore
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Auth0Provider
-    domain={process.env.REACT_APP_AUTH0_DOMAIN}
-    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
-    redirectUri={window.location.origin}
-  >
-    <App />
-  </Auth0Provider>
+  <Provider store={store}>
+    <Suspense fallback={<Loading />}>
+      <App />
+    </Suspense>
+  </Provider>,
 );
