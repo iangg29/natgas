@@ -3,7 +3,7 @@ const { attachPaginate } = require('knex-paginate');
 attachPaginate();
 
 /* Creating a connection to the database. */
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
     const dbSocketPath = '/cloudsql';
     const db = knex({
         client: 'mysql',
