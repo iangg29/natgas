@@ -2,6 +2,9 @@
 
 ##### TC2005B
 
+[![[GCP] Client Deployment](https://github.com/iangg29/natgas/actions/workflows/frontend.yml/badge.svg)](https://github.com/iangg29/natgas/actions/workflows/frontend.yml)
+[![[GCP] Backend Deployment](https://github.com/iangg29/natgas/actions/workflows/backend.yml/badge.svg)](https://github.com/iangg29/natgas/actions/workflows/backend.yml)
+
 Integrantes
 
 - Alan Fernando Razo Peña | A01703350
