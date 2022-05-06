@@ -23,6 +23,7 @@ console. It will then exit the process with a status code of 1. */
 
 process.on('unhandledRejection', (err) => {
     console.log(err.name, err.message);
+    console.log(err);
     console.log('UNHANDLED REJECTION!: SHUTTING DOWN');
 
     server.close(() => {
