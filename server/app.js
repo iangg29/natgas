@@ -40,9 +40,9 @@ const globalErrorHandler = require('./controllers/errorController');
 const app = express();
 
 app.enable('trust proxy');
-// app.use(cors());
-// app.options('*', cors());
-// app.use(xss());
+app.use(cors());
+app.options('*', cors());
+app.use(xss());
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
