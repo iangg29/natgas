@@ -20,7 +20,7 @@ const FormBanner = () => {
       form.append("news_photo", selectedFileB);
       await axios({
         method: "POST",
-        url: "/banner",
+        url: "https://natgas-server-bynv2pe5gq-uc.a.run.app/api/banner",
         data: form,
       });
     } catch (error: any) {

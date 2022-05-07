@@ -14,7 +14,7 @@ const Reports = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get("/report")
+        .get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/report")
         .then((res: AxiosResponse) => {
           setReports(res.data.data.documents);
         })
@@ -42,7 +42,7 @@ const Reports = (): JSX.Element => {
       if (result.isConfirmed) {
         (async () => {
           await axios
-            .delete(`report/${id}`)
+            .delete(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/report/${id}`)
             .then(() => {
               MySwal.fire({
                 title: "¡Eliminado!",

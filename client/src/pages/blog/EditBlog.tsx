@@ -21,7 +21,7 @@ const FormBlog = () => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`blog/${id}`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/blog/${id}`)
         .then((res: AxiosResponse) => {
           const { title, content, image, date } = res.data.data.document[0];
           setTitle(title);
@@ -51,7 +51,7 @@ const FormBlog = () => {
 
       await axios({
         method: "PATCH",
-        url: `/blog/${id}`,
+        url: `https://natgas-server-bynv2pe5gq-uc.a.run.app/api/blog/${id}`,
         data: form,
       }).then(() => {
         MySwal.fire({

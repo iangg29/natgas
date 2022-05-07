@@ -69,7 +69,7 @@ const CardReporte = ({
   useEffect(() => {
     (async () => {
       await axios
-        .get(`report/getRowsFromReport/${idReporte}`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/report/getRowsFromReport/${idReporte}`)
         .then((res: AxiosResponse) => {
           setRows(res.data.data.documents);
           setLabels(
@@ -97,7 +97,7 @@ const CardReporte = ({
         idReporte,
       });
       await axios
-        .get(`report/getRowsFromReport/${idReporte}`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/report/getRowsFromReport/${idReporte}`)
         .then((res: AxiosResponse) => {
           setRows(res.data.data.documents);
           setLabels(

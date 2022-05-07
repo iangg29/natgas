@@ -28,7 +28,7 @@ const Signup = (): JSX.Element => {
   const onSubmit: SubmitHandler<Inputs> = (data: any): void => {
     (async () => {
       await axios
-        .post("/auth/signup", data)
+        .post("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/auth/signup", data)
         .then(() => {
           reset();
           MySwal.fire({

@@ -30,7 +30,7 @@ const Employee = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/user/${number}`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/${number}`)
         .then((res: AxiosResponse) => {
           setEmployee(res.data.data.document[0]);
         })

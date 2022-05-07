@@ -13,7 +13,7 @@ const RequestVacations = ({ user }: any): JSX.Element => {
 
   const sendVacationsRequest = async () => {
     await axios
-      .post("/vacation", {
+      .post("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/vacation", {
         startdate: getStartDate,
         enddate: getEndDate,
         substitute: getSuplente,

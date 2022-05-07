@@ -18,8 +18,8 @@ const ReportForm = () => {
     (async () => {
       try {
         const [rows, report] = await Promise.all([
-          axios.get(`row?idReporte=${id}&sort=date`),
-          axios.get(`report/${id}`),
+          axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/row?idReporte=${id}&sort=date`),
+          axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/report/${id}`),
         ]);
         setRows(rows.data.data.documents);
         setReport(report.data.data.document[0]);
@@ -46,7 +46,7 @@ const ReportForm = () => {
     }
     (async () => {
       await axios
-        .patch(`report/${id}`, {
+        .patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/report/${id}`, {
           name: getReport.name,
         })
         .then(() => {
@@ -81,7 +81,7 @@ const ReportForm = () => {
 
   const handleDelete = async (id: number) => {
     await axios
-      .delete(`row/${id}`)
+      .delete(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/row/${id}`)
       .then(() =>
         MySwal.fire({
           title: "¡Eliminado!",
@@ -103,7 +103,7 @@ const ReportForm = () => {
   };
   const handleUpdate = async (id: number, value: number, date: Date) => {
     await axios
-      .patch(`row/${id}`, {
+      .patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/row/${id}`, {
         value,
         date,
       })

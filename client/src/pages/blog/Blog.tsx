@@ -21,7 +21,7 @@ const Blog = (): JSX.Element => {
     (async () => {
       await axios
         .get(
-          `/blog?title_like=${getTitle}&sort=-created_at&limit=${limit}&page=${getPage}`,
+          `https://natgas-server-bynv2pe5gq-uc.a.run.app/api/blog?title_like=${getTitle}&sort=-created_at&limit=${limit}&page=${getPage}`,
         )
         .then((res: AxiosResponse) => {
           setBlogs(res.data.data.documents);
@@ -39,7 +39,7 @@ const Blog = (): JSX.Element => {
 
   const deleteBlog = async (id: number) => {
     try {
-      await axios.delete(`/blog/${id}`);
+      await axios.delete(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/blog/${id}`);
       setBlogs(getBlogs.filter((blog: iBlog) => blog.idBlogPost !== id));
     } catch (error: any) {
       MySwal.fire({

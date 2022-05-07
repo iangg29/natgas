@@ -14,7 +14,7 @@ const DashCarousel = (): JSX.Element => {
   const deleteCard = (id: number): void => {
     (async () => {
       await axios
-        .delete(`/news/${id}`)
+        .delete(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/news/${id}`)
         .then((res: AxiosResponse) => {
           setNews(news.filter((item: iNews) => item.idNoticia !== id));
         })
@@ -32,7 +32,7 @@ const DashCarousel = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get("/news")
+        .get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/news")
         .then((res: AxiosResponse) => {
           setNews(res.data.data.documents);
         })

@@ -46,7 +46,7 @@ const Employees = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get("/department")
+        .get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/department")
         .then((res: AxiosResponse) => {
           setDepartments((d) => [...d, ...res.data.data.documents]);
         })
@@ -65,7 +65,7 @@ const Employees = (): JSX.Element => {
     (async () => {
       await axios
         .get(
-          `/user/employment?${
+          `https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/employment?${
             selectedDepartment.name !== "Departamento"
               ? `departamento_like=${selectedDepartment?.name}&`
               : ""

@@ -11,8 +11,8 @@ const Stats = ({ user }: { user: iEmployee }): JSX.Element => {
     (async () => {
       try {
         const [usedVac, usedNgB] = await Promise.all([
-          axios.get(`/vacation?email=${user.email}&verifiedleader=1&status=1`),
-          axios.get(`/natgasblock?email=${user.email}&status=1`),
+          axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/vacation?email=${user.email}&verifiedleader=1&status=1`),
+          axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/natgasblock?email=${user.email}&status=1`),
         ]);
         setUsedVacations(usedVac.data.results);
         setUsedNatgasBlocks(usedNgB.data.results);

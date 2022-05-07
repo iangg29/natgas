@@ -11,7 +11,7 @@ const LastBlog = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get("/blog?sort=-date&limit=3")
+        .get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/blog?sort=-date&limit=3")
         .then((res: AxiosResponse) => {
           setBlogs(res.data.data.documents);
         })

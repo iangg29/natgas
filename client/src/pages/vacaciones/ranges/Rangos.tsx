@@ -14,7 +14,7 @@ const Rangos = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get("/rangos")
+        .get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/rangos")
         .then((res: AxiosResponse) => {
           setRangos(res.data.data.documents);
         })

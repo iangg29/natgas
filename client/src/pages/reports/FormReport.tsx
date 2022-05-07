@@ -22,7 +22,7 @@ const ReportForm = () => {
     }
     (async () => {
       await axios
-        .post("report/", {
+        .post("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/report/", {
           name: getIndicador,
         })
         .then(() => {

@@ -14,8 +14,8 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get(`/vacation/mypendingvacationrequests/`),
-          axios.get(`/natgasblock/mypendingngbrequests/`),
+          axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/vacation/mypendingvacationrequests/`),
+          axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/natgasblock/mypendingngbrequests/`),
         ]);
 
         setVacations(myVacations.data.vacationrequests);
@@ -33,7 +33,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
 
   const approveNGB = async (id: string) => {
     await axios
-      .patch(`/natgasblock/approve/${id}`)
+      .patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/natgasblock/approve/${id}`)
       .then(() => {
         setNatgasBlocks(getNatgasBlocks.filter((ngb) => ngb.id !== id));
         MySwal.fire({
@@ -55,7 +55,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
 
   const approveVac = async (id: string) => {
     await axios
-      .patch(`/vacation/approvevacationrequest/${id}`)
+      .patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/vacation/approvevacationrequest/${id}`)
       .then(() => {
         setVacations(getVacations.filter((vac) => vac.id !== id));
         MySwal.fire({
@@ -76,7 +76,7 @@ const VistaSolicitud = ({ auth }: any): JSX.Element => {
   };
   const discardVac = async (id: string) => {
     await axios
-      .patch(`/vacation/discardvacationrequest/${id}`)
+      .patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/vacation/discardvacationrequest/${id}`)
       .then(() => {
         setVacations(getVacations.filter((vac) => vac.id !== id));
         MySwal.fire({

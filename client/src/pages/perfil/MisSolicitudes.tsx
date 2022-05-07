@@ -14,8 +14,8 @@ const MisSolicitudes = (): JSX.Element => {
     (async () => {
       try {
         const [myVacations, myNatgasBlocks] = await Promise.all([
-          axios.get("/vacation/myvacationrequests"),
-          axios.get("/natgasblock/myngbrequests"),
+          axios.get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/vacation/myvacationrequests"),
+          axios.get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/natgasblock/myngbrequests"),
         ]);
         setVacations(myVacations.data.data.document);
         setNatgasBlocks(myNatgasBlocks.data.data.document);

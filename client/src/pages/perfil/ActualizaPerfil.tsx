@@ -17,7 +17,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
   useEffect(() => {
     (() => {
       axios
-        .get(`/user/me`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/me`)
         .then((res: AxiosResponse) => {
           const user = res.data.data.user;
           const birthdate = user.birthdate ? user.birthdate.slice(0, -14) : "";
@@ -37,7 +37,7 @@ const ActualizaPerfil = ({ auth }: any): JSX.Element => {
 
   const onSubmit = async (): Promise<any> => {
     await axios
-      .patch(`/user/me`, {
+      .patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/me`, {
         address: employee.address,
         birthdate: employee.birthdate,
         cellphone: employee.cellphone,

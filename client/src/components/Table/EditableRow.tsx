@@ -31,7 +31,7 @@ const EditableRow = ({
   ): void => {
     (async () => {
       await axios
-        .patch(`/rangos/${rango.idRangoVacaciones}`, data)
+        .patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/rangos/${rango.idRangoVacaciones}`, data)
         .then((res: AxiosResponse) => {
           reset();
           setEditableRow(-1);

@@ -12,7 +12,7 @@ const RegistrosPendientes = (): JSX.Element => {
     useEffect(() => {
         (async () => {
             try {
-                await axios.get(`/user/?verified=0`).then(res => {
+                await axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/?verified=0`).then(res => {
                     setPendingRegisters(res.data.data.documents);
                 }).catch(error => {
                     MySwal.fire({

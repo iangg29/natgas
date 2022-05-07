@@ -30,7 +30,7 @@ const FormBlog = () => {
 
       await axios({
         method: "POST",
-        url: "/blog",
+        url: "https://natgas-server-bynv2pe5gq-uc.a.run.app/api/blog",
         data: form,
       }).then(() => {
         MySwal.fire({

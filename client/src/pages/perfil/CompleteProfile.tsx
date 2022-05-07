@@ -28,7 +28,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get("/department/")
+        .get("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/department/")
         .then((res: AxiosResponse) => {
           setDepartments(res.data.data.documents);
         })
@@ -41,7 +41,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
           });
         });
       await axios
-        .get(`/user/email/${email}`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/email/${email}`)
         .then((res: AxiosResponse) => {
           const user = res.data.data.document[0];
           if (user.verified) {
@@ -77,7 +77,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
   const onSubmit = (): void => {
     (async () => {
       await Promise.all([
-        axios.patch(`/user/${employee.number}`, {
+        axios.patch(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/${employee.number}`, {
           address: employee.address,
           birthdate: employee.birthdate,
           ngblocks: employee.ngBlocks,
@@ -87,7 +87,7 @@ const CompleteProfile = ({ auth }: any): JSX.Element => {
           rfc: employee.rfc,
           verified: 1,
         }),
-        axios.post(`/pertenece/`, {
+        axios.post(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/pertenece/`, {
           idDepartamento: pertenece.idDepartamento,
           position: pertenece.position,
           email: employee.email,

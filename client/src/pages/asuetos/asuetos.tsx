@@ -14,7 +14,7 @@ const Asuetos = () => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/asuetos/`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/asuetos/`)
         .then((res: AxiosResponse) => {
           setDates(res.data.data.documents);
         })
@@ -42,7 +42,7 @@ const Asuetos = () => {
       if (result.isConfirmed) {
         (async () => {
           await axios
-            .delete("/asuetos/")
+            .delete("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/asuetos/")
             .then((res: AxiosResponse) => {
               MySwal.fire({
                 title: "¡Eliminadas!",
@@ -67,7 +67,7 @@ const Asuetos = () => {
 
   const deleteA = async (id: any) => {
     await axios
-      .delete(`/asuetos/${id}`)
+      .delete(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/asuetos/${id}`)
       .then(() => {
         setDates(getDates.filter((date: iAsueto) => date.idAsueto !== id));
         MySwal.fire({
@@ -89,7 +89,7 @@ const Asuetos = () => {
 
   const upload = async () => {
     await axios
-      .post("/asuetos/", {
+      .post("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/asuetos/", {
         date: getDate,
       })
       .then((res: AxiosResponse) => {

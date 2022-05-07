@@ -41,7 +41,7 @@ const UpdateNews = ({
     (async () => {
       await axios({
         method: "PATCH",
-        url: `/news/${id}`,
+        url: `https://natgas-server-bynv2pe5gq-uc.a.run.app/api/news/${id}`,
         data: formData,
       })
         .then((response: AxiosResponse) => {

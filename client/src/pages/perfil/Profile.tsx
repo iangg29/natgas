@@ -53,7 +53,7 @@ const Profile = (props: any): JSX.Element => {
 const ProfileData = ({ auth }: any): JSX.Element => {
   const data: iEmployment = suspend(
     async () => {
-      const res: any = await axios.get(`/user/me`);
+      const res: any = await axios.get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/user/me`);
       return await res.data.data.user;
 
     },

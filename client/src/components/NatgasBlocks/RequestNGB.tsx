@@ -12,7 +12,7 @@ const RequestNGB = ({ user }: any): JSX.Element => {
 
   const sendNGBRequest = async () => {
     await axios
-      .post("/natgasblock/", {
+      .post("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/natgasblock/", {
         date: getDate,
         period: getRadio,
         email: user.email,

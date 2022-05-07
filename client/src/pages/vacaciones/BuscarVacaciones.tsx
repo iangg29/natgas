@@ -22,7 +22,7 @@ const BuscarVacaciones = (): JSX.Element => {
       (async () => {
         await axios
           .get(
-            `/vacation/details?&sort=-startdate&${
+            `https://natgas-server-bynv2pe5gq-uc.a.run.app/api/vacation/details?&sort=-startdate&${
               (pendiente || rechazado) && aprobado
                 ? "status=1,0"
                 : pendiente || rechazado

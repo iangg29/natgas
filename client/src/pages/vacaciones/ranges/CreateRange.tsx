@@ -47,7 +47,7 @@ const CreateRange = ({ ranges, setRanges }: Props): JSX.Element => {
       } else {
         (async () => {
           await axios
-            .post("/rangos", data)
+            .post("https://natgas-server-bynv2pe5gq-uc.a.run.app/api/rangos", data)
             .then((res: AxiosResponse) => {
               const newData: iRange = res.data.data.new[0];
               setRanges([...ranges, newData]);

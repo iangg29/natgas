@@ -42,7 +42,7 @@ const CreateNews = ({ news, setNews }: Props): JSX.Element => {
     (async () => {
       await axios({
         method: "POST",
-        url: "/news",
+        url: "https://natgas-server-bynv2pe5gq-uc.a.run.app/api/news",
         data: formData,
       })
         .then((res: AxiosResponse) => {
