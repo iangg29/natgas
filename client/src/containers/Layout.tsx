@@ -35,7 +35,6 @@ const Layout = (props: any): JSX.Element => {
         confirmButtonColor: "#002b49",
       });
 
-      navigate(`/app/profile/me`);
     }
   }, [auth, navigate]);
 
