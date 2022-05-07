@@ -23,7 +23,8 @@ const ViewBlog = (): JSX.Element => {
       await axios
         .get(`https://natgas-client-bynv2pe5gq-uc.a.run.app/api/blog/slug/${slug}`)
         .then((res: AxiosResponse) => {
-          setBlog(res.data.data.document);
+          console.log(res);
+          setBlog(res.data.data.document[0]);
         })
         .catch((error) => {
           MySwal.fire({
