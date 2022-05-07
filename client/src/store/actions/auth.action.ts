@@ -13,7 +13,7 @@ const LoginAuthAction = (
   return async (dispatch: any) => {
     try {
       await axios
-        .post(process.env.REACT_APP_LOGIN_URL, credentials, {
+        .post('https://natgas-server-bynv2pe5gq-uc.a.run.app/api/auth/login', credentials, {
           headers: {
             "Content-Type": "application/json",
           },
