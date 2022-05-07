@@ -21,9 +21,8 @@ const ViewBlog = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`https://natgas-client-bynv2pe5gq-uc.a.run.app/api/blog/slug/${slug}`)
+        .get(`https://natgas-server-bynv2pe5gq-uc.a.run.app/api/blog/slug/${slug}`)
         .then((res: AxiosResponse) => {
-          console.log(res);
           setBlog(res.data.data.document[0]);
         })
         .catch((error) => {
